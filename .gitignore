@@ -41,3 +41,4 @@ Thumbs.db
 next-env.d.ts # Next.js가 자동으로 생성하는 타입 파일
 .eslintcache
 .prettiercache
+*storybook.log
