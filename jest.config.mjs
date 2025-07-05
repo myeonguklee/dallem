@@ -1,4 +1,4 @@
-import nextJest from 'next/jest';
+import nextJest from 'next/jest.js';
 
 const createJestConfig = nextJest({
   // Next.js 앱의 경로를 설정합니다.
