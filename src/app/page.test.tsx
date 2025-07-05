@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import Page from './page';
+import HomePage from './page';
 
 describe('Home Page', () => {
-  it('renders get started text', () => {
-    render(<Page />);
+  it('renders home page text', () => {
+    render(<HomePage />);
 
-    const text = screen.getByText(/get started by editing/i);
+    const text = screen.getByText('홈페이지');
     expect(text).toBeInTheDocument();
   });
 });
