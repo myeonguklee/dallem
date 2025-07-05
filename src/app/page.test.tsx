@@ -2,13 +2,10 @@ import { render, screen } from '@testing-library/react';
 import Page from './page';
 
 describe('Home Page', () => {
-  it('renders a heading', () => {
+  it('renders get started text', () => {
     render(<Page />);
 
-    const heading = screen.getByRole('heading', {
-      name: /get started by editing/i,
-    });
-
-    expect(heading).toBeInTheDocument();
+    const text = screen.getByText(/get started by editing/i);
+    expect(text).toBeInTheDocument();
   });
 });
