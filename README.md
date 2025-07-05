@@ -22,7 +22,7 @@
 ### Development Tools
 
 - **Linting**: ESLint + Prettier
-- **Testing**: Jest + Testing Library
+- **Testing**: Jest + Testing Library + MSW (API Mocking)
 - **Git Hooks**: Husky + lint-staged
 - **Commit Convention**: Commitlint
 
@@ -80,7 +80,7 @@ npm run format:check # Prettier 검사
 npm run type-check   # TypeScript 타입 검사
 
 # 테스트
-npm run test         # 테스트 실행
+npm run test         # 테스트 실행 (MSW 포함)
 npm run test:watch   # 테스트 감시 모드
 npm run test:coverage # 테스트 커버리지
 
