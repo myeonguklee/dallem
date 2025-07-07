@@ -2,6 +2,15 @@
 
 함께하는 모임으로 건강하고 활기찬 직장생활을 만들어보세요.
 
+## 🛠️ 개발 환경
+
+- **패키지 매니저:** pnpm (npm, yarn 사용 금지)
+- **Node.js 버전:** 22.16.0 (`.nvmrc`, `.node-version` 참고)
+- **코드 포맷터:** Prettier
+- **lint-staged 설정:** `.lintstagedrc.js` 파일로 분리 관리
+- **커밋 메시지 규칙:** Conventional Commits (commitlint로 검증)
+- **Git Hooks 및 커밋 메시지 규칙:** [GIT_HOOKS_GUIDE.md](./GIT_HOOKS_GUIDE.md) 참고
+
 ## 📋 프로젝트 소개
 
 같이달램은 직장인들을 위한 모임 플랫폼입니다. 동료들과 함께 다양한 모임을 만들고 참여하여 더욱 풍요로운 직장생활을 경험할 수 있습니다.
@@ -24,14 +33,14 @@
 - **Linting**: ESLint + Prettier
 - **Testing**: Jest + Testing Library + MSW (API Mocking)
 - **Git Hooks**: Husky + lint-staged
-- **Commit Convention**: Commitlint
+- **Commit Convention**: Commitlint (이모지+타입 쌍)
 
 ## 🚀 시작하기
 
 ### Prerequisites
 
-- Node.js 18.0.0 이상
-- npm 또는 yarn
+- Node.js 22.16.0
+- pnpm (npm, yarn 사용 금지)
 
 ### 설치
 
@@ -40,8 +49,14 @@
 git clone https://github.com/FESI-10th-team6/dallem.git
 cd dallem
 
-# 의존성 설치
-npm install
+# pnpm이 없다면 먼저 설치
+npm install -g pnpm
+
+# 의존성 설치 (pnpm만 사용)
+pnpm install
+
+# Node.js 버전 맞추기 (nvm 사용 시)
+nvm use
 ```
 
 ### 환경 변수 설정
@@ -59,7 +74,7 @@ NEXT_PUBLIC_TEAM_ID=1
 
 ```bash
 # 개발 서버 시작
-npm run dev
+pnpm run dev
 
 # 브라우저에서 http://localhost:3000 확인
 ```
@@ -68,25 +83,25 @@ npm run dev
 
 ```bash
 # 개발
-npm run dev          # 개발 서버 시작 (Turbopack)
-npm run build        # 프로덕션 빌드
-npm run start        # 프로덕션 서버 시작
+pnpm run dev          # 개발 서버 시작 (Turbopack)
+pnpm run build        # 프로덕션 빌드
+pnpm run start        # 프로덕션 서버 시작
 
 # 코드 품질
-npm run lint         # ESLint 검사
-npm run lint:fix     # ESLint 자동 수정
-npm run format       # Prettier 포맷팅
-npm run format:check # Prettier 검사
-npm run type-check   # TypeScript 타입 검사
+pnpm run lint         # ESLint 검사
+pnpm run lint:fix     # ESLint 자동 수정
+pnpm run format       # Prettier 포맷팅
+pnpm run format:check # Prettier 검사
+pnpm run type-check   # TypeScript 타입 검사
 
 # 테스트
-npm run test         # 테스트 실행 (MSW 포함)
-npm run test:watch   # 테스트 감시 모드
-npm run test:coverage # 테스트 커버리지
+pnpm run test         # 테스트 실행 (MSW 포함)
+pnpm run test:watch   # 테스트 감시 모드
+pnpm run test:coverage # 테스트 커버리지
 
 # Storybook
-npm run storybook    # Storybook 개발 서버
-npm run build-storybook # Storybook 빌드
+pnpm run storybook    # Storybook 개발 서버
+pnpm run build-storybook # Storybook 빌드
 ```
 
 ## 📁 프로젝트 구조
@@ -132,17 +147,9 @@ src/
 
 ### 커밋 컨벤션
 
-이 프로젝트는 [Conventional Commits](https://www.conventionalcommits.org/)를 따릅니다:
+이 프로젝트는 이모지+타입 쌍(예: `✨ feat: ...`)만 허용합니다. 자세한 규칙과 예시는 [GIT_HOOKS_GUIDE.md](./GIT_HOOKS_GUIDE.md)를 참고하세요.
 
-- `feat`: 새로운 기능
-- `fix`: 버그 수정
-- `docs`: 문서 변경
-- `style`: 코드 스타일 변경
-- `refactor`: 리팩토링
-- `test`: 테스트 추가/수정
-- `chore`: 기타 작업
-
-> 💡 **Git Hooks 설정에 문제가 있나요?** [Git Hooks 설정 안내서](./GIT_HOOKS_GUIDE.md)를 참고하세요!
+> 💡 **Git Hooks 및 커밋 메시지 규칙에 문제가 있나요?** [Git Hooks 설정 안내서](./GIT_HOOKS_GUIDE.md)를 참고하세요!
 
 ## 📄 라이선스
 
