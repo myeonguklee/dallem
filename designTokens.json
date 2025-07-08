@@ -1,0 +1,42 @@
+{
+  "global": {
+    "primary": {
+      "value": "#F97316",
+      "type": "color"
+    }
+  },
+  "colorDefined/Mode 1": {
+    "primary": {
+      "value": "#f97316",
+      "type": "color"
+    },
+    "text-main": {
+      "value": "#111827",
+      "type": "color"
+    },
+    "text-sub": {
+      "value": "#374151",
+      "type": "color"
+    },
+    "modal": {
+      "padding": {
+        "value": "{modal-padding}",
+        "type": "spacing"
+      }
+    }
+  },
+  "gaps/Mode 1": {
+    "modal-padding": {
+      "value": "1.5rem",
+      "type": "dimension"
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "global",
+      "colorDefined/Mode 1",
+      "gaps/Mode 1"
+    ]
+  }
+}
