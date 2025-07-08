@@ -1,6 +1,29 @@
-# 🚀 Git Hooks 설정 안내서
+# 🚀 Git Hooks & 커밋 메시지 규칙 안내서
 
-이 프로젝트는 코드 품질을 위해 Git Hooks를 사용합니다. 팀원들이 쉽게 따라할 수 있도록 체크리스트 형태로 안내합니다.
+이 문서는 [README.md](./README.md)에 안내된 개발 환경 세팅을 완료한 후, Git Hooks 및 커밋 메시지 규칙, 문제 해결 방법을 안내합니다.
+
+> 개발 환경 세팅, pnpm/Node.js 버전, lint-staged 등은 README.md를 참고하세요.
+
+## 🎯 Conventional Commits 규칙
+
+이 프로젝트는 Conventional Commits 표준을 따르며, commitlint로 커밋 메시지 규칙을 검증합니다.
+
+### 지원하는 타입
+
+- `feat`: 새로운 기능
+- `fix`: 버그 수정
+- `docs`: 문서 변경
+- `style`: 코드 스타일 변경
+- `refactor`: 리팩토링
+- `test`: 테스트 추가/수정
+- `chore`: 기타 작업
+- `design`: CSS 등 사용자 UI/UX 변경
+- `comment`: 필요한 주석 추가 및 변경
+- `rename`: 파일 또는 폴더 이름 변경
+- `remove`: 파일 또는 폴더 삭제
+- `perf`: 성능 개선
+- `ci`: CI/CD 관련
+- `hotfix`: 긴급 수정
 
 ## 📋 Commit 시 체크리스트
 
@@ -10,26 +33,26 @@
 
 ```bash
 # 에러 확인
-npm run lint
+pnpm run lint
 
 # 자동 수정 시도
-npm run lint:fix
+pnpm run lint:fix
 ```
 
 **2. Prettier 포맷팅 문제**
 
 ```bash
 # 포맷팅 확인
-npm run format:check
+pnpm run format:check
 
 # 자동 포맷팅
-npm run format
+pnpm run format
 ```
 
 **3. 수동으로 lint-staged 실행**
 
 ```bash
-npx lint-staged
+pnpx lint-staged
 ```
 
 ### ❌ Commit 메시지가 거부될 때 (commit-msg hook)
@@ -51,6 +74,7 @@ rename: 파일 또는 폴더 이름 변경
 remove: 파일 또는 폴더 삭제
 perf: 성능 개선
 ci: CI/CD 관련
+hotfix: 긴급 수정
 ```
 
 **2. 제목에 대문자나 마침표가 있는 경우**
@@ -83,7 +107,7 @@ feat: 긴 제목은 본문에 상세 내용 작성
 
 ```bash
 # 타입 체크
-npm run type-check
+pnpm run type-check
 
 # 에러 수정 후 다시 시도
 ```
@@ -92,7 +116,7 @@ npm run type-check
 
 ```bash
 # 테스트 실행
-npm test
+pnpm test
 
 # 실패한 테스트 수정 후 다시 시도
 ```
@@ -100,8 +124,8 @@ npm test
 **3. 수동으로 pre-push 검사**
 
 ```bash
-npm run type-check
-npm test
+pnpm run type-check
+pnpm test
 ```
 
 ## 🔧 문제 해결 방법
@@ -111,17 +135,17 @@ npm test
 ```bash
 # node_modules 삭제 후 재설치
 rm -rf node_modules
-npm install
+pnpm install
 
 # Husky 재설정
-npm run prepare
+pnpm run prepare
 ```
 
 ### 2. lint-staged 캐시 클리어
 
 ```bash
 # 캐시 삭제
-npx lint-staged --clear-cache
+pnpx lint-staged --clear-cache
 ```
 
 ## 📝 커밋 메시지 템플릿
@@ -161,7 +185,7 @@ refactor: 컴포넌트 구조 개선
 
 ```bash
 # import 순서 문제
-npm run lint:fix
+pnpm run lint:fix
 
 # 사용하지 않는 변수
 # 변수명을 언더스코어로 시작하거나 삭제
@@ -200,9 +224,9 @@ const data: ApiResponse = response.data;
 1. **커밋 전 미리 검사하기**
 
    ```bash
-   npm run lint
-   npm run type-check
-   npm test
+   pnpx lint-staged
+   pnpm run type-check
+   pnpm test
    ```
 
 2. **IDE 설정 활용하기**

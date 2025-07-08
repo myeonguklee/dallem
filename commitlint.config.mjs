@@ -18,6 +18,7 @@ const config = {
         'remove', // ✅ 파일 또는 폴더 삭제
         'perf', // ✅ 성능 개선
         'ci', // ✅ CI/CD 관련
+        'hotfix', // ✅ 급한 버그 수정
       ],
     ],
     'subject-case': [2, 'never', ['pascal-case', 'upper-case']], // ✅ 소문자 시작
