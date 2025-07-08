@@ -1,10 +1,4 @@
 {
-  "global": {
-    "primary": {
-      "value": "#F97316",
-      "type": "color"
-    }
-  },
   "colorDefined/Mode 1": {
     "primary": {
       "value": "#f97316",
@@ -31,12 +25,20 @@
       "type": "dimension"
     }
   },
+  "dimension/Mode 1": {
+    "modal": {
+      "padding": {
+        "value": "1.5rem",
+        "type": "dimension"
+      }
+    }
+  },
   "$themes": [],
   "$metadata": {
     "tokenSetOrder": [
-      "global",
       "colorDefined/Mode 1",
-      "gaps/Mode 1"
+      "gaps/Mode 1",
+      "dimension/Mode 1"
     ]
   }
 }
