@@ -1,5 +1,23 @@
 {
-  "colorDefined/Mode 1": {
+  "dimension/Mode 1": {
+    "modal": {
+      "padding": {
+        "value": "1.5rem",
+        "type": "dimension"
+      }
+    },
+    "rounded": {
+      "value": "1.5rem",
+      "type": "dimension"
+    },
+    "button": {
+      "rounded": {
+        "value": "0.75rem",
+        "type": "dimension"
+      }
+    }
+  },
+  "sementic-color/Mode 1": {
     "primary": {
       "value": "#f97316",
       "type": "color"
@@ -11,34 +29,13 @@
     "text-sub": {
       "value": "#374151",
       "type": "color"
-    },
-    "modal": {
-      "padding": {
-        "value": "{modal-padding}",
-        "type": "spacing"
-      }
-    }
-  },
-  "gaps/Mode 1": {
-    "modal-padding": {
-      "value": "1.5rem",
-      "type": "dimension"
-    }
-  },
-  "dimension/Mode 1": {
-    "modal": {
-      "padding": {
-        "value": "1.5rem",
-        "type": "dimension"
-      }
     }
   },
   "$themes": [],
   "$metadata": {
     "tokenSetOrder": [
-      "colorDefined/Mode 1",
-      "gaps/Mode 1",
-      "dimension/Mode 1"
+      "dimension/Mode 1",
+      "sementic-color/Mode 1"
     ]
   }
 }
