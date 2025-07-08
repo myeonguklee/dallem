@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.12.4",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -16,8 +17,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "type-check": "tsc --noEmit",
-    "preinstall": "if [ ! \"$npm_execpath\" = \"$(command -v pnpm)\" ]; then echo '❌ pnpm으로만 설치하세요! (npm/yarn 금지)'; exit 1; fi"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
