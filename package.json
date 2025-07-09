@@ -29,6 +29,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.59.0",
+    "react-hot-toast": "^2.5.2",
     "zod": "^3.25.73",
     "zustand": "^5.0.6"
   },
@@ -37,6 +38,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3",
+    "@next/eslint-plugin-next": "^15.3.5",
     "@storybook/addon-a11y": "^9.0.15",
     "@storybook/addon-docs": "^9.0.15",
     "@storybook/addon-onboarding": "^9.0.15",
@@ -53,6 +55,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-storybook": "^9.0.15",
     "husky": "^9.1.7",
     "jest": "^30.0.4",
