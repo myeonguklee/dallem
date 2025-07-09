@@ -33,6 +33,13 @@ import {
   XIcon,
 } from '@/shared/ui/icon';
 
+/**
+ * Renders a visual test page displaying all imported icon components with their names.
+ *
+ * Each icon is shown in a styled row, with special background and text color for select icons. Intended for visually verifying and showcasing the available icon components.
+ *
+ * @returns The JSX markup for the icon test page.
+ */
 export default function IconTestPage() {
   const icons = [
     { name: 'AlarmIcon', component: AlarmIcon },
