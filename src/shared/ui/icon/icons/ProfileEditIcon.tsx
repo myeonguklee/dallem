@@ -1,6 +1,10 @@
 import { IconProps } from '../IconType';
 
+let profileEditIconCounter = 0;
+
 export const ProfileEditIcon = ({ size = 56, ...props }: IconProps) => {
+  const clipPathId = `profile-edit-clip-${++profileEditIconCounter}`;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +14,7 @@ export const ProfileEditIcon = ({ size = 56, ...props }: IconProps) => {
       viewBox="0 0 56 56"
       {...props}
     >
-      <g clipPath="url(#a)">
+      <g clipPath={`url(#${clipPathId})`}>
         <circle
           cx="28"
           cy="28"
@@ -65,7 +69,7 @@ export const ProfileEditIcon = ({ size = 56, ...props }: IconProps) => {
         />
       </g>
       <defs>
-        <clipPath id="a">
+        <clipPath id={clipPathId}>
           <path
             fill="#fff"
             d="M0 0h56v56H0z"
