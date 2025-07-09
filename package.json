@@ -17,7 +17,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "style:tokens": "npx style-dictionary build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -62,6 +63,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.13",
     "storybook": "^9.0.15",
+    "style-dictionary": "^5.0.1",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.0",
     "typescript": "^5"
