@@ -1,0 +1,41 @@
+{
+  "dimension": {
+    "modal": {
+      "padding": {
+        "value": "1.5rem",
+        "type": "dimension"
+      }
+    },
+    "rounded": {
+      "value": "1.5rem",
+      "type": "dimension"
+    },
+    "button": {
+      "rounded": {
+        "value": "0.75rem",
+        "type": "dimension"
+      }
+    }
+  },
+  "semantic-color": {
+    "primary": {
+      "value": "#f97316",
+      "type": "color"
+    },
+    "text-main": {
+      "value": "#111827",
+      "type": "color"
+    },
+    "text-sub": {
+      "value": "#374151",
+      "type": "color"
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "dimension",
+      "semantic-color"
+    ]
+  }
+}
