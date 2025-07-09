@@ -17,7 +17,7 @@
       }
     }
   },
-  "sementic-color": {
+  "semantic-color": {
     "primary": {
       "value": "#f97316",
       "type": "color"
@@ -35,7 +35,7 @@
   "$metadata": {
     "tokenSetOrder": [
       "dimension",
-      "sementic-color"
+      "semantic-color"
     ]
   }
 }
