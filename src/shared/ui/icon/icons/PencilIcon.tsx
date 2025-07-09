@@ -1,6 +1,6 @@
 import { IconProps } from '../IconType';
 
-export const PencileIcon = ({ size = 72, ...props }: IconProps) => {
+export const PencilIcon = ({ size = 72, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

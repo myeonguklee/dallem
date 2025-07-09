@@ -3,7 +3,6 @@ export type { IconProps } from './IconType';
 export { calculateIconSizeByWidth, calculateIconSizeByHeight } from './iconUtils';
 
 // 아이콘 컴포넌트들 export
-export { ProfileIcon } from './icons/profileIcon';
 export { AlarmIcon } from './icons/AlarmIcon';
 export { ArrowDownIcon } from './icons/ArrowDownIcon';
 export { ArrowLeftIcon } from './icons/ArrowLeftIcon';
@@ -22,8 +21,9 @@ export { EditIcon } from './icons/EditIcon';
 export { HeartBoxIcon } from './icons/HeartBoxIcon';
 export { LikeIcon } from './icons/LikeIcon';
 export { LoginImageIcon } from './icons/LoginImageIcon';
-export { PencileIcon } from './icons/PencileIcon';
+export { PencilIcon } from './icons/PencilIcon';
 export { PersonIcon } from './icons/PersonIcon';
+export { ProfileIcon } from './icons/tempIcon';
 export { ProfileBGIcon } from './icons/ProfileBGIcon';
 export { ProfileEditIcon } from './icons/ProfileEditIcon';
 export { ThinDoubleHeartIcon } from './icons/ThinDoubleHeartIcon';

@@ -18,7 +18,7 @@ import {
   HeartBoxIcon,
   LikeIcon,
   LoginImageIcon,
-  PencileIcon,
+  PencilIcon,
   PersonIcon,
   ProfileBGIcon,
   ProfileEditIcon,
@@ -217,7 +217,7 @@ export const LoginImage: Story = {
 };
 
 export const Pencile: Story = {
-  render: (args) => <PencileIcon {...args} />,
+  render: (args) => <PencilIcon {...args} />,
 };
 
 export const Workation: Story = {
