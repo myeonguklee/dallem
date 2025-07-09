@@ -1,3 +1,8 @@
+// 타입과 유틸리티 export
+export type { IconProps } from './IconType';
+export { calculateIconSizeByWidth, calculateIconSizeByHeight } from './iconUtils';
+
+// 아이콘 컴포넌트들 export
 export { ProfileIcon } from './icons/profileIcon';
 export { AlarmIcon } from './icons/AlarmIcon';
 export { ArrowDownIcon } from './icons/ArrowDownIcon';

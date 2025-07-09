@@ -1,11 +1,17 @@
-export const LoginImageIcon = () => {
+import { IconProps } from '../IconType';
+import { calculateIconSizeByWidth } from '../iconUtils';
+
+export const LoginImageIcon = ({ size = 620, ...props }: IconProps) => {
+  const { width, height } = calculateIconSizeByWidth(size, 620 / 513); // width/height 비율
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="620"
-      height="513"
+      width={width}
+      height={height}
       fill="none"
       viewBox="0 0 620 513"
+      {...props}
     >
       <path
         fill="#1F2937"
@@ -63,8 +69,8 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-linecap="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeWidth="2.4"
         d="M523.36 426.796c2.39.422 9.278 4.639 10.965 18.134 1.687 13.495.141 15.463 0 14.76M590.415 397.275c-4.805.841-18.653 9.244-22.045 36.133-3.391 26.89-.283 30.811 0 29.411"
       />
       <circle
@@ -97,8 +103,8 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-linecap="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeWidth="2.4"
         d="M445.806 448.815c.422-4.779.507-15.35-2.53-19.399M450.221 448.394c-.389-2.702-.467-8.677 2.333-10.965"
       />
       <path
@@ -115,15 +121,15 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#EA580C"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2.4"
         d="M301.706 174.51c.44.881 2.378 2.643 6.607 2.643"
       />
       <path
         stroke="#EA580C"
-        stroke-linecap="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeWidth="2.4"
         d="M301.89 124.522c-1.387 1.086-3.566 5.464-2.365 8.543 1.201 3.079 3.079 3.842 4.032 4.087M310.375 127.019c-1.388.946-2.385 5.018-1.056 7.863.99 2.117 3.52 2.939 4.326 3.146M317.378 128.466c-.665.872-.177 3.385.965 5.086.675 1.006 2.72 2.475 3.262 2.437"
       />
       <rect
@@ -144,7 +150,7 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-width="2.4"
+        strokeWidth="2.4"
         d="M365.639 324.109h-110.07"
       />
       <path
@@ -153,7 +159,7 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-width="2.4"
+        strokeWidth="2.4"
         d="M309.971 324.952v50.607"
       />
       <path
@@ -166,8 +172,8 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-linecap="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeWidth="2.4"
         d="M444.859 297.938c-2.091.804-6.836 2.383-9.094 2.265M455.941 318.813c-3.535-1.125-11.189-3.707-13.521-5.028M450.564 333.929c-3.331-1.635-10.52-5.317-12.632-6.967M437.857 342.703c-3.148-1.963-9.927-6.355-11.861-8.211"
       />
       <path
@@ -180,8 +186,8 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-linecap="round"
-        stroke-width="2.4"
+        strokeLinecap="round"
+        strokeWidth="2.4"
         d="M174.91 297.938c2.09.804 6.836 2.383 9.094 2.265M163.827 318.813c3.535-1.125 11.189-3.707 13.522-5.028M169.205 333.929c3.33-1.635 10.519-5.317 12.632-6.967M181.911 342.703c3.148-1.963 9.927-6.355 11.862-8.211"
       />
       <path
@@ -198,7 +204,7 @@ export const LoginImageIcon = () => {
         r="20.243"
         fill="#FFF7ED"
         stroke="#EA580C"
-        stroke-width="4.217"
+        strokeWidth="4.217"
         transform="rotate(-22.93 38.571 320.507)"
       />
       <rect
@@ -228,7 +234,7 @@ export const LoginImageIcon = () => {
       />
       <path
         stroke="#1F2937"
-        stroke-width="2.4"
+        strokeWidth="2.4"
         d="M322.198 202.651c0 7.919-6.42 16.026-14.339 16.026-7.919 0-14.339-7.169-14.339-15.182M343.284 276.453c3.233 8.575 10.121 25.978 11.808 26.99 4.724-3.711 22.211-23.616 28.256-30.785l-11.387-23.617M343.284 276.453v24.038M276.651 273.923c-3.233 8.575-10.543 28.508-12.23 29.52-4.723-3.711-22.21-23.616-28.255-30.785l11.386-23.617M276.651 274.345l-.421 26.147"
       />
     </svg>

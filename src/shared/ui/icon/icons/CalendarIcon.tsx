@@ -1,11 +1,17 @@
-export const CalendarIcon = () => {
+import { IconProps } from '../IconType';
+import { calculateIconSizeByWidth } from '../iconUtils';
+
+export const CalendarIcon = ({ size = 18, ...props }: IconProps) => {
+  const { width, height } = calculateIconSizeByWidth(size, 18 / 20); // width/height 비율
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="20"
+      width={width}
+      height={height}
       fill="none"
       viewBox="0 0 18 20"
+      {...props}
     >
       <path
         fill="#111827"

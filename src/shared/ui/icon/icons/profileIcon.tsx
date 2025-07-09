@@ -1,10 +1,14 @@
-export const ProfileIcon = () => {
+import { IconProps } from '../IconType';
+
+export const ProfileIcon = ({ size = 40, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="40"
-      height="40"
+      width={size}
+      height={size}
       fill="none"
+      viewBox="0 0 40 40"
+      {...props}
     >
       <g clipPath="url(#a)">
         <circle

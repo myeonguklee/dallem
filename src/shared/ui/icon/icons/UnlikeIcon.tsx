@@ -1,11 +1,14 @@
-export const UnlikeIcon = () => {
+import { IconProps } from '../IconType';
+
+export const UnlikeIcon = ({ size = 48, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 48 48"
+      {...props}
     >
       <circle
         cx="24"

@@ -1,20 +1,23 @@
-export const ProfileEditIcon = () => {
+import { IconProps } from '../IconType';
+
+export const ProfileEditIcon = ({ size = 56, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="56"
-      height="56"
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 56 56"
+      {...props}
     >
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <circle
           cx="28"
           cy="28"
           r="27"
           fill="#fff"
           stroke="#E5E7EB"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           fill="#E5E7EB"
@@ -26,21 +29,21 @@ export const ProfileEditIcon = () => {
         />
         <path
           stroke="#6B7280"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.75"
           d="M25.083 33.25c.195.389 1.05 1.167 2.917 1.167"
         />
         <path
           stroke="#6B7280"
-          stroke-linecap="round"
-          stroke-width="1.391"
+          strokeLinecap="round"
+          strokeWidth="1.391"
           d="M25.191 13.016c-.612.48-1.574 2.412-1.044 3.772.53 1.359 1.36 1.696 1.78 1.804M28.91 13.973c-.613.418-1.053 2.216-.466 3.472.437.934 1.554 1.297 1.91 1.388"
         />
         <path
           stroke="#6B7280"
-          stroke-linecap="round"
-          stroke-width="1.388"
+          strokeLinecap="round"
+          strokeWidth="1.388"
           d="M32.002 14.612c-.294.385-.079 1.494.426 2.245.298.444 1.2 1.093 1.44 1.076"
         />
         <circle
@@ -49,7 +52,7 @@ export const ProfileEditIcon = () => {
           r="10"
           fill="#E5E7EB"
           stroke="#fff"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           fill="#9CA3AF"
@@ -57,7 +60,7 @@ export const ProfileEditIcon = () => {
         />
         <path
           stroke="#E5E7EB"
-          stroke-width=".563"
+          strokeWidth=".563"
           d="m43.126 41.38 5.364 2.517"
         />
       </g>

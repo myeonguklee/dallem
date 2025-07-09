@@ -1,11 +1,14 @@
-export const PencileIcon = () => {
+import { IconProps } from '../IconType';
+
+export const PencileIcon = ({ size = 72, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="72"
-      height="72"
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 72 72"
+      {...props}
     >
       <circle
         cx="36"

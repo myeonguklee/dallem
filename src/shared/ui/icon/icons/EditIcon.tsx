@@ -1,10 +1,14 @@
-export const EditIcon = () => {
+import { IconProps } from '../IconType';
+
+export const EditIcon = ({ size = 32, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
+      width={size}
+      height={size}
       fill="none"
+      viewBox="0 0 32 32"
+      {...props}
     >
       <circle
         cx="16"
@@ -12,7 +16,7 @@ export const EditIcon = () => {
         r="15"
         fill="#E5E7EB"
         stroke="#E5E7EB"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <path
         fill="#9CA3AF"

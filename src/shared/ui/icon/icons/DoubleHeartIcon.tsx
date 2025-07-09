@@ -1,10 +1,14 @@
-export const DoubleHeartIcon = () => {
+import { IconProps } from '../IconType';
+
+export const DoubleHeartIcon = ({ size = 72, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="72"
-      height="72"
+      width={size}
+      height={size}
       fill="none"
+      viewBox="0 0 72 72"
+      {...props}
     >
       <circle
         cx="36"
@@ -12,7 +16,7 @@ export const DoubleHeartIcon = () => {
         r="35"
         fill="#FFF7ED"
         stroke="#1F2937"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <path
         fill="#000"

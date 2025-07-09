@@ -1,11 +1,14 @@
-export const DalaemfitIcon = () => {
+import { IconProps } from '../IconType';
+
+export const DalaemfitIcon = ({ size = 32, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 32 32"
+      {...props}
     >
       <path
         fill="#111827"

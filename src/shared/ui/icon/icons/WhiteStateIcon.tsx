@@ -1,11 +1,14 @@
-export const WhiteStateIcon = () => {
+import { IconProps } from '../IconType';
+
+export const WhiteStateIcon = ({ size = 24, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width={size}
+      height={size}
       fill="none"
       viewBox="0 0 24 24"
+      {...props}
     >
       <path
         stroke="#F9FAFB"
