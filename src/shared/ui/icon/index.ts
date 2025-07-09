@@ -23,7 +23,7 @@ export { LikeIcon } from './icons/LikeIcon';
 export { LoginImageIcon } from './icons/LoginImageIcon';
 export { PencilIcon } from './icons/PencilIcon';
 export { PersonIcon } from './icons/PersonIcon';
-export { ProfileIcon } from './icons/tempIcon';
+export { ProfileIcon } from './icons/ProfileIcon';
 export { ProfileBGIcon } from './icons/ProfileBGIcon';
 export { ProfileEditIcon } from './icons/ProfileEditIcon';
 export { ThinDoubleHeartIcon } from './icons/ThinDoubleHeartIcon';
