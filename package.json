@@ -18,7 +18,7 @@
     "build-storybook": "storybook build",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
-    "style:tokens": "npx style-dictionary build"
+    "style:tokens": "npx style-dictionary build --config ./style-dictionary.config.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
