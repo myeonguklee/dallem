@@ -1,5 +1,5 @@
 {
-  "dimension/Mode 1": {
+  "dimension": {
     "modal": {
       "padding": {
         "value": "1.5rem",
@@ -17,7 +17,7 @@
       }
     }
   },
-  "sementic-color/Mode 1": {
+  "sementic-color": {
     "primary": {
       "value": "#f97316",
       "type": "color"
@@ -34,8 +34,8 @@
   "$themes": [],
   "$metadata": {
     "tokenSetOrder": [
-      "dimension/Mode 1",
-      "sementic-color/Mode 1"
+      "dimension",
+      "sementic-color"
     ]
   }
 }
