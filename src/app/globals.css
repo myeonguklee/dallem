@@ -6,20 +6,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--semantic-color-primary);
-  --color-title: var(--semantic-color-text-main);
-  --color-sub-title: var(--semantic-color-text-sub);
-  --radius-button: var(--dimension-button-rounded);
-  --radius-common: var(--dimension-rounded);
-}
-
-@utility modal-padding {
-  padding: var(--dimension-modal-padding);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -27,7 +13,30 @@
   }
 }
 
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--semantic-color-primary);
+  --color-font-base: var(--semantic-color-text-main);
+  --color-font-secondary: var(--semantic-color-text-sub);
+  --radius-button: var(--dimension-button-rounded);
+  --radius-common: var(--dimension-rounded);
+}
+
+@theme {
+  /* break point */
+  --breakpoint-mobile: 23.4375rem; /* 375 */
+  --breakpoint-tablet: 46.5rem; /* 744 */
+  --breakpoint-web: 75rem; /* 1200 */
+  --breakpoint-desktop: 120rem; /* 1920 */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+@utility modal-padding {
+  padding: var(--dimension-modal-padding);
 }
