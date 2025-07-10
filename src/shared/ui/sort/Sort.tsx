@@ -93,7 +93,7 @@ export const Sort = ({ options, selected, onChange, className = '' }: SortProps)
         </span>
       </button>
       {open && (
-        <div className="absolute right-0 z-10 mt-2 w-[120px] rounded-lg border border-gray-200 bg-white">
+        <div className="absolute right-0 z-10 mt-2 min-w-32 rounded-lg border border-gray-200 bg-white">
           {options.map((option, idx) => (
             <button
               key={option.value}
