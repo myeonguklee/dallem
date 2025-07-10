@@ -1,17 +1,7 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import { ReactQueryProvider } from '@/shared/lib/query';
+import { Pretendard } from './fonts/pretendard';
 import './globals.css';
-
-const geistSans = Geist({
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: '같이달램',
@@ -29,7 +19,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${geistSans.className} ${geistMono.className} antialiased`}
+        className={`${Pretendard.className} antialiased`}
         suppressHydrationWarning
       >
         <ReactQueryProvider>{children}</ReactQueryProvider>

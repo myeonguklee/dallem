@@ -14,6 +14,7 @@
 }
 
 @theme inline {
+  --font-family: var(--font-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--semantic-color-primary);
@@ -29,6 +30,9 @@
   --breakpoint-tablet: 46.5rem; /* 744 */
   --breakpoint-web: 75rem; /* 1200 */
   --breakpoint-desktop: 120rem; /* 1920 */
+  --font-sans:
+    Pretendard, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 body {
