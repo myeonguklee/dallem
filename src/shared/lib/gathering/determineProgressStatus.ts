@@ -1,4 +1,4 @@
-import { CONFIRMED, FULL, OPEN, ProgressState } from '@/shared/types/progressStatus';
+import { PROGRESS_STATE, ProgressState } from '@/shared/types/progressStatus';
 
 export default function determineProgressStatus({
   current,
@@ -9,13 +9,13 @@ export default function determineProgressStatus({
   total: number;
   minToConfirm: number;
 }) {
-  let state: ProgressState = OPEN;
-  if (current === total) {
-    state = FULL;
+  let state: ProgressState = PROGRESS_STATE.OPEN;
+  if (current >= total) {
+    state = PROGRESS_STATE.FULL;
   } else if (current >= minToConfirm) {
-    state = CONFIRMED;
+    state = PROGRESS_STATE.CONFIRMED;
   } else {
-    state = OPEN;
+    state = PROGRESS_STATE.OPEN;
   }
   return state;
 }
