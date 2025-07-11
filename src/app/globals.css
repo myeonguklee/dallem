@@ -17,9 +17,9 @@
   --font-family: var(--font-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--semantic-color-primary);
-  --color-font-base: var(--semantic-color-text-main);
-  --color-font-secondary: var(--semantic-color-text-sub);
+  --color-primary: var(--color-orange-500);
+  --color-font-base: var(--color-gray-900);
+  --color-font-secondary: var(--color-gray-700);
   --radius-button: var(--dimension-button-rounded);
   --radius-common: var(--dimension-rounded);
 }
