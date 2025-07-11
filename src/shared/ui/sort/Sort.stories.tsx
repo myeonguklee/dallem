@@ -4,11 +4,11 @@ import { Sort } from './Sort';
 
 const meta: Meta<typeof Sort> = {
   title: 'shared/ui/Sort',
-  tags: ['autodocs'],
   component: Sort,
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
 };
 export default meta;
 
