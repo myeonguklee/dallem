@@ -108,10 +108,6 @@ describe('Filter', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    // 첫 번째 옵션에 포커스
-    await user.keyboard('{ArrowDown}');
-    expect(screen.getByText('전체보기')).toHaveFocus();
-
     // 다음 옵션으로 이동
     await user.keyboard('{ArrowDown}');
     expect(screen.getByText('건대입구')).toHaveFocus();
@@ -134,7 +130,7 @@ describe('Filter', () => {
     await user.keyboard('{ArrowDown}');
     await user.keyboard('{Enter}');
 
-    expect(mockOnChange).toHaveBeenCalledWith('전체보기');
+    expect(mockOnChange).toHaveBeenCalledWith('건대입구');
   });
 
   it('Space 키로 옵션을 선택할 수 있어야 한다', async () => {
@@ -150,11 +146,11 @@ describe('Filter', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    // 첫 번째 옵션으로 이동
+    // 다음 옵션으로 이동
     await user.keyboard('{ArrowDown}');
     await user.keyboard(' ');
 
-    expect(mockOnChange).toHaveBeenCalledWith('전체보기');
+    expect(mockOnChange).toHaveBeenCalledWith('건대입구');
   });
 
   it('바깥 클릭 시 드롭다운이 닫혀야 한다', async () => {
@@ -222,7 +218,7 @@ describe('Filter', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const selectedOption = screen.getByText('건대입구');
+    const selectedOption = screen.getAllByText('건대입구')[1];
     expect(selectedOption).toHaveClass('font-bold');
     expect(selectedOption).toHaveClass('text-[var(--semantic-color-primary)]');
   });

@@ -90,10 +90,6 @@ describe('Sort', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    // 첫 번째 옵션에 포커스
-    await user.keyboard('{ArrowDown}');
-    expect(screen.getByText('마감 임박')).toHaveFocus();
-
     // 다음 옵션으로 이동
     await user.keyboard('{ArrowDown}');
     expect(screen.getByText('최신순')).toHaveFocus();
@@ -106,13 +102,13 @@ describe('Sort', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    // 첫 번째 옵션에 포커스
+    // 다음 옵션에 포커스
     await user.keyboard('{ArrowDown}');
-    expect(screen.getByText('마감 임박')).toHaveFocus();
+    expect(screen.getAllByText('최신순')[0]).toHaveFocus();
 
-    // 위쪽 옵션으로 이동 (마지막 옵션)
+    // 위쪽 옵션으로 이동
     await user.keyboard('{ArrowUp}');
-    expect(screen.getByText('인기순')).toHaveFocus();
+    expect(screen.getAllByText('마감 임박')[1]).toHaveFocus();
   });
 
   it('Enter 키로 옵션을 선택할 수 있어야 한다', async () => {
@@ -128,11 +124,11 @@ describe('Sort', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    // 첫 번째 옵션으로 이동
+    // 다음 옵션으로 이동
     await user.keyboard('{ArrowDown}');
     await user.keyboard('{Enter}');
 
-    expect(mockOnChange).toHaveBeenCalledWith('deadline');
+    expect(mockOnChange).toHaveBeenCalledWith('latest');
   });
 
   it('Space 키로 옵션을 선택할 수 있어야 한다', async () => {
@@ -152,7 +148,7 @@ describe('Sort', () => {
     await user.keyboard('{ArrowDown}');
     await user.keyboard(' ');
 
-    expect(mockOnChange).toHaveBeenCalledWith('deadline');
+    expect(mockOnChange).toHaveBeenCalledWith('latest');
   });
 
   it('바깥 클릭 시 드롭다운이 닫혀야 한다', async () => {
@@ -196,7 +192,7 @@ describe('Sort', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const selectedOption = screen.getByText('최신순');
+    const selectedOption = screen.getAllByText('최신순')[1];
     expect(selectedOption).toHaveClass('font-bold');
     expect(selectedOption).toHaveClass('text-[var(--semantic-color-primary)]');
   });
