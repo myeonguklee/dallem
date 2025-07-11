@@ -19,6 +19,10 @@ export default function ProgressBar({ current, total, minToConfirm }: ProgressBa
   return (
     <div className="relative h-1 w-full overflow-hidden rounded-md bg-orange-50">
       <div
+        role="progressbar"
+        aria-valuenow={ratio * 100}
+        aria-valuemin={0}
+        aria-valuemax={100}
         className={['absolute top-0 left-0 h-full', progressFill({ state })].join(' ')}
         style={{ width: `${ratio * 100}%` }}
       />
