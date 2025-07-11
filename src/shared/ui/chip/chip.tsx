@@ -6,23 +6,6 @@ export interface ChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof chipVariants> {}
 
-export const Chip: FC<PropsWithChildren<ChipProps>> = ({
-  className,
-  active,
-  size = 'sm',
-  children,
-  ...props
-}) => {
-  return (
-    <div
-      className={clsx(chipVariants({ active, size }), className)}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
-
 const chipVariants = cva(
   'inline-flex items-center justify-center rounded-lg font-medium text-base px-4 h-9',
   {
@@ -42,3 +25,20 @@ const chipVariants = cva(
     },
   },
 );
+
+export const Chip: FC<PropsWithChildren<ChipProps>> = ({
+  className,
+  active,
+  size = 'sm',
+  children,
+  ...props
+}) => {
+  return (
+    <div
+      className={clsx(chipVariants({ active, size }), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
