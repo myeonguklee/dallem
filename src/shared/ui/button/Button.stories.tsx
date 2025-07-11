@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'radio' },
-      options: ['primary', 'outline', 'default'],
+      options: ['primary', 'outline', 'default', 'ghost'],
       description: ' 버튼의 색상을 지정합니다. ',
     },
     disabled: {
@@ -54,6 +54,12 @@ export const OutlineBtn: Story = {
 export const DefaultBtn: Story = {
   args: {
     variant: 'default',
+  },
+};
+
+export const GhostBtn: Story = {
+  args: {
+    variant: 'ghost',
   },
 };
 
