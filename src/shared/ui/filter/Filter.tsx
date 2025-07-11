@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import type { HTMLAttributes } from 'react';
+import { type VariantProps, cva } from 'class-variance-authority';
 import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '../icon';
 
 interface FilterOption {
@@ -6,20 +8,58 @@ interface FilterOption {
   value: string;
 }
 
-interface FilterProps {
+const filterButtonVariants = cva(
+  'flex h-10 min-w-32 items-center justify-center gap-2 rounded-[var(--dimension-button-rounded)] border border-gray-200 p-2 transition-colors',
+  {
+    variants: {
+      variant: {
+        all: 'bg-white text-[var(--color-font-base)]',
+        selected: 'bg-black text-white',
+      },
+    },
+    defaultVariants: {
+      variant: 'all',
+    },
+  },
+);
+
+const filterOptionVariants = cva(
+  'w-full px-2 py-3 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-orange-200',
+  {
+    variants: {
+      selected: {
+        true: 'font-bold text-[var(--semantic-color-primary)]',
+        false: 'text-[var(--color-font-base)]',
+      },
+    },
+    defaultVariants: {
+      selected: false,
+    },
+  },
+);
+
+// 타입 추출
+type FilterButtonVariants = VariantProps<typeof filterButtonVariants>;
+type FilterOptionVariants = VariantProps<typeof filterOptionVariants>;
+
+interface FilterProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: FilterOption[];
   selected: string;
   onChange: (value: string) => void;
-  className?: string;
   allValue?: string; // 전체보기 값 (기본값: 'all')
+  buttonProps?: FilterButtonVariants;
+  optionProps?: FilterOptionVariants;
 }
 
 export const Filter = ({
   options,
   selected,
   onChange,
-  className = '',
+  className,
   allValue = 'all',
+  buttonProps,
+  optionProps,
+  ...props
 }: FilterProps) => {
   const [open, setOpen] = useState(false);
   const [focusIdx, setFocusIdx] = useState(-1);
@@ -90,12 +130,15 @@ export const Filter = ({
       className="relative"
       tabIndex={0}
       onKeyDown={handleKeyDown}
+      {...props}
     >
       <button
         type="button"
-        className={`flex h-10 min-w-32 items-center justify-center gap-2 rounded-[var(--dimension-button-rounded)] border border-gray-200 p-2 transition-colors ${
-          isAllSelected ? 'bg-white text-[var(--color-font-base)]' : 'bg-black text-white'
-        } ${className}`}
+        className={filterButtonVariants({
+          variant: isAllSelected ? 'all' : 'selected',
+          className,
+          ...buttonProps,
+        })}
         onClick={() => setOpen((prev) => !prev)}
       >
         <span className="font-medium">{options.find((o) => o.value === selected)?.label}</span>
@@ -119,7 +162,10 @@ export const Filter = ({
               ref={(el) => {
                 buttonsRef.current[idx] = el;
               }}
-              className={`w-full px-2 py-3 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-orange-200 ${option.value === selected ? 'font-bold text-[var(--semantic-color-primary)]' : 'text-[var(--color-font-base)]'} `}
+              className={filterOptionVariants({
+                selected: option.value === selected,
+                ...optionProps,
+              })}
               onClick={() => handleSelect(option.value)}
               tabIndex={-1}
             >
