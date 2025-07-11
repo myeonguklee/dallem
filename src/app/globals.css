@@ -30,9 +30,20 @@
   --breakpoint-tablet: 46.5rem; /* 744 */
   --breakpoint-web: 75rem; /* 1200 */
   --breakpoint-desktop: 120rem; /* 1920 */
+
+  /* font-family: Pretendard */
   --font-sans:
     Pretendard, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* z-index token */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-backdrop: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
 }
 
 body {
