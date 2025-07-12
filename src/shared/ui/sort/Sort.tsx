@@ -1,47 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import type { HTMLAttributes } from 'react';
-import { type VariantProps, cva } from 'class-variance-authority';
-import { BlackStateIcon } from '../icon';
+import { BlackStateIcon } from '@/shared/ui/icon';
+import {
+  type SortButtonVariants,
+  type SortOptionVariants,
+  sortButtonVariants,
+  sortOptionVariants,
+} from './variants';
 
 interface SortOption {
   label: string;
   value: string;
 }
 
-const sortButtonVariants = cva(
-  'flex items-center justify-center rounded-[var(--dimension-button-rounded)] border border-gray-200 bg-white',
-  {
-    variants: {
-      size: {
-        default: 'h-9 w-9 md:h-10 md:min-w-32 md:justify-start md:gap-1 md:p-2',
-      },
-    },
-    defaultVariants: {
-      size: 'default',
-    },
-  },
-);
-
-const sortOptionVariants = cva(
-  'w-full px-2 py-3 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-orange-200',
-  {
-    variants: {
-      selected: {
-        true: 'font-bold text-[var(--semantic-color-primary)]',
-        false: 'text-[var(--color-font-base)]',
-      },
-    },
-    defaultVariants: {
-      selected: false,
-    },
-  },
-);
-
-// 타입 추출
-type SortButtonVariants = VariantProps<typeof sortButtonVariants>;
-type SortOptionVariants = VariantProps<typeof sortOptionVariants>;
-
-interface SortProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SortProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: SortOption[];
   selected: string;
   onChange: (value: string) => void;
