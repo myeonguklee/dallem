@@ -1,7 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
+import { cn } from '@/shared/lib/cn';
 import { VariantProps, cva } from 'class-variance-authority';
-import clsx from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
@@ -48,9 +47,7 @@ export const Button = ({
       {...props}
       disabled={disabled}
       type={props.type || 'button'}
-      className={twMerge(
-        clsx(ButtonVariants({ variant, isDisabled: disabled, isActive }), className),
-      )}
+      className={cn(ButtonVariants({ variant, isDisabled: disabled, isActive }), className)}
     >
       {children}
     </button>
