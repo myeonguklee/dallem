@@ -19,12 +19,13 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
             variant="ghost"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            aria-label="이전 페이지"
           >
             <ArrowLeftIcon />
           </Button>
 
-          {visiblePages.map((page, index) => (
-            <div key={index}>
+          {visiblePages.map((page) => (
+            <div key={page}>
               {typeof page === 'number' ? (
                 <Button
                   variant="ghost"
@@ -45,6 +46,7 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
             variant="ghost"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
+            aria-label="다음 페이지"
           >
             <ArrowRightIcon />
           </Button>
