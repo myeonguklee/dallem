@@ -8,15 +8,16 @@ export interface ButtonProps
     VariantProps<typeof ButtonVariants> {}
 
 const ButtonVariants = cva(
-  'flex items-center justify-center transition-colors py-2 px-6 font-base',
+  'flex items-center justify-center transition-colors font-base, cursor-pointer',
   {
     variants: {
       variant: {
         primary:
-          'bg-[var(--color-primary)] text-white rounded-[var(--radius-button)] hover:bg-orange-600',
+          'bg-[var(--color-primary)] text-white rounded-[var(--radius-button)]  py-2 px-6 hover:bg-orange-600',
         outline:
-          'border border-[var(--color-primary)] bg-white text-[var(--color-primary)] rounded-[var(--radius-button)] hover:bg-orange-600 hover:text-white',
-        default: 'bg-gray-500 text-white rounded-[var(--radius-button)] hover:bg-gray-600',
+          'border border-[var(--color-primary)] bg-white text-[var(--color-primary)] rounded-[var(--radius-button)] py-2 px-6  hover:bg-orange-600 hover:text-white',
+        default:
+          'bg-gray-500 text-white rounded-[var(--radius-button)] py-2 px-6 hover:bg-gray-600',
         ghost: 'bg-transparent text-[var(--color-font-base)]',
       },
       isDisabled: {

@@ -14,11 +14,11 @@ export default function Review() {
   return (
     <>
       <Button
-        variant="ghost"
-        className="w-full"
-        isActive
+        variant="primary"
+        className="w-[600px]"
+        disabled
       >
-        함수{' '}
+        함수
       </Button>
       <Pagination
         totalPages={15} // 전체 페이지 수 (계산됨)

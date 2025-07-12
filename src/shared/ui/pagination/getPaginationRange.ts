@@ -2,7 +2,7 @@ export const getPagiNationRange = (currentPage: number, totalPages: number) => {
   const pages: (number | string)[] = [];
 
   // 총 페이지가 7개 이하면 모두 표시
-  if (totalPages <= 7) {
+  if (totalPages <= 5) {
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
@@ -24,7 +24,7 @@ export const getPagiNationRange = (currentPage: number, totalPages: number) => {
       pages.push(i);
     }
   } else {
-    // 중간에 있을 때: 1 ... 6 7 8 9 10 ... 15
+    // 중간에 있을 때: 1 ...  7 8 9  ... 15
     pages.push(1);
     pages.push('...');
     for (let i = currentPage - 1; i <= currentPage + 1; i++) {

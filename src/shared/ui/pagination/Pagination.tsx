@@ -13,8 +13,8 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
 
   return (
     <>
-      <div className="">
-        <div className="flex">
+      <div className="mx-auto w-full max-w-[26.25rem] min-w-[var(--breakpoint-mobile)]">
+        <div className="flex items-center justify-around">
           <Button
             variant="ghost"
             onClick={() => onPageChange(currentPage - 1)}
