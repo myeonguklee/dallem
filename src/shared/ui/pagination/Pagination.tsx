@@ -1,6 +1,6 @@
 import { Button } from '../button';
 import { ArrowLeftIcon, ArrowRightIcon } from '../icon';
-import { getPagiNationRange } from './getPaginationRange';
+import { getPaginationRange } from './getPaginationRange';
 
 export interface PaginationProps {
   totalPages: number;
@@ -9,7 +9,7 @@ export interface PaginationProps {
 }
 
 export const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) => {
-  const visiblePages = getPagiNationRange(currentPage, totalPages);
+  const visiblePages = getPaginationRange(currentPage, totalPages);
 
   return (
     <>

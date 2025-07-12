@@ -27,7 +27,7 @@ const meta = {
     currentPage: 1,
     totalPages: 5,
     disabled: false,
-    onPageChange: console.log('페이지'),
+    onPageChange: () => console.log('페이지'),
   },
 } satisfies Meta;
 
@@ -70,6 +70,6 @@ export const EllipsisPagination: Story = {
   args: {
     currentPage: 5,
     totalPages: 10,
-    onPageChange: () => console.log('dfsfd'),
+    onPageChange: () => console.log('페이지'),
   },
 };

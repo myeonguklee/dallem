@@ -1,15 +1,12 @@
-export const getPagiNationRange = (currentPage: number, totalPages: number) => {
+export const getPaginationRange = (currentPage: number, totalPages: number) => {
   const pages: (number | string)[] = [];
 
-  // 총 페이지가 7개 이하면 모두 표시
   if (totalPages <= 5) {
     for (let i = 1; i <= totalPages; i++) {
       pages.push(i);
     }
     return pages;
   }
-
-  // 8개 이상일 때는 항상 최소 5개 + ... + 마지막 형태로 표시
 
   if (currentPage <= 4) {
     // 앞쪽에 있을 때: 1 2 3 4 5 ... 15
