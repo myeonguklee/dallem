@@ -18,6 +18,7 @@ const meta = {
       control: { type: 'boolean' },
       description: '버튼 비활성화 여부 입니다. ',
     },
+
     children: {
       control: { type: 'text' },
       description: '버튼의 내용을 입력해주세요',
@@ -25,6 +26,10 @@ const meta = {
     className: {
       control: { type: 'text' },
       description: '추가하고자 하는 스타일을 입력해주세요 ',
+    },
+    isActive: {
+      control: { type: 'boolean' },
+      description: '페이지네이션 활성상태의 버튼 css 입히는 용도입니다. ',
     },
     onClick: {
       action: 'clicked',

@@ -1,21 +1,16 @@
 import { Button } from '../button';
 import { ArrowLeftIcon, ArrowRightIcon } from '../icon';
+import { getPagiNationRange } from './getPaginationRange';
 
 export interface PaginationProps {
-  totalPages: number; // 전체 페이지 수
-  currentPage: number; // 현재 선택된 페이지 (0부터 시작)
-  onPageChange: (page: number) => void; // 페이지 클릭 시 콜백
-  className?: string;
-  disabled?: boolean; // 전체 비활성화 상태
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-export const Pagination = ({
-  totalPages,
-  currentPage,
-  onPageChange,
-  disabled = false,
-  // className,
-}: PaginationProps) => {
+export const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) => {
+  const visiblePages = getPagiNationRange(currentPage, totalPages);
+
   return (
     <>
       <div className="">
@@ -23,25 +18,33 @@ export const Pagination = ({
           <Button
             variant="ghost"
             onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1 || disabled}
+            disabled={currentPage === 1}
           >
             <ArrowLeftIcon />
           </Button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <Button
-              key={page}
-              variant={'ghost'}
-              onClick={() => onPageChange(page)}
-            >
-              {page}
-            </Button>
+          {visiblePages.map((page, index) => (
+            <div key={index}>
+              {typeof page === 'number' ? (
+                <Button
+                  variant="ghost"
+                  onClick={() => onPageChange(page)}
+                  isActive={currentPage === page}
+                >
+                  {page}
+                </Button>
+              ) : (
+                <span className="flex items-center justify-center px-3 py-2 text-gray-500">
+                  {page}
+                </span>
+              )}
+            </div>
           ))}
 
           <Button
             variant="ghost"
             onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages || disabled}
+            disabled={currentPage === totalPages}
           >
             <ArrowRightIcon />
           </Button>

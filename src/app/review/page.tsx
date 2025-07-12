@@ -13,9 +13,15 @@ export default function Review() {
   };
   return (
     <>
-      <Button variant="primary"> 함수 </Button>
+      <Button
+        variant="ghost"
+        className="w-full"
+        isActive
+      >
+        함수{' '}
+      </Button>
       <Pagination
-        totalPages={5} // 전체 페이지 수 (계산됨)
+        totalPages={15} // 전체 페이지 수 (계산됨)
         currentPage={currentPage} // 현재 페이지 번호 (상태)
         onPageChange={handlePageChange} // 페이지 변경 콜백
       />
