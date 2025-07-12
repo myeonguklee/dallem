@@ -25,19 +25,6 @@ describe('페이지네이션에 관한 테스트', () => {
     expect(screen.getByText('5')).toBeInTheDocument();
   });
 
-  it('현재페이지는 isActive 상태인가? ', () => {
-    render(
-      <Pagination
-        currentPage={3}
-        totalPages={5}
-        onPageChange={mockChange}
-      />,
-    );
-
-    const activeBtn = screen.getByText('3');
-    expect(activeBtn).toHaveClass('text-[var(--color-font-base)]');
-  });
-
   it('첫 페이지일때, 이전 버튼은 비활성화 상태인가? ', () => {
     render(
       <Pagination

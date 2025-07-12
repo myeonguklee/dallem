@@ -66,10 +66,25 @@ export const BasicPagination: Story = {
   },
 };
 
+export const StartEllipsisPagination: Story = {
+  args: {
+    currentPage: 2,
+    totalPages: 10,
+    onPageChange: () => console.log('페이지'),
+  },
+};
+
 export const EllipsisPagination: Story = {
   args: {
     currentPage: 5,
     totalPages: 10,
     onPageChange: () => console.log('페이지'),
+  },
+};
+
+export const EndEllipsisPagination: Story = {
+  args: {
+    currentPage: 9,
+    totalPages: 10,
   },
 };
