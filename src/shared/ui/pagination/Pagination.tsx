@@ -24,8 +24,8 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
             <ArrowLeftIcon />
           </Button>
 
-          {visiblePages.map((page) => (
-            <div key={page}>
+          {visiblePages.map((page, index) => (
+            <div key={`${page}-${index}`}>
               {typeof page === 'number' ? (
                 <Button
                   variant="ghost"
