@@ -1,48 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import type { HTMLAttributes } from 'react';
-import { type VariantProps, cva } from 'class-variance-authority';
-import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '../icon';
+import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '@/shared/ui/icon';
+import {
+  type FilterButtonVariants,
+  type FilterOptionVariants,
+  filterButtonVariants,
+  filterOptionVariants,
+} from './variants';
 
 interface FilterOption {
   label: string;
   value: string;
 }
 
-const filterButtonVariants = cva(
-  'flex h-10 min-w-32 items-center justify-center gap-2 rounded-[var(--dimension-button-rounded)] border border-gray-200 p-2 transition-colors',
-  {
-    variants: {
-      variant: {
-        all: 'bg-white text-[var(--color-font-base)]',
-        selected: 'bg-black text-white',
-      },
-    },
-    defaultVariants: {
-      variant: 'all',
-    },
-  },
-);
-
-const filterOptionVariants = cva(
-  'w-full px-2 py-3 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-orange-200',
-  {
-    variants: {
-      selected: {
-        true: 'font-bold text-[var(--semantic-color-primary)]',
-        false: 'text-[var(--color-font-base)]',
-      },
-    },
-    defaultVariants: {
-      selected: false,
-    },
-  },
-);
-
-// 타입 추출
-type FilterButtonVariants = VariantProps<typeof filterButtonVariants>;
-type FilterOptionVariants = VariantProps<typeof filterOptionVariants>;
-
-interface FilterProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface FilterProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   options: FilterOption[];
   selected: string;
   onChange: (value: string) => void;
