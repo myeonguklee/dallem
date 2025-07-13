@@ -35,6 +35,17 @@ export const Sort = ({
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const rootRef = useRef<HTMLDivElement>(null);
 
+  // 유효한 선택인지 확인하고, 유효하지 않으면 첫 번째 옵션으로 변경
+  const isValidSelection = options.some((o) => o.value === selected);
+  const currentSelected = isValidSelection ? selected : (options[0]?.value ?? '');
+
+  // 유효하지 않은 선택이면 첫 번째 옵션으로 자동 변경
+  useEffect(() => {
+    if (!isValidSelection && options.length > 0 && selected !== options[0]?.value) {
+      onChange(options[0].value);
+    }
+  }, [selected, options, isValidSelection, onChange]);
+
   const handleSelect = (value: string) => {
     onChange(value);
     setOpen(false);
@@ -110,7 +121,7 @@ export const Sort = ({
         <BlackStateIcon />
         {/* md 이상에서만 label 노출 */}
         <span className="hidden font-medium text-[var(--color-font-base)] md:inline">
-          {options.find((o) => o.value === selected)?.label}
+          {options.find((o) => o.value === currentSelected)?.label}
         </span>
       </button>
       {open && (
