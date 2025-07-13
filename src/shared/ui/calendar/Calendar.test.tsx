@@ -64,9 +64,10 @@ describe('Calendar', () => {
       />,
     );
 
+    const currentYear = new Date().getFullYear();
     const allButtons = screen.getAllByRole('button');
     const dateButtons = allButtons.filter((button) =>
-      button.getAttribute('aria-label')?.includes('2025'),
+      button.getAttribute('aria-label')?.includes(currentYear.toString()),
     );
 
     dateButtons.forEach((button) => {
