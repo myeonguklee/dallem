@@ -37,14 +37,25 @@ export const Filter = ({
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const rootRef = useRef<HTMLDivElement>(null);
 
+  // 전체보기인지 확인
+  const isAllSelected = selected === allValue;
+
+  // 유효한 선택인지 확인하고, 유효하지 않으면 전체보기로 변경
+  const isValidSelection = options.some((o) => o.value === selected);
+  const currentSelected = isValidSelection ? selected : allValue;
+
+  // 유효하지 않은 선택이면 전체보기로 자동 변경
+  useEffect(() => {
+    if (!isValidSelection && selected !== allValue) {
+      onChange(allValue);
+    }
+  }, [selected, allValue, isValidSelection, onChange]);
+
   const handleSelect = (value: string) => {
     onChange(value);
     setOpen(false);
     setFocusIdx(-1);
   };
-
-  // 전체보기인지 확인
-  const isAllSelected = selected === allValue;
 
   // ESC, 방향키, Enter/Space로 내비게이션
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -112,7 +123,9 @@ export const Filter = ({
         })}
         onClick={() => setOpen((prev) => !prev)}
       >
-        <span className="font-medium">{options.find((o) => o.value === selected)?.label}</span>
+        <span className="font-medium">
+          {options.find((o) => o.value === currentSelected)?.label}
+        </span>
         {open ? (
           isAllSelected ? (
             <ArrowUpIcon />
