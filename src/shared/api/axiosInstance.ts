@@ -1,3 +1,4 @@
+import { API_CONFIG } from '@/shared/config';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 
@@ -5,12 +6,13 @@ import { ApiError } from './apiError';
 const TEST_TEAM_ID = '10-666';
 
 export const axiosInstance = axios.create({
-  // baseURL: `https://fe-adv-project-together-dallaem.vercel.app/${process.env.NEXT_PUBLIC_TEAM_ID}`,
-  baseURL: `https://fe-adv-project-together-dallaem.vercel.app/${TEST_TEAM_ID}`,
+  baseURL: API_CONFIG.BASE_URL(TEST_TEAM_ID),
+  timeout: API_CONFIG.TIMEOUT,
   headers: { 'Content-Type': 'application/json' },
 });
 
 axiosInstance.interceptors.request.use((config) => {
+  // TODO: Next Auth 세션 관리 적용 후 수정
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
