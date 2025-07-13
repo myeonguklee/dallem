@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ReactQueryProvider } from '@/shared/api/query';
-import { ToastProvider } from '@/shared/lib/toast';
+import { ToastProvider } from '@/shared/ui/toast';
 import { Pretendard } from './fonts/pretendard';
 import './globals.css';
 
