@@ -1,4 +1,4 @@
-export { axiosInstance } from './axiosInstance';
+export { httpClient } from './httpClient';
 export { ApiError } from './apiError';
 
 export { createQueryClient, enableReactQueryDevTools } from './query/client';
