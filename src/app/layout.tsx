@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ReactQueryProvider } from '@/shared/api/query';
+import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
 import { Pretendard } from './fonts/pretendard';
 import './globals.css';
