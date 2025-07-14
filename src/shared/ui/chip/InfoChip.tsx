@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 
@@ -23,7 +23,7 @@ const infoChipVariants = cva(
   },
 );
 
-export const InfoChip: FC<InfoChipProps> = ({ className, variant, date, ...props }) => {
+export function InfoChip({ className, variant = 'default', date, ...props }: InfoChipProps) {
   return (
     <div
       className={clsx(infoChipVariants({ variant, className }))}
@@ -32,4 +32,4 @@ export const InfoChip: FC<InfoChipProps> = ({ className, variant, date, ...props
       {date}
     </div>
   );
-};
+}

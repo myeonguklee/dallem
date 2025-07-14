@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { HTMLAttributes, PropsWithChildren } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 
@@ -26,13 +26,13 @@ const chipVariants = cva(
   },
 );
 
-export const Chip: FC<PropsWithChildren<ChipProps>> = ({
+export function Chip({
   className,
   active,
   size = 'sm',
   children,
   ...props
-}) => {
+}: PropsWithChildren<ChipProps>) {
   return (
     <div
       className={clsx(chipVariants({ active, size }), className)}
@@ -41,4 +41,4 @@ export const Chip: FC<PropsWithChildren<ChipProps>> = ({
       {children}
     </div>
   );
-};
+}
