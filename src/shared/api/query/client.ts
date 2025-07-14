@@ -31,7 +31,7 @@ export const createQueryClient = () =>
         // 클라이언트 환경에서만 ErrorBoundary 설정
         ...(IS_CLIENT && {
           throwOnError: true, // 에러를 throw해서 ErrorBoundary에서 캐치
-          suspense: false, // 개별 쿼리에서 필요시 설정
+          suspense: true, // suspense 활성화
         }),
       },
       mutations: {
