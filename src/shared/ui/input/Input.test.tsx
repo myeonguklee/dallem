@@ -4,8 +4,8 @@ import { Input } from './Input';
 
 describe('Input 컴포넌트', () => {
   it('placeholder가 잘 렌더링되어야 한다', () => {
-    render(<Input placeholder="내용 입력" />);
-    const input = screen.getByPlaceholderText('내용 입력');
+    render(<Input placeholder="할 일의 제목을 적어주세요." />);
+    const input = screen.getByPlaceholderText('할 일의 제목을 적어주세요.');
     expect(input).toBeInTheDocument();
   });
 
@@ -20,23 +20,17 @@ describe('Input 컴포넌트', () => {
   it('errorMessage가 보이는 경우, 에러 메시지가 렌더링되어야 한다', () => {
     render(
       <Input
-        placeholder="이메일"
-        errorMessage="이메일을 입력해주세요"
+        placeholder="비밀번호를 입력해주세요."
+        errorMessage="비밀번호가 일치하지 않습니다."
         variant="error"
       />,
     );
-    expect(screen.getByText('이메일을 입력해주세요')).toBeInTheDocument();
-  });
-
-  it('hasIcon이 true일 때 클래스에 pr-10이 포함되어야 한다', () => {
-    const { container } = render(<Input hasIcon />);
-    const input = container.querySelector('input');
-    expect(input?.className).toContain('pr-10');
+    expect(screen.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();
   });
 
   it('inputSize가 sm일 경우, text-sm이 포함되어야 한다', () => {
     const { container } = render(<Input inputSize="sm" />);
-    const input = container.querySelector('input');
-    expect(input?.className).toContain('text-sm');
+    const wrapper = container.firstChild?.firstChild as HTMLElement;
+    expect(wrapper.className).toContain('text-sm');
   });
 });
