@@ -46,7 +46,7 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {};
 
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     variant: 'error',
     errorMessage: '에러 메시지를 입력하세요',
