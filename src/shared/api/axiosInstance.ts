@@ -1,11 +1,12 @@
 import { API_CONFIG } from '@/shared/config';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
+import { logError, logRequest, logResponse } from './logger';
 
 // 팀 아이디 : 실제 배포시에는 환경변수로 관리
 const TEST_TEAM_ID = '10-666';
 
-export const axiosInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: API_CONFIG.BASE_URL(TEST_TEAM_ID),
   timeout: API_CONFIG.TIMEOUT,
   headers: { 'Content-Type': 'application/json' },
@@ -17,12 +18,31 @@ axiosInstance.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
+
+  // FormData 자동 변환
+  if (config.headers['Content-Type'] === 'multipart/form-data') {
+    const formData = new FormData();
+
+    Object.entries(config.data || {}).forEach(([key, value]) => {
+      if (value == null) return;
+      formData.append(key, value instanceof File ? value : String(value));
+    });
+
+    config.data = formData;
+  }
+
+  logRequest(config);
   return config;
 });
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response: AxiosResponse) => {
+    logResponse(response);
+    return response;
+  },
   (error: AxiosError) => {
+    logError(error);
+
     if (!error.response) {
       console.error('Network Error:', error);
       // 네트워크 에러는 예측 불가능하므로, 일반적인 에러 객체로 반환
@@ -53,3 +73,20 @@ axiosInstance.interceptors.response.use(
     );
   },
 );
+
+export const httpClient = {
+  get: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.get<T>(url, config).then((response) => response.data),
+
+  post: <T = unknown, D = unknown>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<T> => axiosInstance.post<T>(url, data, config).then((response) => response.data),
+
+  put: <T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.put<T>(url, data, config).then((response) => response.data),
+
+  delete: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.delete<T>(url, config).then((response) => response.data),
+};
