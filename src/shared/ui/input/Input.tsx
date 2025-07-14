@@ -8,7 +8,7 @@ export interface InputProps
 }
 
 const inputVariants = cva(
-  'w-full rounded-xl px-4 py-2.5 w-[460px] outline-none transition bg-gray-50',
+  'rounded-xl px-4 py-2.5 w-[460px] outline-none transition bg-gray-50', // figma에 따라 w-[460px]로 설정. 개발 진행에 따라 w-full로 변경할 수 있음.
   {
     variants: {
       variant: {
