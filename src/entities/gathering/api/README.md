@@ -16,9 +16,9 @@ src/entities/gathering/api/
 ```tsx
 import { useGetGatherings } from '@/entities/gathering/api';
 
-export defalut function GatheringListPage() {
+export default function GatheringListPage() {
   // 모임 목록 조회
-  const { data: gatherings, isLoading, error } = useGatherings();
+  const { data: gatherings, isLoading, error } = useGetGatherings();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>에러 발생!</div>;
