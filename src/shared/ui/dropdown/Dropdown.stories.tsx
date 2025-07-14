@@ -6,17 +6,17 @@ const meta: Meta<typeof DropdownTrigger> = {
   component: DropdownTrigger,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: { type: 'radio' }, options: ['lg', 'sm'] },
+    size: { control: { type: 'radio' }, options: ['large', 'small'] },
     state: { control: { type: 'radio' }, options: ['default', 'hover', 'selected'] },
   },
   args: {
-    size: 'lg',
+    size: 'large',
     state: 'default',
     children: '을지로 3가',
   },
   decorators: [
     (Story) => (
-      <div className="flex items-center justify-center bg-gray-50">
+      <div className="flex items-center justify-center">
         <Story />
       </div>
     ),
@@ -42,17 +42,17 @@ export const Selected: Story = {
 
 // ✅ 스몰 사이즈
 export const Small: Story = {
-  args: { size: 'sm' },
+  args: { size: 'small' },
 };
 
 export const WithList: StoryObj = {
   render: () => (
     <Dropdown>
       {({ isOpen, toggle }) => (
-        <div className="w-64">
+        <div>
           <DropdownTrigger
             onClick={toggle}
-            size="lg"
+            size="large"
             state={isOpen ? 'selected' : 'default'}
           >
             을지로 3가
