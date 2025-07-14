@@ -10,7 +10,7 @@ interface ReactQueryProviderProps {
 }
 
 export function ReactQueryProvider({ children }: ReactQueryProviderProps) {
-  // SSR을 위해 각 클라이언트마다 새로운 QueryClient 인스턴스 생성
+  // CSR 환경에서 사용되는 QueryClient 인스턴스 생성
   const [queryClient] = useState(() => createQueryClient());
 
   return (
