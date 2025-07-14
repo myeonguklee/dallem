@@ -45,22 +45,24 @@ axiosInstance.interceptors.response.use(
 
     if (!error.response) {
       console.error('Network Error:', error);
-      // 네트워크 에러는 예측 불가능하므로, 일반적인 에러 객체로 반환
+      // 네트워크 에러는 일반 Error로 처리
       return Promise.reject(new Error('네트워크 연결 상태를 확인해주세요.'));
     }
+
+    // Axios 타임아웃 일반 Error로 처리
+    if (error.code === 'ECONNABORTED') {
+      console.error('Timeout Error:', error);
+      return Promise.reject(new Error('요청 시간이 초과되었습니다.'));
+    }
     const { status, data } = error.response;
-    const { code, message } = data as { code: string; message: string };
+    const { code, message } = (data as { code?: string; message?: string }) || {};
 
     if (status === 401) {
-      // 토큰 만료 시 재발급 로직
-      // 재발급 실패 시 로그아웃 처리 + 로그인 페이지로 리디렉션
+      // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       console.error('401 Unauthorized:', message);
       localStorage.removeItem('accessToken');
       window.location.href = '/signin';
-
-      return Promise.reject(
-        new ApiError(message || '인증이 필요합니다.', code || 'UNAUTHORIZED', status),
-      );
+      return;
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
     if (status >= 500) {
