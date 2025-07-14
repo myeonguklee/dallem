@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { TimeChip } from './timeChip';
+import { TimeChip } from './TimeChipp';
 
 const meta: Meta<typeof TimeChip> = {
   title: 'shared/ui/Chip/timeChip',
@@ -16,7 +16,7 @@ const meta: Meta<typeof TimeChip> = {
   },
   decorators: [
     (Story) => (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center">
         <Story />
       </div>
     ),
