@@ -36,15 +36,25 @@ const meta: Meta<typeof Input> = {
     variant: 'default',
     inputSize: 'lg',
     placeholder: '내용을 입력하세요',
-    hasIcon: false,
-    errorMessage: '',
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    variant: 'default',
+    inputSize: 'lg',
+  },
+};
+
+export const Typing: Story = {
+  args: {
+    variant: 'typing',
+    inputSize: 'lg',
+  },
+};
 
 export const ErrorState: Story = {
   args: {
@@ -53,63 +63,75 @@ export const ErrorState: Story = {
   },
 };
 
-export const WithIconPadding: Story = {
+export const PasswordDefault: Story = {
   args: {
-    hasIcon: true,
-    placeholder: '오른쪽에 아이콘이 올 예정',
+    variant: 'password_default',
   },
 };
 
-export const Password_Toggle: Story = {
+export const PasswordOff: Story = {
   args: {
     variant: 'password_off',
   },
 };
 
+export const PasswordOn: Story = {
+  args: {
+    variant: 'password_on',
+  },
+};
+
+export const PasswordError: Story = {
+  args: {
+    variant: 'password_error',
+    errorMessage: '비밀번호가 잘못되었습니다.',
+  },
+};
+
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <Input
         variant="default"
-        placeholder="default"
+        placeholder="할 일의 제목을 적어주세요."
       />
       <Input
         variant="toggle"
-        placeholder="toggle"
+        placeholder="할 일의 제목을 적어주세요."
       />
       <Input
         variant="hover"
-        placeholder="hover"
+        placeholder="할 일의 제목을 적어주세요."
       />
       <Input
         variant="typing"
-        placeholder="typing"
+        placeholder="할 일의 제목을 적어주세요."
       />
       <Input
         variant="done"
-        placeholder="done"
+        placeholder="할 일의 제목을 적어주세요."
       />
       <Input
         variant="error"
-        placeholder="error"
-        errorMessage="에러 메시지"
+        placeholder="할 일의 제목을 적어주세요."
+        errorMessage="입력해주세요."
       />
       <Input
         variant="password_default"
-        placeholder="password_default"
-      />
-      <Input
-        variant="password_off"
-        placeholder="password_off"
+        placeholder="비밀번호를 입력해주세요."
       />
       <Input
         variant="password_on"
-        placeholder="password_on"
+        placeholder="비밀번호를 입력해주세요."
+      />
+      <Input
+        variant="password_off"
+        placeholder="비밀번호를 입력해주세요."
       />
       <Input
         variant="password_error"
-        placeholder="password_error"
-        errorMessage="비밀번호 오류"
+        placeholder="비밀번호를 입력해주세요."
+        errorMessage="비밀번호가 일치하지 않습니다."
       />
     </div>
   ),
