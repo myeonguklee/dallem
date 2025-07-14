@@ -5,6 +5,9 @@ import { ApiError } from '../apiError';
 const STALE_TIME = 1000 * 60 * 5; // 5분
 const GC_TIME = 1000 * 60 * 10; // 10분
 
+const IS_SERVER = typeof window === 'undefined';
+const IS_CLIENT = typeof window !== 'undefined';
+
 // SSR을 고려한 QueryClient 팩토리 함수
 export const createQueryClient = () =>
   new QueryClient({
@@ -26,7 +29,7 @@ export const createQueryClient = () =>
         refetchOnReconnect: true, // CSR 환경에서 네트워크 재연결 시 재요청 활성화
 
         // CSR에서만 Suspense/ErrorBoundary 설정
-        ...(typeof window !== 'undefined' && {
+        ...(IS_CLIENT && {
           suspense: true, // 로딩 상태를 Suspense로 처리
           throwOnError: true, // 에러를 throw해서 ErrorBoundary에서 캐치
         }),
@@ -35,7 +38,7 @@ export const createQueryClient = () =>
         retry: false, // mutation은 재시도하지 않음
         onError: (error) => {
           // window 객체가 있는지 확인 (클라이언트 환경인지 체크)
-          if (typeof window === 'undefined') {
+          if (IS_SERVER) {
             console.error('Error in SSR:', error);
             return;
           }
