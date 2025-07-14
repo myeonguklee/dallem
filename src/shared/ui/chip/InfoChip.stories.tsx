@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { InfoChip } from './InfoChipp';
+import { InfoChip } from './InfoChip';
 
 const meta: Meta<typeof InfoChip> = {
   title: 'shared/ui/Chip/InfoChip',
