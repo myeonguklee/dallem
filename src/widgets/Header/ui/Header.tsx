@@ -1,19 +1,14 @@
 import Link from 'next/link';
-import { Icon } from '@/shared/ui/icon/Icon';
 import HeaderLink from './HeaderLink';
 import Logo from './Logo';
+import { MobileGNB } from './MobileGNB';
 
 const Header: React.FunctionComponent = () => {
   return (
     <header className="tablet:h-15 px-mobile-padding tablet:px-tablet-padding relative flex h-14 justify-center gap-5 border-b border-gray-200 bg-white">
       <div className="web:max-w-web flex w-full items-center justify-between">
         <div className="flex items-center gap-5">
-          <Icon
-            name="hamburger-menu"
-            className="tablet:hidden"
-            width="24"
-            height="24"
-          />
+          <MobileGNB />
           <Logo className="tablet:h-15 tablet:relative tablet:left-0 tablet:-translate-x-0 absolute top-0 left-1/2 h-14 -translate-x-1/2 content-center justify-self-center" />
 
           <nav className="tablet:flex hidden gap-6">
