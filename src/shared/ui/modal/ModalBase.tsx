@@ -69,7 +69,10 @@ export const ModalBase = ({
   if (!mounted || !isVisible) return null;
 
   const modalContent = (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      role="dialog"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+    >
       {isOverlay && (
         <div
           className={cn(
@@ -90,6 +93,7 @@ export const ModalBase = ({
           <Button
             variant="ghost"
             onClick={onClose}
+            aria-label="close"
             className="absolute top-4 right-4 text-2xl text-gray-400 transition-all duration-200 hover:rotate-90 hover:text-gray-600"
           >
             <XIcon />
