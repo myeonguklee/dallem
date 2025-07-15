@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import determineProgressStatus from '@/shared/lib/gathering/determineProgressStatus';
 import { ProgressState } from '@/shared/types/progressStatus';
 import { progressFill } from './progressBarVariants';
@@ -11,7 +10,7 @@ interface ProgressBarProps {
   minToConfirm: number;
 }
 
-export default function ProgressBar({ current, total, minToConfirm }: ProgressBarProps) {
+export const ProgressBar = ({ current, total, minToConfirm }: ProgressBarProps) => {
   const ratio = total > 0 ? Math.min(current / total, 1) : 0;
 
   const state: ProgressState = determineProgressStatus({ current, total, minToConfirm });
@@ -28,4 +27,4 @@ export default function ProgressBar({ current, total, minToConfirm }: ProgressBa
       />
     </div>
   );
-}
+};

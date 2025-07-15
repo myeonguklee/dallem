@@ -1,37 +1,38 @@
 // API 설정
 
 export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://fe-adv-project-together-dallaem.vercel.app',
-  TEAM_ID: process.env.NEXT_PUBLIC_TEAM_ID || '1', // 기본 팀 ID
+  BASE_URL: (teamId: string) =>
+    process.env.NEXT_PUBLIC_API_URL ||
+    `https://fe-adv-project-together-dallaem.vercel.app/${teamId}`,
   TIMEOUT: 10000, // 10초
 } as const;
 
 export const API_ENDPOINTS = {
   // 인증
   AUTH: {
-    SIGNUP: (teamId: string) => `/${teamId}/auths/signup`,
-    SIGNIN: (teamId: string) => `/${teamId}/auths/signin`,
-    SIGNOUT: (teamId: string) => `/${teamId}/auths/signout`,
-    USER: (teamId: string) => `/${teamId}/auths/user`,
+    SIGNUP: '/auths/signup',
+    SIGNIN: '/auths/signin',
+    SIGNOUT: '/auths/signout',
+    USER: '/auths/user',
   },
 
   // 모임
   GATHERINGS: {
-    LIST: (teamId: string) => `/${teamId}/gatherings`,
-    DETAIL: (teamId: string, id: number) => `/${teamId}/gatherings/${id}`,
-    CREATE: (teamId: string) => `/${teamId}/gatherings`,
-    JOIN: (teamId: string, id: number) => `/${teamId}/gatherings/${id}/join`,
-    LEAVE: (teamId: string, id: number) => `/${teamId}/gatherings/${id}/leave`,
-    CANCEL: (teamId: string, id: number) => `/${teamId}/gatherings/${id}/cancel`,
-    PARTICIPANTS: (teamId: string, id: number) => `/${teamId}/gatherings/${id}/participants`,
-    JOINED: (teamId: string) => `/${teamId}/gatherings/joined`,
+    LIST: '/gatherings',
+    DETAIL: (id: number) => `/gatherings/${id}`,
+    CREATE: '/gatherings',
+    JOIN: (id: number) => `/gatherings/${id}/join`,
+    LEAVE: (id: number) => `/gatherings/${id}/leave`,
+    CANCEL: (id: number) => `/gatherings/${id}/cancel`,
+    PARTICIPANTS: (id: number) => `/gatherings/${id}/participants`,
+    JOINED: '/gatherings/joined',
   },
 
   // 리뷰
   REVIEWS: {
-    LIST: (teamId: string) => `/${teamId}/reviews`,
-    CREATE: (teamId: string) => `/${teamId}/reviews`,
-    SCORES: (teamId: string) => `/${teamId}/reviews/scores`,
+    LIST: '/reviews',
+    CREATE: '/reviews',
+    SCORES: '/reviews/scores',
   },
 } as const;
 

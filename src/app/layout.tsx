@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { ReactQueryProvider } from '@/shared/lib/query';
+import { ReactQueryProvider } from '@/shared/api';
+import { ToastProvider } from '@/shared/ui/toast';
 import { Pretendard } from './fonts/pretendard';
 import './globals.css';
 
@@ -22,7 +23,10 @@ export default function RootLayout({
         className={`${Pretendard.className} antialiased`}
         suppressHydrationWarning
       >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          {children}
+          <ToastProvider />
+        </ReactQueryProvider>
       </body>
     </html>
   );

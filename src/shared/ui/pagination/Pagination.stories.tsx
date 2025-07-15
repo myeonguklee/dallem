@@ -43,7 +43,7 @@ export const BasicPagination: Story = {
 
       useEffect(() => {
         setCurrentPage(args.currentPage ?? 1);
-      }, [args.currentPage]);
+      }, []);
 
       const handleChangePage = (page: number) => {
         setCurrentPage(page);
