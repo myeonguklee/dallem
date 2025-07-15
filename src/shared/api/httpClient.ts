@@ -5,6 +5,7 @@ import { logError, logRequest, logResponse } from './logger';
 
 // 팀 아이디 : 실제 배포시에는 환경변수로 관리
 const TEST_TEAM_ID = '10-666';
+const IS_CLIENT = typeof window !== 'undefined';
 
 const axiosInstance = axios.create({
   baseURL: API_CONFIG.BASE_URL(TEST_TEAM_ID),
@@ -14,9 +15,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   // TODO: Next Auth 세션 관리 적용 후 수정
-  const accessToken = localStorage.getItem('accessToken');
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  if (IS_CLIENT) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
   }
 
   // FormData 자동 변환
@@ -59,9 +62,11 @@ axiosInstance.interceptors.response.use(
 
     if (status === 401) {
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
-      console.error('401 Unauthorized:', message);
-      localStorage.removeItem('accessToken');
-      window.location.href = '/signin';
+      if (IS_CLIENT) {
+        console.error('401 Unauthorized:', message);
+        localStorage.removeItem('accessToken');
+        window.location.href = '/signin';
+      }
       return;
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
