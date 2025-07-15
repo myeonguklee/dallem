@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
+import Header from '@/widgets/Header/ui/Header';
 import { Pretendard } from './fonts/pretendard';
 import './globals.css';
 
@@ -20,11 +21,15 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${Pretendard.className} antialiased`}
+        className={`${Pretendard.className} flex min-h-screen flex-col antialiased`}
         suppressHydrationWarning
       >
         <ReactQueryProvider>
-          {children}
+          <Header />
+
+          <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 overflow-auto">
+            {children}
+          </main>
           <ToastProvider />
         </ReactQueryProvider>
       </body>
