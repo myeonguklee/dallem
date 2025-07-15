@@ -7,7 +7,7 @@ interface DropdownListProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
 }
 
-export function DropdownList({ isOpen, className, children, ...props }: DropdownListProps) {
+export const DropdownList = ({ isOpen, className, children, ...props }: DropdownListProps) => {
   if (!isOpen) return null;
 
   return (
@@ -18,4 +18,4 @@ export function DropdownList({ isOpen, className, children, ...props }: Dropdown
       {children}
     </div>
   );
-}
+};

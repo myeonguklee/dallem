@@ -9,13 +9,13 @@ export interface DropdownTriggerProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof dropdownTriggerVariants> {}
 
-export function DropdownTrigger({
+export const DropdownTrigger = ({
   size,
   state,
   className,
   children,
   ...props
-}: DropdownTriggerProps) {
+}: DropdownTriggerProps) => {
   return (
     <button
       className={twMerge(dropdownTriggerVariants({ size, state }), className)}
@@ -24,4 +24,4 @@ export function DropdownTrigger({
       {children}
     </button>
   );
-}
+};

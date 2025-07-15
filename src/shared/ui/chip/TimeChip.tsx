@@ -22,12 +22,12 @@ export interface TimeChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timeChipVariants> {}
 
-export function TimeChip({
+export const TimeChip = ({
   className,
   variant = 'available',
   children,
   ...props
-}: PropsWithChildren<TimeChipProps>) {
+}: PropsWithChildren<TimeChipProps>) => {
   return (
     <div
       className={clsx(timeChipVariants({ variant, className }))}
@@ -36,4 +36,4 @@ export function TimeChip({
       {children}
     </div>
   );
-}
+};

@@ -25,12 +25,12 @@ export interface StateChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof stateChipVariants> {}
 
-export function StateChip({
+export const StateChip = ({
   className,
   variant,
   children,
   ...props
-}: PropsWithChildren<StateChipProps>) {
+}: PropsWithChildren<StateChipProps>) => {
   const renderIcon = () => {
     if (variant === 'confirmed') {
       return <CheckBoxIcon />;
@@ -48,4 +48,4 @@ export function StateChip({
       <span>{children}</span>
     </div>
   );
-}
+};

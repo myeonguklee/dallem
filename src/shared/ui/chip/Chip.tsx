@@ -26,13 +26,13 @@ const chipVariants = cva(
   },
 );
 
-export function Chip({
+export const Chip = ({
   className,
   active,
   size = 'sm',
   children,
   ...props
-}: PropsWithChildren<ChipProps>) {
+}: PropsWithChildren<ChipProps>) => {
   return (
     <div
       className={clsx(chipVariants({ active, size }), className)}
@@ -41,4 +41,4 @@ export function Chip({
       {children}
     </div>
   );
-}
+};

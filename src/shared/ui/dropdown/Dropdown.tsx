@@ -6,9 +6,9 @@ interface DropdownProps {
   children: (props: { isOpen: boolean; toggle: () => void }) => ReactNode;
 }
 
-export function Dropdown({ children }: DropdownProps) {
+export const Dropdown = ({ children }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prev) => !prev);
 
   return <>{children({ isOpen, toggle })}</>;
-}
+};

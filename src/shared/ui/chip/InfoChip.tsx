@@ -23,7 +23,7 @@ const infoChipVariants = cva(
   },
 );
 
-export function InfoChip({ className, variant = 'default', date, ...props }: InfoChipProps) {
+export const InfoChip = ({ className, variant = 'default', date, ...props }: InfoChipProps) => {
   return (
     <div
       className={clsx(infoChipVariants({ variant, className }))}
@@ -32,4 +32,4 @@ export function InfoChip({ className, variant = 'default', date, ...props }: Inf
       {date}
     </div>
   );
-}
+};
