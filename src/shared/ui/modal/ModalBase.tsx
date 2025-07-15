@@ -14,29 +14,20 @@ interface ModalProps extends VariantProps<typeof modalVariants> {
   isOpen: boolean;
   onClose?: () => void;
   isOverlay?: boolean;
-  primaryButtonText?: string;
-  secondaryButtonText?: string;
-  onConfirm?: () => void;
-  disabledPrimary?: boolean;
-  disabledSecondary?: boolean;
+  showCloseButton?: boolean;
 }
 
-export const Modal = ({
+export const ModalBase = ({
   children,
   className,
   isOpen,
   onClose,
-  onConfirm,
   isOverlay = true,
   variant = 'default',
-  secondaryButtonText,
-  primaryButtonText,
-  disabledPrimary = false,
-  disabledSecondary = false,
+  showCloseButton = true,
 }: ModalProps) => {
   // 애니에이션 관리하기
   const [isVisible, setIsVisible] = useState(false);
-
   // 모달 포탈로 열기 : 하이브리드 오류 방지
   const [mounted, setMounted] = useState(false);
 
@@ -47,21 +38,23 @@ export const Modal = ({
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      // 모달 배경 스크롤 금지
-      document.body.style.overflow = 'hidden';
     } else {
-      // 애니메이션 끝난 후 닫히기
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 300);
-      document.body.style.overflow = 'unset';
+      const timer = setTimeout(() => setIsVisible(false), 300);
       return () => clearTimeout(timer);
     }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [isOpen]);
+
+  // Scroll Lock 전용
+  useEffect(() => {
+    if (isOpen && isOverlay) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, isOverlay]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -81,7 +74,7 @@ export const Modal = ({
         <div
           className={cn(
             'absolute inset-0 bg-black transition-opacity duration-300',
-            isOpen ? 'opacity-60' : 'opacity-0',
+            isVisible ? 'opacity-60' : 'opacity-0',
           )}
           onClick={onClose}
         />
@@ -93,36 +86,16 @@ export const Modal = ({
           className,
         )}
       >
-        <Button
-          variant="ghost"
-          onClick={onClose}
-          className="absolute top-4 right-4 text-2xl text-gray-400 transition-all duration-200 hover:rotate-90 hover:text-gray-600"
-        >
-          <XIcon />
-        </Button>
-        <div className="text-center">{children}</div>
-        <div className="mt-6 flex justify-center gap-3">
-          {secondaryButtonText && (
-            <Button
-              variant="outline"
-              onClick={onClose}
-              disabled={disabledSecondary}
-              className="w-full"
-            >
-              {secondaryButtonText}
-            </Button>
-          )}
-          {primaryButtonText && (
-            <Button
-              variant="primary"
-              onClick={onConfirm}
-              disabled={disabledPrimary}
-              className="w-full"
-            >
-              {primaryButtonText}
-            </Button>
-          )}
-        </div>
+        {showCloseButton && (
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            className="absolute top-4 right-4 text-2xl text-gray-400 transition-all duration-200 hover:rotate-90 hover:text-gray-600"
+          >
+            <XIcon />
+          </Button>
+        )}
+        <div className="flex max-h-[85vh] flex-col">{children}</div>
       </div>
     </div>
   );
