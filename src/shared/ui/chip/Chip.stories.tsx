@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { Chip } from './chip';
+import { Chip } from './Chip';
 
 const meta: Meta<typeof Chip> = {
   title: 'shared/ui/Chip/chip',
@@ -19,7 +19,7 @@ const meta: Meta<typeof Chip> = {
   },
   decorators: [
     (Story) => (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center">
         <Story />
       </div>
     ),

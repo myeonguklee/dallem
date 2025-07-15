@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { HTMLAttributes, PropsWithChildren } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 import { CheckBoxIcon } from '../icon/icons/CheckBoxIcon';
@@ -25,12 +25,12 @@ export interface StateChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof stateChipVariants> {}
 
-export const StateChip: FC<PropsWithChildren<StateChipProps>> = ({
+export const StateChip = ({
   className,
   variant,
   children,
   ...props
-}) => {
+}: PropsWithChildren<StateChipProps>) => {
   const renderIcon = () => {
     if (variant === 'confirmed') {
       return <CheckBoxIcon />;

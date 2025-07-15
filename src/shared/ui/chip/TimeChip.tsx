@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import type { HTMLAttributes, PropsWithChildren } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
 
@@ -22,12 +22,12 @@ export interface TimeChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timeChipVariants> {}
 
-export const TimeChip: FC<PropsWithChildren<TimeChipProps>> = ({
+export const TimeChip = ({
   className,
-  variant,
+  variant = 'available',
   children,
   ...props
-}) => {
+}: PropsWithChildren<TimeChipProps>) => {
   return (
     <div
       className={clsx(timeChipVariants({ variant, className }))}
