@@ -2,7 +2,7 @@ import React from 'react';
 import determineProgressStatus from '@/shared/lib/gathering/determineProgressStatus';
 import { PROGRESS_STATE } from '@/shared/types/progressStatus';
 import { render, screen } from '@testing-library/react';
-import ProgressBar from '../../shared/ui/progressbar/ProgressBar';
+import { ProgressBar } from './ProgressBar';
 
 jest.mock('@/shared/lib/gathering/determineProgressStatus');
 const mockDetermineProgressStatus = determineProgressStatus as jest.Mock;
