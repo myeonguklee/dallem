@@ -4,7 +4,7 @@ import { Modal } from './ModalLayout';
 interface BasicModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }
 

@@ -17,8 +17,6 @@ interface ModalFooterProps {
   secondaryButtonText?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
-  isPrimaryDisabled?: boolean;
-  isSecondaryDisabled?: boolean;
 }
 
 const Footer = ({
@@ -27,8 +25,6 @@ const Footer = ({
   secondaryButtonText,
   onPrimaryClick,
   onSecondaryClick,
-  isPrimaryDisabled,
-  isSecondaryDisabled,
 }: ModalFooterProps) => (
   <div className="mt-6 flex items-center justify-between gap-2">
     {children}
@@ -36,7 +32,6 @@ const Footer = ({
       <Button
         variant="outline"
         onClick={onSecondaryClick}
-        disabled={isSecondaryDisabled}
         className="w-full"
       >
         {secondaryButtonText}
@@ -46,7 +41,6 @@ const Footer = ({
       <Button
         variant="primary"
         onClick={onPrimaryClick}
-        disabled={isPrimaryDisabled}
         className="w-full"
       >
         {primaryButtonText}

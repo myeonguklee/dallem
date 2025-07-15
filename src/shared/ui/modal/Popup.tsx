@@ -7,11 +7,8 @@ interface PopupProps {
   onConfirm: () => void;
   title?: string;
   message?: string;
-  children?: React.ReactNode;
   secondaryButtonText?: string;
   primaryButtonText: string;
-  isPrimaryDisabled?: boolean;
-  isSecondaryDisabled?: boolean;
   showCloseButton?: boolean;
 }
 
@@ -21,11 +18,8 @@ export const Popup = ({
   onConfirm,
   title,
   message,
-  children,
   secondaryButtonText,
   primaryButtonText,
-  isPrimaryDisabled,
-  isSecondaryDisabled,
 }: PopupProps) => {
   return (
     <Modal.Root
@@ -33,12 +27,10 @@ export const Popup = ({
       onClose={onClose}
     >
       <Modal.Header>{title}</Modal.Header>
-      <Modal.Body>{message || children}</Modal.Body>
+      <Modal.Body>{message}</Modal.Body>
       <Modal.Footer
         secondaryButtonText={secondaryButtonText}
         primaryButtonText={primaryButtonText}
-        isPrimaryDisabled={isPrimaryDisabled}
-        isSecondaryDisabled={isSecondaryDisabled}
         onSecondaryClick={onClose}
         onPrimaryClick={onConfirm}
       ></Modal.Footer>
