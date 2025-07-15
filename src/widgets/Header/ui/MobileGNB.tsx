@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { XIcon } from '@/shared/ui/icon';
 import { Icon } from '@/shared/ui/icon/Icon';
 import clsx from 'clsx';
-import { X } from 'lucide-react';
 import HeaderLink from './HeaderLink';
+import { ROUTES } from './routeConstants';
 
 export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
@@ -53,18 +54,18 @@ export const MobileGNB = () => {
       >
         <div className="flex h-14 items-center justify-end p-4">
           <button onClick={() => setOpen(false)}>
-            <X className="h-6 w-6 cursor-pointer" />
+            <XIcon className="h-6 w-6 cursor-pointer" />
           </button>
         </div>
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
-            <HeaderLink href="/gatherings">모임 찾기</HeaderLink>
+            <HeaderLink href={ROUTES.GATHERINGS}>모임 찾기</HeaderLink>
           </li>
           <li>
-            <HeaderLink href="/heart">찜한 모임</HeaderLink>
+            <HeaderLink href={ROUTES.HEART}>찜한 모임</HeaderLink>
           </li>
           <li>
-            <HeaderLink href="/review">모든 리뷰</HeaderLink>
+            <HeaderLink href={ROUTES.REVIEW}>모든 리뷰</HeaderLink>
           </li>
         </ul>
       </nav>

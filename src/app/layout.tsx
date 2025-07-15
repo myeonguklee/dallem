@@ -27,7 +27,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Header />
 
-          <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 overflow-auto">
+          <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
             {children}
           </main>
           <ToastProvider />

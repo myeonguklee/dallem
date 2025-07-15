@@ -1,14 +1,15 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { cn } from '@/shared/lib/cn';
+import { ROUTES } from './routeConstants';
 
 type LogoProps = {
   className?: string;
 };
 
-const Logo: React.FunctionComponent<LogoProps> = ({ className }) => {
+const Logo = ({ className }: LogoProps) => {
   return (
-    <Link href="/">
+    <Link href={ROUTES.ROOT}>
       <span className={cn('text-primary text-2xl font-extrabold', className)}>같이달램</span>
     </Link>
   );
