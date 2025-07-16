@@ -120,7 +120,7 @@ export const Sort = ({
       >
         <BlackStateIcon />
         {/* md 이상에서만 label 노출 */}
-        <span className="hidden font-medium text-[var(--color-font-base)] md:inline">
+        <span className="tablet:inline hidden font-medium text-[var(--color-font-base)]">
           {options.find((o) => o.value === currentSelected)?.label}
         </span>
       </button>
