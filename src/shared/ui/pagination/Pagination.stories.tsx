@@ -39,11 +39,12 @@ export const BasicPagination: Story = {
   render: (args) => {
     // 진짜 리액트 컴포넌트를 만들어서 그 안에서 useState 사용
     const PaginationWithState = () => {
-      const [currentPage, setCurrentPage] = useState(args.currentPage ?? 1);
+      const { currentPage: currentPageProp = 1 } = args;
+      const [currentPage, setCurrentPage] = useState(currentPageProp);
 
       useEffect(() => {
-        setCurrentPage(args.currentPage ?? 1);
-      }, []);
+        setCurrentPage(currentPageProp);
+      }, [currentPageProp]);
 
       const handleChangePage = (page: number) => {
         setCurrentPage(page);

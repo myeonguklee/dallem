@@ -20,7 +20,7 @@ const ButtonVariants = cva(
         ghost: 'bg-transparent text-[var(--color-font-base)]',
       },
       isDisabled: {
-        true: ' opacity-50 pointer-events-none',
+        true: ' opacity-60 pointer-events-none',
         false: 'opacity-100 ',
       },
       isActive: {
@@ -28,6 +28,23 @@ const ButtonVariants = cva(
         false: '',
       },
     },
+    compoundVariants: [
+      {
+        variant: 'primary',
+        isDisabled: true,
+        class: 'bg-gray-500 text-white border border-gray-500',
+      },
+      {
+        variant: 'outline',
+        isDisabled: true,
+        class: 'bg-white text-gray-400 border border-gray-300',
+      },
+      {
+        variant: 'default',
+        isDisabled: true,
+        class: 'bg-gray-400 text-white border border-gray-400',
+      },
+    ],
     defaultVariants: {
       variant: 'primary',
     },
