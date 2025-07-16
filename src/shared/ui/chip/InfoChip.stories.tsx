@@ -9,9 +9,9 @@ const meta: Meta<typeof InfoChip> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'variant2'],
+      options: ['default', 'time'],
     },
-    date: {
+    info: {
       control: 'text',
     },
   },
@@ -24,7 +24,7 @@ const meta: Meta<typeof InfoChip> = {
   ],
 
   args: {
-    date: '1월 7일',
+    info: '1월 7일',
   },
 };
 
@@ -38,9 +38,9 @@ export const Default: Story = {
   },
 };
 
-export const Variant2: Story = {
+export const Time: Story = {
   args: {
-    variant: 'variant2',
+    variant: 'time',
   },
 };
 
@@ -49,11 +49,11 @@ export const AllStates: Story = {
     <div className="flex flex-col items-start gap-4">
       <InfoChip
         variant="default"
-        date="1월 7일"
+        info="1월 7일"
       />
       <InfoChip
-        variant="variant2"
-        date="1월 7일"
+        variant="time"
+        info="1월 7일"
       />
     </div>
   ),

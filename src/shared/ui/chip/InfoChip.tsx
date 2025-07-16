@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 export interface InfoChipProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof infoChipVariants> {
-  date: string;
+  info: string;
 }
 
 const infoChipVariants = cva(
@@ -14,7 +14,7 @@ const infoChipVariants = cva(
     variants: {
       variant: {
         default: 'bg-gray-900 text-white',
-        variant2: 'bg-gray-900 text-orange-600',
+        time: 'bg-gray-900 text-orange-600',
       },
     },
     defaultVariants: {
@@ -23,13 +23,13 @@ const infoChipVariants = cva(
   },
 );
 
-export const InfoChip = ({ className, variant = 'default', date, ...props }: InfoChipProps) => {
+export const InfoChip = ({ className, variant = 'default', info, ...props }: InfoChipProps) => {
   return (
     <div
       className={clsx(infoChipVariants({ variant, className }))}
       {...props}
     >
-      {date}
+      {info}
     </div>
   );
 };
