@@ -1,22 +1,26 @@
 import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 
 const nextConfig: NextConfig = {
+  // Turbopack 설정 (개발 환경)
   turbopack: {
     rules: {
       '*.svg': {
-        loaders: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              icon: true,
-            },
-          },
-        ],
+        loaders: ['@svgr/webpack'],
         as: '*.js',
       },
     },
   },
-  /* config options here */
+  // Webpack 설정 (빌드 환경)
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
