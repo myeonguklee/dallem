@@ -12,7 +12,10 @@ export const MobileGNB = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 744) {
+      if (
+        window.innerWidth >=
+        parseInt(getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-md')) //744
+      ) {
         setOpen(false);
       }
     };
