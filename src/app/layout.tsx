@@ -1,37 +1,23 @@
 import type { Metadata } from 'next';
-import { ReactQueryProvider } from '@/shared/api';
-import { ToastProvider } from '@/shared/ui/toast';
-import Header from '@/widgets/Header/ui/Header';
 import { Pretendard } from './fonts/pretendard';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '같이달램',
+  title: '달램',
   description: '함께하는 모임으로 건강하고 활기찬 직장생활을 만들어보세요',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="ko"
       suppressHydrationWarning
     >
       <body
-        className={`${Pretendard.className} flex min-h-screen flex-col antialiased`}
+        className={Pretendard.className}
         suppressHydrationWarning
       >
-        <ReactQueryProvider>
-          <Header />
-
-          <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
-            {children}
-          </main>
-          <ToastProvider />
-        </ReactQueryProvider>
+        {children}
       </body>
     </html>
   );
