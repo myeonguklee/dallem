@@ -1,8 +1,8 @@
 import Link from 'next/link';
+import { ROUTES } from '@/shared/config/routes';
 import HeaderLink from './HeaderLink';
 import Logo from './Logo';
 import { MobileGNB } from './MobileGNB';
-import { ROUTES } from './routeConstants';
 
 const Header = () => {
   return (

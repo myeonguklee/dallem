@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ROUTES } from '@/shared/config/routes';
 import { XIcon } from '@/shared/ui/icon';
 import { Icon } from '@/shared/ui/icon/Icon';
 import clsx from 'clsx';
 import HeaderLink from './HeaderLink';
-import { ROUTES } from './routeConstants';
 
 export const MobileGNB = () => {
   const [open, setOpen] = useState(false);

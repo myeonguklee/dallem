@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { ROUTES } from '@/shared/config/routes';
 import { cn } from '@/shared/lib/cn';
-import { ROUTES } from './routeConstants';
 
 type LogoProps = {
   className?: string;
