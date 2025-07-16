@@ -2,6 +2,9 @@
 export type { IconProps } from './IconType';
 export { calculateIconSizeByWidth, calculateIconSizeByHeight } from './iconUtils';
 
+// SVGR 아이콘 컴포넌트
+export { Icon } from './Icon';
+
 // 아이콘 컴포넌트들 export
 export { AlarmIcon } from './icons/AlarmIcon';
 export { ArrowDownIcon } from './icons/ArrowDownIcon';

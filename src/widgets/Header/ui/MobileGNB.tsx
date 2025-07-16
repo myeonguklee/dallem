@@ -1,13 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Locale } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
-import { XIcon } from '@/shared/ui/icon';
-import { Icon } from '@/shared/ui/icon/Icon';
+import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
 import HeaderLink from './HeaderLink';
 
-export const MobileGNB = () => {
+interface MobileGNBProps {
+  locale: Locale;
+}
+
+export const MobileGNB = ({ locale }: MobileGNBProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -62,13 +66,13 @@ export const MobileGNB = () => {
         </div>
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
-            <HeaderLink href={ROUTES.GATHERINGS}>모임 찾기</HeaderLink>
+            <HeaderLink href={ROUTES.GATHERINGS(locale)}>모임 찾기</HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.HEART}>찜한 모임</HeaderLink>
+            <HeaderLink href={ROUTES.HEART(locale)}>찜한 모임</HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.REVIEW}>모든 리뷰</HeaderLink>
+            <HeaderLink href={ROUTES.REVIEW(locale)}>모든 리뷰</HeaderLink>
           </li>
         </ul>
       </nav>
