@@ -57,6 +57,7 @@ export const ModalBase = ({
   }, [isOpen, isOverlay]);
 
   useEffect(() => {
+    if (!isOpen || !onClose) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && onClose) {
         onClose();
@@ -64,7 +65,7 @@ export const ModalBase = ({
     };
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   if (!mounted || !isVisible) return null;
 
@@ -85,7 +86,8 @@ export const ModalBase = ({
       <div
         className={cn(
           modalVariants({ variant }),
-          isOpen ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0',
+          'transition-all duration-300',
+          isVisible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0',
           className,
         )}
       >
@@ -94,7 +96,7 @@ export const ModalBase = ({
             variant="ghost"
             onClick={onClose}
             aria-label="close"
-            className="absolute top-4 right-4 text-2xl text-gray-400 transition-all duration-200 hover:rotate-90 hover:text-gray-600"
+            className="absolute top-4 right-4 text-2xl text-gray-400 transition-all duration-300 hover:rotate-90 hover:text-gray-600"
           >
             <XIcon />
           </Button>

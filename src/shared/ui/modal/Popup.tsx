@@ -7,9 +7,8 @@ interface PopupProps {
   onConfirm: () => void;
   title?: string;
   message?: string;
-  secondaryButtonText?: string;
   primaryButtonText: string;
-  showCloseButton?: boolean;
+  secondaryButtonText?: string;
 }
 
 export const Popup = ({

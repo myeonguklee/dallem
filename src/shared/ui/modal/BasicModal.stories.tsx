@@ -33,6 +33,14 @@ const ModalTemplet: Story['render'] = (args) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('제출됨:', { name, email });
+    setName('');
+    setEmail('');
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setName('');
+    setEmail('');
     setIsOpen(false);
   };
 
@@ -75,7 +83,7 @@ const ModalTemplet: Story['render'] = (args) => {
               type="button"
               variant={'outline'}
               className="w-full"
-              onClick={() => setIsOpen(false)}
+              onClick={handleCancel}
             >
               취소
             </Button>
