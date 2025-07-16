@@ -33,12 +33,6 @@ const tagVariants = cva('inline-flex justify-center items-center gap-1 font-medi
       rounded: 'rounded-bl-xl rounded-tr-lg',
       full: 'rounded-full',
     },
-    variant: {
-      // ✅ 추가
-      solid: '',
-      outline: 'border-2 bg-transparent',
-      ghost: 'bg-transparent',
-    },
   },
   defaultVariants: {
     tagColor: 'primary',
