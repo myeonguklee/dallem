@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { GlobalErrorFallback } from '@/shared/ui/fallback/globalErrorFallback';
+import { GlobalErrorFallback } from '@/shared/ui/fallback';
 
 export default function GlobalError({
   error,
