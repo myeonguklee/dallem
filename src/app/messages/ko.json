@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "cancel": "취소",
+    "confirm": "확인",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "수정",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전"
+  },
+  "navigation": {
+    "home": "홈",
+    "gatherings": "모임",
+    "profile": "프로필",
+    "signin": "로그인",
+    "signup": "회원가입",
+    "logout": "로그아웃"
+  },
+  "pages": {
+    "home": {
+      "title": "홈페이지",
+      "welcome": "같이달램에 오신 것을 환영합니다!"
+    },
+    "signin": {
+      "title": "로그인 페이지",
+      "email": "이메일",
+      "password": "비밀번호",
+      "loginButton": "로그인",
+      "noAccount": "계정이 없으신가요?",
+      "signupLink": "회원가입"
+    },
+    "signup": {
+      "title": "회원가입 페이지",
+      "email": "이메일",
+      "password": "비밀번호",
+      "confirmPassword": "비밀번호 확인",
+      "signupButton": "회원가입",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "signinLink": "로그인"
+    },
+    "gatherings": {
+      "title": "모임 목록 페이지",
+      "createButton": "모임 만들기",
+      "noGatherings": "모임이 없습니다"
+    },
+    "gathering": {
+      "create": {
+        "title": "모임 생성 페이지"
+      },
+      "detail": {
+        "title": "모임 상세 페이지",
+        "joinButton": "참여하기",
+        "leaveButton": "나가기",
+        "editButton": "수정하기",
+        "deleteButton": "삭제하기"
+      }
+    },
+    "profile": {
+      "title": "프로필 페이지",
+      "editProfile": "프로필 수정",
+      "settings": "설정"
+    }
+  },
+  "errors": {
+    "global": {
+      "title": "앗, 예상치 못한 오류가 발생했어요!",
+      "message": "페이지를 새로고침하거나 잠시 후 다시 시도해주세요.",
+      "retryButton": "다시 시도하기"
+    },
+    "validation": {
+      "required": "필수 입력 항목입니다",
+      "email": "올바른 이메일 형식이 아닙니다",
+      "password": "비밀번호는 8자 이상이어야 합니다",
+      "passwordConfirm": "비밀번호가 일치하지 않습니다"
+    }
+  },
+  "metadata": {
+    "title": "같이달램",
+    "description": "함께하는 모임으로 건강하고 활기찬 직장생활을 만들어보세요"
+  }
+}

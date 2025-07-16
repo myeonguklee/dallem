@@ -1,0 +1,86 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "navigation": {
+    "home": "Home",
+    "gatherings": "Gatherings",
+    "profile": "Profile",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "logout": "Logout"
+  },
+  "pages": {
+    "home": {
+      "title": "Homepage",
+      "welcome": "Welcome to Dallem!"
+    },
+    "signin": {
+      "title": "Sign In Page",
+      "email": "Email",
+      "password": "Password",
+      "loginButton": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign Up"
+    },
+    "signup": {
+      "title": "Sign Up Page",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "signupButton": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "signinLink": "Sign In"
+    },
+    "gatherings": {
+      "title": "Gatherings List Page",
+      "createButton": "Create Gathering",
+      "noGatherings": "No gatherings available"
+    },
+    "gathering": {
+      "create": {
+        "title": "Create Gathering Page"
+      },
+      "detail": {
+        "title": "Gathering Detail Page",
+        "joinButton": "Join",
+        "leaveButton": "Leave",
+        "editButton": "Edit",
+        "deleteButton": "Delete"
+      }
+    },
+    "profile": {
+      "title": "Profile Page",
+      "editProfile": "Edit Profile",
+      "settings": "Settings"
+    }
+  },
+  "errors": {
+    "global": {
+      "title": "Oops, an unexpected error occurred!",
+      "message": "Please refresh the page or try again later.",
+      "retryButton": "Try Again"
+    },
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 8 characters",
+      "passwordConfirm": "Passwords do not match"
+    }
+  },
+  "metadata": {
+    "title": "Dallem",
+    "description": "Create a healthy and vibrant work life through gatherings together"
+  }
+}
