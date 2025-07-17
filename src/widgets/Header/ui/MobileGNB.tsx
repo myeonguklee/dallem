@@ -6,7 +6,7 @@ import { usePathname } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
-import HeaderLink from './HeaderLink';
+import { HeaderLink } from './HeaderLink';
 
 export const MobileGNB = () => {
   const [open, setOpen] = useState(false);

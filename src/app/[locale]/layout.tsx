@@ -4,7 +4,7 @@ import { getMessages } from 'next-intl/server';
 import { Locale } from '@/i18n';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
-import Header from '@/widgets/Header/ui/Header';
+import { Header } from '@/widgets/Header/ui/Header';
 
 export async function generateMetadata({
   params,

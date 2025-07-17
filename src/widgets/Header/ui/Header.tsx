@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { LanguageSwitcher } from '@/shared/ui/language-switcher/LanguageSwitcher';
-import HeaderLink from './HeaderLink';
-import Logo from './Logo';
+import { HeaderLink } from './HeaderLink';
+import { Logo } from './Logo';
 import { MobileGNB } from './MobileGNB';
 
-const Header = () => {
+export const Header = () => {
   const t = useTranslations('navigation');
   const pathname = usePathname();
   const locale = pathname.startsWith('/en') ? 'en' : 'ko';
@@ -46,7 +46,7 @@ const Header = () => {
           <Link
             href={ROUTES.SIGNIN}
             locale={locale}
-            className="bg-primary w-[3.875rem] rounded-[5px] px-2.5 py-1 font-semibold text-white hover:bg-orange-600"
+            className="bg-primary w-18 rounded-[5px] px-2.5 py-1 text-center font-semibold whitespace-nowrap text-white hover:bg-orange-600"
           >
             {t('signin')}
           </Link>
@@ -55,5 +55,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

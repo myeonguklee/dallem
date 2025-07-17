@@ -7,7 +7,7 @@ interface HeaderLinkProps extends ComponentPropsWithoutRef<'a'> {
   locale?: Locale;
 }
 
-const HeaderLink: React.FunctionComponent<HeaderLinkProps> = ({
+export const HeaderLink: React.FunctionComponent<HeaderLinkProps> = ({
   href,
   locale,
   children,
@@ -24,5 +24,3 @@ const HeaderLink: React.FunctionComponent<HeaderLinkProps> = ({
     </Link>
   );
 };
-
-export default HeaderLink;

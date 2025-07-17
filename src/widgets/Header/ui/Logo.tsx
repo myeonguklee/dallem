@@ -10,7 +10,7 @@ type LogoProps = {
   className?: string;
 };
 
-const Logo = ({ className }: LogoProps) => {
+export const Logo = ({ className }: LogoProps) => {
   const t = useTranslations('navigation');
   const pathname = usePathname();
   const locale = pathname.startsWith('/en') ? 'en' : 'ko';
@@ -23,5 +23,3 @@ const Logo = ({ className }: LogoProps) => {
     </Link>
   );
 };
-
-export default Logo;
