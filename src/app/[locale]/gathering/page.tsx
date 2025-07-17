@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { Locale } from '@/i18n';
 
-interface GatheringsPageProps {
+interface GatheringPageProps {
   params: Promise<{ locale: Locale }>;
 }
 
-export default async function GatheringsPage({ params }: GatheringsPageProps) {
+export default async function GatheringPage({ params }: GatheringPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
 

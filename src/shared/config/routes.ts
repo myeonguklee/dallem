@@ -1,6 +1,6 @@
 export const ROUTES = {
   ROOT: '/',
-  GATHERING: '/gatherings',
+  GATHERING: '/gathering',
   FAVORITE: '/favorites',
   REVIEW: '/reviews',
   SIGNIN: '/signin',
