@@ -19,7 +19,11 @@
     "profile": "프로필",
     "signin": "로그인",
     "signup": "회원가입",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "findGatherings": "모임 찾기",
+    "favoriteGatherings": "찜한 모임",
+    "allReviews": "모든 리뷰",
+    "brand": "같이달램"
   },
   "pages": {
     "home": {
@@ -49,9 +53,6 @@
       "noGatherings": "모임이 없습니다"
     },
     "gathering": {
-      "create": {
-        "title": "모임 생성 페이지"
-      },
       "detail": {
         "title": "모임 상세 페이지",
         "joinButton": "참여하기",
@@ -60,10 +61,14 @@
         "deleteButton": "삭제하기"
       }
     },
-    "profile": {
-      "title": "프로필 페이지",
-      "editProfile": "프로필 수정",
-      "settings": "설정"
+    "myPage": {
+      "title": "마이페이지"
+    },
+    "reviews": {
+      "title": "리뷰 페이지"
+    },
+    "favorites": {
+      "title": "찜한 모임 페이지"
     }
   },
   "errors": {
@@ -71,6 +76,11 @@
       "title": "앗, 예상치 못한 오류가 발생했어요!",
       "message": "페이지를 새로고침하거나 잠시 후 다시 시도해주세요.",
       "retryButton": "다시 시도하기"
+    },
+    "notFound": {
+      "title": "페이지를 찾을 수 없습니다",
+      "message": "요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.",
+      "backToHome": "홈으로 돌아가기"
     },
     "validation": {
       "required": "필수 입력 항목입니다",

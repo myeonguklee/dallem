@@ -19,7 +19,11 @@
     "profile": "Profile",
     "signin": "Sign In",
     "signup": "Sign Up",
-    "logout": "Logout"
+    "logout": "Logout",
+    "findGatherings": "Find Gatherings",
+    "favoriteGatherings": "Favorite Gatherings",
+    "allReviews": "All Reviews",
+    "brand": "Dallem"
   },
   "pages": {
     "home": {
@@ -49,9 +53,6 @@
       "noGatherings": "No gatherings available"
     },
     "gathering": {
-      "create": {
-        "title": "Create Gathering Page"
-      },
       "detail": {
         "title": "Gathering Detail Page",
         "joinButton": "Join",
@@ -60,10 +61,14 @@
         "deleteButton": "Delete"
       }
     },
-    "profile": {
-      "title": "Profile Page",
-      "editProfile": "Edit Profile",
-      "settings": "Settings"
+    "myPage": {
+      "title": "My Page"
+    },
+    "reviews": {
+      "title": "Reviews Page"
+    },
+    "favorites": {
+      "title": "Favorites Page"
     }
   },
   "errors": {
@@ -71,6 +76,11 @@
       "title": "Oops, an unexpected error occurred!",
       "message": "Please refresh the page or try again later.",
       "retryButton": "Try Again"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "message": "The page you requested does not exist or has been moved.",
+      "backToHome": "Back to Home"
     },
     "validation": {
       "required": "This field is required",
