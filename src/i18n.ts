@@ -12,14 +12,20 @@ export default getRequestConfig(async ({ requestLocale }) => {
   // requestLocale 사용 (4.0 권장사항)
   const currentLocale = await requestLocale;
 
-  // 디버깅을 위한 로그
-  console.log('Request config called with locale:', currentLocale);
+  // 개발 환경에서만 디버깅 로그 출력
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Request config called with locale:', currentLocale);
+  }
 
   // 지원하지 않는 언어인 경우 기본 언어로 fallback
   if (!locales.includes(currentLocale as Locale)) {
-    console.log('Unsupported locale:', currentLocale, 'falling back to:', defaultLocale);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Unsupported locale:', currentLocale, 'falling back to:', defaultLocale);
+    }
     const messages = (await import(`./app/messages/${defaultLocale}.json`)).default;
-    console.log('Messages loaded for locale:', defaultLocale);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Messages loaded for locale:', defaultLocale);
+    }
     return {
       messages,
       locale: defaultLocale,
@@ -28,7 +34,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   try {
     const messages = (await import(`./app/messages/${currentLocale}.json`)).default;
-    console.log('Messages loaded for locale:', currentLocale);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Messages loaded for locale:', currentLocale);
+    }
     return {
       messages,
       locale: currentLocale as string,
@@ -38,7 +46,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
     // 에러 발생 시 기본 언어로 fallback
     try {
       const fallbackMessages = (await import(`./app/messages/${defaultLocale}.json`)).default;
-      console.log('Fallback messages loaded for locale:', defaultLocale);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Fallback messages loaded for locale:', defaultLocale);
+      }
       return {
         messages: fallbackMessages,
         locale: defaultLocale,
