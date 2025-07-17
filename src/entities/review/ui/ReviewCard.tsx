@@ -3,7 +3,7 @@ import type { StaticImageData } from 'next/image';
 import { cn } from '@/shared/lib';
 import { RatingStarDisplay } from '@/shared/ui/ratingStarDisplay/RatingStarDisplay';
 
-interface ReviewCardProps {
+export interface ReviewCardProps {
   score: number;
   comment: string;
   dateTime: string;
