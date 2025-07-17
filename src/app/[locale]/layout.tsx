@@ -26,12 +26,13 @@ export default async function LocaleLayout({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
+  const messages = await getMessages({ locale });
 
   return (
     <div className="flex min-h-screen flex-col antialiased">
-      <NextIntlClientProvider>
+      <NextIntlClientProvider messages={messages}>
         <ReactQueryProvider>
-          <Header locale={locale} />
+          <Header />
           <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
             {children}
           </main>

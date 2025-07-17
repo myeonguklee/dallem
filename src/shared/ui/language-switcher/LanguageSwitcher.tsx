@@ -1,39 +1,36 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useTransition } from 'react';
+import { createNavigation } from 'next-intl/navigation';
 import { type Locale, locales } from '@/i18n';
 
-interface LanguageSwitcherProps {
-  currentLocale: Locale;
-}
+const { useRouter, usePathname } = createNavigation({ locales });
 
-export function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
+  const router = useRouter();
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
 
-  const handleLanguageChange = async (newLocale: Locale) => {
-    console.log('Button clicked for language:', newLocale);
+  const handleLanguageChange = (newLocale: Locale) => {
+    startTransition(() => {
+      let pathnameWithoutLocale = pathname;
 
-    // 현재 경로에서 언어 코드를 제거
-    const pathSegments = pathname.split('/').filter(Boolean);
-    const isFirstSegmentLocale = locales.includes(pathSegments[0] as Locale);
+      // 현재 경로에서 언어 코드를 제거
+      for (const locale of locales) {
+        const localePrefix = `/${locale}`;
+        if (pathname.startsWith(localePrefix)) {
+          pathnameWithoutLocale = pathname.replace(localePrefix, '');
+          break;
+        }
+      }
 
-    // 언어 코드를 제거한 경로 구성
-    const pathWithoutLocale = isFirstSegmentLocale
-      ? pathSegments.slice(1).join('/')
-      : pathSegments.join('/');
+      // 언어 코드를 제거한 경로가 비어있거나 '/'인 경우, '/'로 설정
+      if (!pathnameWithoutLocale || pathnameWithoutLocale === '/') {
+        pathnameWithoutLocale = '/';
+      }
 
-    // 새로운 경로 구성
-    const newPath = pathWithoutLocale ? `/${newLocale}/${pathWithoutLocale}` : `/${newLocale}`;
-
-    console.log('Language change:', {
-      currentLocale,
-      newLocale,
-      pathname,
-      newPath,
+      router.replace(pathnameWithoutLocale, { locale: newLocale });
     });
-
-    // 강제로 페이지를 새로고침하여 서버 컴포넌트 재렌더링
-    window.location.replace(newPath);
   };
 
   return (
@@ -42,11 +39,12 @@ export function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
         <button
           key={lang}
           onClick={() => handleLanguageChange(lang)}
+          disabled={isPending}
           className={`rounded px-3 py-1 text-sm font-medium transition-colors ${
             currentLocale === lang
               ? 'bg-orange-500 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
+          } ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
         >
           {lang === 'ko' ? '🇰🇷 한국어' : '🇺🇸 English'}
         </button>

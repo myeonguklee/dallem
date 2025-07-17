@@ -1,20 +1,25 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
-import { Locale } from '@/i18n';
-import { ROUTES } from '@/shared/config/routes';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
+import { BASE_ROUTES } from '@/shared/config/routes';
 import { cn } from '@/shared/lib/cn';
 
 type LogoProps = {
   className?: string;
-  locale: Locale;
 };
 
-const Logo = ({ className, locale }: LogoProps) => {
+const Logo = ({ className }: LogoProps) => {
+  const t = useTranslations('navigation');
+  const pathname = usePathname();
+  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
   return (
-    <Link href={ROUTES.ROOT(locale)}>
-      <span className={cn('text-primary text-2xl font-extrabold', className)}>같이달램</span>
+    <Link
+      href={BASE_ROUTES.ROOT}
+      locale={locale}
+    >
+      <span className={cn('text-primary text-2xl font-extrabold', className)}>{t('brand')}</span>
     </Link>
   );
 };

@@ -1,18 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Locale } from '@/i18n';
-import { ROUTES } from '@/shared/config/routes';
+import { useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n/navigation';
+import { BASE_ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
 import HeaderLink from './HeaderLink';
 
-interface MobileGNBProps {
-  locale: Locale;
-}
-
-export const MobileGNB = ({ locale }: MobileGNBProps) => {
+export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
+  const t = useTranslations('navigation');
+  const pathname = usePathname();
+  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,13 +66,28 @@ export const MobileGNB = ({ locale }: MobileGNBProps) => {
         </div>
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
-            <HeaderLink href={ROUTES.GATHERINGS(locale)}>모임 찾기</HeaderLink>
+            <HeaderLink
+              href={BASE_ROUTES.GATHERINGS}
+              locale={locale}
+            >
+              {t('findGatherings')}
+            </HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.HEART(locale)}>찜한 모임</HeaderLink>
+            <HeaderLink
+              href={BASE_ROUTES.HEART}
+              locale={locale}
+            >
+              {t('favoriteGatherings')}
+            </HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.REVIEW(locale)}>모든 리뷰</HeaderLink>
+            <HeaderLink
+              href={BASE_ROUTES.REVIEW}
+              locale={locale}
+            >
+              {t('allReviews')}
+            </HeaderLink>
           </li>
         </ul>
       </nav>
