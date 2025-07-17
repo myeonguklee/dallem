@@ -42,7 +42,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
           disabled={isPending}
           className={`rounded px-3 py-1 text-sm font-medium transition-colors ${
             currentLocale === lang
-              ? 'bg-orange-500 text-white'
+              ? 'bg-amber-500 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           } ${isPending ? 'cursor-not-allowed opacity-70' : ''}`}
         >
