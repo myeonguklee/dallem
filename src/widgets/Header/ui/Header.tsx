@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
-import { BASE_ROUTES } from '@/shared/config/routes';
+import { ROUTES } from '@/shared/config/routes';
 import { LanguageSwitcher } from '@/shared/ui/language-switcher/LanguageSwitcher';
 import HeaderLink from './HeaderLink';
 import Logo from './Logo';
@@ -22,19 +22,19 @@ const Header = () => {
 
           <nav className="tablet:flex hidden gap-6">
             <HeaderLink
-              href={BASE_ROUTES.GATHERINGS}
+              href={ROUTES.GATHERING}
               locale={locale}
             >
               {t('findGatherings')}
             </HeaderLink>
             <HeaderLink
-              href={BASE_ROUTES.HEART}
+              href={ROUTES.FAVORITE}
               locale={locale}
             >
               {t('favoriteGatherings')}
             </HeaderLink>
             <HeaderLink
-              href={BASE_ROUTES.REVIEW}
+              href={ROUTES.REVIEW}
               locale={locale}
             >
               {t('allReviews')}
@@ -44,7 +44,7 @@ const Header = () => {
         <div className="flex items-center gap-2">
           <LanguageSwitcher currentLocale={locale} />
           <Link
-            href={BASE_ROUTES.SIGNIN}
+            href={ROUTES.SIGNIN}
             locale={locale}
             className="bg-primary w-[3.875rem] rounded-[5px] px-2.5 py-1 font-semibold text-white hover:bg-orange-600"
           >

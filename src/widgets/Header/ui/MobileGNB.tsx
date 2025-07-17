@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
-import { BASE_ROUTES } from '@/shared/config/routes';
+import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
 import HeaderLink from './HeaderLink';
@@ -67,7 +67,7 @@ export const MobileGNB = () => {
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
             <HeaderLink
-              href={BASE_ROUTES.GATHERINGS}
+              href={ROUTES.GATHERING}
               locale={locale}
             >
               {t('findGatherings')}
@@ -75,7 +75,7 @@ export const MobileGNB = () => {
           </li>
           <li>
             <HeaderLink
-              href={BASE_ROUTES.HEART}
+              href={ROUTES.FAVORITE}
               locale={locale}
             >
               {t('favoriteGatherings')}
@@ -83,7 +83,7 @@ export const MobileGNB = () => {
           </li>
           <li>
             <HeaderLink
-              href={BASE_ROUTES.REVIEW}
+              href={ROUTES.REVIEW}
               locale={locale}
             >
               {t('allReviews')}

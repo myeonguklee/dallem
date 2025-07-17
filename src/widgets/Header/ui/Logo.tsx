@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
-import { BASE_ROUTES } from '@/shared/config/routes';
+import { ROUTES } from '@/shared/config/routes';
 import { cn } from '@/shared/lib/cn';
 
 type LogoProps = {
@@ -16,7 +16,7 @@ const Logo = ({ className }: LogoProps) => {
   const locale = pathname.startsWith('/en') ? 'en' : 'ko';
   return (
     <Link
-      href={BASE_ROUTES.ROOT}
+      href={ROUTES.ROOT}
       locale={locale}
     >
       <span className={cn('text-primary text-2xl font-extrabold', className)}>{t('brand')}</span>
