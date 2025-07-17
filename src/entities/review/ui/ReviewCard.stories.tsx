@@ -7,7 +7,7 @@ const meta = {
   title: 'Entities/ReviewCard',
   component: ReviewCard,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   tags: ['autodocs'],
   argTypes: {

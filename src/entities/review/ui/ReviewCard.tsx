@@ -34,7 +34,7 @@ export const ReviewCard = ({
         'tablet:flex-row tablet:items-start tablet:gap-12',
       )}
     >
-      <header className="flex flex-col space-y-1">
+      <header className="flex flex-col">
         {/* 평점 */}
         <RatingStarDisplay score={score} />
         <div
@@ -55,7 +55,7 @@ export const ReviewCard = ({
                 />
               </div>
             )}
-            {userName && <span className="mr-4 text-sm font-medium">{userName}</span>}
+            {userName && <span className="mr-4 text-sm leading-6 font-medium">{userName}</span>}
           </div>
 
           {/* 날짜 */}
@@ -75,7 +75,7 @@ export const ReviewCard = ({
         )}
 
         {/* 코멘트 */}
-        <p className="text-var[(--color-font-secondary)] leading-6">{comment}</p>
+        <p className="text-var[(--color-font-secondary)] text-sm leading-6">{comment}</p>
 
         {/* 모임 이미지 */}
         {reviewImg && (
