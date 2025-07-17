@@ -30,14 +30,8 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html
-      lang={locale}
-      suppressHydrationWarning
-    >
-      <body
-        className={Pretendard.className}
-        suppressHydrationWarning
-      >
+    <html lang={locale}>
+      <body className={Pretendard.className}>
         <div className="flex min-h-screen flex-col antialiased">
           <NextIntlClientProvider messages={messages}>
             <ReactQueryProvider>
