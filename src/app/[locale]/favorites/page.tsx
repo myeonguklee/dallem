@@ -1,13 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 import { Locale } from '@/i18n';
 
-interface GatheringsPageProps {
+interface FavoritesPageProps {
   params: Promise<{ locale: Locale }>;
 }
 
-export default async function GatheringsPage({ params }: GatheringsPageProps) {
+export default async function FavoritesPage({ params }: FavoritesPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
+  const t = await getTranslations({ locale, namespace: 'pages.favorites' });
 
   return (
     <div className="flex flex-1 items-center justify-center">

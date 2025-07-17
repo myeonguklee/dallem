@@ -1,7 +1,13 @@
 import { getTranslations } from 'next-intl/server';
+import { Locale } from '@/i18n';
 
-export default async function SignInPage() {
-  const t = await getTranslations('pages.signin');
+interface SignInPageProps {
+  params: Promise<{ locale: Locale }>;
+}
+
+export default async function SignInPage({ params }: SignInPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pages.signin' });
 
   return (
     <div className="flex flex-1 items-center justify-center">
