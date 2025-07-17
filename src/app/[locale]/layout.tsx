@@ -5,6 +5,7 @@ import { Locale } from '@/i18n';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
 import { Header } from '@/widgets/Header/ui/Header';
+import { Pretendard } from '../fonts/pretendard';
 
 export async function generateMetadata({
   params,
@@ -29,16 +30,26 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <div className="flex min-h-screen flex-col antialiased">
-      <NextIntlClientProvider messages={messages}>
-        <ReactQueryProvider>
-          <Header />
-          <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
-            {children}
-          </main>
-          <ToastProvider />
-        </ReactQueryProvider>
-      </NextIntlClientProvider>
-    </div>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+    >
+      <body
+        className={Pretendard.className}
+        suppressHydrationWarning
+      >
+        <div className="flex min-h-screen flex-col antialiased">
+          <NextIntlClientProvider messages={messages}>
+            <ReactQueryProvider>
+              <Header />
+              <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
+                {children}
+              </main>
+              <ToastProvider />
+            </ReactQueryProvider>
+          </NextIntlClientProvider>
+        </div>
+      </body>
+    </html>
   );
 }
