@@ -1,5 +1,5 @@
 import { PROGRESS_STATE } from '@/shared/types/progressStatus';
-import determineProgressStatus from '../../shared/lib/gathering/determineProgressStatus';
+import determineProgressStatus from './determineProgressStatus';
 
 describe('진행 상태 판단 로직', () => {
   it('개설 확정 인원 미만일 때 OPEN 상태를 반환해야 한다', () => {
