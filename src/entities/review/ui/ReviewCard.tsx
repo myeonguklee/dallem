@@ -29,6 +29,7 @@ export const ReviewCard = ({
 
   return (
     <article
+      data-testid="review-card"
       aria-label={userName ? `${userName}` : '사용자 리뷰'}
       className={cn(
         'mb-6 flex flex-col justify-between gap-2 border-b border-gray-400 pb-6',

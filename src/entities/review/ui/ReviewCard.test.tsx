@@ -24,7 +24,7 @@ const baseProps = {
 describe('ReviewCard 테스트 ', () => {
   it('기본 필수 props 렌더링 테스트', () => {
     render(<ReviewCard {...baseProps} />);
-    const reviewCard = screen.getByRole('article', { name: '사용자 리뷰' });
+    const reviewCard = screen.getByTestId('review-card');
     expect(reviewCard).toHaveTextContent('기본 테스트용 리뷰 텍스트 입니다.');
     expect(reviewCard).toHaveTextContent('2025.05.05');
 
@@ -42,7 +42,7 @@ describe('ReviewCard 테스트 ', () => {
           location="신림"
         />,
       );
-      const reviewCard = screen.getByRole('article', { name: '사용자 리뷰' });
+      const reviewCard = screen.getByTestId('review-card');
       expect(reviewCard).toHaveTextContent('고구마');
       expect(reviewCard).toHaveTextContent('이번주 주말 달리기');
       expect(reviewCard).toHaveTextContent('신림');
@@ -56,7 +56,7 @@ describe('ReviewCard 테스트 ', () => {
           userName="고구마"
         />,
       );
-      const reviewCard = screen.getByRole('article', { name: '사용자 리뷰' });
+      const reviewCard = screen.getByTestId('review-card');
       expect(reviewCard).toHaveTextContent('고구마');
     });
   });
@@ -69,7 +69,7 @@ describe('ReviewCard 테스트 ', () => {
           location="신림"
         />,
       );
-      const reviewCard = screen.getByRole('article', { name: '사용자 리뷰' });
+      const reviewCard = screen.getByTestId('review-card');
       expect(reviewCard).toHaveTextContent('이번주 주말 달리기');
       expect(reviewCard).toHaveTextContent('신림');
     });
