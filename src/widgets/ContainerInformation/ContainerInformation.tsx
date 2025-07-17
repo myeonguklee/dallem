@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { InfoChip, StateChip } from '@/shared/ui/chip';
 import { LikeIcon, UnlikeIcon } from '@/shared/ui/icon';
