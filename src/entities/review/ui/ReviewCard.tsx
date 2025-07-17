@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
-import { cn } from '@/shared/lib';
+import { cn, formatDateToYYYYMMDD } from '@/shared/lib';
 import { RatingStarDisplay } from '@/shared/ui/ratingStarDisplay/RatingStarDisplay';
 
 export interface ReviewCardProps {
-  score: number;
+  score: number; // 숫자 범위 제한에 대한 zod / prop-types 에 대한 건의
   comment: string;
   dateTime: string;
   userName?: string;
@@ -25,10 +25,11 @@ export const ReviewCard = ({
   location,
 }: ReviewCardProps) => {
   const hasGatheringInfo = gatheringName || location;
+  const displayDate = formatDateToYYYYMMDD(dateTime);
 
   return (
     <article
-      aria-label="사용자 리뷰"
+      aria-label={userName ? `${userName}` : '사용자 리뷰'}
       className={cn(
         'mb-6 flex flex-col justify-between gap-2 border-b border-gray-400 pb-6',
         'tablet:flex-row tablet:items-start tablet:gap-12',
@@ -49,7 +50,7 @@ export const ReviewCard = ({
               <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-gray-300">
                 <Image
                   src={userImg}
-                  alt="유저이미지"
+                  alt={userImg ? `${userName}` : '유저이미지'}
                   fill
                   className="object-cover"
                 />
@@ -59,7 +60,7 @@ export const ReviewCard = ({
           </div>
 
           {/* 날짜 */}
-          <time className={cn('text-xs text-gray-600', 'tablet:mt-1')}>{dateTime}</time>
+          <time className={cn('text-xs text-gray-600', 'tablet:mt-1')}>{displayDate}</time>
         </div>
       </header>
 
@@ -82,7 +83,7 @@ export const ReviewCard = ({
           <div className="relative mt-2 h-32 w-32 overflow-hidden rounded-[var(--radius-common)] bg-gray-300">
             <Image
               src={reviewImg}
-              alt="모임 이미지"
+              alt={reviewImg ? `${gatheringName}` : '모임 이미지'}
               fill
               className="object-cover"
             />
