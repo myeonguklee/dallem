@@ -1,9 +1,9 @@
 export const ROUTES = {
   ROOT: '/',
-  GATHERINGS: '/gatherings',
-  HEART: '/heart',
+  GATHERING: '/gathering',
+  FAVORITE: '/favorites',
   REVIEW: '/reviews',
   SIGNIN: '/signin',
   SIGNUP: '/signup',
-  PROFILE: '/profile',
+  MY_PAGE: '/my-page',
 } as const;

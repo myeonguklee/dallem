@@ -1,14 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
-import { XIcon } from '@/shared/ui/icon';
-import { Icon } from '@/shared/ui/icon/Icon';
+import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
-import HeaderLink from './HeaderLink';
+import { HeaderLink } from './HeaderLink';
 
 export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
+  const t = useTranslations('navigation');
+  const pathname = usePathname();
+  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,13 +66,28 @@ export const MobileGNB = () => {
         </div>
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
-            <HeaderLink href={ROUTES.GATHERINGS}>모임 찾기</HeaderLink>
+            <HeaderLink
+              href={ROUTES.GATHERING}
+              locale={locale}
+            >
+              {t('findGatherings')}
+            </HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.HEART}>찜한 모임</HeaderLink>
+            <HeaderLink
+              href={ROUTES.FAVORITE}
+              locale={locale}
+            >
+              {t('favoriteGatherings')}
+            </HeaderLink>
           </li>
           <li>
-            <HeaderLink href={ROUTES.REVIEW}>모든 리뷰</HeaderLink>
+            <HeaderLink
+              href={ROUTES.REVIEW}
+              locale={locale}
+            >
+              {t('allReviews')}
+            </HeaderLink>
           </li>
         </ul>
       </nav>
