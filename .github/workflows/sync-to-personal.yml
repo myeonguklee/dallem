@@ -15,8 +15,8 @@ jobs:
       
     - name: Sync to personal repository
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "myeonguklee"
+        git config --global user.email "muk525@icloud.com"
         
         # 개인 레포로 force push (기존 히스토리 덮어쓰기)
         git push --force https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/${{ secrets.PERSONAL_REPO_OWNER }}/${{ secrets.PERSONAL_REPO_NAME }}.git main:main
