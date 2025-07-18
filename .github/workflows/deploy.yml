@@ -1,0 +1,85 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    if: github.repository == 'myeonguklee/dallem'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.16.0'
+        
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10.12.4
+        
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run tests
+      run: pnpm test
+      
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        
+    - name: Create issue on deployment failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: issue } = await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `🚨 배포 실패 - ${new Date().toLocaleString('ko-KR')}`,
+            body: `## 배포 실패 알림
+
+**실패 시간**: ${new Date().toLocaleString('ko-KR')}
+**실패한 커밋**: ${context.sha}
+**브랜치**: ${context.ref}
+
+### 실패한 단계
+${context.job}
+
+### 재시도 방법
+1. 로그를 확인하여 문제를 파악하세요
+2. 로컬에서 \`pnpm test\`를 실행하여 테스트를 통과하는지 확인하세요
+3. 문제를 수정한 후 다시 push하세요
+
+### 관련 커밋
+- 커밋 메시지: ${context.payload.head_commit?.message || 'N/A'}
+- 커밋 URL: https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}
+
+---
+*이 이슈는 자동으로 생성되었습니다.*`,
+            labels: ['deployment-failed', 'bug']
+          });
+          
+          console.log(`이슈가 생성되었습니다: ${issue.html_url}`);

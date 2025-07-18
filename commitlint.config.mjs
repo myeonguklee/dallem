@@ -21,7 +21,7 @@ const config = {
         'hotfix', // ✅ 급한 버그 수정
       ],
     ],
-    'subject-case': [2, 'never', ['pascal-case', 'upper-case']], // ✅ 소문자 시작
+    'subject-case': [0], // ✅ 소문자 시작
     'subject-full-stop': [2, 'never', '.'], // ✅ 마침표 금지
     'subject-max-length': [2, 'always', 72], // ✅ 최대 72자
     'subject-min-length': [2, 'always', 1], // ✅ 최소 1자
