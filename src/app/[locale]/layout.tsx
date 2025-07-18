@@ -36,7 +36,7 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             <ReactQueryProvider>
               <Header />
-              <main className="tablet:px-tablet-padding mobile:px-mobile-padding flex flex-1 justify-center overflow-auto">
+              <main className="web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding flex w-full flex-1 justify-center self-center overflow-auto">
                 {children}
               </main>
               <ToastProvider />
