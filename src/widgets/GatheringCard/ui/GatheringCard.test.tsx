@@ -164,7 +164,7 @@ describe('GatheringCard', () => {
       ...mockGatheringData,
       gatheringId: 123,
       gatheringDateTime: new Date('2024-01-15T17:30:00'),
-      gatheringRegistraionEnd: new Date('2024-01-20T21:00:00'),
+      gatheringRegistrationEnd: new Date('2024-01-20T21:00:00'),
     };
 
     render(<GatheringCard {...testData} />);
