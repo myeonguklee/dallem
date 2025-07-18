@@ -15,8 +15,46 @@ jobs:
       
     - name: Sync to personal repository
       run: |
-        git config --global user.name "myeonguklee"
-        git config --global user.email "muk525@icloud.com"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         
         # 개인 레포로 force push (기존 히스토리 덮어쓰기)
         git push --force https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/${{ secrets.PERSONAL_REPO_OWNER }}/${{ secrets.PERSONAL_REPO_NAME }}.git main:main
+
+
+name: Sync to Personal Repo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: github.repository == 'FESI-10th-team6/dallem'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Sync to personal repository
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # 개인 레포 클론
+        git clone https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/${{ secrets.PERSONAL_REPO_OWNER }}/${{ secrets.PERSONAL_REPO_NAME }}.git temp-repo
+        cd temp-repo
+        
+        # 모든 파일 복사 (숨김 파일 포함)
+        cp -r ../* .
+        cp -r ../.* . 2>/dev/null || true
+        
+        # 커밋 및 푸시
+        git add .
+        git commit -m "Sync from organization repo - $(date)"
+        git push origin main
+        
+        # 정리
+        cd ..
+        rm -rf temp-repo
