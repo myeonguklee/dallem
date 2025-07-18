@@ -6,12 +6,14 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* 다크모드 미지원으로 인한 주석처리 */
+/* 차후 다크모드 지원 시 주석 해제 */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 @theme inline {
   --font-family: var(--font-sans);
