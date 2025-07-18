@@ -23,8 +23,8 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
       // 현재 경로에서 언어 코드를 제거
       for (const locale of locales) {
         const localePrefix = `/${locale}`;
-        if (pathname.startsWith(localePrefix)) {
-          pathnameWithoutLocale = pathname.replace(localePrefix, '');
+        if (pathname === localePrefix || pathname.startsWith(localePrefix)) {
+          pathnameWithoutLocale = pathname.slice(localePrefix.length);
           break;
         }
       }
