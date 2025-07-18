@@ -87,7 +87,7 @@ export const MyPageGatheringCard = ({
       {isCanceled && (
         <div className="rounded-common absolute inset-0 flex items-center justify-center bg-black opacity-80">
           <div className="flex flex-col items-center gap-2 text-center text-white">
-            <div className="text-lg font-medium">모집 취소된 모임이에요, 다음 기회에 만나요 🙏</div>
+            <div className="text-lg font-medium">취소된 모임이에요!</div>
           </div>
         </div>
       )}
