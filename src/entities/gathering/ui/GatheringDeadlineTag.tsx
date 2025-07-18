@@ -17,29 +17,35 @@ export const GatheringDeadlineTag = ({ registrationEnd }: GatheringDeadlineTagPr
     // 텍스트 계산
     let text: string;
     switch (true) {
-      case diffInDays > 0:
+      case diffInDays > 0: {
         text = `${diffInDays}일 후 마감`;
         break;
-      case diffInHours >= 0:
+      }
+      case diffInHours >= 0: {
         // 오늘 마감이면 실제 마감 시간 표시
         const endHours = end.getHours().toString().padStart(2, '0');
         text = `오늘 ${endHours}시 마감`;
         break;
-      default:
+      }
+      default: {
         text = '마감';
+      }
     }
 
     // 색상 계산
     let color: 'primary' | 'secondary' | 'tertiary';
     switch (true) {
-      case diffInDays === 0:
+      case diffInDays === 0: {
         color = 'primary';
         break;
-      case diffInDays <= 7:
+      }
+      case diffInDays <= 7: {
         color = 'secondary';
         break;
-      default:
+      }
+      default: {
         color = 'tertiary';
+      }
     }
 
     return { text, color };
