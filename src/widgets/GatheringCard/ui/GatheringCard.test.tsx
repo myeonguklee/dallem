@@ -14,7 +14,7 @@ jest.mock('@/entities/gathering/ui/GatheringDeadlineTag', () => ({
   ),
 }));
 
-jest.mock('@/entities/gathering/ui/GatheringJoinButton', () => ({
+jest.mock('@/features/gathering/ui/GatheringJoinButton', () => ({
   GatheringJoinButton: ({
     gatheringId,
     participantCount,
@@ -36,7 +36,7 @@ jest.mock('@/entities/gathering/ui/GatheringJoinButton', () => ({
   },
 }));
 
-jest.mock('@/entities/gathering/ui/GatheringLikeButton', () => ({
+jest.mock('@/features/gathering/ui/GatheringLikeButton', () => ({
   GatheringLikeButton: ({ gatheringId }: { gatheringId: number }) => (
     <button data-testid="gathering-like-button">좋아요 ({gatheringId})</button>
   ),
@@ -52,6 +52,7 @@ const mockGatheringData = {
   gatheringParticipantCount: 8,
   gatheringCapacity: 20,
   gatheringImage: 'https://example.com/image.jpg',
+  isCanceled: false,
 };
 
 describe('GatheringCard', () => {
@@ -63,12 +64,11 @@ describe('GatheringCard', () => {
   it('모든 필수 정보와 함께 모임 카드를 렌더링한다', () => {
     render(<GatheringCard {...mockGatheringData} />);
 
-    // Check if main elements are rendered
-    expect(screen.getByText('워케이션 | 을지로 3가')).toBeInTheDocument();
+    expect(screen.getByText('워케이션')).toBeInTheDocument();
+    expect(screen.getByText('을지로 3가')).toBeInTheDocument();
     expect(screen.getByText('8/20')).toBeInTheDocument();
     expect(screen.getByAltText('워케이션 이미지')).toBeInTheDocument();
 
-    // Check if entity components are rendered
     expect(screen.getByTestId('gathering-date-time')).toBeInTheDocument();
     expect(screen.getByTestId('gathering-deadline-tag')).toBeInTheDocument();
     expect(screen.getByTestId('gathering-join-button')).toBeInTheDocument();
@@ -128,27 +128,35 @@ describe('GatheringCard', () => {
   it('모임 이름과 장소를 올바르게 표시한다', () => {
     const data = {
       ...mockGatheringData,
+      gatheringType: 'React 스터디',
       gatheringName: 'React 스터디',
       gatheringLocation: '강남역',
     };
 
     render(<GatheringCard {...data} />);
 
-    expect(screen.getByText('React 스터디 | 강남역')).toBeInTheDocument();
+    // 각각의 텍스트를 개별적으로 확인
+    expect(screen.getByText('React 스터디')).toBeInTheDocument();
+    expect(screen.getByText('강남역')).toBeInTheDocument();
     expect(screen.getByAltText('React 스터디 이미지')).toBeInTheDocument();
   });
 
   it('긴 텍스트로도 레이아웃이 깨지지 않고 렌더링된다', () => {
     const dataWithLongText = {
       ...mockGatheringData,
-      gatheringName: '매우 긴 모임 이름입니다 이것은 테스트를 위한 것입니다',
+      gatheringType: '매우 긴 모임 타입입니다 이것은 테스트를 위한 것입니다',
       gatheringLocation: '매우 긴 장소 이름입니다 이것도 테스트를 위한 것입니다',
     };
 
     render(<GatheringCard {...dataWithLongText} />);
 
-    expect(screen.getByText(/매우 긴 모임 이름입니다/)).toBeInTheDocument();
-    expect(screen.getByText(/매우 긴 장소 이름입니다/)).toBeInTheDocument();
+    // 각각의 긴 텍스트를 개별적으로 확인
+    expect(
+      screen.getByText('매우 긴 모임 타입입니다 이것은 테스트를 위한 것입니다'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('매우 긴 장소 이름입니다 이것도 테스트를 위한 것입니다'),
+    ).toBeInTheDocument();
   });
 
   it('entity 컴포넌트에 올바른 props를 전달한다', () => {
@@ -161,7 +169,6 @@ describe('GatheringCard', () => {
 
     render(<GatheringCard {...testData} />);
 
-    // Check if entity components receive correct props
     expect(screen.getByTestId('gathering-join-button')).toHaveTextContent('참여하기 (123)');
     expect(screen.getByTestId('gathering-like-button')).toHaveTextContent('좋아요 (123)');
   });
@@ -175,8 +182,6 @@ describe('GatheringCard', () => {
 
     render(<GatheringCard {...data} />);
 
-    // ProgressBar should be rendered (it's a shared component)
-    // The actual progress bar testing would be done in its own test file
     expect(screen.getByText('6/10')).toBeInTheDocument();
   });
 
@@ -232,5 +237,40 @@ describe('GatheringCard', () => {
     const joinButton = screen.getByTestId('gathering-join-button');
     expect(joinButton).toHaveTextContent('참여하기 (1)');
     expect(joinButton).not.toBeDisabled();
+  });
+
+  it('취소되지 않은 모임일 때 오버레이를 표시하지 않는다', () => {
+    render(<GatheringCard {...mockGatheringData} />);
+
+    expect(screen.queryByText('취소된 모임이에요!')).not.toBeInTheDocument();
+  });
+
+  it('취소된 모임일 때 오버레이를 표시한다', () => {
+    const canceledData = {
+      ...mockGatheringData,
+      isCanceled: true,
+    };
+
+    render(<GatheringCard {...canceledData} />);
+
+    expect(screen.getByText('취소된 모임이에요!')).toBeInTheDocument();
+  });
+
+  it('취소된 모임에서도 기본 정보가 렌더링된다', () => {
+    const canceledData = {
+      ...mockGatheringData,
+      isCanceled: true,
+    };
+
+    render(<GatheringCard {...canceledData} />);
+
+    // 기본 정보는 여전히 렌더링되어야 함
+    expect(screen.getByText('워케이션')).toBeInTheDocument();
+    expect(screen.getByText('을지로 3가')).toBeInTheDocument();
+    expect(screen.getByText('8/20')).toBeInTheDocument();
+    expect(screen.getByAltText('워케이션 이미지')).toBeInTheDocument();
+
+    // 오버레이도 표시되어야 함
+    expect(screen.getByText('취소된 모임이에요!')).toBeInTheDocument();
   });
 });
