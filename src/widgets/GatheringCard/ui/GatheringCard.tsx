@@ -13,7 +13,7 @@ interface GatheringCardProps {
   gatheringName: string;
   gatheringLocation: string;
   gatheringDateTime: Date;
-  gatheringRegistraionEnd: Date;
+  gatheringRegistrationEnd: Date;
   gatheringParticipantCount: number;
   gatheringCapacity: number;
   gatheringImage: string;
@@ -28,7 +28,7 @@ export const GatheringCard = ({
   gatheringName,
   gatheringLocation,
   gatheringDateTime,
-  gatheringRegistraionEnd,
+  gatheringRegistrationEnd,
   gatheringParticipantCount,
   gatheringCapacity,
   gatheringImage,
@@ -53,7 +53,7 @@ export const GatheringCard = ({
           priority
         />
         {/* 모집 마감 시간 */}
-        <GatheringDeadlineTag registrationEnd={gatheringRegistraionEnd} />
+        <GatheringDeadlineTag registrationEnd={gatheringRegistrationEnd} />
       </div>
 
       <div className="flex flex-1 flex-col justify-between gap-4 p-4">

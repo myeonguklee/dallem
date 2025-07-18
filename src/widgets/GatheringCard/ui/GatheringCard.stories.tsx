@@ -44,7 +44,7 @@ const meta: Meta<typeof GatheringCard> = {
       control: { type: 'date' },
       description: '모임 날짜/시간',
     },
-    gatheringRegistraionEnd: {
+    gatheringRegistrationEnd: {
       control: { type: 'date' },
       description: '모집 마감일',
     },
@@ -78,7 +78,7 @@ export const Default: Story = {
     gatheringName: '워케이션',
     gatheringLocation: '을지로 3가',
     gatheringDateTime: getFutureDate(1, 17, 30), // 내일 17:30
-    gatheringRegistraionEnd: getFutureDate(7, 21, 0), // 7일 후 21:00 마감
+    gatheringRegistrationEnd: getFutureDate(7, 21, 0), // 7일 후 21:00 마감
     gatheringParticipantCount: 8,
     gatheringCapacity: 20,
     gatheringImage:
@@ -93,7 +93,7 @@ export const Confirmed: Story = {
     ...Default.args,
     gatheringParticipantCount: 12,
     gatheringCapacity: 15,
-    gatheringRegistraionEnd: getFutureDate(14, 23, 59), // 14일 후 마감
+    gatheringRegistrationEnd: getFutureDate(14, 23, 59), // 14일 후 마감
   },
 };
 
@@ -101,7 +101,7 @@ export const Confirmed: Story = {
 export const DeadlineToday: Story = {
   args: {
     ...Default.args,
-    gatheringRegistraionEnd: getFutureDate(0, 21, 0), // 오늘 21:00 마감
+    gatheringRegistrationEnd: getFutureDate(0, 21, 0), // 오늘 21:00 마감
     gatheringParticipantCount: 3,
     gatheringCapacity: 10,
   },
@@ -111,7 +111,7 @@ export const DeadlineToday: Story = {
 export const DeadlineThisWeek: Story = {
   args: {
     ...Default.args,
-    gatheringRegistraionEnd: getFutureDate(4, 23, 59), // 4일 후 마감
+    gatheringRegistrationEnd: getFutureDate(4, 23, 59), // 4일 후 마감
     gatheringParticipantCount: 5,
     gatheringCapacity: 12,
   },
@@ -121,7 +121,7 @@ export const DeadlineThisWeek: Story = {
 export const DeadlineNextWeek: Story = {
   args: {
     ...Default.args,
-    gatheringRegistraionEnd: getFutureDate(11, 23, 59), // 11일 후 마감
+    gatheringRegistrationEnd: getFutureDate(11, 23, 59), // 11일 후 마감
     gatheringParticipantCount: 2,
     gatheringCapacity: 8,
   },
@@ -133,7 +133,7 @@ export const AlmostFull: Story = {
     ...Default.args,
     gatheringParticipantCount: 18,
     gatheringCapacity: 20,
-    gatheringRegistraionEnd: getFutureDate(2, 18, 0), // 2일 후 18:00 마감
+    gatheringRegistrationEnd: getFutureDate(2, 18, 0), // 2일 후 18:00 마감
   },
 };
 
@@ -143,7 +143,7 @@ export const FullCapacity: Story = {
     ...Default.args,
     gatheringParticipantCount: 20,
     gatheringCapacity: 20,
-    gatheringRegistraionEnd: getFutureDate(1, 15, 0), // 1일 후 15:00 마감
+    gatheringRegistrationEnd: getFutureDate(1, 15, 0), // 1일 후 15:00 마감
   },
 };
 
@@ -153,7 +153,7 @@ export const Empty: Story = {
     ...Default.args,
     gatheringParticipantCount: 0,
     gatheringCapacity: 10,
-    gatheringRegistraionEnd: getFutureDate(8, 20, 0), // 8일 후 20:00 마감
+    gatheringRegistrationEnd: getFutureDate(8, 20, 0), // 8일 후 20:00 마감
   },
 };
 
@@ -166,7 +166,7 @@ export const DifferentType: Story = {
     gatheringLocation: '강남역',
     gatheringImage:
       'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=224&fit=crop&crop=center&q=80',
-    gatheringRegistraionEnd: getFutureDate(5, 19, 30), // 5일 후 19:30 마감
+    gatheringRegistrationEnd: getFutureDate(5, 19, 30), // 5일 후 19:30 마감
   },
 };
 
@@ -175,7 +175,7 @@ export const NoImage: Story = {
   args: {
     ...Default.args,
     gatheringImage: '',
-    gatheringRegistraionEnd: getFutureDate(3, 22, 0), // 3일 후 22:00 마감
+    gatheringRegistrationEnd: getFutureDate(3, 22, 0), // 3일 후 22:00 마감
   },
 };
 

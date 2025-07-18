@@ -48,7 +48,7 @@ const mockGatheringData = {
   gatheringName: '워케이션',
   gatheringLocation: '을지로 3가',
   gatheringDateTime: new Date('2024-01-15T17:30:00'),
-  gatheringRegistraionEnd: new Date('2024-01-20T21:00:00'),
+  gatheringRegistrationEnd: new Date('2024-01-20T21:00:00'),
   gatheringParticipantCount: 8,
   gatheringCapacity: 20,
   gatheringImage: 'https://example.com/image.jpg',
