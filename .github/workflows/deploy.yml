@@ -58,7 +58,7 @@ jobs:
           const { data: issue } = await github.rest.issues.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: `🚨 배포 실패 - ${new Date().toLocaleString('ko-KR')}`,
+            title: `배포 실패 - ${new Date().toLocaleString('ko-KR')}`,
             body: `## 배포 실패 알림
 
 **실패 시간**: ${new Date().toLocaleString('ko-KR')}
