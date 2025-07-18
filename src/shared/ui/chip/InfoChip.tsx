@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export interface InfoChipProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -26,7 +27,7 @@ const infoChipVariants = cva(
 export const InfoChip = ({ className, variant = 'default', info, ...props }: InfoChipProps) => {
   return (
     <div
-      className={clsx(infoChipVariants({ variant, className }))}
+      className={twMerge(clsx(infoChipVariants({ variant }), className))}
       {...props}
     >
       {info}

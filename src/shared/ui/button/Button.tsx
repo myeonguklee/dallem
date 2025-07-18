@@ -12,9 +12,9 @@ const ButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-[var(--color-primary)] text-white rounded-[var(--radius-button)]  py-2 px-6 hover:bg-orange-600',
+          'bg-[var(--color-primary)] text-white rounded-[var(--radius-button)] py-2 px-6 hover:bg-orange-600',
         outline:
-          'border border-[var(--color-primary)] bg-white text-[var(--color-primary)] rounded-[var(--radius-button)] py-2 px-6  hover:bg-orange-600 hover:text-white',
+          'border border-[var(--color-primary)] bg-white text-[var(--color-primary)] rounded-[var(--radius-button)] py-2 px-6 hover:bg-orange-600 hover:text-white',
         default:
           'bg-gray-500 text-white rounded-[var(--radius-button)] py-2 px-6 hover:bg-gray-600',
         ghost: 'bg-transparent text-[var(--color-font-base)]',

@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
-import { LanguageSwitcher } from '@/shared/ui/language-switcher/LanguageSwitcher';
 import { HeaderLink } from './HeaderLink';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { Logo } from './Logo';
 import { MobileGNB } from './MobileGNB';
 
