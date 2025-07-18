@@ -173,13 +173,3 @@ export const NoImage: Story = {
     gatheringRegistraionEnd: getFutureDate(3, 22, 0), // 3일 후 22:00 마감
   },
 };
-
-// 긴 이름과 장소
-export const LongText: Story = {
-  args: {
-    ...Default.args,
-    gatheringName: '매우 긴 모임 이름입니다 이것은 테스트를 위한 것입니다',
-    gatheringLocation: '매우 긴 장소 이름입니다 이것도 테스트를 위한 것입니다',
-    gatheringRegistraionEnd: getFutureDate(7, 21, 0), // 7일 후 21:00 마감
-  },
-};

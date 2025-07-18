@@ -4,6 +4,7 @@ import { GatheringDeadlineTag } from '@/entities/gathering/ui/GatheringDeadlineT
 import { GatheringJoinButton } from '@/entities/gathering/ui/GatheringJoinButton';
 import { GatheringLikeButton } from '@/entities/gathering/ui/GatheringLikeButton';
 import { StateChip } from '@/shared/ui/chip';
+import { PersonIcon } from '@/shared/ui/icon';
 import { ProgressBar } from '@/shared/ui/progressbar';
 
 interface GatheringCardProps {
@@ -56,8 +57,9 @@ export const GatheringCard = ({
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-2">
             {/* 모임 이름, 장소 */}
-            <h3 className="font-semibold text-black">
-              {gatheringName} | {gatheringLocation}
+            <h3 className="text-base font-semibold text-black">
+              {gatheringName} |{' '}
+              <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
             </h3>
             {/* 모임 날짜 시간 정보 */}
             <GatheringDateTimeDisplay dateTime={gatheringDateTime} />
@@ -70,6 +72,7 @@ export const GatheringCard = ({
           <div className="flex w-full flex-col gap-2">
             {/* 프로그래스 바,  참여자 수 */}
             <div className="flex items-center gap-2">
+              <PersonIcon />
               <span className="text-sm text-black">
                 {gatheringParticipantCount}/{gatheringCapacity}
               </span>

@@ -22,10 +22,14 @@ export const GatheringDateTimeDisplay = ({ dateTime }: GatheringDateTimeDisplayP
 
   return (
     <div className="flex gap-2">
-      <InfoChip info={formattedDate} />
+      <InfoChip
+        info={formattedDate}
+        className="h-6 px-2 py-2"
+      />
       <InfoChip
         info={formattedTime}
         variant="time"
+        className="h-6 px-2 py-2"
       />
     </div>
   );
