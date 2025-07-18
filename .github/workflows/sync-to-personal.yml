@@ -22,7 +22,8 @@ jobs:
         git clone https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/${{ secrets.PERSONAL_REPO_OWNER }}/${{ secrets.PERSONAL_REPO_NAME }}.git temp-repo
         cd temp-repo
         
-        # 모든 파일 복사 (숨김 파일 포함)
+        # temp-repo 폴더 제거 후 파일 복사
+        rm -rf temp-repo
         cp -r ../* .
         cp -r ../.* . 2>/dev/null || true
         
