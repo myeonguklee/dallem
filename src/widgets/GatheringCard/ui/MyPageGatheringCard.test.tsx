@@ -105,7 +105,7 @@ describe('MyPageGatheringCard', () => {
 
     render(<MyPageGatheringCard {...canceledData} />);
 
-    expect(screen.getByText('모집 취소된 모임이에요, 다음 기회에 만나요 🙏')).toBeInTheDocument();
+    expect(screen.getByText('취소된 모임이에요!')).toBeInTheDocument();
   });
 
   it('참여자 수가 5명 이상일 때 개설확정 칩을 표시한다', () => {
@@ -172,7 +172,18 @@ describe('MyPageGatheringCard', () => {
     expect(screen.getByAltText('달램핏 오피스 스트레칭 이미지')).toBeInTheDocument();
 
     // 오버레이도 표시되어야 함
-    expect(screen.getByText('모집 취소된 모임이에요, 다음 기회에 만나요 🙏')).toBeInTheDocument();
+    expect(screen.getByText('취소된 모임이에요!')).toBeInTheDocument();
+  });
+
+  it('취소된 모임에서는 액션 버튼이 표시되지 않는다', () => {
+    const canceledData = {
+      ...mockGatheringData,
+      isCanceled: true,
+    };
+
+    render(<MyPageGatheringCard {...canceledData} />);
+
+    expect(screen.queryByTestId('my-page-action-button')).not.toBeInTheDocument();
   });
 
   it('긴 텍스트로도 레이아웃이 깨지지 않고 렌더링된다', () => {
