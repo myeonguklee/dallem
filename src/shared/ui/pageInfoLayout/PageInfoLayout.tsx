@@ -9,7 +9,7 @@ interface PageInfoLayout {
 export const PageInfoLayout = ({ infoImg, title, subtitle }: PageInfoLayout) => {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-gray-100">
+      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gray-100">
         {infoImg}
       </div>
       <div className="">

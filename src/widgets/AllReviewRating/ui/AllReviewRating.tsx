@@ -25,7 +25,7 @@ export const AllReviewRating = () => {
 
   return (
     <>
-      <div className="tablet:gap-8 web:gap-16 desktop:gap-24 mx-auto flex h-[116px] w-full max-w-[610px] min-w-[343px] items-center justify-between gap-0">
+      <div className="tablet:gap-8 web:gap-16 desktop:gap-24 mx-auto my-20 flex h-[116px] w-full max-w-[610px] min-w-[343px] items-center justify-center gap-0">
         <div className="flex-none">
           <RatingScore averageScore={averageScore} />
         </div>

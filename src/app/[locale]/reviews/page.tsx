@@ -1,9 +1,10 @@
 import { getTranslations } from 'next-intl/server';
-import { ReviewCard } from '@/entities/review/ui/ReviewCard';
+import { ReviewTypeFilter } from '@/features/review/ReveiwTypeFilter/ui/ReviewTypeFilter';
 import { Locale } from '@/i18n';
+import { PencilIcon } from '@/shared/ui/icon';
+import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
-import reviewImg from '../../../entities/review/ui/reviewImg.jpg';
-import userCat from '../../../entities/review/ui/userCat.jpg';
+import { ReviewList } from '@/widgets/ReviewList/ui/ReviewList';
 
 interface ReviewsPageProps {
   params: Promise<{ locale: Locale }>;
@@ -14,20 +15,17 @@ export default async function ReviewsPage({ params }: ReviewsPageProps) {
   const t = await getTranslations({ locale, namespace: 'pages.reviews' });
 
   return (
-    <div className="mt-20">
-      <div className="text-2xl font-bold">{t('title')}</div>
+    <div className="mt-10">
+      <div className="hidden text-2xl font-bold">{t('title')}</div>
+      <PageInfoLayout
+        infoImg={<PencilIcon size={60} />}
+        title="모든 리뷰"
+        subtitle="같이 달램을 이용한 분들은 이렇게 느꼈어요 🥰"
+      />
+      <ReviewTypeFilter />
       <AllReviewRating />
       <div className="mt-12">
-        <ReviewCard
-          score={3}
-          comment="우르라라라라라라 깡깡 우르라라라라라라 깡깡 우르라라라라라라 깡깡 우르라라라라라라 깡깡 우르라라라라라라 깡깡 우르라라라라라라 깡깡우르라라라라라라 깡깡우르라라라라라라 깡깡우르라라라라라라 깡깡"
-          dateTime="2024-10-19T01:21:47.762Z"
-          userName="이링"
-          userImg={userCat}
-          reviewImg={reviewImg}
-          gatheringName="오늘도 힘차게 화이팅"
-          location="신림"
-        />
+        <ReviewList />
       </div>
     </div>
   );
