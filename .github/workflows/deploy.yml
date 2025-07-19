@@ -27,6 +27,15 @@ jobs:
       - name: Enable Corepack to use pnpm
         run: corepack enable
 
+      - name: Verify pnpm installation
+        run: |
+          echo "--- Verifying pnpm location ---"
+          which pnpm
+          echo "--- Checking PATH variable ---"
+          echo $PATH
+          echo "--- Verifying corepack shims ---"
+          ls -la ~/.node/corepack/shims
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
