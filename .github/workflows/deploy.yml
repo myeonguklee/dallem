@@ -4,82 +4,71 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test-and-deploy:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     if: github.repository == 'myeonguklee/dallem'
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22.16.0'
-        
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: 10.12.4
-        
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-        
-    - name: Setup pnpm cache
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
-          
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile
-      
-    - name: Run tests
-      run: pnpm test
-      
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod'
-        
-    - name: Create issue on deployment failure
-      if: failure()
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const { data: issue } = await github.rest.issues.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            title: `배포 실패 - ${new Date().toLocaleString('ko-KR')}`,
-            body: `## 배포 실패 알림
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-**실패 시간**: ${new Date().toLocaleString('ko-KR')}
-**실패한 커밋**: ${context.sha}
-**브랜치**: ${context.ref}
+      - name: Setup Node.js with pnpm and cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc' # .nvmrc 파일 사용
+          cache: 'pnpm'
 
-### 실패한 단계
-${context.job}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-### 재시도 방법
-1. 로그를 확인하여 문제를 파악하세요
-2. 로컬에서 \`pnpm test\`를 실행하여 테스트를 통과하는지 확인하세요
-3. 문제를 수정한 후 다시 push하세요
+      - name: Run tests
+        run: pnpm test
 
-### 관련 커밋
-- 커밋 메시지: ${context.payload.head_commit?.message || 'N/A'}
-- 커밋 URL: https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${context.sha}
+  deploy:
+    name: Deploy to Vercel
+    needs: test # 'test' 작업이 성공해야만 실행
+    runs-on: ubuntu-latest
+    if: github.repository == 'myeonguklee/dallem'
 
----
-*이 이슈는 자동으로 생성되었습니다.*`,
-            labels: ['deployment-failed', 'bug']
-          });
-          
-          console.log(`이슈가 생성되었습니다: ${issue.html_url}`);
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js with pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+
+      - name: Create issue on deployment failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `배포 실패 - ${date}`,
+              body: `## 배포 실패 알림\n\n**실패 시간**: ${date}\n**실패한 커밋**: \`${context.sha.substring(0, 7)}\`\n**브랜치**: \`${context.ref}\`\n\n### 실패한 워크플로우\n[여기서 로그 확인하기](${runUrl})\n\n### 재시도 방법\n1. 위의 링크에서 로그를 확인하여 문제를 파악하세요.\n2. 로컬에서 \`pnpm test\`를 실행하여 테스트를 통과하는지 확인하세요.\n3. 문제를 수정한 후 다시 push하세요.\n\n---\n*이 이슈는 자동으로 생성되었습니다.*`,
+              labels: ['deployment-failed', 'bug']
+            });
