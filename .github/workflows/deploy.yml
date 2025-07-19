@@ -18,23 +18,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js with pnpm and cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc' # .nvmrc 파일 사용
-          cache: 'pnpm'
 
       - name: Enable Corepack to use pnpm
         run: corepack enable
 
-      - name: Verify pnpm installation
-        run: |
-          echo "--- Verifying pnpm location ---"
-          which pnpm
-          echo "--- Checking PATH variable ---"
-          echo $PATH
-          echo "--- Verifying corepack shims ---"
-          ls -la ~/.node/corepack/shims
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -52,14 +53,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js with pnpm
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
-      
+
       - name: Enable Corepack to use pnpm
         run: corepack enable
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -79,7 +90,7 @@ jobs:
           script: |
             const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
             const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            
+
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
