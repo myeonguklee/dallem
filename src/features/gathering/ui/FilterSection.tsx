@@ -20,6 +20,9 @@ const activityItems = [
   { value: 'MINDFULNESS', label: '마인드풀니스' },
 ];
 
+// 워케이션 활동 칩 옵션
+const workationActivityItems = [{ value: 'WORKATION', label: '전체' }];
+
 // 지역 필터 옵션
 const regionOptions = [
   { label: '지역 전체', value: '전체보기' },
@@ -89,6 +92,22 @@ export const FilterSection = () => {
       {isDallampitCategory && (
         <div className="flex gap-2">
           {activityItems.map((item) => (
+            <Chip
+              key={item.value}
+              active={selectedType === item.value}
+              onClick={() => updateFilter('type', item.value)}
+              className="cursor-pointer"
+            >
+              {item.label}
+            </Chip>
+          ))}
+        </div>
+      )}
+
+      {/* 워케이션 활동 칩 */}
+      {!isDallampitCategory && (
+        <div className="flex gap-2">
+          {workationActivityItems.map((item) => (
             <Chip
               key={item.value}
               active={selectedType === item.value}
