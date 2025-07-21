@@ -32,3 +32,15 @@ export interface CreateGatheringRequest {
   image: File; // 'binary' 타입이므로 File 객체로 처리
   registrationEnd?: string; // 선택적 프로퍼티
 }
+
+export interface GatheringFilters {
+  id?: string; // "1,2,3" 형태의 쉼표 구분 문자열
+  type?: GatheringType;
+  location?: GatheringLocation;
+  date?: string; // YYYY-MM-DD
+  createdBy?: number;
+  sortBy?: 'dateTime' | 'registrationEnd' | 'participantCount';
+  sortOrder?: 'asc' | 'desc';
+  limit?: number;
+  offset?: number;
+}
