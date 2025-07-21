@@ -1,7 +1,9 @@
 import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
-import { ReviewTypeFilter } from '@/features/review/ReveiwTypeFilter/ui/ReviewTypeFilter';
+import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
+import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
+import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
 import { Locale } from '@/i18n';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
@@ -50,8 +52,6 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
     queryFn: () => getReviewScore({ type: type }),
   });
 
-  console.log('🧪 reviewParams:', reviewParams);
-
   return (
     <div className="mx-auto mt-10 w-full max-w-[1200px] px-4">
       <div className="hidden text-2xl font-bold">{t('title')}</div>
@@ -65,17 +65,23 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         <Suspense fallback={t('loading')}>
           <AllReviewRating type={type} />
         </Suspense>
-        <div className="mt-12">
-          <ReviewList
-            type={type}
-            location={location}
-            date={date}
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            limit={limit}
-            offset={offset}
-          />
+        <div className="mb-4 flex items-center justify-between">
+          <ReviewListFilter />
+          <ReviewSort />
         </div>
+        <Suspense fallback={t('loading')}>
+          <div className="mt-12">
+            <ReviewList
+              type={type}
+              location={location}
+              date={date}
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              limit={limit}
+              offset={offset}
+            />
+          </div>
+        </Suspense>
       </HydrationBoundary>
     </div>
   );

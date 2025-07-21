@@ -1,27 +1,23 @@
 //리뷰 리스트 요청 props
 export interface ReviewFilterProps {
-  //   type?: 'DALLAEMFIT' | 'OFFICE_STRETCHING' | 'MINDFULNESS' | 'WORKATION';
   type?: string;
   location?: string;
   date?: string;
   sortBy?: string;
   sortOrder?: string;
-  //   sortBy?: 'createdAt' | 'score' | 'participantCount';
-  //   sortOrder: 'asc' | 'desc';
   limit?: number | string;
   offset?: number | string;
 }
 
 // 리뷰 평점 요청 props
 export interface ReviewScoreProps {
-  //   type?: 'DALLAEMFIT' | 'OFFICE_STRETCHING' | 'MINDFULNESS' | 'WORKATION';
   type?: string;
 }
 
 //응답 props
 
 export interface ReviewListItem {
-  teamId: number;
+  teamId: string;
   id: number;
   score: number;
   comment: string;

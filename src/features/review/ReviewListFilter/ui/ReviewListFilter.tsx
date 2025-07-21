@@ -29,6 +29,7 @@ export const ReviewListFilter = () => {
   const [value, setValue] = useState<Date | undefined>();
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   // URL의 date를 초기값으로 설정
   useEffect(() => {
@@ -36,6 +37,30 @@ export const ReviewListFilter = () => {
       setValue(new Date(activeDate));
     }
   }, [activeDate]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // 클릭된 지점이 버튼과 팝업 모두의 바깥일 때만 닫히도록 함
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node) &&
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    // 팝업이 열려 있을 때만 이벤트 리스너를 등록
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // 클린업 함수: 컴포넌트가 언마운트되거나 isOpen이 변경될 때 리스너 제거
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleOpenChange = () => {
     setIsOpen((prev) => !prev);
@@ -80,7 +105,7 @@ export const ReviewListFilter = () => {
         <Filter
           options={locationFilter}
           selected={activeLocation}
-          onChange={handleLocationChange} // 지역 전용 핸들러
+          onChange={handleLocationChange}
           allValue="all"
         />
 
@@ -97,7 +122,7 @@ export const ReviewListFilter = () => {
           {isOpen && (
             <div
               className={cn(
-                'absolute z-50 mt-2 shadow-lg', // 기본 스타일
+                'absolute z-50 mt-2 shadow-lg',
 
                 // 모바일: 버튼 아래 중앙
                 'left-1/2 -translate-x-1/2',
@@ -105,6 +130,7 @@ export const ReviewListFilter = () => {
                 // 태블릿: 버튼 아래 왼쪽 정렬
                 'tablet:left-0 tablet:translate-x-0',
               )}
+              ref={popupRef}
             >
               <Calendar
                 value={value}

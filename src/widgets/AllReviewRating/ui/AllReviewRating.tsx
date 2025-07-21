@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { getReviewScore } from '@/entities/review/api/reviewApi';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { RatingScore } from './RatingScore';
 import { RatingScoreProgressBar } from './RatingScoreProgressBar';
 
@@ -13,7 +13,7 @@ interface Props {
 export const AllReviewRating = ({ type }: Props) => {
   // i18n 문자 변환
   const t = useTranslations('pages.reviews');
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useSuspenseQuery({
     queryKey: ['reviewScore', type],
     queryFn: () => getReviewScore({ type }),
   });

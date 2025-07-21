@@ -4,8 +4,6 @@ import { useTranslations } from 'next-intl';
 import { getReviewList } from '@/entities/review/api/reviewApi';
 import { ReviewListResponse } from '@/entities/review/model/type';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
-import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
-import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {
@@ -30,10 +28,6 @@ export const ReviewList = (props: Props) => {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
-        <ReviewListFilter />
-        <ReviewSort />
-      </div>
       <div className="mt-8 min-h-[40rem]">
         {isLoading ? (
           <div>{t('loading')}</div>
