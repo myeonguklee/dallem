@@ -25,6 +25,34 @@
     "allReviews": "모든 리뷰",
     "brand": "같이달램"
   },
+  "filters": {
+    "categories": {
+      "dallaemfit": "달램핏",
+      "workation": "워케이션"
+    },
+    "activities": {
+      "all": "전체",
+      "officeStretching": "오피스 스트레칭",
+      "mindfulness": "마인드풀니스"
+    },
+    "regions": {
+      "all": "지역 전체",
+      "konkuk": "건대입구",
+      "euljiro": "을지로3가",
+      "sinrim": "신림",
+      "hongdae": "홍대입구"
+    },
+    "sort": {
+      "deadline": "마감 임박",
+      "participants": "참여 인원 순",
+      "date": "모임 날짜 순"
+    },
+    "date": {
+      "all": "전체 날짜"
+    },
+    "reset": "초기화",
+    "apply": "적용"
+  },
   "pages": {
     "home": {
       "title": "홈페이지",
@@ -50,7 +78,11 @@
     "gatherings": {
       "title": "모임 목록 페이지",
       "createButton": "모임 만들기",
-      "noGatherings": "모임이 없습니다"
+      "noGatherings": "모임이 없습니다",
+      "header": {
+        "subtitle": "함께 할 사람이 없나요?",
+        "title": "지금 모임에 참여해보세요"
+      }
     },
     "gathering": {
       "detail": {

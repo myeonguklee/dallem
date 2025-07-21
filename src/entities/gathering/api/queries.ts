@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Gathering } from '../model/types';
+import { GatheringFilters } from '../model/types';
 import { QUERY_KEYS } from './queryKeys';
 import { createGathering, getGatheringById, getGatherings } from './services';
 
 // 모임 조회
-export const useGetGatherings = (filters?: object) => {
+export const useGetGatherings = (filters?: GatheringFilters) => {
   return useQuery<Gathering[]>({
     queryKey: QUERY_KEYS.gathering.list(filters),
     queryFn: () => getGatherings(filters),

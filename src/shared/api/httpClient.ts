@@ -4,7 +4,7 @@ import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
 
 // 팀 아이디 : 실제 배포시에는 환경변수로 관리
-const TEST_TEAM_ID = '10-666';
+const TEST_TEAM_ID = '1';
 const IS_CLIENT = typeof window !== 'undefined';
 
 const axiosInstance = axios.create({

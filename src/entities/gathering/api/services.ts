@@ -1,26 +1,25 @@
-import { CreateGatheringRequest, Gathering } from '@/entities/gathering/model/types';
+import {
+  CreateGatheringRequest,
+  Gathering,
+  GatheringFilters,
+} from '@/entities/gathering/model/types';
 import { httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config/api';
 
 // 모임 목록 조회
-export const getGatherings = async (filters?: object): Promise<Gathering[]> => {
+export const getGatherings = async (filters?: GatheringFilters): Promise<Gathering[]> => {
   const params = new URLSearchParams();
 
-  if (filters && typeof filters === 'object') {
-    if ('type' in filters && filters.type) {
-      params.append('type', String(filters.type));
-    }
-    if ('location' in filters && filters.location) {
-      params.append('location', String(filters.location));
-    }
-    if ('dateRange' in filters && filters.dateRange && typeof filters.dateRange === 'object') {
-      const dateRange = filters.dateRange as Record<string, unknown>;
-      if (dateRange.start) params.append('startDate', String(dateRange.start));
-      if (dateRange.end) params.append('endDate', String(dateRange.end));
-    }
-    if ('searchQuery' in filters && filters.searchQuery) {
-      params.append('search', String(filters.searchQuery));
-    }
+  if (filters) {
+    if (filters.id) params.append('id', filters.id);
+    if (filters.type) params.append('type', filters.type);
+    if (filters.location) params.append('location', filters.location);
+    if (filters.date) params.append('date', filters.date);
+    if (filters.createdBy !== undefined) params.append('createdBy', String(filters.createdBy));
+    if (filters.sortBy) params.append('sortBy', filters.sortBy);
+    if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
+    if (filters.limit !== undefined) params.append('limit', String(filters.limit));
+    if (filters.offset !== undefined) params.append('offset', String(filters.offset));
   }
 
   const queryString = params.toString();

@@ -26,7 +26,7 @@ export const Calendar = ({
       startMonth={startMonth} // 시작 월
       classNames={{
         // 전체 컨테이너 스타일
-        root: `shadow-lg p-4 rounded-xl bg-white border relative ${className}`,
+        root: `shadow-lg p-4 rounded-xl bg-white ${className}`,
         // 월/년도 캡션 스타일 (상단 중앙)
         month_caption:
           'text-xl font-bold text-gray-900 mb-4 text-center absolute top-4 left-1/2 -translate-x-1/2',
