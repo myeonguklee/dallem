@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { FilterSection } from '@/features/gathering/ui';
 import { Locale } from '@/i18n';
 import { Button } from '@/shared/ui/button';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
@@ -24,7 +25,8 @@ export default async function GatheringPage({ params }: GatheringPageProps) {
         <Button className="">모임 만들기</Button>
       </div>
 
-      <div></div>
+      <FilterSection />
+
       <div className="text-2xl font-bold">{t('title')}</div>
     </div>
   );
