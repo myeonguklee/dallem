@@ -1,0 +1,1 @@
+export { GatheringDetailLayout } from './GatheringDetailLayout';
