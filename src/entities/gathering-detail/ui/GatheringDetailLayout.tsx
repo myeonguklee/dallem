@@ -10,7 +10,9 @@ import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id }: { id: string }) => {
   // const { data: gathering, isLoading, error } = useGetGatheringDetail(Number(id));
-
+  // if (isLoading) return <p>로딩 중...</p>;
+  // if (error) return <p>에러 발생</p>;
+  // if (!gathering) return null;
   // const { data: participantsData } = useGetParticipants(Number(id));
 
   const gathering = {
