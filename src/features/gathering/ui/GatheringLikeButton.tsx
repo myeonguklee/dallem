@@ -21,5 +21,12 @@ export const GatheringLikeButton = ({ gatheringId }: GatheringLikeButtonProps) =
     // localstorage 찜 혹은 찜 해제
   };
 
-  return <button onClick={handleLike}>{isLiked ? <LikeIcon /> : <UnlikeIcon />}</button>;
+  return (
+    <button
+      onClick={handleLike}
+      className="cursor-pointer"
+    >
+      {isLiked ? <LikeIcon /> : <UnlikeIcon />}
+    </button>
+  );
 };

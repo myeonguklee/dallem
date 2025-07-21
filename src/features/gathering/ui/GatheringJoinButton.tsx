@@ -1,6 +1,5 @@
-'use client';
-
-import { useState } from 'react';
+// 'use client';
+// import { useState } from 'react';
 import { Button } from '@/shared/ui/button/Button';
 
 interface GatheringJoinButtonProps {
@@ -14,7 +13,7 @@ export const GatheringJoinButton = ({
   participantCount,
   capacity,
 }: GatheringJoinButtonProps) => {
-  const [isJoining, setIsJoining] = useState(false);
+  // const [isJoining, setIsJoining] = useState(false);
 
   // userId 가져오기
 
@@ -25,9 +24,9 @@ export const GatheringJoinButton = ({
   // 낙관적 업데이트 활용
   // 참석, 취소 확인 모달 ?
 
-  const handleJoin = () => {
-    setIsJoining(!isJoining);
-  };
+  // const handleJoin = () => {
+  //   setIsJoining(!isJoining);
+  // };
 
   // 모집이 마감되었는지 확인
   const isFull = participantCount >= capacity;
@@ -35,14 +34,14 @@ export const GatheringJoinButton = ({
   // 버튼 텍스트 결정
   const getButtonText = () => {
     if (isFull) return '모집 마감';
-    if (isJoining) return '취소하기';
+    // if (isJoining) return '취소하기';
     return '참여하기';
   };
 
   // 버튼 variant 결정
   const getButtonVariant = () => {
     if (isFull) return 'default';
-    if (isJoining) return 'outline';
+    // if (isJoining) return 'outline';
     return 'primary';
   };
 
@@ -51,7 +50,7 @@ export const GatheringJoinButton = ({
       className="h-8 w-24 px-4 py-2 text-sm whitespace-nowrap"
       variant={getButtonVariant()}
       disabled={isFull}
-      onClick={handleJoin}
+      // onClick={handleJoin}
     >
       {getButtonText()}
     </Button>
