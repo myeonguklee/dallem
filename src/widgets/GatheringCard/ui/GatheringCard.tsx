@@ -38,7 +38,7 @@ export const GatheringCard = ({
   const isConfirmed = gatheringParticipantCount >= participantCountToConfirm;
 
   return (
-    <div className="tablet:flex-row rounded-common relative flex w-full max-w-[996px] flex-col overflow-hidden border border-gray-200 bg-white">
+    <div className="tablet:flex-row rounded-common relative flex w-full flex-col overflow-hidden border border-gray-200 bg-white">
       <div className="tablet:w-[280px] relative w-full">
         <Image
           src={
@@ -48,7 +48,7 @@ export const GatheringCard = ({
           width={400}
           height={224}
           alt={`${gatheringName} 이미지`}
-          className="tablet:h-full h-40 w-full object-cover"
+          className="tablet:h-[160px] h-40 w-full object-cover"
           sizes="(max-width: 744px) 100vw, 280px"
           priority
         />
