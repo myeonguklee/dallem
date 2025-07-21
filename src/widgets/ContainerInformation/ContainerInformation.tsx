@@ -13,7 +13,7 @@ type ContainerInformationProps = {
   location: string;
   date: string; // e.g. '1월 7일'
   time: string; // e.g. '17:30'
-  participants: Array<{ id: string; avatarUrl: string }>;
+  participants: Array<{ id: string; image: string }>;
   maxParticipants: number;
   minParticipants: number;
 } & VariantProps<typeof containerInformationVariants>;
