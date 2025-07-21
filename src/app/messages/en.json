@@ -46,7 +46,12 @@
       "deadline": "Deadline",
       "participants": "Participants",
       "date": "Date"
-    }
+    },
+    "date": {
+      "all": "All Dates"
+    },
+    "reset": "Reset",
+    "apply": "Apply"
   },
   "pages": {
     "home": {

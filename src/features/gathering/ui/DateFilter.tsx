@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/shared/ui/button';
 import { Calendar } from '@/shared/ui/calendar/Calendar';
@@ -6,6 +7,7 @@ import { filterButtonVariants } from '@/shared/ui/filter/variants';
 import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '@/shared/ui/icon';
 
 export const DateFilter = () => {
+  const t = useTranslations('filters');
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -41,7 +43,7 @@ export const DateFilter = () => {
         month: '2-digit',
         day: '2-digit',
       })
-    : '전체 날짜';
+    : t('date.all', { default: '전체 날짜' });
 
   const calendarFooter = (
     <div className="mt-2 flex w-full gap-2">
@@ -50,14 +52,14 @@ export const DateFilter = () => {
         onClick={handleResetDate}
         className="w-full"
       >
-        초기화
+        {t('reset', { default: '초기화' })}
       </Button>
       <Button
         variant="primary"
         onClick={handleApplyDate}
         className="w-full"
       >
-        적용
+        {t('apply', { default: '적용' })}
       </Button>
     </div>
   );
@@ -67,7 +69,7 @@ export const DateFilter = () => {
       <button
         type="button"
         className={filterButtonVariants({
-          variant: dateLabel === '전체 날짜' ? 'all' : 'selected',
+          variant: dateLabel === t('date.all', { default: '전체 날짜' }) ? 'all' : 'selected',
           className: 'flex min-w-[80px] items-center justify-between gap-1',
         })}
         onClick={() => {
@@ -77,12 +79,12 @@ export const DateFilter = () => {
       >
         {dateLabel}
         {calendarOpen ? (
-          dateLabel === '전체 날짜' ? (
+          dateLabel === t('date.all', { default: '전체 날짜' }) ? (
             <ArrowUpIcon />
           ) : (
             <WhiteArrowDownIcon className="rotate-180" />
           )
-        ) : dateLabel === '전체 날짜' ? (
+        ) : dateLabel === t('date.all', { default: '전체 날짜' }) ? (
           <ArrowDownIcon />
         ) : (
           <WhiteArrowDownIcon />
