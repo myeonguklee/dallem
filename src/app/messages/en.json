@@ -65,7 +65,31 @@
       "title": "My Page"
     },
     "reviews": {
-      "title": "Reviews Page"
+      "title": "All Reviews",
+      "subTitle": "Here's how people felt after using Dallaem together",
+      "loading": "Loading...",
+      "run": "Dallaemfit",
+      "workation": "Workation",
+      "all": "All",
+      "allList": "View All",
+      "officeStretching": "Office Stretching",
+      "mindFulness": "Mindfulness",
+      "fiveStars": "5",
+      "fourStars": "4",
+      "threeStars": "3",
+      "twoStars": "2",
+      "oneStar": "1",
+      "noReview": "No reviews",
+      "locationKonkuk": "Konkuk Univ",
+      "sillim": "Sillim",
+      "euljiro": "Euljiro 3-ga",
+      "hongik": "Hongik Univ",
+      "createdAt": "Newest",
+      "scoreTop": "scoreTop",
+      "participantCount": "participantCount",
+      "selectDate": "selectDate",
+      "scoreLoading": "score Loading...",
+      "scoreLoadError": "score Loading Error .."
     },
     "favorites": {
       "title": "Favorites Page"
