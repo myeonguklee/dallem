@@ -57,12 +57,12 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
       <div className="hidden text-2xl font-bold">{t('title')}</div>
       <PageInfoLayout
         infoImg={<PencilIcon size={60} />}
-        title="모든 리뷰"
-        subtitle="같이 달램을 이용한 분들은 이렇게 느꼈어요 🥰"
+        title={t('title')}
+        subtitle={t('subTitle')}
       />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ReviewTypeFilter />
-        <Suspense fallback={'.... loading 중 '}>
+        <Suspense fallback={t('loading')}>
           <AllReviewRating type={type} />
         </Suspense>
         <div className="mt-12">

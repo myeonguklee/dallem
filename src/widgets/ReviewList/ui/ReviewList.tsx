@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { getReviewList } from '@/entities/review/api/reviewApi';
 import { ReviewListResponse } from '@/entities/review/model/type';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
@@ -18,6 +19,8 @@ interface Props {
 }
 
 export const ReviewList = (props: Props) => {
+  // i18n 문자 변환
+  const t = useTranslations('pages.reviews');
   const { type, location, date, sortBy, sortOrder, limit, offset } = props;
 
   const { data, isLoading, error } = useQuery<ReviewListResponse>({
@@ -31,11 +34,11 @@ export const ReviewList = (props: Props) => {
         <ReviewListFilter />
         <ReviewSort />
       </div>
-      <div className="mt-8">
+      <div className="mt-8 min-h-[40rem]">
         {isLoading ? (
-          <div>리뷰 로딩 중...</div>
+          <div>{t('loading')}</div>
         ) : error || !data?.data?.length ? (
-          <div>리뷰가 없습니다 😶</div>
+          <div>{t('noReview')} 😶</div>
         ) : (
           <ul className="space-y-6">
             {data.data.map((review) => (

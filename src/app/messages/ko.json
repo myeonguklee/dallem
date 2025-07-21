@@ -65,7 +65,31 @@
       "title": "마이페이지"
     },
     "reviews": {
-      "title": "리뷰 페이지"
+      "title": "모든 리뷰",
+      "subTitle": "같이 달램을 이용한 분들은 이렇게 느꼈어요",
+      "loading": "로딩 중 입니다",
+      "run": "달램핏",
+      "workation": "워케이션",
+      "all": "전체",
+      "allList": "전체보기",
+      "officeStretching": "오피스 스트레칭",
+      "mindFulness": "마인드 폴니스",
+      "fiveStars": "5점",
+      "fourStars": "4점",
+      "threeStars": "3점",
+      "twoStars": "2점",
+      "oneStar": "1점",
+      "noReview": "리뷰가 없습니다",
+      "locationKonkuk": "건대입구",
+      "sillim": "신림",
+      "euljiro": "을지로3가",
+      "hongik": "홍대입구",
+      "createdAt": "최신 순 ",
+      "scoreTop": "리뷰 높은 순",
+      "participantCount": "참여 인원 순",
+      "selectDate": "날짜 선택",
+      "scoreLoading": "평점 불러오는 중",
+      "scoreLoadError": "평점 불러오기 실패"
     },
     "favorites": {
       "title": "찜한 모임 페이지"

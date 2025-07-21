@@ -1,15 +1,18 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Sort } from '@/shared/ui/sort';
 
-const ReviewSortList = [
-  { label: '최신 순', value: 'createdAt' },
-  { label: '리뷰 높은 순', value: 'score' },
-  { label: '참여 인원 순', value: 'participantCount' },
-];
-
 export const ReviewSort = () => {
+  // i18n 문자 변환
+  const t = useTranslations('pages.reviews');
+  const ReviewSortList = [
+    { label: t('createdAt'), value: 'createdAt' },
+    { label: t('scoreTop'), value: 'score' },
+    { label: t('participantCount'), value: 'participantCount' },
+  ];
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeType = searchParams.get('sortBy') || 'createdAt';

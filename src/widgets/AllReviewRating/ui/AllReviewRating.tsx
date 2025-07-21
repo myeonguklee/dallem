@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { getReviewScore } from '@/entities/review/api/reviewApi';
 import { useQuery } from '@tanstack/react-query';
 import { RatingScore } from './RatingScore';
@@ -10,13 +11,15 @@ interface Props {
 }
 
 export const AllReviewRating = ({ type }: Props) => {
+  // i18n 문자 변환
+  const t = useTranslations('pages.reviews');
   const { data, isLoading, error } = useQuery({
     queryKey: ['reviewScore', type],
     queryFn: () => getReviewScore({ type }),
   });
 
-  if (isLoading) return <div>평점 불러오는 중...</div>;
-  if (error || !data) return <div>평점 불러오기 실패</div>;
+  if (isLoading) return <div>{t('scoreLoading')}</div>;
+  if (error || !data) return <div>{t('scoreLoadError')}</div>;
 
   // 추후 최적화 필요한 코드
   const {
@@ -29,11 +32,11 @@ export const AllReviewRating = ({ type }: Props) => {
   } = data[0] || {};
 
   const starData = [
-    { label: '5점', count: fiveStars },
-    { label: '4점', count: fourStars },
-    { label: '3점', count: threeStars },
-    { label: '2점', count: twoStars },
-    { label: '1점', count: oneStar },
+    { label: t('fiveStars'), count: fiveStars },
+    { label: t('fourStars'), count: fourStars },
+    { label: t('threeStars'), count: threeStars },
+    { label: t('twoStars'), count: twoStars },
+    { label: t('oneStar'), count: oneStar },
   ];
   const total = starData.reduce((sum, { count }) => sum + count, 0);
 
