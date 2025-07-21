@@ -17,6 +17,9 @@ export const DateFilter = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [tempDate, setTempDate] = useState<Date | undefined>(selectedDate);
 
+  const isEnglish = pathname.startsWith('/en');
+  const locale = isEnglish ? 'en-US' : 'ko-KR';
+
   const handleApplyDate = () => {
     if (tempDate) {
       const yyyyMMdd = tempDate.toISOString().slice(0, 10);
@@ -38,7 +41,7 @@ export const DateFilter = () => {
   };
 
   const dateLabel = selectedDate
-    ? selectedDate.toLocaleDateString('ko-KR', {
+    ? selectedDate.toLocaleDateString(locale, {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
