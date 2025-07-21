@@ -11,12 +11,7 @@ import { ReviewList } from './ReviewList';
 export const GatheringDetailLayout = ({ id }: { id: string }) => {
   // const { data: gathering, isLoading, error } = useGetGatheringDetail(Number(id));
 
-  // const { data: participantsData } = useGetParticipants(gatheringId, {
-  //   limit: 10,
-  //   offset: 0,
-  //   sortBy: 'joinedAt',
-  //   sortOrder: 'asc',
-  // });
+  // const { data: participantsData } = useGetParticipants(Number(id));
 
   const gathering = {
     teamId: '1',
