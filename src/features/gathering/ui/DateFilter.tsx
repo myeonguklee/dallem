@@ -1,0 +1,101 @@
+import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '@/shared/ui/button';
+import { Calendar } from '@/shared/ui/calendar/Calendar';
+import { filterButtonVariants } from '@/shared/ui/filter/variants';
+import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '@/shared/ui/icon';
+
+export const DateFilter = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const selectedDateStr = searchParams.get('date');
+  const selectedDate = selectedDateStr ? new Date(selectedDateStr) : undefined;
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [tempDate, setTempDate] = useState<Date | undefined>(selectedDate);
+
+  const handleApplyDate = () => {
+    if (tempDate) {
+      const yyyyMMdd = tempDate.toISOString().slice(0, 10);
+      const params = new URLSearchParams(searchParams);
+      params.set('date', yyyyMMdd);
+      params.set('offset', '0');
+      router.push(`${pathname}?${params.toString()}`);
+    }
+    setCalendarOpen(false);
+  };
+
+  const handleResetDate = () => {
+    setTempDate(undefined);
+    const params = new URLSearchParams(searchParams);
+    params.delete('date');
+    params.set('offset', '0');
+    router.push(`${pathname}?${params.toString()}`);
+    setCalendarOpen(false);
+  };
+
+  const dateLabel = selectedDate
+    ? selectedDate.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+    : '전체 날짜';
+
+  const calendarFooter = (
+    <div className="mt-2 flex w-full gap-2">
+      <Button
+        variant="outline"
+        onClick={handleResetDate}
+        className="w-full"
+      >
+        초기화
+      </Button>
+      <Button
+        variant="primary"
+        onClick={handleApplyDate}
+        className="w-full"
+      >
+        적용
+      </Button>
+    </div>
+  );
+
+  return (
+    <div className="relative inline-block">
+      <button
+        type="button"
+        className={filterButtonVariants({
+          variant: dateLabel === '전체 날짜' ? 'all' : 'selected',
+          className: 'flex min-w-[80px] items-center justify-between gap-1',
+        })}
+        onClick={() => {
+          setCalendarOpen((prev) => !prev);
+          setTempDate(selectedDate);
+        }}
+      >
+        {dateLabel}
+        {calendarOpen ? (
+          dateLabel === '전체 날짜' ? (
+            <ArrowUpIcon />
+          ) : (
+            <WhiteArrowDownIcon className="rotate-180" />
+          )
+        ) : dateLabel === '전체 날짜' ? (
+          <ArrowDownIcon />
+        ) : (
+          <WhiteArrowDownIcon />
+        )}
+      </button>
+      {calendarOpen && (
+        <Calendar
+          value={tempDate}
+          onChange={setTempDate}
+          footer={calendarFooter}
+          className="absolute top-full left-0 z-50 mt-2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
+        />
+      )}
+    </div>
+  );
+};

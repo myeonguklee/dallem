@@ -7,7 +7,9 @@ import { Filter } from '@/shared/ui/filter';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Sort } from '@/shared/ui/sort';
 import { Tab } from '@/shared/ui/tab';
+import { DateFilter } from './DateFilter';
 
+// TODO: 컴포넌트 분리에 대한 리팩토링 필요!!
 export const FilterSection = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -126,13 +128,14 @@ export const FilterSection = () => {
 
       {/* 지역 필터와 정렬 */}
       <div className="flex items-center justify-between">
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <Filter
             options={regionOptions}
             selected={selectedLocation}
             onChange={(value) => updateFilter('location', value)}
             allValue="전체보기"
           />
+          <DateFilter />
         </div>
         <Sort
           options={sortOptions}
