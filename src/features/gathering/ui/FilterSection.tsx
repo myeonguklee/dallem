@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Chip } from '@/shared/ui/chip';
 import { Filter } from '@/shared/ui/filter';
@@ -7,42 +8,43 @@ import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Sort } from '@/shared/ui/sort';
 import { Tab } from '@/shared/ui/tab';
 
-// 카테고리 탭 옵션
-const categoryItems = [
-  { id: 'DALLAEMFIT', label: '달램핏', icon: <DalaemfitIcon /> },
-  { id: 'WORKATION', label: '워케이션', icon: <WorkationIcon /> },
-];
-
-// 활동 칩 옵션
-const activityItems = [
-  { value: 'DALLAEMFIT', label: '전체' },
-  { value: 'OFFICE_STRETCHING', label: '오피스 스트레칭' },
-  { value: 'MINDFULNESS', label: '마인드풀니스' },
-];
-
-// 워케이션 활동 칩 옵션
-const workationActivityItems = [{ value: 'WORKATION', label: '전체' }];
-
-// 지역 필터 옵션
-const regionOptions = [
-  { label: '지역 전체', value: '전체보기' },
-  { label: '건대입구', value: '건대입구' },
-  { label: '을지로3가', value: '을지로3가' },
-  { label: '신림', value: '신림' },
-  { label: '홍대입구', value: '홍대입구' },
-];
-
-// 정렬 옵션
-const sortOptions = [
-  { label: '마감 임박', value: 'registrationEnd' },
-  { label: '참여 인원 순', value: 'participantCount' },
-  { label: '모임 날짜 순', value: 'dateTime' },
-];
-
 export const FilterSection = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations('filters');
+
+  // 카테고리 탭 옵션
+  const categoryItems = [
+    { id: 'DALLAEMFIT', label: t('categories.dallaemfit'), icon: <DalaemfitIcon /> },
+    { id: 'WORKATION', label: t('categories.workation'), icon: <WorkationIcon /> },
+  ];
+
+  // 활동 칩 옵션
+  const activityItems = [
+    { value: 'DALLAEMFIT', label: t('activities.all') },
+    { value: 'OFFICE_STRETCHING', label: t('activities.officeStretching') },
+    { value: 'MINDFULNESS', label: t('activities.mindfulness') },
+  ];
+
+  // 워케이션 활동 칩 옵션
+  const workationActivityItems = [{ value: 'WORKATION', label: t('activities.all') }];
+
+  // 지역 필터 옵션
+  const regionOptions = [
+    { label: t('regions.all'), value: '전체보기' },
+    { label: t('regions.konkuk'), value: '건대입구' },
+    { label: t('regions.euljiro'), value: '을지로3가' },
+    { label: t('regions.sinrim'), value: '신림' },
+    { label: t('regions.hongdae'), value: '홍대입구' },
+  ];
+
+  // 정렬 옵션
+  const sortOptions = [
+    { label: t('sort.deadline'), value: 'registrationEnd' },
+    { label: t('sort.participants'), value: 'participantCount' },
+    { label: t('sort.date'), value: 'dateTime' },
+  ];
 
   // URL에서 현재 필터 값들 가져오기
   const selectedType = searchParams.get('type') || 'DALLAEMFIT';

@@ -18,12 +18,12 @@ export default async function GatheringPage({ params }: GatheringPageProps) {
         <div className="flex h-full items-center gap-4">
           <DoubleHeartIcon />
           <div className="flex h-full flex-col justify-evenly">
-            <p className="text-sm font-medium">함께 할 사람이 없나요?</p>
-            <p className="text-2xl font-semibold">지금 모임에 참여해보세요</p>
+            <p className="text-sm font-medium">{t('header.subtitle')}</p>
+            <p className="text-2xl font-semibold">{t('header.title')}</p>
           </div>
         </div>
         <div className="flex justify-end">
-          <Button className="">모임 만들기</Button>
+          <Button className="">{t('createButton')}</Button>
         </div>
       </div>
 

@@ -25,6 +25,29 @@
     "allReviews": "All Reviews",
     "brand": "Dallem"
   },
+  "filters": {
+    "categories": {
+      "dallaemfit": "Dallaemfit",
+      "workation": "Workation"
+    },
+    "activities": {
+      "all": "All",
+      "officeStretching": "Office Stretching",
+      "mindfulness": "Mindfulness"
+    },
+    "regions": {
+      "all": "All Regions",
+      "konkuk": "Konkuk University",
+      "euljiro": "Euljiro 3-ga",
+      "sinrim": "Sinrim",
+      "hongdae": "Hongdae"
+    },
+    "sort": {
+      "deadline": "Deadline",
+      "participants": "Participants",
+      "date": "Date"
+    }
+  },
   "pages": {
     "home": {
       "title": "Homepage",
@@ -50,7 +73,11 @@
     "gatherings": {
       "title": "Gatherings List Page",
       "createButton": "Create Gathering",
-      "noGatherings": "No gatherings available"
+      "noGatherings": "No gatherings available",
+      "header": {
+        "subtitle": "Don't have anyone to join with?",
+        "title": "Join a gathering now"
+      }
     },
     "gathering": {
       "detail": {
