@@ -1,19 +1,33 @@
+'use client';
+
+import { getReviewScore } from '@/entities/review/api/reviewApi';
+import { useQuery } from '@tanstack/react-query';
 import { RatingScore } from './RatingScore';
 import { RatingScoreProgressBar } from './RatingScoreProgressBar';
 
-const stars = {
-  teamId: 1,
-  oneStar: 0,
-  twoStars: 2,
-  threeStars: 4,
-  fourStars: 5,
-  fiveStars: 10,
-  averageScore: 3.6,
-};
+interface Props {
+  type?: string;
+}
 
-export const AllReviewRating = () => {
+export const AllReviewRating = ({ type }: Props) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['reviewScore', type],
+    queryFn: () => getReviewScore({ type }),
+  });
+
+  if (isLoading) return <div>평점 불러오는 중...</div>;
+  if (error || !data) return <div>평점 불러오기 실패</div>;
+
   // 추후 최적화 필요한 코드
-  const { oneStar, twoStars, threeStars, fourStars, fiveStars, averageScore } = stars;
+  const {
+    oneStar = 0,
+    twoStars = 0,
+    threeStars = 0,
+    fourStars = 0,
+    fiveStars = 0,
+    averageScore = 0,
+  } = data[0] || {};
+
   const starData = [
     { label: '5점', count: fiveStars },
     { label: '4점', count: fourStars },

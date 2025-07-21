@@ -1,18 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Chip } from '@/shared/ui/chip';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Tab } from '@/shared/ui/tab';
 
 const tabFilter = [
   {
-    id: 'dallaemfit',
+    id: 'DALLAEMFIT',
     label: '달램핏',
     icon: <DalaemfitIcon />,
   },
   {
-    id: 'workation',
+    id: 'WORKATION',
     label: '워케이션',
     icon: <WorkationIcon />,
   },
@@ -25,16 +25,31 @@ const chipFilters = [
 ];
 
 export const ReviewTypeFilter = () => {
-  const [selectedTab, setSelectedTab] = useState('dallaemfit');
-  const [active, setActive] = useState('all');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const activeType = searchParams.get('type') || 'all';
+
+  const handleTypeChange = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value === 'all') {
+      params.delete('type');
+    } else {
+      params.set('type', value);
+    }
+
+    params.set('offset', '0'); // 필터 변경시 첫 페이지로
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <>
       <div className="my-8">
         <Tab
           items={tabFilter}
-          selectedId={selectedTab}
-          onSelect={setSelectedTab}
+          selectedId={activeType}
+          onSelect={(id) => handleTypeChange(id)}
           size="sm"
           orientation="horizontal"
           className="mb-3"
@@ -43,8 +58,8 @@ export const ReviewTypeFilter = () => {
           {chipFilters.map(({ label, value }) => (
             <Chip
               key={value}
-              active={active === value}
-              onClick={() => setActive(value)}
+              active={activeType === value}
+              onClick={() => handleTypeChange(value)}
               className="cursor-pointer"
             >
               {label}
