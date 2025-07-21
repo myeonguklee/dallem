@@ -35,7 +35,7 @@ export default async function GatheringPage({ params, searchParams }: GatheringP
       </div>
 
       <div className="flex justify-end">
-        <Button className="">{t('createButton')}</Button>
+        <Button className="font-semibold">{t('createButton')}</Button>
       </div>
 
       <FilterSection />
