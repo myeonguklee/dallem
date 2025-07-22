@@ -1,20 +1,27 @@
 import { IconProps } from '../IconType';
 
-export const CheckBoxIcon = ({ size = 16, ...props }: IconProps) => (
+export const CheckBoxIcon = ({ size = 24, ...props }: IconProps) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
+    viewBox="0 0 24 24"
     fill="none"
-    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
+    <rect
+      x="3"
+      y="3"
+      width="18"
+      height="18"
+      rx="6"
+      fill="white"
+    />
     <path
-      stroke="#F97316"
+      d="M7 11.625L10.1098 14.7348C10.2563 14.8813 10.4937 14.8813 10.6402 14.7348L16.375 9"
+      stroke="#EA580C"
+      strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      d="m4 7.246 3.088 3.087L12.42 5"
     />
   </svg>
 );

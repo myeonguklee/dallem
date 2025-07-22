@@ -11,8 +11,6 @@ export interface BoxSelectorProps
   subtitle?: string;
   onSelect?: () => void;
   disabled?: boolean;
-  width?: string;
-  height?: string;
 }
 
 const BoxSelectorVariants = cva(
@@ -41,8 +39,6 @@ export const BoxSelector = ({
   subtitle,
   onSelect,
   disabled = false,
-  width = '150px',
-  height = '70px',
   className = '',
   ...props
 }: BoxSelectorProps) => {
@@ -57,11 +53,12 @@ export const BoxSelector = ({
       {...props}
       onClick={handleClick}
       className={cn(BoxSelectorVariants({ isSelected, disabled }), className)}
-      style={{ width, height }}
+      // style={{ width, height }} // 고정 크기 인라인 스타일 제거
     >
       <div className="mt-1 flex-shrink-0">
         {isSelected ? <CheckBoxIcon size={20} /> : <VacantCheckBoxIcon size={20} />}
       </div>
+
       <div className="flex min-w-0 flex-1 flex-col justify-center">
         <div className="truncate text-sm leading-tight font-bold">{title}</div>
         {subtitle && <div className="mt-1 truncate text-xs opacity-80">{subtitle}</div>}
