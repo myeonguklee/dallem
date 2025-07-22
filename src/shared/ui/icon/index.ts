@@ -39,3 +39,4 @@ export { WhiteStateIcon } from './icons/WhiteStateIcon';
 export { WorkationIcon } from './icons/WorkationIcon';
 export { XIcon } from './icons/XIcon';
 export { StarIcon } from './icons/StarIcon';
+export { Spinner } from './icons/Spinner';

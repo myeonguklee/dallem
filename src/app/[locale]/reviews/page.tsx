@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
+import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
+import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
 import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
 import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
@@ -31,8 +33,8 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
 
   const queryClient = new QueryClient();
   const reviewParams = {
-    type: filterQuery.type ?? undefined,
-    location: filterQuery.location ?? undefined,
+    type: filterQuery.type as ReviewType | undefined,
+    location: filterQuery.location as ReviewLocation | undefined,
     date: filterQuery.date ?? undefined,
     sortBy: filterQuery.sortBy ?? undefined,
     sortOrder: filterQuery.sortOrder || 'desc',
@@ -40,20 +42,19 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
     offset: parseInt(filterQuery.offset || '0'),
   };
 
-  const { type, location, date, sortBy, sortOrder, limit, offset } = reviewParams;
-
-  await queryClient.prefetchQuery({
-    queryKey: ['reviewList', type, location, date, sortBy, sortOrder, limit, offset],
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: REVIEW_QUERY_KEYS.review.list(reviewParams),
     queryFn: () => getReviewList(reviewParams),
+    initialPageParam: 0,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ['reviewScore', type],
-    queryFn: () => getReviewScore({ type: type }),
+    queryKey: REVIEW_QUERY_KEYS.review.scores({ type: reviewParams.type }),
+    queryFn: () => getReviewScore({ type: reviewParams.type }),
   });
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1200px] px-4">
+    <div className="mx-auto mt-10 mb-20 w-full max-w-[1200px]">
       <div className="hidden text-2xl font-bold">{t('title')}</div>
       <PageInfoLayout
         infoImg={<PencilIcon size={60} />}
@@ -63,7 +64,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ReviewTypeFilter />
         <Suspense fallback={t('loading')}>
-          <AllReviewRating type={type} />
+          <AllReviewRating type={reviewParams.type} />
         </Suspense>
         <div className="mb-4 flex items-center justify-between">
           <ReviewListFilter />
@@ -71,15 +72,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         </div>
         <Suspense fallback={t('loading')}>
           <div className="mt-12">
-            <ReviewList
-              type={type}
-              location={location}
-              date={date}
-              sortBy={sortBy}
-              sortOrder={sortOrder}
-              limit={limit}
-              offset={offset}
-            />
+            <ReviewList filters={reviewParams} />
           </div>
         </Suspense>
       </HydrationBoundary>

@@ -116,9 +116,9 @@
       "sillim": "Sillim",
       "euljiro": "Euljiro 3-ga",
       "hongik": "Hongik Univ",
-      "createdAt": "Newest",
+      "createdAt": "Date",
       "scoreTop": "scoreTop",
-      "participantCount": "participantCount",
+      "participantCount": "participant",
       "selectDate": "selectDate",
       "scoreLoading": "score Loading...",
       "scoreLoadError": "score Loading Error .."

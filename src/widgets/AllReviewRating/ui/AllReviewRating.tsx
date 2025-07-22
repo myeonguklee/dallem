@@ -1,24 +1,25 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewScore } from '@/entities/review/api/reviewApi';
+import { ReviewScoreItem, ReviewType } from '@/entities/review/model/type';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { RatingScore } from './RatingScore';
 import { RatingScoreProgressBar } from './RatingScoreProgressBar';
 
 interface Props {
-  type?: string;
+  type?: ReviewType;
 }
 
 export const AllReviewRating = ({ type }: Props) => {
   // i18n 문자 변환
   const t = useTranslations('pages.reviews');
-  const { data, isLoading, error } = useSuspenseQuery({
-    queryKey: ['reviewScore', type],
+  const { data, error } = useSuspenseQuery<ReviewScoreItem[], Error>({
+    queryKey: REVIEW_QUERY_KEYS.review.scores({ type }),
     queryFn: () => getReviewScore({ type }),
   });
 
-  if (isLoading) return <div>{t('scoreLoading')}</div>;
   if (error || !data) return <div>{t('scoreLoadError')}</div>;
 
   // 추후 최적화 필요한 코드
