@@ -97,6 +97,13 @@
       "header": {
         "subtitle": "Don't have anyone to join with?",
         "title": "Join a gathering now"
+      },
+      "error": {
+        "title": "Unable to load gatherings list",
+        "clientErrorDescription": "Invalid request. Please navigate to the gatherings page.",
+        "serverErrorDescription": "A temporary error occurred. Please try again.",
+        "navigateToGathering": "Go to Gatherings",
+        "retry": "Retry"
       }
     },
     "gathering": {

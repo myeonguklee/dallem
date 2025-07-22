@@ -97,6 +97,13 @@
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
         "title": "지금 모임에 참여해보세요"
+      },
+      "error": {
+        "title": "모임 목록을 불러올 수 없습니다",
+        "clientErrorDescription": "잘못된 요청입니다. 모임 찾기 페이지로 이동해주세요.",
+        "serverErrorDescription": "일시적인 오류입니다. 다시 시도해주세요.",
+        "navigateToGathering": "모임 찾기로 이동",
+        "retry": "다시 시도"
       }
     },
     "gathering": {
