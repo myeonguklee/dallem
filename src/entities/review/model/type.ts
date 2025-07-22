@@ -30,7 +30,7 @@ export interface ReviewListItem {
   comment: string;
   createdAt: string;
   Gathering: {
-    teamId: number;
+    teamId: string;
     id: number;
     type: ReviewType;
     name: string;

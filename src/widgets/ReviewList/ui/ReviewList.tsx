@@ -22,7 +22,6 @@ export const ReviewList = ({ filters }: Props) => {
       queryFn: ({ pageParam = 0 }) => {
         const limit = Number(filters.limit ?? 10);
         const offset = (pageParam as number) * limit;
-        console.log(`Requesting page: ${pageParam}, limit: ${limit}, offset: ${offset}`);
 
         return getReviewList({ ...filters, offset, limit });
       },
