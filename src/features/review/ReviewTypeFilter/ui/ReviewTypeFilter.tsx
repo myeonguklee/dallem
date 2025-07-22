@@ -44,6 +44,8 @@ export const ReviewTypeFilter = () => {
 
     params.set('type', value);
     params.set('offset', '0'); // 필터가 바뀌면 항상 첫 페이지로 리셋
+    params.delete('location');
+    params.delete('date');
     router.push(`?${params.toString()}`);
   };
 
@@ -52,7 +54,7 @@ export const ReviewTypeFilter = () => {
       <div className="my-8">
         <Tab
           items={tabFilter}
-          selectedId={activeType}
+          selectedId={activeTabId}
           onSelect={(id) => handleTypeChange(id)}
           size="sm"
           orientation="horizontal"

@@ -42,9 +42,10 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
     offset: parseInt(filterQuery.offset || '0'),
   };
 
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: REVIEW_QUERY_KEYS.review.list(reviewParams),
     queryFn: () => getReviewList(reviewParams),
+    initialPageParam: 0,
   });
 
   await queryClient.prefetchQuery({
@@ -53,7 +54,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
   });
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1200px] px-4">
+    <div className="mx-auto mt-10 mb-20 w-full max-w-[1200px]">
       <div className="hidden text-2xl font-bold">{t('title')}</div>
       <PageInfoLayout
         infoImg={<PencilIcon size={60} />}
