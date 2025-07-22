@@ -42,7 +42,7 @@ export const ReviewList = ({ filters }: Props) => {
   }
   return (
     <>
-      <div className="overflow-y-hidden">
+      <div className="min-h-[40rem] overflow-y-hidden">
         <ul className="space-y-6">
           {allReviews.map((review) => (
             <li key={review.id}>

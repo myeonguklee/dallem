@@ -66,7 +66,7 @@ export const ReviewTypeFilter = () => {
               key={value}
               active={activeTabId === 'WORKATION' ? true : activeType === value}
               onClick={() => handleTypeChange(value)}
-              className="cursor-pointer"
+              className="cursor-pointer whitespace-nowrap"
             >
               {label}
             </Chip>
