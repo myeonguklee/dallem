@@ -92,7 +92,6 @@
       "createButton": "Create Gathering",
       "noGatherings": "No gatherings available",
       "loading": "Loading...",
-      "error": "An error occurred",
       "loadingMore": "Loading more...",
       "header": {
         "subtitle": "Don't have anyone to join with?",
@@ -104,6 +103,25 @@
         "serverErrorDescription": "A temporary error occurred. Please try again.",
         "navigateToGathering": "Go to Gatherings",
         "retry": "Retry"
+      },
+      "create": {
+        "title": "Create Gathering",
+        "submit": "Confirm",
+        "cancel": "Cancel",
+        "form": {
+          "title": "Gathering Title",
+          "titlePlaceholder": "Enter gathering title",
+          "location": "Location",
+          "locationPlaceholder": "Select gathering location",
+          "image": "Image",
+          "imagePlaceholder": "Attach image",
+          "imageButton": "Find File",
+          "type": "Select Service",
+          "date": "Gathering Date",
+          "registrationEnd": "Registration End",
+          "participants": "Participants",
+          "participantsPlaceholder": "Enter minimum 5 participants"
+        }
       }
     },
     "gathering": {

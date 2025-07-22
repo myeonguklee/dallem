@@ -92,7 +92,6 @@
       "createButton": "모임 만들기",
       "noGatherings": "모임이 없습니다",
       "loading": "로딩 중...",
-      "error": "오류가 발생했습니다",
       "loadingMore": "더 불러오는 중...",
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
@@ -104,6 +103,25 @@
         "serverErrorDescription": "일시적인 오류입니다. 다시 시도해주세요.",
         "navigateToGathering": "모임 찾기로 이동",
         "retry": "다시 시도"
+      },
+      "create": {
+        "title": "모임 만들기",
+        "submit": "확인",
+        "cancel": "취소",
+        "form": {
+          "title": "모임 이름",
+          "titlePlaceholder": "모임 이름을 입력해주세요",
+          "location": "장소",
+          "locationPlaceholder": "모임 장소를 선택해주세요",
+          "image": "이미지",
+          "imagePlaceholder": "이미지를 첨부해주세요",
+          "imageButton": "파일 찾기",
+          "type": "선택 서비스",
+          "date": "모임 날짜",
+          "registrationEnd": "마감 날짜",
+          "participants": "모집 정원",
+          "participantsPlaceholder": "최소 5인 이상 입력해주세요."
+        }
       }
     },
     "gathering": {

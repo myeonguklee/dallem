@@ -2,11 +2,10 @@ import { getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
 import { QUERY_KEYS } from '@/entities/gathering/api/queryKeys';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
-import { FilterSection } from '@/features/gathering/ui';
+import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
 import { Locale } from '@/i18n';
 import { HydrationProvider } from '@/shared/api';
 import { createQueryClient } from '@/shared/api/query/client';
-import { Button } from '@/shared/ui/button';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
 import { dehydrate } from '@tanstack/react-query';
@@ -54,7 +53,7 @@ export default async function GatheringPage({ params, searchParams }: GatheringP
       </div>
 
       <div className="flex justify-end">
-        <Button className="font-semibold">{t('createButton')}</Button>
+        <CreateGatheringButton />
       </div>
 
       <FilterSection />
