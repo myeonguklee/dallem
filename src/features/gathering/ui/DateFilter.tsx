@@ -25,7 +25,6 @@ export const DateFilter = () => {
       const yyyyMMdd = tempDate.toISOString().slice(0, 10);
       const params = new URLSearchParams(searchParams);
       params.set('date', yyyyMMdd);
-      params.set('offset', '0');
       router.push(`${pathname}?${params.toString()}`);
     }
     setCalendarOpen(false);
@@ -35,7 +34,6 @@ export const DateFilter = () => {
     setTempDate(undefined);
     const params = new URLSearchParams(searchParams);
     params.delete('date');
-    params.set('offset', '0');
     router.push(`${pathname}?${params.toString()}`);
     setCalendarOpen(false);
   };

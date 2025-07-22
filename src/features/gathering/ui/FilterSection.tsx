@@ -64,7 +64,6 @@ export const FilterSection = () => {
       params.set(filterType, value);
     }
 
-    params.set('offset', '0');
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -72,7 +71,6 @@ export const FilterSection = () => {
   const handleCategoryChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('type', value);
-    params.set('offset', '0');
     router.push(`${pathname}?${params.toString()}`);
   };
 

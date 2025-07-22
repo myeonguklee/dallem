@@ -91,6 +91,9 @@
       "title": "모임 목록 페이지",
       "createButton": "모임 만들기",
       "noGatherings": "모임이 없습니다",
+      "loading": "로딩 중...",
+      "error": "오류가 발생했습니다",
+      "loadingMore": "더 불러오는 중...",
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
         "title": "지금 모임에 참여해보세요"

@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Gathering } from '../model/types';
 import { GatheringFilters } from '../model/types';
 import { QUERY_KEYS } from './queryKeys';
@@ -9,7 +9,24 @@ export const useGetGatherings = (filters?: GatheringFilters) => {
   return useQuery<Gathering[]>({
     queryKey: QUERY_KEYS.gathering.list(filters),
     queryFn: () => getGatherings(filters),
-    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+  });
+};
+
+// 무한스크롤 모임 조회
+export const useGetGatheringsInfinite = (filters?: Omit<GatheringFilters, 'limit' | 'offset'>) => {
+  return useInfiniteQuery({
+    queryKey: QUERY_KEYS.gathering.infinite(filters),
+    queryFn: ({ pageParam = 0 }) =>
+      getGatherings({
+        ...filters,
+        limit: 10, // 페이지당 10개
+        offset: pageParam * 10,
+      }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      // 마지막 페이지가 10개 미만이면 더 이상 페이지가 없음
+      return lastPage.length === 10 ? allPages.length : undefined;
+    },
   });
 };
 
