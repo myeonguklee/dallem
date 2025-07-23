@@ -277,7 +277,8 @@
       "scoreLoadError": "평점 불러오기 실패"
     },
     "favorites": {
-      "title": "찜한 모임 페이지"
+      "title": "찜한 모임",
+      "subTitle": "마감되기 전에 지금 바로 참여해보세요"
     }
   },
   "errors": {

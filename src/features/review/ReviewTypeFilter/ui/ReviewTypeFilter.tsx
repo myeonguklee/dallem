@@ -12,6 +12,7 @@ export const ReviewTypeFilter = () => {
   const searchParams = useSearchParams();
   // i18n 문자 변환
   const t = useTranslations('pages.reviews');
+
   const tabFilter = [
     {
       id: 'DALLAEMFIT',
@@ -33,6 +34,7 @@ export const ReviewTypeFilter = () => {
 
   const activeType = searchParams.get('type') || 'DALLAEMFIT';
   const activeTabId = activeType === 'WORKATION' ? 'WORKATION' : 'DALLAEMFIT';
+
   const visibleChipItems =
     activeTabId === 'WORKATION'
       ? // '워크에이션' 탭일 때는 '전체' 칩 하나만 보여줍니다.
