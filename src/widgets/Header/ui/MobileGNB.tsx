@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
@@ -10,6 +11,7 @@ import { HeaderLink } from './HeaderLink';
 export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
   const t = useTranslations('navigation');
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,6 +26,10 @@ export const MobileGNB = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
