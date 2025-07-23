@@ -6,7 +6,7 @@ const IMAGE_SIZE_BY_BREAKPOINTS = {
   web: 588,
 } as const;
 
-export const getSignupImageSize = (width: number): number => {
+export const getAuthImageSize = (width: number): number => {
   const breakpoints = getBreakpointsPx();
 
   if (width < breakpoints.tablet) return IMAGE_SIZE_BY_BREAKPOINTS.mobile;

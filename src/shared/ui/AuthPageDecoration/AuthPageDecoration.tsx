@@ -1,10 +1,10 @@
 'use client';
 
-import { useSignupImageSize } from '@/features/signup/hooks/useSignupImageSize';
+import { useAuthImageSize } from '@/shared/hooks/useAuthImageSize';
 import { LoginImageIcon } from '../icon';
 
 export const AuthPageDecoration = () => {
-  const size = useSignupImageSize();
+  const size = useAuthImageSize();
 
   return (
     <>

@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getSignupImageSize } from '../utils/getSignupImageSize';
+import { getAuthImageSize } from '../lib/getAuthImageSize';
 
-export const useSignupImageSize = () => {
+export const useAuthImageSize = () => {
   const [size, setSize] = useState<number>();
 
   useEffect(() => {
     const handleResize = () => {
-      setSize(getSignupImageSize(window.innerWidth));
+      setSize(getAuthImageSize(window.innerWidth));
     };
 
     // 초기 사이즈 설정
