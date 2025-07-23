@@ -2,6 +2,7 @@
   "common": {
     "loading": "로딩 중...",
     "error": "오류가 발생했습니다",
+    "saving": "저장 중...",
     "retry": "다시 시도",
     "cancel": "취소",
     "confirm": "확인",
@@ -54,6 +55,10 @@
     "apply": "적용"
   },
   "pages": {
+    "signup": {
+      "success": "회원가입이 완료되었습니다",
+      "failure": "회원가입에 실패했습니다"
+    },
     "home": {
       "title": "홈페이지",
       "welcome": "같이달램에 오신 것을 환영합니다!"
@@ -68,12 +73,19 @@
     },
     "signup": {
       "title": "회원가입 페이지",
-      "email": "이메일",
+      "name": "이름",
+      "email": "아이디",
+      "company": "회사명",
       "password": "비밀번호",
       "confirmPassword": "비밀번호 확인",
       "signupButton": "회원가입",
-      "hasAccount": "이미 계정이 있으신가요?",
-      "signinLink": "로그인"
+      "footerText": "이미 계정이 있으신가요?",
+      "signinLink": "로그인",
+      "namePlaceholder": "이름을 입력해주세요",
+      "emailPlaceholder": "이메일을 입력해주세요",
+      "companyPlaceholder": "회사명을 입력해주세요",
+      "passwordPlaceholder": "비밀번호를 입력해주세요",
+      "confirmPasswordPlaceholder": "비밀번호를 다시 한 번 입력해주세요"
     },
     "gatherings": {
       "title": "모임 목록 페이지",
@@ -142,7 +154,9 @@
       "required": "필수 입력 항목입니다",
       "email": "올바른 이메일 형식이 아닙니다",
       "password": "비밀번호는 8자 이상이어야 합니다",
-      "passwordConfirm": "비밀번호가 일치하지 않습니다"
+      "passwordConfirm": "비밀번호가 일치하지 않습니다",
+      "emailExists": "이미 사용 중인 이메일입니다",
+      "invalidEmail": "유효한 이메일 주소를 입력하세요"
     }
   },
   "metadata": {

@@ -2,6 +2,7 @@
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "saving": "Saving...",
     "retry": "Retry",
     "cancel": "Cancel",
     "confirm": "Confirm",
@@ -54,6 +55,10 @@
     "apply": "Apply"
   },
   "pages": {
+    "signup": {
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
+    },
     "home": {
       "title": "Homepage",
       "welcome": "Welcome to Dallem!"
@@ -68,12 +73,19 @@
     },
     "signup": {
       "title": "Sign Up Page",
+      "name": "Name",
       "email": "Email",
+      "company": "Company",
       "password": "Password",
       "confirmPassword": "Confirm Password",
       "signupButton": "Sign Up",
-      "hasAccount": "Already have an account?",
-      "signinLink": "Sign In"
+      "footerText": "Already have an account?",
+      "signinLink": "Sign In",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "companyPlaceholder": "Enter your company name",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordPlaceholder": "Confirm your password"
     },
     "gatherings": {
       "title": "Gatherings List Page",
@@ -142,7 +154,9 @@
       "required": "This field is required",
       "email": "Please enter a valid email address",
       "password": "Password must be at least 8 characters",
-      "passwordConfirm": "Passwords do not match"
+      "passwordConfirm": "Passwords do not match",
+      "emailExists": "This email is already in use",
+      "invalidEmail": "Please enter a valid email address"
     }
   },
   "metadata": {

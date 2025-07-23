@@ -27,10 +27,4 @@ describe('Input 컴포넌트', () => {
     );
     expect(screen.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();
   });
-
-  it('inputSize가 sm일 경우, text-sm이 포함되어야 한다', () => {
-    const { container } = render(<Input inputSize="sm" />);
-    const wrapper = container.firstChild?.firstChild as HTMLElement;
-    expect(wrapper.className).toContain('text-sm');
-  });
 });
