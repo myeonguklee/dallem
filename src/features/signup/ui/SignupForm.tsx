@@ -33,10 +33,10 @@ export const SignupForm = () => {
 
   const onSubmit = async (formData: SignupFormData) => {
     toast.promise(signup(formatSignupFormToPayload(formData)), {
-      loading: 'Saving...',
+      loading: t('common.saving'),
       success: () => {
         setTimeout(() => router.push(localeUrlFormatter(ROUTES.SIGNIN)), 2000);
-        return <b>회원가입이 완료되었습니다.</b>;
+        return <b>{t('pages.signup.success')}</b>;
       },
       error: (e) => {
         if (e.code === 'EMAIL_EXISTS' || e.code === 'VALIDATION_ERROR') {
@@ -45,7 +45,7 @@ export const SignupForm = () => {
             message: t(ERROR_CASE[e.code as keyof typeof ERROR_CASE]),
           });
         }
-        return <b>회원가입에 실패했습니다.</b>;
+        return <b>{t('pages.signup.failure')}</b>;
       },
     });
   };

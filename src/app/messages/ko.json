@@ -2,6 +2,7 @@
   "common": {
     "loading": "로딩 중...",
     "error": "오류가 발생했습니다",
+    "saving": "저장 중...",
     "retry": "다시 시도",
     "cancel": "취소",
     "confirm": "확인",
@@ -54,6 +55,10 @@
     "apply": "적용"
   },
   "pages": {
+    "signup": {
+      "success": "회원가입이 완료되었습니다",
+      "failure": "회원가입에 실패했습니다"
+    },
     "home": {
       "title": "홈페이지",
       "welcome": "같이달램에 오신 것을 환영합니다!"

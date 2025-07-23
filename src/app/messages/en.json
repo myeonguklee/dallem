@@ -2,6 +2,7 @@
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "saving": "Saving...",
     "retry": "Retry",
     "cancel": "Cancel",
     "confirm": "Confirm",
@@ -54,6 +55,10 @@
     "apply": "Apply"
   },
   "pages": {
+    "signup": {
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
+    },
     "home": {
       "title": "Homepage",
       "welcome": "Welcome to Dallem!"
