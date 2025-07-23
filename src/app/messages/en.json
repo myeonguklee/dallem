@@ -14,6 +14,16 @@
     "next": "Next",
     "previous": "Previous"
   },
+  "ui": {
+    "timePicker": {
+      "hour": "Hour",
+      "minute": "Minute",
+      "am": "AM",
+      "pm": "PM",
+      "reset": "Reset",
+      "confirm": "Confirm"
+    }
+  },
   "navigation": {
     "home": "Home",
     "gatherings": "Gatherings",
@@ -118,7 +128,9 @@
           "imageButton": "Find File",
           "type": "Select Service",
           "date": "Gathering Date",
+          "datePlaceholder": "Select gathering date",
           "registrationEnd": "Registration End",
+          "registrationEndPlaceholder": "Select registration end date",
           "participants": "Participants",
           "participantsPlaceholder": "Enter minimum 5 participants",
           "locations": {
@@ -140,6 +152,16 @@
               "label": "Workation",
               "subtitle": ""
             }
+          },
+          "errors": {
+            "nameRequired": "Please enter the gathering name.",
+            "locationRequired": "Please select a location.",
+            "typeRequired": "Please select a service.",
+            "dateTimeRequired": "Please select the gathering date.",
+            "dateTimePast": "The gathering date must be in the future.",
+            "registrationEndInvalid": "Registration deadline must be before the gathering date.",
+            "capacityMin": "Please enter at least 5 participants.",
+            "imageType": "Only image files are allowed."
           }
         }
       }

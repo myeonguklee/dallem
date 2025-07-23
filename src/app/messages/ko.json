@@ -14,6 +14,16 @@
     "next": "다음",
     "previous": "이전"
   },
+  "ui": {
+    "timePicker": {
+      "hour": "시",
+      "minute": "분",
+      "am": "오전",
+      "pm": "오후",
+      "reset": "초기화",
+      "confirm": "확인"
+    }
+  },
   "navigation": {
     "home": "홈",
     "gatherings": "모임",
@@ -118,7 +128,9 @@
           "imageButton": "파일 찾기",
           "type": "선택 서비스",
           "date": "모임 날짜",
+          "datePlaceholder": "모임 날짜를 선택해주세요",
           "registrationEnd": "마감 날짜",
+          "registrationEndPlaceholder": "마감 날짜를 선택해주세요",
           "participants": "모집 정원",
           "participantsPlaceholder": "최소 5인 이상 입력해주세요.",
           "locations": {
@@ -140,6 +152,16 @@
               "label": "워케이션",
               "subtitle": ""
             }
+          },
+          "errors": {
+            "nameRequired": "모임 이름을 입력해주세요",
+            "locationRequired": "장소를 선택해주세요",
+            "typeRequired": "서비스를 선택해주세요",
+            "dateTimeRequired": "모임 날짜를 선택해주세요",
+            "dateTimePast": "모임 날짜는 현재 시각 이후로 선택해주세요",
+            "registrationEndInvalid": "모집 마감일은 모임 날짜보다 이전이어야 합니다",
+            "capacityMin": "최소 5인 이상 입력해주세요",
+            "imageType": "이미지 파일만 업로드 가능합니다"
           }
         }
       }

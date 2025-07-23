@@ -2,35 +2,60 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import { httpClient } from '@/shared/api/httpClient';
 import { cn } from '@/shared/lib/cn';
 import { BoxSelector } from '@/shared/ui/box-selector/BoxSelector';
+import { Calendar } from '@/shared/ui/calendar/Calendar';
 import { Dropdown, DropdownItem, DropdownList, DropdownTrigger } from '@/shared/ui/dropdown';
+import { ArrowDownIcon } from '@/shared/ui/icon/icons/ArrowDownIcon';
+import { ArrowUpIcon } from '@/shared/ui/icon/icons/ArrowUpIcon';
+import { CalendarIcon } from '@/shared/ui/icon/icons/CalendarIcon';
 import { Input } from '@/shared/ui/input';
 import { Modal } from '@/shared/ui/modal';
+import { TimePicker } from '@/shared/ui/time-picker';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-// LOCATION_OPTIONS와 SERVICE_OPTIONS는 컴포넌트 내부에서 동적으로 생성
-
-const schema = z.object({
-  name: z.string().min(1, '모임 이름을 입력해주세요'),
-  location: z.enum(['건대입구', '을지로3가', '신림', '홍대입구'], {
-    required_error: '장소를 선택해주세요',
-  }),
-  type: z.enum(['OFFICE_STRETCHING', 'MINDFULNESS', 'WORKATION'], {
-    required_error: '서비스를 선택해주세요',
-  }),
-  // dateTime: z.string().min(1, '모임 날짜를 선택해주세요'),
-  // registrationEnd: z.string().optional(),
-  capacity: z.coerce.number().min(5, '최소 5인 이상 입력해주세요'),
-  image: z.any().optional(),
-});
-// .refine(
-//   (data) => !data.registrationEnd || new Date(data.registrationEnd) < new Date(data.dateTime),
-//   { message: '모집 마감일은 모임 날짜보다 이전이어야 합니다', path: ['registrationEnd'] },
-// );
+const schema = z
+  .object({
+    name: z.string().min(1, 'form.errors.nameRequired'),
+    location: z.enum(['건대입구', '을지로3가', '신림', '홍대입구'], {
+      required_error: 'form.errors.locationRequired',
+    }),
+    type: z.enum(['OFFICE_STRETCHING', 'MINDFULNESS', 'WORKATION'], {
+      required_error: 'form.errors.typeRequired',
+    }),
+    dateTime: z.date({
+      required_error: 'form.errors.dateTimeRequired',
+    }),
+    registrationEnd: z.date().optional(),
+    capacity: z.coerce.number().min(5, 'form.errors.capacityMin'),
+    image: z
+      .any()
+      .optional()
+      .refine(
+        (file) =>
+          !file ||
+          (typeof File !== 'undefined' && file instanceof File && file.type.startsWith('image/')),
+        {
+          message: 'form.errors.imageType',
+          path: ['image'],
+        },
+      ),
+  })
+  .refine(
+    (data) => !data.registrationEnd || (data.dateTime && data.registrationEnd < data.dateTime),
+    {
+      message: 'form.errors.registrationEndInvalid',
+      path: ['registrationEnd'],
+    },
+  )
+  .refine((data) => data.dateTime && data.dateTime > new Date(), {
+    message: 'form.errors.dateTimePast',
+    path: ['dateTime'],
+  });
 
 type FormValues = z.infer<typeof schema>;
 
@@ -41,7 +66,12 @@ interface CreateGatheringModalProps {
 
 export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalProps) => {
   const t = useTranslations('pages.gatherings.create');
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [currentDateField, setCurrentDateField] = useState<'dateTime' | 'registrationEnd' | null>(
+    null,
+  );
 
   // i18n을 사용한 동적 옵션 생성
   const LOCATION_OPTIONS = [
@@ -75,18 +105,21 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
     setValue,
     formState: { errors },
     watch,
+    reset,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
       location: undefined,
       type: undefined,
-      // dateTime: '',
-      // registrationEnd: '',
+      dateTime: undefined,
+      registrationEnd: undefined,
       capacity: undefined,
       image: undefined,
     },
   });
+
+  console.log('폼 에러 상태:', errors); // 폼 검증 시 errors 객체를 콘솔에 출력
 
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
@@ -105,7 +138,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
       onClose();
     } catch (e) {
       // TODO: 에러 핸들링
-      alert(e instanceof Error ? e.message : '오류가 발생했습니다');
+      alert(e instanceof Error ? e.message : t('common:error'));
     } finally {
       setLoading(false);
     }
@@ -116,6 +149,34 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
     if (e.target.files && e.target.files[0]) {
       setValue('image', e.target.files[0]);
     }
+  };
+
+  // URL에서 로케일 추출
+  const locale = pathname?.split('/')[1] || 'ko';
+
+  // 날짜 포맷팅 함수 (로케일 기반)
+  const formatDateTime = (date: Date | undefined) => {
+    if (!date) return '';
+    return date.toLocaleString(locale === 'ko' ? 'ko-KR' : 'en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
+  // 모바일용 날짜 포맷팅 함수 (연도 제외, 로케일 기반)
+  const formatDateTimeMobile = (date: Date | undefined) => {
+    if (!date) return '';
+    return date.toLocaleString(locale === 'ko' ? 'ko-KR' : 'en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
   };
 
   return (
@@ -135,7 +196,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                 {...register('name')}
                 placeholder={t('form.titlePlaceholder')}
                 variant={errors.name ? 'error' : 'default'}
-                errorMessage={errors.name?.message}
+                errorMessage={errors.name?.message ? t(String(errors.name.message)) : undefined}
                 inputSize="lg"
                 className="w-full"
               />
@@ -166,7 +227,17 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                             {LOCATION_OPTIONS.find((opt) => opt.value === field.value)?.label ||
                               t('form.locationPlaceholder')}
                           </span>
-                          <span className="ml-auto text-gray-400">&#9660;</span>
+                          {isOpen ? (
+                            <ArrowUpIcon
+                              size={16}
+                              className="ml-auto text-gray-400"
+                            />
+                          ) : (
+                            <ArrowDownIcon
+                              size={16}
+                              className="ml-auto text-gray-400"
+                            />
+                          )}
                         </DropdownTrigger>
                         <DropdownList
                           isOpen={isOpen}
@@ -189,8 +260,8 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                           ))}
                         </DropdownList>
                         {errors.location && (
-                          <p className="absolute left-0 mt-1 text-xs text-red-500">
-                            {errors.location.message}
+                          <p className="text-xs text-red-500">
+                            {t(errors.location?.message ?? '')}
                           </p>
                         )}
                       </div>
@@ -236,7 +307,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                 />
               </div>
               {errors.image && (
-                <p className="mt-1 text-xs text-red-500">{errors.image.message as string}</p>
+                <p className="mt-1 text-xs text-red-500">{t(errors.image?.message as string)}</p>
               )}
             </div>
 
@@ -261,7 +332,210 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                   </div>
                 )}
               />
-              {errors.type && <p className="mt-1 text-xs text-red-500">{errors.type.message}</p>}
+              {errors.type && (
+                <p className="mt-1 text-xs text-red-500">{t(errors.type?.message ?? '')}</p>
+              )}
+            </div>
+
+            {/* 모임 날짜와 마감 날짜 (한 줄 배치) */}
+            <div className="flex w-full gap-4">
+              {/* 모임 날짜 */}
+              <div className="min-w-0 flex-1">
+                <label className="mb-2 block text-sm font-medium">{t('form.date')}</label>
+                <Controller
+                  control={control}
+                  name="dateTime"
+                  render={({ field }) => (
+                    <div className="relative">
+                      <div
+                        className={cn(
+                          'flex w-full cursor-pointer items-center rounded-xl bg-gray-50 px-4 py-2.5',
+                          'border-0',
+                          errors.dateTime && 'border-red-500',
+                        )}
+                        onClick={() => {
+                          setCurrentDateField('dateTime');
+                          if (!watch('dateTime')) {
+                            const now = new Date();
+                            now.setHours(14, 0, 0, 0);
+                            setValue('dateTime', now);
+                          }
+                          setShowDatePicker(!showDatePicker);
+                        }}
+                      >
+                        <span
+                          className={cn(
+                            'block min-w-0 flex-1 truncate',
+                            field.value ? 'text-gray-800' : 'text-gray-400',
+                          )}
+                        >
+                          {field.value ? (
+                            <>
+                              <span className="tablet:inline hidden">
+                                {formatDateTime(field.value)}
+                              </span>
+                              <span className="tablet:hidden">
+                                {formatDateTimeMobile(field.value)}
+                              </span>
+                            </>
+                          ) : (
+                            t('form.datePlaceholder')
+                          )}
+                        </span>
+                        <CalendarIcon
+                          size={16}
+                          className="ml-auto flex-shrink-0 text-gray-400"
+                        />
+                      </div>
+                      {showDatePicker && currentDateField === 'dateTime' && (
+                        <div className="fixed top-1/2 left-1/2 z-[9999] -translate-x-1/2 -translate-y-1/2">
+                          <div className="">
+                            <Calendar
+                              value={field.value}
+                              onChange={(date) => {
+                                if (date) {
+                                  // 날짜 선택 시 자동으로 오후 2시로 설정
+                                  const newDate = new Date(date);
+                                  newDate.setHours(14, 0, 0, 0); // 오후 2시로 고정
+                                  field.onChange(newDate);
+                                }
+                              }}
+                              footer={
+                                <TimePicker
+                                  value={field.value}
+                                  onChange={(timeDate) => {
+                                    if (field.value) {
+                                      const newDate = new Date(field.value);
+                                      newDate.setHours(
+                                        timeDate.getHours(),
+                                        timeDate.getMinutes(),
+                                        0,
+                                        0,
+                                      );
+                                      field.onChange(newDate);
+                                    }
+                                  }}
+                                  onReset={() => {
+                                    // 날짜와 시간 모두 초기화
+                                    field.onChange(undefined);
+                                  }}
+                                  onConfirm={() => {
+                                    setShowDatePicker(false);
+                                  }}
+                                />
+                              }
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {errors.dateTime && (
+                        <p className="mt-1 text-xs text-red-500">
+                          {t(errors.dateTime?.message ?? '')}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
+
+              {/* 마감 날짜 */}
+              <div className="min-w-0 flex-1">
+                <label className="mb-2 block text-sm font-medium">
+                  {t('form.registrationEnd')}
+                </label>
+                <Controller
+                  control={control}
+                  name="registrationEnd"
+                  render={({ field }) => (
+                    <div className="relative">
+                      <div
+                        className={cn(
+                          'flex w-full cursor-pointer items-center rounded-xl bg-gray-50 px-4 py-2.5',
+                          'border-0',
+                          errors.registrationEnd && 'border-red-500',
+                        )}
+                        onClick={() => {
+                          setCurrentDateField('registrationEnd');
+                          if (!watch('registrationEnd')) {
+                            const now = new Date();
+                            now.setHours(14, 0, 0, 0);
+                            setValue('registrationEnd', now);
+                          }
+                          setShowDatePicker(!showDatePicker);
+                        }}
+                      >
+                        <span
+                          className={cn(
+                            'block min-w-0 flex-1 truncate',
+                            field.value ? 'text-gray-800' : 'text-gray-400',
+                          )}
+                        >
+                          {field.value ? (
+                            <>
+                              <span className="tablet:inline hidden">
+                                {formatDateTime(field.value)}
+                              </span>
+                              <span className="tablet:hidden">
+                                {formatDateTimeMobile(field.value)}
+                              </span>
+                            </>
+                          ) : (
+                            t('form.registrationEndPlaceholder')
+                          )}
+                        </span>
+                        <CalendarIcon
+                          size={16}
+                          className="ml-auto flex-shrink-0 text-gray-400"
+                        />
+                      </div>
+                      {showDatePicker && currentDateField === 'registrationEnd' && (
+                        <div className="fixed top-1/2 left-1/2 z-[9999] -translate-x-1/2 -translate-y-1/2">
+                          <Calendar
+                            value={field.value}
+                            onChange={(date) => {
+                              if (date) {
+                                // 날짜 선택 시 자동으로 14:00로 설정
+                                const newDate = new Date(date);
+                                newDate.setHours(14, 0, 0, 0); // 14:00로 고정
+                                field.onChange(newDate);
+                              }
+                            }}
+                            footer={
+                              <TimePicker
+                                value={field.value}
+                                onChange={(timeDate) => {
+                                  if (field.value) {
+                                    const newDate = new Date(field.value);
+                                    newDate.setHours(
+                                      timeDate.getHours(),
+                                      timeDate.getMinutes(),
+                                      0,
+                                      0,
+                                    );
+                                    field.onChange(newDate);
+                                  }
+                                }}
+                                onReset={() => {
+                                  // 날짜와 시간 모두 초기화
+                                  field.onChange(undefined);
+                                }}
+                                onConfirm={() => {
+                                  setShowDatePicker(false);
+                                }}
+                              />
+                            }
+                          />
+                        </div>
+                      )}
+                      {errors.registrationEnd && (
+                        <p className="mt-1 text-xs text-red-500">
+                          {t(errors.registrationEnd?.message ?? '')}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
 
             {/* 모집 정원 */}
@@ -273,7 +547,9 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                 placeholder={t('form.participantsPlaceholder')}
                 min={5}
                 variant={errors.capacity ? 'error' : 'default'}
-                errorMessage={errors.capacity?.message}
+                errorMessage={
+                  errors.capacity?.message ? t(String(errors.capacity.message)) : undefined
+                }
                 inputSize="lg"
                 className="w-full"
               />
@@ -281,11 +557,11 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
           </div>
         </Modal.Body>
         <Modal.Footer
-          primaryButtonText={loading ? '생성 중...' : t('submit')}
+          primaryButtonText={loading ? t('common:loading') : t('submit')}
           secondaryButtonText={t('cancel')}
           onPrimaryClick={handleSubmit(onSubmit)}
           onSecondaryClick={() => {
-            // reset(); // Removed as per edit hint
+            reset();
             onClose();
           }}
         />
