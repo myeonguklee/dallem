@@ -70,11 +70,17 @@
       "title": "Sign Up Page",
       "name": "Name",
       "email": "Email",
+      "company": "Company",
       "password": "Password",
       "confirmPassword": "Confirm Password",
       "signupButton": "Sign Up",
-      "hasAccount": "Already have an account?",
-      "signinLink": "Sign In"
+      "footerText": "Already have an account?",
+      "signinLink": "Sign In",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "companyPlaceholder": "Enter your company name",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordPlaceholder": "Confirm your password"
     },
     "gatherings": {
       "title": "Gatherings List Page",
