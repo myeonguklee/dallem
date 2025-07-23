@@ -14,7 +14,7 @@ export const Header = () => {
   const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
   return (
-    <header className="tablet:h-15 px-mobile-padding tablet:px-tablet-padding relative flex h-14 justify-center gap-5 border-b border-gray-200 bg-white">
+    <header className="tablet:h-15 px-mobile-padding tablet:px-tablet-padding fixed z-[var(--z-sticky)] flex h-14 w-full justify-center gap-5 border-b border-gray-200 bg-white">
       <div className="web:max-w-web flex w-full items-center justify-between">
         <div className="flex items-center gap-5">
           <MobileGNB />
