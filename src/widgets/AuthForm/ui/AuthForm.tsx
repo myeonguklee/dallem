@@ -4,10 +4,10 @@ import { useTranslations } from 'next-intl';
 import { InputWithLabel } from '@/shared/ui/InputWithLabel';
 import { Button } from '@/shared/ui/button';
 import { HeaderLink } from '@/widgets/Header/ui/HeaderLink';
-import { Path } from 'react-hook-form';
+import { FieldValues, Path } from 'react-hook-form';
 import { AuthFormProps } from '../model/types';
 
-export const AuthForm = <T extends Record<string, unknown>>({
+export const AuthForm = <T extends FieldValues>({
   meta,
   fields,
   handlers,
