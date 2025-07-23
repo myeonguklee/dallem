@@ -8,40 +8,47 @@ export interface InputProps
   errorMessage?: string;
 }
 
-const inputVariants = cva(
+export const INPUT_VARIANT = {
+  default: 'text-gray-800',
+  toggle: 'border border-gray-50 text-gray-800', // dropdown 완성 후 추가 개발
+  hover: 'border-2 border-orange-300 text-gray-800',
+  typing: 'border-2 border-orange-600 text-gray-800',
+  done: 'border-2 border-gray-50 text-gray-800',
+  error: 'border-2 border-red-600 text-gray-800',
+  password_default: 'text-gray-800',
+  password_off: 'text-gray-800',
+  password_on: 'text-gray-800',
+  password_error: 'border-2 border-red-600 text-gray-800',
+};
+
+export const inputVariants = cva(
   'flex w-full rounded-xl px-4 py-2.5 outline-none transition bg-gray-50 text-sm leading-5 tablet:text-base tablet:leading-6',
   {
     variants: {
-      variant: {
-        default: 'text-gray-400',
-        toggle: 'border border-gray-50 text-gray-400', // dropdown 완성 후 추가 개발
-        hover: 'border-2 border-orange-300 text-gray-400',
-        typing: 'border-2 border-orange-600 text-gray-800',
-        done: 'border-2 border-gray-50 text-gray-800',
-        error: 'border-2 border-red-600 text-gray-400',
-        password_default: 'text-gray-400',
-        password_off: 'text-gray-800',
-        password_on: 'text-gray-800',
-        password_error: 'border-2 border-red-600 text-gray-800',
-      },
+      variant: INPUT_VARIANT,
       inputSize: {
         lg: 'text-base leading-6',
         sm: 'text-sm leading-5',
+      },
+      isError: {
+        true: 'border-2 border-red-600 text-gray-800',
+        false: '',
       },
     },
     defaultVariants: {
       variant: 'default',
       inputSize: 'lg',
+      isError: false,
     },
   },
 );
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ variant, inputSize, errorMessage, ...props }, ref) => {
+  ({ variant, inputSize, isError, errorMessage, ...props }, ref) => {
     return (
       // figma에 따라 w-[460px]로 설정. 개발 진행에 따라 w-full로 변경할 수 있음.
       <>
-        <div className={`${inputVariants({ variant, inputSize })}`}>
+        <div className={`${inputVariants({ variant, inputSize, isError })}`}>
           <input
             ref={ref}
             className="flex-1 outline-none"
