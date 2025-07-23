@@ -23,7 +23,7 @@ export const AuthForm = <T extends Record<string, unknown>>({
       <div className="flex w-full flex-col gap-6">
         {fields.map(({ name, label, placeholder, type = 'text', withVariant }) => (
           <InputWithLabel
-            key={String(name)}
+            key={name as string}
             label={t(label)}
             placeholder={t(placeholder)}
             type={type}

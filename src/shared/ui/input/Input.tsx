@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef, useState } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { VisibilityOffIcon, VisibilityOnIcon } from '../icon';
 
@@ -15,10 +15,6 @@ export const INPUT_VARIANT = {
   typing: 'border-2 border-orange-600 text-gray-800',
   done: 'border-2 border-gray-50 text-gray-800',
   error: 'border-2 border-red-600 text-gray-800',
-  password_default: 'text-gray-800',
-  password_off: 'text-gray-800',
-  password_on: 'text-gray-800',
-  password_error: 'border-2 border-red-600 text-gray-800',
 };
 
 export const inputVariants = cva(
@@ -44,26 +40,30 @@ export const inputVariants = cva(
 );
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ variant, inputSize, isError, errorMessage, ...props }, ref) => {
+  ({ variant = 'default', inputSize, isError, errorMessage, type, ...props }, ref) => {
+    const isPasswordField = type === 'password';
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
     return (
-      // figma에 따라 w-[460px]로 설정. 개발 진행에 따라 w-full로 변경할 수 있음.
       <>
         <div className={`${inputVariants({ variant, inputSize, isError })}`}>
           <input
             ref={ref}
             className="flex-1 outline-none"
+            type={isPasswordField && !showPassword ? 'password' : 'text'}
             {...props}
           />
-          {/* toggle 버전 dropdown 완성 후 작성 예정 */}
-          {(variant === 'password_default' || variant === 'password_on') && (
-            <div className="shrink-0">
-              <VisibilityOnIcon />
-            </div>
-          )}
-          {(variant === 'password_off' || variant === 'password_error') && (
-            <div className="shrink-0">
-              <VisibilityOffIcon />
-            </div>
+          {isPasswordField && (
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="shrink-0 cursor-pointer text-gray-500 hover:text-gray-700 focus:outline-none"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <VisibilityOffIcon /> : <VisibilityOnIcon />}
+            </button>
           )}
         </div>
         {errorMessage && <p className="pt-[8px] text-xs text-red-500">{errorMessage}</p>}

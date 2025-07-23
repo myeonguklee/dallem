@@ -14,13 +14,11 @@ export const signupFields = [
     label: 'pages.signup.password',
     placeholder: 'pages.signup.passwordPlaceholder',
     type: 'password',
-    withVariant: 'password_default',
   },
   {
     name: 'confirmPassword',
     label: 'pages.signup.confirmPassword',
     placeholder: 'pages.signup.confirmPasswordPlaceholder',
     type: 'password',
-    withVariant: 'password_default',
   },
 ] as const satisfies AuthFormField<SignupFormData>[];

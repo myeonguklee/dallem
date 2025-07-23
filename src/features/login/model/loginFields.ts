@@ -9,7 +9,6 @@ export const loginFields = [
     label: 'pages.signup.password',
     placeholder: 'pages.signup.passwordPlaceholder',
     type: 'password',
-    withVariant: 'password_default',
   },
 ];
 // as const satisfies AuthFormField<LoginFormData>[];
