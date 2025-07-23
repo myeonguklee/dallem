@@ -68,6 +68,7 @@
     },
     "signup": {
       "title": "Sign Up Page",
+      "name": "Name",
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",

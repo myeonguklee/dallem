@@ -68,12 +68,18 @@
     },
     "signup": {
       "title": "회원가입 페이지",
+      "name": "이름",
       "email": "이메일",
       "password": "비밀번호",
       "confirmPassword": "비밀번호 확인",
       "signupButton": "회원가입",
       "hasAccount": "이미 계정이 있으신가요?",
-      "signinLink": "로그인"
+      "signinLink": "로그인",
+      "namePlaceholder": "이름을 입력해주세요",
+      "emailPlaceholder": "이메일을 입력해주세요",
+      "companyPlaceholder": "회사명을 입력해주세요",
+      "passwordPlaceholder": "비밀번호를 입력해주세요",
+      "confirmPasswordPlaceholder": "비밀번호를 다시 한 번 입력해주세요"
     },
     "gatherings": {
       "title": "모임 목록 페이지",
