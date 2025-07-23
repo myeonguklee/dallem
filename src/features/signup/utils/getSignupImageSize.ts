@@ -1,4 +1,4 @@
-import { getBreakpointsPx } from '@/lib/getBreakpointsPx';
+import { getBreakpointsPx } from '@/shared/lib/getBreakpointsPx';
 
 const IMAGE_SIZE_BY_BREAKPOINTS = {
   mobile: 290, // 23.4375rem
