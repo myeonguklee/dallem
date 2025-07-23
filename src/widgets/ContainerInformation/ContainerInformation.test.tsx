@@ -3,11 +3,31 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { ContainerInformation } from './ContainerInformation';
 
 const participants = [
-  { id: '1', image: 'url1' },
-  { id: '2', image: 'url2' },
-  { id: '3', image: 'url3' },
-  { id: '4', image: 'url4' },
-  { id: '5', image: 'url5' }, // 5명: extraCount=1
+  {
+    id: '1',
+    image:
+      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+  },
+  {
+    id: '2',
+    image:
+      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+  },
+  {
+    id: '3',
+    image:
+      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+  },
+  {
+    id: '4',
+    image:
+      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+  },
+  {
+    id: '5',
+    image:
+      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+  }, // 5명: extraCount=1
 ];
 
 describe('ContainerInformation', () => {
