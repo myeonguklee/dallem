@@ -120,7 +120,27 @@
           "date": "Gathering Date",
           "registrationEnd": "Registration End",
           "participants": "Participants",
-          "participantsPlaceholder": "Enter minimum 5 participants"
+          "participantsPlaceholder": "Enter minimum 5 participants",
+          "locations": {
+            "konkuk": "Konkuk University",
+            "euljiro": "Euljiro 3-ga",
+            "sinrim": "Sinrim",
+            "hongdae": "Hongdae"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "Dallaemfit",
+              "subtitle": "Office Stretching"
+            },
+            "mindfulness": {
+              "label": "Dallaemfit",
+              "subtitle": "Mindfulness"
+            },
+            "workation": {
+              "label": "Workation",
+              "subtitle": ""
+            }
+          }
         }
       }
     },

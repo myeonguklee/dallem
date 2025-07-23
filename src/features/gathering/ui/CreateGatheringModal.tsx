@@ -12,18 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const LOCATION_OPTIONS = [
-  { value: '건대입구', label: '건대입구' },
-  { value: '을지로3가', label: '을지로3가' },
-  { value: '신림', label: '신림' },
-  { value: '홍대입구', label: '홍대입구' },
-];
-
-const SERVICE_OPTIONS = [
-  { value: 'OFFICE_STRETCHING', label: '달램핏', subtitle: '오피스 스트레칭' },
-  { value: 'MINDFULNESS', label: '달램핏', subtitle: '마인드풀니스' },
-  { value: 'WORKATION', label: '워케이션' },
-];
+// LOCATION_OPTIONS와 SERVICE_OPTIONS는 컴포넌트 내부에서 동적으로 생성
 
 const schema = z.object({
   name: z.string().min(1, '모임 이름을 입력해주세요'),
@@ -53,6 +42,32 @@ interface CreateGatheringModalProps {
 export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalProps) => {
   const t = useTranslations('pages.gatherings.create');
   const [loading, setLoading] = useState(false);
+
+  // i18n을 사용한 동적 옵션 생성
+  const LOCATION_OPTIONS = [
+    { value: '건대입구', label: t('form.locations.konkuk') },
+    { value: '을지로3가', label: t('form.locations.euljiro') },
+    { value: '신림', label: t('form.locations.sinrim') },
+    { value: '홍대입구', label: t('form.locations.hongdae') },
+  ];
+
+  const SERVICE_OPTIONS = [
+    {
+      value: 'OFFICE_STRETCHING',
+      label: t('form.services.officeStretching.label'),
+      subtitle: t('form.services.officeStretching.subtitle'),
+    },
+    {
+      value: 'MINDFULNESS',
+      label: t('form.services.mindfulness.label'),
+      subtitle: t('form.services.mindfulness.subtitle'),
+    },
+    {
+      value: 'WORKATION',
+      label: t('form.services.workation.label'),
+      subtitle: t('form.services.workation.subtitle'),
+    },
+  ];
   const {
     control,
     register,
@@ -68,7 +83,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
       type: undefined,
       // dateTime: '',
       // registrationEnd: '',
-      capacity: 5,
+      capacity: undefined,
       image: undefined,
     },
   });
@@ -126,7 +141,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
               />
             </div>
 
-            {/* 장소 드롭다운 (Dropdown 컴포넌트 활용, Input 유사 디자인) */}
+            {/* 장소 드롭다운 */}
             <div>
               <label className="mb-2 block text-sm font-medium">{t('form.location')}</label>
               <Controller
@@ -187,7 +202,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
 
             {/* 이미지 업로드 (파일명+버튼 분리, 한 줄 배치) */}
             <div>
-              <label className="mb-2 block text-sm font-medium">이미지</label>
+              <label className="mb-2 block text-sm font-medium">{t('form.image')}</label>
               <div className="flex w-full items-center gap-2">
                 <div
                   className={cn(
@@ -202,7 +217,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                       watch('image') ? 'text-gray-800' : 'text-gray-400',
                     )}
                   >
-                    {watch('image')?.name || '이미지를 첨부해주세요'}
+                    {watch('image')?.name || t('form.imagePlaceholder')}
                   </span>
                 </div>
                 <button
@@ -210,7 +225,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                   className="rounded-xl border border-orange-500 bg-white px-4 py-2 font-semibold text-orange-500 transition hover:bg-orange-50 focus:outline-none"
                   onClick={() => document.getElementById('gathering-image-upload')?.click()}
                 >
-                  파일 찾기
+                  {t('form.imageButton')}
                 </button>
                 <input
                   type="file"
@@ -227,7 +242,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
 
             {/* 선택 서비스 (BoxSelector) */}
             <div>
-              <label className="mb-2 block text-sm font-medium">선택 서비스</label>
+              <label className="mb-2 block text-sm font-medium">{t('form.type')}</label>
               <Controller
                 control={control}
                 name="type"
@@ -251,7 +266,7 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
 
             {/* 모집 정원 */}
             <div>
-              <label className="mb-2 block text-sm font-medium">모집 정원</label>
+              <label className="mb-2 block text-sm font-medium">{t('form.participants')}</label>
               <Input
                 type="number"
                 {...register('capacity')}

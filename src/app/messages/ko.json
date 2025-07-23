@@ -120,7 +120,27 @@
           "date": "모임 날짜",
           "registrationEnd": "마감 날짜",
           "participants": "모집 정원",
-          "participantsPlaceholder": "최소 5인 이상 입력해주세요."
+          "participantsPlaceholder": "최소 5인 이상 입력해주세요.",
+          "locations": {
+            "konkuk": "건대입구",
+            "euljiro": "을지로3가",
+            "sinrim": "신림",
+            "hongdae": "홍대입구"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "달램핏",
+              "subtitle": "오피스 스트레칭"
+            },
+            "mindfulness": {
+              "label": "달램핏",
+              "subtitle": "마인드풀니스"
+            },
+            "workation": {
+              "label": "워케이션",
+              "subtitle": ""
+            }
+          }
         }
       }
     },
