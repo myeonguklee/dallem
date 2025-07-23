@@ -119,8 +119,6 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
     },
   });
 
-  console.log('폼 에러 상태:', errors); // 폼 검증 시 errors 객체를 콘솔에 출력
-
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
     try {
