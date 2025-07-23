@@ -1,5 +1,3 @@
-'use client';
-
 import { AuthPageDecoration } from '@/shared/ui/AuthPageDecoration/AuthPageDecoration';
 
 export default function SignupLayout({ children }: { children: React.ReactNode }) {

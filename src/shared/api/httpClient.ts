@@ -89,18 +89,11 @@ export const httpClient = {
     url: string,
     data?: D,
     config?: AxiosRequestConfig,
-  ): Promise<T> =>
-    axiosInstance
-      .post<T>(url, data, config)
-      .then((response) => ({ ...response.data, status: response.status })),
+  ): Promise<T> => axiosInstance.post<T>(url, data, config).then((response) => response.data),
 
   put: <T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> =>
-    axiosInstance
-      .put<T>(url, data, config)
-      .then((response) => ({ ...response.data, status: response.status })),
+    axiosInstance.put<T>(url, data, config).then((response) => response.data),
 
   delete: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> =>
-    axiosInstance
-      .delete<T>(url, config)
-      .then((response) => ({ ...response.data, status: response.status })),
+    axiosInstance.delete<T>(url, config).then((response) => response.data),
 };
