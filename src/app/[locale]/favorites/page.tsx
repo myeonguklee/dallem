@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getGatherings } from '@/entities/gathering/api';
 import { Gathering } from '@/entities/gathering/model/types';
-import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
+import { useFavoritesStore } from '@/features/favorites/model/favoritesStore';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
@@ -12,25 +12,24 @@ import { GatheringCard } from '@/widgets/GatheringCard/ui';
 
 export default function FavoritesPage() {
   const t = useTranslations('pages.favorites');
+  const favorites = useFavoritesStore((state) => state.favorites);
   const [gatherings, setGatherings] = useState<Gathering[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const favoriteGatherings = getFavoriteList();
-
       // 찜한 게 없으면 빈 배열로 처리
-      if (favoriteGatherings.length === 0) {
+      if (favorites.length === 0) {
         setGatherings([]);
         return;
       }
 
-      const gatheringId = favoriteGatherings.join(',');
+      const gatheringId = favorites.join(',');
       const res = await getGatherings({ id: gatheringId });
       setGatherings(res);
     };
 
     fetchData();
-  }, []);
+  }, [favorites]);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
