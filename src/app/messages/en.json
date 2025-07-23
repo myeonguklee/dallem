@@ -65,10 +65,6 @@
     "apply": "Apply"
   },
   "pages": {
-    "signup": {
-      "success": "Signup completed successfully",
-      "failure": "Signup failed"
-    },
     "home": {
       "title": "Homepage",
       "welcome": "Welcome to Dallem!"
@@ -95,7 +91,9 @@
       "emailPlaceholder": "Enter your email",
       "companyPlaceholder": "Enter your company name",
       "passwordPlaceholder": "Enter your password",
-      "confirmPasswordPlaceholder": "Confirm your password"
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
     },
     "gatherings": {
       "title": "Gatherings List Page",
@@ -116,6 +114,7 @@
       },
       "create": {
         "title": "Create Gathering",
+        "pending": "Sending...",
         "submit": "Confirm",
         "cancel": "Cancel",
         "form": {
@@ -159,6 +158,7 @@
             "typeRequired": "Please select a service.",
             "dateTimeRequired": "Please select the gathering date.",
             "dateTimePast": "The gathering date must be in the future.",
+            "registrationEndRequired": "Please select the registration end date.",
             "registrationEndInvalid": "Registration deadline must be before the gathering date.",
             "capacityMin": "Please enter at least 5 participants.",
             "imageType": "Only image files are allowed."
