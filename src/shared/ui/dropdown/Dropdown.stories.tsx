@@ -1,68 +1,108 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { Dropdown, DropdownItem, DropdownList, DropdownTrigger } from './index';
+import { ArrowDownIcon } from '../icon/icons/ArrowDownIcon';
+import { Dropdown } from './Dropdown';
+import { DropdownItem } from './DropdownItem';
+import { DropdownList } from './DropdownList';
+import { DropdownTrigger } from './DropdownTrigger';
 
-const meta: Meta<typeof DropdownTrigger> = {
+const meta: Meta<typeof Dropdown> = {
   title: 'shared/ui/Dropdown',
-  component: DropdownTrigger,
+  component: Dropdown,
+  parameters: {
+    layout: 'centered',
+  },
   tags: ['autodocs'],
-  argTypes: {
-    size: { control: { type: 'radio' }, options: ['large', 'small'] },
-    state: { control: { type: 'radio' }, options: ['default', 'hover', 'selected'] },
-  },
-  args: {
-    size: 'large',
-    state: 'default',
-    children: '을지로 3가',
-  },
-  decorators: [
-    (Story) => (
-      <div className="flex items-center justify-center">
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-type Story = StoryObj<typeof DropdownTrigger>;
-
-// ✅ 기본 트리거 스토리
-export const Default: Story = {};
-
-// ✅ 호버 상태
-export const Hover: Story = {
-  args: { state: 'hover' },
-};
-
-// ✅ 선택된 상태
-export const Selected: Story = {
-  args: { state: 'selected' },
-};
-
-// ✅ 스몰 사이즈
-export const Small: Story = {
-  args: { size: 'small' },
-};
-
-export const WithList: StoryObj = {
+export const Default: Story = {
   render: () => (
-    <Dropdown>
-      {({ isOpen, toggle }) => (
-        <div>
+    <Dropdown defaultValue="option1">
+      {({ isOpen, toggle, selectedValue, onSelect }) => (
+        <div className="relative">
           <DropdownTrigger
             onClick={toggle}
-            size="large"
-            state={isOpen ? 'selected' : 'default'}
+            state="default"
           >
-            을지로 3가
+            <span>{selectedValue || '옵션을 선택하세요'}</span>
+            <ArrowDownIcon className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </DropdownTrigger>
-          <DropdownList isOpen={isOpen}>
-            <DropdownItem state="default">건대입구</DropdownItem>
-            <DropdownItem state="hover">을지로 3가</DropdownItem>
-            <DropdownItem state="selected">신림</DropdownItem>
-            <DropdownItem state="default">홍대입구</DropdownItem>
-          </DropdownList>
+
+          {isOpen && (
+            <DropdownList isOpen={isOpen}>
+              <DropdownItem
+                value="option1"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 1
+              </DropdownItem>
+              <DropdownItem
+                value="option2"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 2
+              </DropdownItem>
+              <DropdownItem
+                value="option3"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 3
+              </DropdownItem>
+            </DropdownList>
+          )}
+        </div>
+      )}
+    </Dropdown>
+  ),
+};
+
+export const Small: Story = {
+  render: () => (
+    <Dropdown defaultValue="option1">
+      {({ isOpen, toggle, selectedValue, onSelect }) => (
+        <div className="relative">
+          <DropdownTrigger
+            size="small"
+            onClick={toggle}
+            state="default"
+          >
+            <span>{selectedValue || '옵션을 선택하세요'}</span>
+            <ArrowDownIcon className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          </DropdownTrigger>
+
+          {isOpen && (
+            <DropdownList isOpen={isOpen}>
+              <DropdownItem
+                size="small"
+                value="option1"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 1
+              </DropdownItem>
+              <DropdownItem
+                size="small"
+                value="option2"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 2
+              </DropdownItem>
+              <DropdownItem
+                size="small"
+                value="option3"
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              >
+                옵션 3
+              </DropdownItem>
+            </DropdownList>
+          )}
         </div>
       )}
     </Dropdown>

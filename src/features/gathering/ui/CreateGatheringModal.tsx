@@ -139,13 +139,10 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                         <DropdownTrigger
                           type="button"
                           size="large"
-                          state={field.value ? 'selected' : 'default'}
+                          state="default"
                           className={cn(
                             'flex w-full items-center rounded-xl bg-gray-50 px-4 py-2.5 font-normal text-gray-400',
                             errors.location && 'border-red-500',
-                            // 'focus:outline-none',
-                            // border 제거
-                            // 'border-0',
                           )}
                           onClick={toggle}
                           tabIndex={0}
@@ -158,18 +155,19 @@ export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalPr
                         </DropdownTrigger>
                         <DropdownList
                           isOpen={isOpen}
-                          className="w-full overflow-hidden rounded-xl border-gray-200 bg-gray-50"
+                          className="absolute z-[var(--z-dropdown)] w-full overflow-hidden rounded-xl border-gray-200 bg-gray-50"
                         >
                           {LOCATION_OPTIONS.map((opt) => (
                             <DropdownItem
                               key={opt.value}
                               size="large"
-                              state={field.value === opt.value ? 'selected' : 'default'}
-                              className="w-full px-4 py-2.5 hover:bg-gray-50"
-                              onClick={() => {
-                                field.onChange(opt.value);
+                              value={opt.value}
+                              selectedValue={field.value}
+                              onSelect={(value) => {
+                                field.onChange(value);
                                 toggle();
                               }}
+                              className="w-full px-4 py-2.5"
                             >
                               {opt.label}
                             </DropdownItem>
