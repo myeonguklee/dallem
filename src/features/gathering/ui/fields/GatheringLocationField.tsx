@@ -31,7 +31,7 @@ export const GatheringLocationField = ({ control, error }: GatheringLocationFiel
                   type="button"
                   size="large"
                   state="default"
-                  className={error ? 'border-red-500' : ''}
+                  className={error ? 'w-full border-red-500' : 'w-full'}
                   onClick={toggle}
                   tabIndex={0}
                 >
