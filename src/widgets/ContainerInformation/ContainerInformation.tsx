@@ -1,17 +1,18 @@
+'use client';
+
 import { useState } from 'react';
 import { InfoChip, StateChip } from '@/shared/ui/chip';
 import { LikeIcon, UnlikeIcon } from '@/shared/ui/icon';
 import { ProgressBar } from '@/shared/ui/progressbar';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { AvatarGroup } from './AvatarGroup';
-import capProfileImage from './cap-profile.jpg';
 
 type ContainerInformationProps = {
   title: string;
   location: string;
   date: string; // e.g. '1월 7일'
   time: string; // e.g. '17:30'
-  participants: Array<{ id: string; avatarUrl: string }>;
+  participants: Array<{ id: string; image: string }>;
   maxParticipants: number;
   minParticipants: number;
 } & VariantProps<typeof containerInformationVariants>;
@@ -43,15 +44,16 @@ export const ContainerInformation = ({
 }: ContainerInformationProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const isConfirmed = participants.length >= minParticipants;
-  const avatars = [capProfileImage, capProfileImage, capProfileImage, capProfileImage];
-  const extraCount = participants.length - avatars.length;
+  const visibleAvatars = participants.slice(0, 4).map((p) => p.image);
+  const extraCount = participants.length > 4 ? participants.length - 4 : 0;
+
   return (
     <div className={containerInformationVariants({ size })}>
       <div className="flex items-center justify-between border-b-2 border-dashed border-b-gray-200">
         <div className="flex h-[129px] flex-col justify-center gap-3">
           <div className="gap-0.5">
             <h3 className="text-base font-semibold text-gray-900">{title}</h3>
-            <p className="text-xs text-gray-500">{location}</p>
+            <p className="text-xs text-gray-700">{location}</p>
           </div>
           <div className="flex gap-1">
             <InfoChip info={date} />
@@ -79,7 +81,7 @@ export const ContainerInformation = ({
               모집 정원 {participants.length}명
             </span>
             <AvatarGroup
-              avatars={avatars}
+              avatars={visibleAvatars}
               extraCount={extraCount}
             />
           </div>

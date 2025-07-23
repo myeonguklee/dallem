@@ -16,3 +16,13 @@ export const getReviewList = (params: ReviewFilterProps): Promise<ReviewListResp
 export const getReviewScore = (params: ReviewScoreProps = {}): Promise<ReviewScoreResponse> => {
   return httpClient.get(`${API_ENDPOINTS.REVIEWS.SCORES}`, { params });
 };
+
+//특정 모임 리뷰 조회
+export const getGatheringReviewList = (
+  gatheringId: number,
+  params: Omit<ReviewFilterProps, 'gatheringId'> = {},
+): Promise<ReviewListResponse> => {
+  return httpClient.get(`${API_ENDPOINTS.REVIEWS.LIST}`, {
+    params: { ...params, gatheringId },
+  });
+};
