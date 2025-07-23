@@ -149,7 +149,9 @@
       "required": "필수 입력 항목입니다",
       "email": "올바른 이메일 형식이 아닙니다",
       "password": "비밀번호는 8자 이상이어야 합니다",
-      "passwordConfirm": "비밀번호가 일치하지 않습니다"
+      "passwordConfirm": "비밀번호가 일치하지 않습니다",
+      "emailExists": "이미 사용 중인 이메일입니다",
+      "invalidEmail": "유효한 이메일 주소를 입력하세요"
     }
   },
   "metadata": {

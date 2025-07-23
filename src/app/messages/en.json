@@ -149,7 +149,9 @@
       "required": "This field is required",
       "email": "Please enter a valid email address",
       "password": "Password must be at least 8 characters",
-      "passwordConfirm": "Passwords do not match"
+      "passwordConfirm": "Passwords do not match",
+      "emailExists": "This email is already in use",
+      "invalidEmail": "Please enter a valid email address"
     }
   },
   "metadata": {

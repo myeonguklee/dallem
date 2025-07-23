@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { signup } from '@/entities/auth/signup/api/signup';
 import { ROUTES } from '@/shared/config/routes';
@@ -14,11 +15,12 @@ import { SignupFormData } from '../model/type';
 import { formatSignupFormToPayload } from '../utils/formatSignupFormToPayload';
 
 const ERROR_CASE = {
-  EMAIL_EXISTS: '이미 사용 중인 이메일입니다',
-  VALIDATION_ERROR: '유효한 이메일 주소를 입력하세요',
+  EMAIL_EXISTS: 'errors.validation.emailExists',
+  VALIDATION_ERROR: 'errors.validation.invalidEmail',
 };
 
 export const SignupForm = () => {
+  const t = useTranslations();
   const router = useRouter();
   const {
     register,
@@ -40,7 +42,7 @@ export const SignupForm = () => {
         if (e.code === 'EMAIL_EXISTS' || e.code === 'VALIDATION_ERROR') {
           setError('email', {
             type: 'manual',
-            message: ERROR_CASE[e.code as keyof typeof ERROR_CASE],
+            message: t(ERROR_CASE[e.code as keyof typeof ERROR_CASE]),
           });
         }
         return <b>회원가입에 실패했습니다.</b>;
