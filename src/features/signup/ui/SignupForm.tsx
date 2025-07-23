@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
+import { ROUTES } from '@/shared/config/routes';
+import { InputWithLabel } from '@/shared/ui/InputWithLabel';
 import { Button } from '@/shared/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { SignupInputWithLabel } from './SignupInputWithLabel';
 
 const schema = z
   .object({
@@ -42,25 +44,25 @@ export default function SignupForm() {
       <h1 className="text-2xl font-bold text-gray-900">회원가입</h1>
 
       <div className="flex w-full flex-col gap-6">
-        <SignupInputWithLabel
+        <InputWithLabel
           label="이름"
           placeholder="이름을 입력해주세요"
           {...register('name')}
           errorMessage={errors.name?.message}
         />
-        <SignupInputWithLabel
+        <InputWithLabel
           label="아이디"
           placeholder="이메일을 입력해주세요"
           {...register('email')}
           errorMessage={errors.email?.message}
         />
-        <SignupInputWithLabel
+        <InputWithLabel
           label="회사명"
           placeholder="회사명을 입력해주세요"
           {...register('company')}
           errorMessage={errors.company?.message}
         />
-        <SignupInputWithLabel
+        <InputWithLabel
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요"
           type="password"
@@ -68,7 +70,7 @@ export default function SignupForm() {
           {...register('password')}
           errorMessage={errors.password?.message}
         />
-        <SignupInputWithLabel
+        <InputWithLabel
           label="비밀번호 확인"
           placeholder="비밀번호를 다시 한 번 입력해주세요"
           type="password"
@@ -86,13 +88,13 @@ export default function SignupForm() {
       </Button>
 
       <p className="pt-3 text-sm text-gray-500">
-        이미 회원이신가요?{' '}
-        <a
-          href="/login"
+        이미 회원이신가요?
+        <Link
+          href={ROUTES.SIGNIN}
           className="text-orange-500 hover:underline"
         >
           로그인
-        </a>
+        </Link>
       </p>
     </form>
   );

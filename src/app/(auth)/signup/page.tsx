@@ -1,8 +1,8 @@
 'use client';
 
+import { useSignupImageSize } from '@/features/signup/hooks/useSignupImageSize';
+import SignupForm from '@/features/signup/ui/SignupForm';
 import { LoginImageIcon } from '@/shared/ui/icon';
-import SignupForm from '@/widgets/SignUp/SignupForm';
-import { useSignupImageSize } from '@/widgets/SignUp/useSignupImageSize';
 
 export default function SignUpPage() {
   const size = useSignupImageSize();

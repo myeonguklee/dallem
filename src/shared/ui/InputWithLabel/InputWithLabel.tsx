@@ -5,7 +5,7 @@ type Props = {
   label: string;
 } & InputProps;
 
-export const SignupInputWithLabel = ({ label, ...props }: Props) => {
+export const InputWithLabel = ({ label, ...props }: Props) => {
   return (
     <div>
       <label className="text-font-base mb-2 block text-sm font-semibold">{label}</label>

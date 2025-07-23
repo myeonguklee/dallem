@@ -44,7 +44,7 @@ export const Header = () => {
         <div className="flex items-center gap-2">
           <LanguageSwitcher currentLocale={locale} />
           <Link
-            href={ROUTES.SIGNIN}
+            href={ROUTES.SIGNUP}
             locale={locale}
             className="bg-primary w-18 rounded-[5px] px-2.5 py-1 text-center font-semibold whitespace-nowrap text-white hover:bg-orange-600"
           >
