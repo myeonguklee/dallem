@@ -14,6 +14,16 @@
     "next": "Next",
     "previous": "Previous"
   },
+  "ui": {
+    "timePicker": {
+      "hour": "Hour",
+      "minute": "Minute",
+      "am": "AM",
+      "pm": "PM",
+      "reset": "Reset",
+      "confirm": "Confirm"
+    }
+  },
   "navigation": {
     "home": "Home",
     "gatherings": "Gatherings",
@@ -55,10 +65,6 @@
     "apply": "Apply"
   },
   "pages": {
-    "signup": {
-      "success": "Signup completed successfully",
-      "failure": "Signup failed"
-    },
     "home": {
       "title": "Homepage",
       "welcome": "Welcome to Dallem!"
@@ -85,15 +91,79 @@
       "emailPlaceholder": "Enter your email",
       "companyPlaceholder": "Enter your company name",
       "passwordPlaceholder": "Enter your password",
-      "confirmPasswordPlaceholder": "Confirm your password"
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
     },
     "gatherings": {
       "title": "Gatherings List Page",
       "createButton": "Create Gathering",
       "noGatherings": "No gatherings available",
+      "loading": "Loading...",
+      "loadingMore": "Loading more...",
       "header": {
         "subtitle": "Don't have anyone to join with?",
         "title": "Join a gathering now"
+      },
+      "error": {
+        "title": "Unable to load gatherings list",
+        "clientErrorDescription": "Invalid request. Please navigate to the gatherings page.",
+        "serverErrorDescription": "A temporary error occurred. Please try again.",
+        "navigateToGathering": "Go to Gatherings",
+        "retry": "Retry"
+      },
+      "create": {
+        "title": "Create Gathering",
+        "pending": "Sending...",
+        "submit": "Confirm",
+        "cancel": "Cancel",
+        "form": {
+          "title": "Gathering Title",
+          "titlePlaceholder": "Enter gathering title",
+          "location": "Location",
+          "locationPlaceholder": "Select gathering location",
+          "image": "Image",
+          "imagePlaceholder": "Attach image",
+          "imageButton": "Find File",
+          "type": "Select Service",
+          "date": "Gathering Date",
+          "datePlaceholder": "Select gathering date",
+          "registrationEnd": "Registration End",
+          "registrationEndPlaceholder": "Select registration end date",
+          "participants": "Participants",
+          "participantsPlaceholder": "Enter minimum 5 participants",
+          "locations": {
+            "konkuk": "Konkuk University",
+            "euljiro": "Euljiro 3-ga",
+            "sinrim": "Sinrim",
+            "hongdae": "Hongdae"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "Dallaemfit",
+              "subtitle": "Office Stretching"
+            },
+            "mindfulness": {
+              "label": "Dallaemfit",
+              "subtitle": "Mindfulness"
+            },
+            "workation": {
+              "label": "Workation",
+              "subtitle": ""
+            }
+          },
+          "errors": {
+            "nameRequired": "Please enter the gathering name.",
+            "locationRequired": "Please select a location.",
+            "typeRequired": "Please select a service.",
+            "dateTimeRequired": "Please select the gathering date.",
+            "dateTimePast": "The gathering date must be in the future.",
+            "registrationEndRequired": "Please select the registration end date.",
+            "registrationEndInvalid": "Registration deadline must be before the gathering date.",
+            "capacityMin": "Please enter at least 5 participants.",
+            "imageType": "Only image files are allowed."
+          }
+        }
       }
     },
     "gathering": {

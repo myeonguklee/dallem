@@ -6,8 +6,15 @@ export function parseGatheringFiltersFromSearchParams(searchParams: {
   const filters: GatheringFilters = {};
 
   if (typeof searchParams.id === 'string') filters.id = searchParams.id;
-  if (typeof searchParams.type === 'string')
+
+  // type이 없으면 기본값으로 DALLAEMFIT 설정
+  // 중복 api 호출 방지
+  if (typeof searchParams.type === 'string') {
     filters.type = searchParams.type as GatheringFilters['type'];
+  } else {
+    filters.type = 'DALLAEMFIT'; // 기본값
+  }
+
   if (typeof searchParams.location === 'string')
     filters.location = searchParams.location as GatheringFilters['location'];
   if (typeof searchParams.date === 'string') filters.date = searchParams.date;
@@ -17,8 +24,6 @@ export function parseGatheringFiltersFromSearchParams(searchParams: {
     filters.sortBy = searchParams.sortBy as GatheringFilters['sortBy'];
   if (typeof searchParams.sortOrder === 'string')
     filters.sortOrder = searchParams.sortOrder as GatheringFilters['sortOrder'];
-  if (typeof searchParams.limit === 'string') filters.limit = Number(searchParams.limit);
-  if (typeof searchParams.offset === 'string') filters.offset = Number(searchParams.offset);
 
   return filters;
 }

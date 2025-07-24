@@ -77,14 +77,16 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
             {locales.map((lang) => (
               <DropdownItem
                 key={lang}
-                onClick={() => {
-                  handleLanguageChange(lang);
+                value={lang}
+                selectedValue={currentLocale}
+                onSelect={(value) => {
+                  handleLanguageChange(value as Locale);
                   toggle();
                 }}
                 size="small"
-                className={`!w-full px-4 py-3 text-left transition-colors hover:bg-gray-50 ${
-                  currentLocale === lang ? 'bg-orange-50 text-orange-700' : 'text-gray-700'
-                } ${isPending ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                className={`!w-full px-4 py-3 text-left ${
+                  isPending ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">{getLanguageText(lang)}</span>

@@ -254,8 +254,6 @@ export const CustomSizeExample: Story = {
             options={options}
             value={selectedValue}
             onChange={setSelectedValue}
-            width="200px"
-            height="100px"
           />
         </div>
       </div>

@@ -14,6 +14,16 @@
     "next": "다음",
     "previous": "이전"
   },
+  "ui": {
+    "timePicker": {
+      "hour": "시",
+      "minute": "분",
+      "am": "오전",
+      "pm": "오후",
+      "reset": "초기화",
+      "confirm": "확인"
+    }
+  },
   "navigation": {
     "home": "홈",
     "gatherings": "모임",
@@ -55,10 +65,6 @@
     "apply": "적용"
   },
   "pages": {
-    "signup": {
-      "success": "회원가입이 완료되었습니다",
-      "failure": "회원가입에 실패했습니다"
-    },
     "home": {
       "title": "홈페이지",
       "welcome": "같이달램에 오신 것을 환영합니다!"
@@ -85,15 +91,79 @@
       "emailPlaceholder": "이메일을 입력해주세요",
       "companyPlaceholder": "회사명을 입력해주세요",
       "passwordPlaceholder": "비밀번호를 입력해주세요",
-      "confirmPasswordPlaceholder": "비밀번호를 다시 한 번 입력해주세요"
+      "confirmPasswordPlaceholder": "비밀번호를 다시 한 번 입력해주세요",
+      "success": "회원가입이 완료되었습니다",
+      "failure": "회원가입에 실패했습니다"
     },
     "gatherings": {
       "title": "모임 목록 페이지",
       "createButton": "모임 만들기",
       "noGatherings": "모임이 없습니다",
+      "loading": "로딩 중...",
+      "loadingMore": "더 불러오는 중...",
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
         "title": "지금 모임에 참여해보세요"
+      },
+      "error": {
+        "title": "모임 목록을 불러올 수 없습니다",
+        "clientErrorDescription": "잘못된 요청입니다. 모임 찾기 페이지로 이동해주세요.",
+        "serverErrorDescription": "일시적인 오류입니다. 다시 시도해주세요.",
+        "navigateToGathering": "모임 찾기로 이동",
+        "retry": "다시 시도"
+      },
+      "create": {
+        "title": "모임 만들기",
+        "pending": "전송 중...",
+        "submit": "확인",
+        "cancel": "취소",
+        "form": {
+          "title": "모임 이름",
+          "titlePlaceholder": "모임 이름을 입력해주세요",
+          "location": "장소",
+          "locationPlaceholder": "모임 장소를 선택해주세요",
+          "image": "이미지",
+          "imagePlaceholder": "이미지를 첨부해주세요",
+          "imageButton": "파일 찾기",
+          "type": "선택 서비스",
+          "date": "모임 날짜",
+          "datePlaceholder": "모임 날짜를 선택해주세요",
+          "registrationEnd": "마감 날짜",
+          "registrationEndPlaceholder": "마감 날짜를 선택해주세요",
+          "participants": "모집 정원",
+          "participantsPlaceholder": "최소 5인 이상 입력해주세요.",
+          "locations": {
+            "konkuk": "건대입구",
+            "euljiro": "을지로3가",
+            "sinrim": "신림",
+            "hongdae": "홍대입구"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "달램핏",
+              "subtitle": "오피스 스트레칭"
+            },
+            "mindfulness": {
+              "label": "달램핏",
+              "subtitle": "마인드풀니스"
+            },
+            "workation": {
+              "label": "워케이션",
+              "subtitle": ""
+            }
+          },
+          "errors": {
+            "nameRequired": "모임 이름을 입력해주세요",
+            "locationRequired": "장소를 선택해주세요",
+            "typeRequired": "서비스를 선택해주세요",
+            "dateTimeRequired": "모임 날짜를 선택해주세요",
+            "dateTimePast": "모임 날짜는 현재 시각 이후로 선택해주세요",
+            "registrationEndRequired": "모집 마감일을 선택해주세요",
+            "registrationEndInvalid": "모집 마감일은 모임 날짜보다 이전이어야 합니다",
+            "capacityMin": "최소 5인 이상 입력해주세요",
+            "imageType": "이미지 파일만 업로드 가능합니다"
+          }
+        }
       }
     },
     "gathering": {

@@ -15,8 +15,6 @@ export interface BoxSelectorGroupProps {
   onChange?: (value: string | null) => void;
   multiple?: boolean;
   disabled?: boolean;
-  width?: string;
-  height?: string;
   className?: string;
   layout?: 'horizontal' | 'vertical' | 'grid';
   gap?: string;
@@ -28,8 +26,6 @@ export const BoxSelectorGroup = ({
   onChange,
   multiple = false,
   disabled = false,
-  width = '150px',
-  height = '70px',
   className = '',
   layout = 'horizontal',
   gap = '16px',
@@ -85,8 +81,6 @@ export const BoxSelectorGroup = ({
           isSelected={currentValue === option.id}
           disabled={disabled || option.disabled}
           onSelect={() => handleSelect(option.id)}
-          width={width}
-          height={height}
         />
       ))}
     </div>

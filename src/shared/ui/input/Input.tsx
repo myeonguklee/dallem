@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { cn } from '@/shared/lib/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { VisibilityOffIcon, VisibilityOnIcon } from '../icon';
 
@@ -6,6 +7,8 @@ export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   errorMessage?: string;
+  className?: string;
+  inputClassName?: string;
 }
 
 export const INPUT_VARIANT = {
@@ -40,7 +43,19 @@ export const inputVariants = cva(
 );
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ variant = 'default', inputSize, isError, errorMessage, type, ...props }, ref) => {
+  (
+    {
+      variant = 'default',
+      inputSize,
+      isError,
+      errorMessage,
+      type,
+      className,
+      inputClassName,
+      ...props
+    },
+    ref,
+  ) => {
     const isPasswordField = type === 'password';
     const [showPassword, setShowPassword] = useState(false);
 
@@ -48,10 +63,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <>
-        <div className={`${inputVariants({ variant, inputSize, isError })}`}>
+        <div className={cn(inputVariants({ variant, inputSize, isError }), className)}>
           <input
             ref={ref}
-            className="flex-1 outline-none"
+            className={cn('flex-1 outline-none', inputClassName)}
             type={isPasswordField && !showPassword ? 'password' : 'text'}
             {...props}
           />

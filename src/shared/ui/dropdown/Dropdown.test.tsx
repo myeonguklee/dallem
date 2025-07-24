@@ -9,8 +9,8 @@ describe('Dropdown 컴포넌트', () => {
           <>
             <DropdownTrigger onClick={toggle}>메뉴 열기</DropdownTrigger>
             <DropdownList isOpen={isOpen}>
-              <DropdownItem>아이템 1</DropdownItem>
-              <DropdownItem>아이템 2</DropdownItem>
+              <DropdownItem value="item1">아이템 1</DropdownItem>
+              <DropdownItem value="item2">아이템 2</DropdownItem>
             </DropdownList>
           </>
         )}
@@ -26,8 +26,8 @@ describe('Dropdown 컴포넌트', () => {
           <>
             <DropdownTrigger onClick={toggle}>메뉴 열기</DropdownTrigger>
             <DropdownList isOpen={isOpen}>
-              <DropdownItem>아이템 1</DropdownItem>
-              <DropdownItem>아이템 2</DropdownItem>
+              <DropdownItem value="item1">아이템 1</DropdownItem>
+              <DropdownItem value="item2">아이템 2</DropdownItem>
             </DropdownList>
           </>
         )}
@@ -44,14 +44,20 @@ describe('Dropdown 컴포넌트', () => {
   });
 
   test('아이템 클릭 시 동작 (콜백 호출) - 필요시', () => {
-    const onClick = jest.fn();
+    const onSelect = jest.fn();
     render(
       <Dropdown>
         {({ isOpen, toggle }) => (
           <>
             <DropdownTrigger onClick={toggle}>메뉴 열기</DropdownTrigger>
             <DropdownList isOpen={isOpen}>
-              <DropdownItem onClick={onClick}>아이템 1</DropdownItem>
+              <DropdownItem
+                value="item1"
+                selectedValue=""
+                onSelect={onSelect}
+              >
+                아이템 1
+              </DropdownItem>
             </DropdownList>
           </>
         )}
@@ -60,6 +66,6 @@ describe('Dropdown 컴포넌트', () => {
     fireEvent.click(screen.getByText('메뉴 열기'));
     fireEvent.click(screen.getByText('아이템 1'));
 
-    expect(onClick).toHaveBeenCalled();
+    expect(onSelect).toHaveBeenCalledWith('item1');
   });
 });
