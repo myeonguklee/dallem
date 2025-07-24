@@ -44,7 +44,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
 
   return (
     <Dropdown>
-      {({ isOpen, toggle }) => (
+      {({ isOpen, toggle, onSelect: closeDropdown }) => (
         <div className="relative inline-block">
           <DropdownTrigger
             onClick={toggle}
@@ -81,7 +81,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
                 selectedValue={currentLocale}
                 onSelect={(value) => {
                   handleLanguageChange(value as Locale);
-                  toggle();
+                  closeDropdown(value);
                 }}
                 size="small"
                 className={`!w-full px-4 py-3 text-left ${

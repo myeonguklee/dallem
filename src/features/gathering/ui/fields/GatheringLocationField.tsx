@@ -25,7 +25,7 @@ export const GatheringLocationField = ({ control, error }: GatheringLocationFiel
         name="location"
         render={({ field }) => (
           <Dropdown>
-            {({ isOpen, toggle }) => (
+            {({ isOpen, toggle, onSelect: closeDropdown }) => (
               <div className="relative w-full">
                 <DropdownTrigger
                   type="button"
@@ -52,7 +52,7 @@ export const GatheringLocationField = ({ control, error }: GatheringLocationFiel
                       selectedValue={field.value}
                       onSelect={(value) => {
                         field.onChange(value);
-                        toggle();
+                        closeDropdown(value);
                       }}
                       className="w-full px-4 py-2.5"
                     >
