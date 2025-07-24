@@ -4,9 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
 import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
-import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
-import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
-import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
+import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
+import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
@@ -61,14 +60,16 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         title={t('title')}
         subtitle={t('subTitle')}
       />
+      <TypeFilterGroup />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ReviewTypeFilter />
         <Suspense fallback={t('loading')}>
           <AllReviewRating type={reviewParams.type} />
         </Suspense>
         <div className="mb-4 flex items-center justify-between">
-          <ReviewListFilter />
-          <ReviewSort />
+          <OptionsFiltersGroup
+            sortValue={['createdAt', 'score', 'participantCount']}
+            defaultSort="createdAt"
+          />
         </div>
         <Suspense fallback={t('loading')}>
           <div className="mt-12">

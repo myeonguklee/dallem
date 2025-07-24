@@ -60,7 +60,9 @@
     "sort": {
       "deadline": "마감 임박",
       "participants": "참여 인원 순",
-      "date": "모임 날짜 순"
+      "date": "모임 날짜 순",
+      "createdAt": " 최신 순 ",
+      "scoreTop": "리뷰 높은 순"
     },
     "date": {
       "all": "전체 날짜"
