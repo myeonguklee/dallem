@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n';
 import { Chip } from '@/shared/ui/chip';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Tab } from '@/shared/ui/tab';
@@ -46,7 +47,10 @@ export const ReviewTypeFilter = () => {
     params.set('offset', '0'); // 필터가 바뀌면 항상 첫 페이지로 리셋
     params.delete('location');
     params.delete('date');
-    router.push(`?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   return (

@@ -1,17 +1,21 @@
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { createGathering } from '@/entities/gathering/api/services';
+import {
+  CreateGatheringFormValues,
+  createGatheringSchema,
+} from '@/features/gathering/model/createGatheringSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldError, useForm } from 'react-hook-form';
-import { CreateGatheringFormValues, createGatheringSchema } from '../model/createGatheringSchema';
-import { GatheringCapacityField } from './fields/GatheringCapacityField';
-import { GatheringDateField } from './fields/GatheringDateField';
-import { GatheringImageField } from './fields/GatheringImageField';
-import { GatheringLocationField } from './fields/GatheringLocationField';
-import { GatheringNameField } from './fields/GatheringNameField';
-import { GatheringRegistrationEndField } from './fields/GatheringRegistrationEndField';
-import { GatheringTypeField } from './fields/GatheringTypeField';
+import {
+  GatheringCapacityField,
+  GatheringDateField,
+  GatheringImageField,
+  GatheringLocationField,
+  GatheringNameField,
+  GatheringRegistrationEndField,
+  GatheringTypeField,
+} from './fields';
 
 interface CreateGatheringFormProps {
   onClose: () => void;
@@ -19,7 +23,7 @@ interface CreateGatheringFormProps {
 
 export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
   const t = useTranslations('pages.gatherings.create');
-  const pathname = usePathname();
+  const locale = useLocale();
   const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentDateField, setCurrentDateField] = useState<'dateTime' | 'registrationEnd' | null>(
@@ -59,7 +63,6 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
     }
   };
 
-  const locale = pathname?.split('/')[1] || 'ko';
   const formatDateTime = (date: Date | undefined) => {
     if (!date) return '';
     return date.toLocaleString(locale === 'ko' ? 'ko-KR' : 'en-US', {

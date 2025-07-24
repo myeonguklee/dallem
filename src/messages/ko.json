@@ -16,6 +16,7 @@
   },
   "ui": {
     "timePicker": {
+      "period": "오전/오후",
       "hour": "시",
       "minute": "분",
       "am": "오전",
