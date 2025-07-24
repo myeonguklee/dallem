@@ -10,9 +10,9 @@ import { Header } from '@/widgets/Header/ui/Header';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale } = params;
   const messages = await getMessages({ locale });
   const metadata = messages.metadata as { title: string; description: string };
 

@@ -14,8 +14,8 @@ import { ReviewList } from '@/widgets/ReviewList/ui/ReviewList';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 interface ReviewsPageProps {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{
+  params: { locale: Locale };
+  searchParams: {
     type?: string;
     location?: string;
     date?: string;
@@ -23,12 +23,12 @@ interface ReviewsPageProps {
     sortOrder?: string;
     limit?: string;
     offset?: string;
-  }>;
+  };
 }
 
 export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
-  const { locale } = await params;
-  const filterQuery = await searchParams;
+  const { locale } = params;
+  const filterQuery = searchParams;
   const t = await getTranslations({ locale, namespace: 'pages.reviews' });
 
   const queryClient = new QueryClient();

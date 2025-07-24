@@ -2,11 +2,11 @@ import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 interface MyPageProps {
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };
 }
 
 export default async function MyPage({ params }: MyPageProps) {
-  const { locale } = await params;
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: 'pages.myPage' });
 
   return (

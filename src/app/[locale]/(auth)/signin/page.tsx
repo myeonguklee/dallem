@@ -2,11 +2,11 @@ import { getTranslations } from 'next-intl/server';
 import { Locale } from '@/i18n';
 
 interface SignInPageProps {
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };
 }
 
 export default async function SignInPage({ params }: SignInPageProps) {
-  const { locale } = await params;
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: 'pages.signin' });
 
   return (

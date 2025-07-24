@@ -11,15 +11,15 @@ import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
 import { dehydrate } from '@tanstack/react-query';
 
 interface GatheringPageProps {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: { locale: Locale };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function GatheringPage({ params, searchParams }: GatheringPageProps) {
-  const { locale } = await params;
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
 
-  const searchParamsObj = await searchParams;
+  const searchParamsObj = searchParams;
 
   // URL 파라미터를 기반으로 필터 생성
   const filters = parseGatheringFiltersFromSearchParams(searchParamsObj);
