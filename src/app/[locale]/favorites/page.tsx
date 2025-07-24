@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getGatherings } from '@/entities/gathering/api';
 import { Gathering } from '@/entities/gathering/model/types';
-import { useFavoritesStore } from '@/features/favorites/model/favoritesStore';
+import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
@@ -12,33 +12,37 @@ import { GatheringCard } from '@/widgets/GatheringCard/ui';
 
 export default function FavoritesPage() {
   const t = useTranslations('pages.favorites');
-  const favorites = useFavoritesStore((state) => state.favorites);
+
   const [gatherings, setGatherings] = useState<Gathering[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // 찜한 게 없으면 빈 배열로 처리
-      if (favorites.length === 0) {
-        setGatherings([]);
-        return;
-      }
+  const fetchFavorites = async () => {
+    const favorites = getFavoriteList();
+    if (favorites.length === 0) {
+      setGatherings([]);
+      return;
+    }
 
+    try {
       const gatheringId = favorites.join(',');
       const res = await getGatherings({ id: gatheringId });
       setGatherings(res);
-    };
+    } catch (error) {
+      console.error('찜한 모임을 불러오는 데 실패했습니다:', error);
+    }
+  };
 
-    fetchData();
-  }, [favorites]);
-
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
-      <PageInfoLayout
-        infoImg={<DoubleHeartIcon size={60} />}
-        title={t('title')}
-        subtitle="임시데이터입니다만 "
-      />
-
+    <div className="mt- mt-10 mb-20 flex flex-1 flex-col items-start">
+      <div className="w-full">
+        <PageInfoLayout
+          infoImg={<DoubleHeartIcon size={60} />}
+          title={t('title')}
+          subtitle="임시데이터입니다만 "
+        />
+      </div>
       <ReviewTypeFilter />
 
       {gatherings.length > 0 ? (
@@ -55,6 +59,7 @@ export default function FavoritesPage() {
             gatheringCapacity={gathering.capacity}
             gatheringImage={gathering.image}
             isCanceled={!!gathering.canceledAt}
+            onToggle={fetchFavorites}
           />
         ))
       ) : (
