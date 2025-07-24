@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
@@ -13,6 +14,7 @@ import { ReviewList } from '@/widgets/ReviewList/ui/ReviewList';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 interface ReviewsPageProps {
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{
     type?: string;
     location?: string;
@@ -24,9 +26,10 @@ interface ReviewsPageProps {
   }>;
 }
 
-export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
+export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
+  const { locale } = await params;
   const filterQuery = await searchParams;
-  const t = await getTranslations('pages.reviews');
+  const t = await getTranslations({ locale, namespace: 'pages.reviews' });
 
   const queryClient = new QueryClient();
   const reviewParams = {

@@ -10,9 +10,9 @@ import { Header } from '@/widgets/Header/ui/Header';
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  const { locale } = params;
+  const { locale } = await params;
   const messages = await getMessages({ locale });
   const metadata = messages.metadata as { title: string; description: string };
 
@@ -24,7 +24,7 @@ export async function generateMetadata({
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }
 
 export function generateStaticParams() {
@@ -32,7 +32,7 @@ export function generateStaticParams() {
 }
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const { locale: originalLocale } = params;
+  const { locale: originalLocale } = await params;
 
   // 지원하지 않는 locale인 경우 기본 locale로 리다이렉트
   let locale = originalLocale;

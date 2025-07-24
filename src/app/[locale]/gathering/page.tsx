@@ -1,3 +1,4 @@
+import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
 import { QUERY_KEYS } from '@/entities/gathering/api/queryKeys';
@@ -9,12 +10,14 @@ import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
 import { dehydrate } from '@tanstack/react-query';
 
-export default async function GatheringPage({
-  searchParams,
-}: {
+interface GatheringPageProps {
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const t = await getTranslations('pages.gathering');
+}
+
+export default async function GatheringPage({ params, searchParams }: GatheringPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
 
   const searchParamsObj = await searchParams;
 
