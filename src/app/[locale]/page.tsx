@@ -1,13 +1,7 @@
 import { getTranslations } from 'next-intl/server';
-import { type Locale } from '@/i18n';
 
-interface HomePageProps {
-  params: { locale: Locale };
-}
-
-export default async function HomePage({ params }: HomePageProps) {
-  const { locale } = params;
-  const t = await getTranslations({ locale, namespace: 'pages.home' });
+export default async function HomePage() {
+  const t = await getTranslations('pages.home');
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4">

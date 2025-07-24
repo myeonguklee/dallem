@@ -3,23 +3,20 @@ import { getGatherings } from '@/entities/gathering/api';
 import { QUERY_KEYS } from '@/entities/gathering/api/queryKeys';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
 import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
-import { Locale } from '@/i18n';
 import { HydrationProvider } from '@/shared/api';
 import { createQueryClient } from '@/shared/api/query/client';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
 import { dehydrate } from '@tanstack/react-query';
 
-interface GatheringPageProps {
-  params: { locale: Locale };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
+export default async function GatheringPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const t = await getTranslations('pages.gathering');
 
-export default async function GatheringPage({ params, searchParams }: GatheringPageProps) {
-  const { locale } = params;
-  const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
-
-  const searchParamsObj = searchParams;
+  const searchParamsObj = await searchParams;
 
   // URL 파라미터를 기반으로 필터 생성
   const filters = parseGatheringFiltersFromSearchParams(searchParamsObj);

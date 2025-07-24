@@ -6,7 +6,6 @@ import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
 import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
 import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
-import { Locale } from '@/i18n';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
@@ -14,8 +13,7 @@ import { ReviewList } from '@/widgets/ReviewList/ui/ReviewList';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 interface ReviewsPageProps {
-  params: { locale: Locale };
-  searchParams: {
+  searchParams: Promise<{
     type?: string;
     location?: string;
     date?: string;
@@ -23,13 +21,12 @@ interface ReviewsPageProps {
     sortOrder?: string;
     limit?: string;
     offset?: string;
-  };
+  }>;
 }
 
-export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
-  const { locale } = params;
-  const filterQuery = searchParams;
-  const t = await getTranslations({ locale, namespace: 'pages.reviews' });
+export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
+  const filterQuery = await searchParams;
+  const t = await getTranslations('pages.reviews');
 
   const queryClient = new QueryClient();
   const reviewParams = {

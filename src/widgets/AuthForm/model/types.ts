@@ -1,3 +1,4 @@
+import type { Pathnames } from '@/i18n';
 import { INPUT_VARIANT } from '@/shared/ui/input/Input';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
@@ -14,7 +15,7 @@ export type AuthFormMeta = {
   buttonLabel: string;
   footerText: string;
   footerLinkText: string;
-  footerHref: string;
+  footerHref: Exclude<Pathnames, '/gathering/[id]'>;
 };
 
 export type AuthFormHandlers<T extends FieldValues> = {
