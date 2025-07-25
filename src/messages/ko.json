@@ -2,6 +2,7 @@
   "common": {
     "loading": "로딩 중...",
     "error": "오류가 발생했습니다",
+    "saving": "저장 중...",
     "retry": "다시 시도",
     "cancel": "취소",
     "confirm": "확인",
@@ -12,6 +13,17 @@
     "back": "뒤로",
     "next": "다음",
     "previous": "이전"
+  },
+  "ui": {
+    "timePicker": {
+      "period": "오전/오후",
+      "hour": "시",
+      "minute": "분",
+      "am": "오전",
+      "pm": "오후",
+      "reset": "초기화",
+      "confirm": "확인"
+    }
   },
   "navigation": {
     "home": "홈",
@@ -68,20 +80,91 @@
     },
     "signup": {
       "title": "회원가입 페이지",
-      "email": "이메일",
+      "name": "이름",
+      "email": "아이디",
+      "company": "회사명",
       "password": "비밀번호",
       "confirmPassword": "비밀번호 확인",
       "signupButton": "회원가입",
-      "hasAccount": "이미 계정이 있으신가요?",
-      "signinLink": "로그인"
+      "footerText": "이미 계정이 있으신가요?",
+      "signinLink": "로그인",
+      "namePlaceholder": "이름을 입력해주세요",
+      "emailPlaceholder": "이메일을 입력해주세요",
+      "companyPlaceholder": "회사명을 입력해주세요",
+      "passwordPlaceholder": "비밀번호를 입력해주세요",
+      "confirmPasswordPlaceholder": "비밀번호를 다시 한 번 입력해주세요",
+      "success": "회원가입이 완료되었습니다",
+      "failure": "회원가입에 실패했습니다"
     },
     "gatherings": {
       "title": "모임 목록 페이지",
       "createButton": "모임 만들기",
       "noGatherings": "모임이 없습니다",
+      "loading": "로딩 중...",
+      "loadingMore": "더 불러오는 중...",
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
         "title": "지금 모임에 참여해보세요"
+      },
+      "error": {
+        "title": "모임 목록을 불러올 수 없습니다",
+        "clientErrorDescription": "잘못된 요청입니다. 모임 찾기 페이지로 이동해주세요.",
+        "serverErrorDescription": "일시적인 오류입니다. 다시 시도해주세요.",
+        "navigateToGathering": "모임 찾기로 이동",
+        "retry": "다시 시도"
+      },
+      "create": {
+        "title": "모임 만들기",
+        "pending": "전송 중...",
+        "submit": "확인",
+        "cancel": "취소",
+        "form": {
+          "title": "모임 이름",
+          "titlePlaceholder": "모임 이름을 입력해주세요",
+          "location": "장소",
+          "locationPlaceholder": "모임 장소를 선택해주세요",
+          "image": "이미지",
+          "imagePlaceholder": "이미지를 첨부해주세요",
+          "imageButton": "파일 찾기",
+          "type": "선택 서비스",
+          "date": "모임 날짜",
+          "datePlaceholder": "모임 날짜를 선택해주세요",
+          "registrationEnd": "마감 날짜",
+          "registrationEndPlaceholder": "마감 날짜를 선택해주세요",
+          "participants": "모집 정원",
+          "participantsPlaceholder": "최소 5인 이상 입력해주세요.",
+          "locations": {
+            "konkuk": "건대입구",
+            "euljiro": "을지로3가",
+            "sinrim": "신림",
+            "hongdae": "홍대입구"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "달램핏",
+              "subtitle": "오피스 스트레칭"
+            },
+            "mindfulness": {
+              "label": "달램핏",
+              "subtitle": "마인드풀니스"
+            },
+            "workation": {
+              "label": "워케이션",
+              "subtitle": ""
+            }
+          },
+          "errors": {
+            "nameRequired": "모임 이름을 입력해주세요",
+            "locationRequired": "장소를 선택해주세요",
+            "typeRequired": "서비스를 선택해주세요",
+            "dateTimeRequired": "모임 날짜를 선택해주세요",
+            "dateTimePast": "모임 날짜는 현재 시각 이후로 선택해주세요",
+            "registrationEndRequired": "모집 마감일을 선택해주세요",
+            "registrationEndInvalid": "모집 마감일은 모임 날짜보다 이전이어야 합니다",
+            "capacityMin": "최소 5인 이상 입력해주세요",
+            "imageType": "이미지 파일만 업로드 가능합니다"
+          }
+        }
       }
     },
     "gathering": {
@@ -142,7 +225,9 @@
       "required": "필수 입력 항목입니다",
       "email": "올바른 이메일 형식이 아닙니다",
       "password": "비밀번호는 8자 이상이어야 합니다",
-      "passwordConfirm": "비밀번호가 일치하지 않습니다"
+      "passwordConfirm": "비밀번호가 일치하지 않습니다",
+      "emailExists": "이미 사용 중인 이메일입니다",
+      "invalidEmail": "유효한 이메일 주소를 입력하세요"
     }
   },
   "metadata": {

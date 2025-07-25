@@ -1,5 +1,19 @@
+import React from 'react';
+import { NextIntlClientProvider } from 'next-intl';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { GatheringCard } from './GatheringCard';
+
+// Storybook 전용 래퍼 컴포넌트 (next-intl Provider 포함)
+const GatheringCardWrapper = (props: React.ComponentProps<typeof GatheringCard>) => {
+  return (
+    <NextIntlClientProvider
+      messages={{}}
+      locale="ko"
+    >
+      <GatheringCard {...props} />
+    </NextIntlClientProvider>
+  );
+};
 
 // 현재 날짜 기준으로 미래 날짜 생성
 const getFutureDate = (daysFromNow: number, hour: number = 21, minute: number = 0) => {
@@ -9,9 +23,9 @@ const getFutureDate = (daysFromNow: number, hour: number = 21, minute: number = 
   return date;
 };
 
-const meta: Meta<typeof GatheringCard> = {
+const meta: Meta<typeof GatheringCardWrapper> = {
   title: 'Widgets/GatheringCard',
-  component: GatheringCard,
+  component: GatheringCardWrapper,
   parameters: {
     layout: 'centered',
   },

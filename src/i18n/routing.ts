@@ -1,0 +1,29 @@
+import { defineRouting } from 'next-intl/routing';
+
+export const routing = defineRouting({
+  // 지원하는 언어 목록
+  locales: ['ko', 'en'],
+
+  // 기본 언어
+  defaultLocale: 'ko',
+
+  // URL 경로 설정
+  pathnames: {
+    '/': '/',
+    '/gathering': '/gathering',
+    '/gathering/[id]': '/gathering/[id]',
+    '/favorites': '/favorites',
+    '/reviews': '/reviews',
+    '/signin': '/signin',
+    '/signup': '/signup',
+    '/my-page': '/my-page',
+    '/about': {
+      ko: '/소개',
+      en: '/about',
+    },
+  },
+});
+
+// 타입 정의
+export type Locale = (typeof routing.locales)[number];
+export type Pathnames = keyof typeof routing.pathnames;

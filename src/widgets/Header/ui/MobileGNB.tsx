@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
@@ -12,7 +12,7 @@ export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
   const t = useTranslations('navigation');
   const pathname = usePathname();
-  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
+  const locale = useLocale();
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +27,10 @@ export const MobileGNB = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -55,8 +59,9 @@ export const MobileGNB = () => {
       {/* 드로워 */}
       <nav
         className={clsx(
-          'fixed top-0 left-0 z-[var(--z-drawer)] h-full w-64 bg-white shadow transition-transform duration-300',
+          'fixed top-0 left-0 z-[var(--z-drawer)] h-full bg-white shadow transition-transform duration-300',
           open ? 'translate-x-0' : '-translate-x-full',
+          locale === 'ko' ? 'w-30' : 'w-45',
         )}
       >
         <div className="flex h-14 items-center justify-end p-4">
@@ -66,28 +71,13 @@ export const MobileGNB = () => {
         </div>
         <ul className="flex flex-col gap-4 p-4 text-center">
           <li>
-            <HeaderLink
-              href={ROUTES.GATHERING}
-              locale={locale}
-            >
-              {t('findGatherings')}
-            </HeaderLink>
+            <HeaderLink href={ROUTES.GATHERING}>{t('findGatherings')}</HeaderLink>
           </li>
           <li>
-            <HeaderLink
-              href={ROUTES.FAVORITE}
-              locale={locale}
-            >
-              {t('favoriteGatherings')}
-            </HeaderLink>
+            <HeaderLink href={ROUTES.FAVORITE}>{t('favoriteGatherings')}</HeaderLink>
           </li>
           <li>
-            <HeaderLink
-              href={ROUTES.REVIEW}
-              locale={locale}
-            >
-              {t('allReviews')}
-            </HeaderLink>
+            <HeaderLink href={ROUTES.REVIEW}>{t('allReviews')}</HeaderLink>
           </li>
         </ul>
       </nav>

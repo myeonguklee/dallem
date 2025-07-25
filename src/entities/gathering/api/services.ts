@@ -1,8 +1,5 @@
-import {
-  CreateGatheringRequest,
-  Gathering,
-  GatheringFilters,
-} from '@/entities/gathering/model/types';
+import type { Gathering, GatheringFilters } from '@/entities/gathering/model/types';
+import type { CreateGatheringFormValues } from '@/features/gathering/model';
 import { httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config/api';
 
@@ -10,6 +7,7 @@ import { API_ENDPOINTS } from '@/shared/config/api';
 export const getGatherings = async (filters?: GatheringFilters): Promise<Gathering[]> => {
   const params = new URLSearchParams();
 
+  // TODO: 필터 로직 정리하기
   if (filters) {
     if (filters.id) params.append('id', filters.id);
     if (filters.type) params.append('type', filters.type);
@@ -30,13 +28,10 @@ export const getGatherings = async (filters?: GatheringFilters): Promise<Gatheri
   return await httpClient.get<Gathering[]>(url);
 };
 
-// 특정 모임 조회
-export const getGatheringById = async (id: number): Promise<Gathering> => {
-  return await httpClient.get<Gathering>(API_ENDPOINTS.GATHERINGS.DETAIL(id));
-};
-
 // 새 모임 생성
-export const createGathering = async (newGathering: CreateGatheringRequest): Promise<Gathering> => {
+export const createGathering = async (
+  newGathering: CreateGatheringFormValues,
+): Promise<Gathering> => {
   return await httpClient.post<Gathering>(API_ENDPOINTS.GATHERINGS.CREATE, newGathering, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });

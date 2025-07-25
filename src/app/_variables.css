@@ -4,8 +4,8 @@
 
 :root {
   --dimension-modal-padding: 1.5rem;
-  --dimension-rounded: 1.5rem;
-  --dimension-button-rounded: 0.75rem;
+  --dimension-rounded: 1.5rem; /* 24 */
+  --dimension-button-rounded: 0.75rem; /* 12 */
   --semantic-color-primary: #f97316;
   --semantic-color-text-main: #111827;
   --semantic-color-text-sub: #374151;

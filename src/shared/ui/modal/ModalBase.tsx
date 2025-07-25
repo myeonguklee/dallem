@@ -72,7 +72,7 @@ export const ModalBase = ({
   const modalContent = (
     <div
       role="dialog"
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center"
     >
       {isOverlay && (
         <div
@@ -101,7 +101,7 @@ export const ModalBase = ({
             <XIcon />
           </Button>
         )}
-        <div className="flex max-h-[85vh] flex-col">{children}</div>
+        <div className="flex max-h-[90vh] flex-col">{children}</div>
       </div>
     </div>
   );

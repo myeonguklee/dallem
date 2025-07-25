@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n';
 import { cn } from '@/shared/lib';
 import { formatDateTypeYYYYMMDD } from '@/shared/lib/dateFormatter';
 import { Calendar } from '@/shared/ui/calendar';
@@ -77,7 +78,10 @@ export const ReviewListFilter = () => {
     }
 
     params.set('offset', '0');
-    router.push(`?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   // 날짜 필터 변경
@@ -95,7 +99,10 @@ export const ReviewListFilter = () => {
     }
 
     params.set('offset', '0');
-    router.push(`?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   return (

@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n';
 import { Chip } from '@/shared/ui/chip';
 import { Filter } from '@/shared/ui/filter';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
@@ -13,7 +14,6 @@ import { DateFilter } from './DateFilter';
 export const FilterSection = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
   const t = useTranslations('filters');
 
   // 카테고리 탭 옵션
@@ -64,16 +64,20 @@ export const FilterSection = () => {
       params.set(filterType, value);
     }
 
-    params.set('offset', '0');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   // 카테고리 변경 시 활동 필터 리셋
   const handleCategoryChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('type', value);
-    params.set('offset', '0');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   // 달램핏 카테고리인지 확인

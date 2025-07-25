@@ -2,6 +2,7 @@
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
+    "saving": "Saving...",
     "retry": "Retry",
     "cancel": "Cancel",
     "confirm": "Confirm",
@@ -12,6 +13,17 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous"
+  },
+  "ui": {
+    "timePicker": {
+      "period": "AM/PM",
+      "hour": "Hour",
+      "minute": "Minute",
+      "am": "AM",
+      "pm": "PM",
+      "reset": "Reset",
+      "confirm": "Confirm"
+    }
   },
   "navigation": {
     "home": "Home",
@@ -68,20 +80,91 @@
     },
     "signup": {
       "title": "Sign Up Page",
+      "name": "Name",
       "email": "Email",
+      "company": "Company",
       "password": "Password",
       "confirmPassword": "Confirm Password",
       "signupButton": "Sign Up",
-      "hasAccount": "Already have an account?",
-      "signinLink": "Sign In"
+      "footerText": "Already have an account?",
+      "signinLink": "Sign In",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "companyPlaceholder": "Enter your company name",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
     },
     "gatherings": {
       "title": "Gatherings List Page",
       "createButton": "Create Gathering",
       "noGatherings": "No gatherings available",
+      "loading": "Loading...",
+      "loadingMore": "Loading more...",
       "header": {
         "subtitle": "Don't have anyone to join with?",
         "title": "Join a gathering now"
+      },
+      "error": {
+        "title": "Unable to load gatherings list",
+        "clientErrorDescription": "Invalid request. Please navigate to the gatherings page.",
+        "serverErrorDescription": "A temporary error occurred. Please try again.",
+        "navigateToGathering": "Go to Gatherings",
+        "retry": "Retry"
+      },
+      "create": {
+        "title": "Create Gathering",
+        "pending": "Sending...",
+        "submit": "Confirm",
+        "cancel": "Cancel",
+        "form": {
+          "title": "Gathering Title",
+          "titlePlaceholder": "Enter gathering title",
+          "location": "Location",
+          "locationPlaceholder": "Select gathering location",
+          "image": "Image",
+          "imagePlaceholder": "Attach image",
+          "imageButton": "Find File",
+          "type": "Select Service",
+          "date": "Gathering Date",
+          "datePlaceholder": "Select gathering date",
+          "registrationEnd": "Registration End",
+          "registrationEndPlaceholder": "Select registration end date",
+          "participants": "Participants",
+          "participantsPlaceholder": "Enter minimum 5 participants",
+          "locations": {
+            "konkuk": "Konkuk University",
+            "euljiro": "Euljiro 3-ga",
+            "sinrim": "Sinrim",
+            "hongdae": "Hongdae"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "Dallaemfit",
+              "subtitle": "Office Stretching"
+            },
+            "mindfulness": {
+              "label": "Dallaemfit",
+              "subtitle": "Mindfulness"
+            },
+            "workation": {
+              "label": "Workation",
+              "subtitle": ""
+            }
+          },
+          "errors": {
+            "nameRequired": "Please enter the gathering name.",
+            "locationRequired": "Please select a location.",
+            "typeRequired": "Please select a service.",
+            "dateTimeRequired": "Please select the gathering date.",
+            "dateTimePast": "The gathering date must be in the future.",
+            "registrationEndRequired": "Please select the registration end date.",
+            "registrationEndInvalid": "Registration deadline must be before the gathering date.",
+            "capacityMin": "Please enter at least 5 participants.",
+            "imageType": "Only image files are allowed."
+          }
+        }
       }
     },
     "gathering": {
@@ -142,7 +225,9 @@
       "required": "This field is required",
       "email": "Please enter a valid email address",
       "password": "Password must be at least 8 characters",
-      "passwordConfirm": "Passwords do not match"
+      "passwordConfirm": "Passwords do not match",
+      "emailExists": "This email is already in use",
+      "invalidEmail": "Please enter a valid email address"
     }
   },
   "metadata": {

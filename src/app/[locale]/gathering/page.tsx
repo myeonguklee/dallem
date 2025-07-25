@@ -1,11 +1,14 @@
+import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
+import { QUERY_KEYS } from '@/entities/gathering/api/queryKeys';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
-import { FilterSection } from '@/features/gathering/ui';
-import { Locale } from '@/i18n';
-import { Button } from '@/shared/ui/button';
+import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
+import { HydrationProvider } from '@/shared/api';
+import { createQueryClient } from '@/shared/api/query/client';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
-import { GatheringCard } from '@/widgets/GatheringCard/ui';
+import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
+import { dehydrate } from '@tanstack/react-query';
 
 interface GatheringPageProps {
   params: Promise<{ locale: Locale }>;
@@ -21,8 +24,23 @@ export default async function GatheringPage({ params, searchParams }: GatheringP
   // URL 파라미터를 기반으로 필터 생성
   const filters = parseGatheringFiltersFromSearchParams(searchParamsObj);
 
-  // 모임 데이터 가져오기
-  const gatherings = await getGatherings(filters);
+  // SSR로 초기 모임 데이터 가져오기 (첫 페이지만)
+  const initialGatherings = await getGatherings({
+    ...filters,
+    limit: 10,
+    offset: 0,
+  });
+
+  // QueryClient 생성 및 초기 데이터 prefetch
+  const queryClient = createQueryClient();
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: QUERY_KEYS.gathering.infinite(filters),
+    queryFn: () => Promise.resolve(initialGatherings),
+    initialPageParam: 0,
+  });
+
+  // Hydration을 위한 상태 추출
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <div className="flex flex-1 flex-col gap-2">
@@ -35,35 +53,18 @@ export default async function GatheringPage({ params, searchParams }: GatheringP
       </div>
 
       <div className="flex justify-end">
-        <Button className="font-semibold">{t('createButton')}</Button>
+        <CreateGatheringButton />
       </div>
 
       <FilterSection />
 
-      {/* 모임 카드 목록 */}
-      <div className="flex flex-col gap-4">
-        {gatherings.length > 0 ? (
-          gatherings.map((gathering) => (
-            <GatheringCard
-              key={gathering.id}
-              gatheringId={gathering.id}
-              gatheringType={gathering.type}
-              gatheringName={gathering.name}
-              gatheringLocation={gathering.location}
-              gatheringDateTime={new Date(gathering.dateTime)}
-              gatheringRegistrationEnd={new Date(gathering.registrationEnd)}
-              gatheringParticipantCount={gathering.participantCount}
-              gatheringCapacity={gathering.capacity}
-              gatheringImage={gathering.image}
-              isCanceled={!!gathering.canceledAt}
-            />
-          ))
-        ) : (
-          <div className="flex items-center justify-center py-8">
-            <p className="text-gray-500">{t('noGatherings')}</p>
-          </div>
-        )}
-      </div>
+      {/* GatheringList만 hydration 적용 */}
+      <HydrationProvider dehydratedState={dehydratedState}>
+        <GatheringList
+          initialGatherings={initialGatherings}
+          initialFilters={filters}
+        />
+      </HydrationProvider>
     </div>
   );
 }

@@ -1,9 +1,7 @@
 import Image from 'next/image';
-import { GatheringDateTimeDisplay } from '@/entities/gathering/ui/GatheringDateTimeDisplay';
-import { GatheringDeadlineTag } from '@/entities/gathering/ui/GatheringDeadlineTag';
-import { GatheringJoinButton } from '@/features/gathering/ui/GatheringJoinButton';
-import { GatheringLikeButton } from '@/features/gathering/ui/GatheringLikeButton';
-import { Link } from '@/i18n/navigation';
+import { GatheringDateTimeDisplay, GatheringDeadlineTag } from '@/entities/gathering/ui';
+import { GatheringJoinButton, GatheringLikeButton } from '@/features/gathering/ui';
+import { Link } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { StateChip } from '@/shared/ui/chip';
 import { PersonIcon } from '@/shared/ui/icon';
@@ -41,7 +39,8 @@ export const GatheringCard = ({
 
   return (
     <div className="tablet:flex-row rounded-common relative flex w-full flex-col overflow-hidden border border-gray-200 bg-white">
-      <Link href={ROUTES.GATHERING_DETAIL(gatheringId)}>
+      {/* eslint-disable @typescript-eslint/no-explicit-any */}
+      <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
         <div className="tablet:w-[280px] relative w-full">
           <Image
             src={
@@ -62,7 +61,7 @@ export const GatheringCard = ({
 
       <div className="flex flex-1 flex-col justify-between gap-4 p-4">
         <div className="flex items-start justify-between">
-          <Link href={ROUTES.GATHERING_DETAIL(gatheringId)}>
+          <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
             <div className="flex flex-col gap-2">
               {/* 모임 타입, 장소 */}
               <div className="flex items-center gap-2">
@@ -79,7 +78,7 @@ export const GatheringCard = ({
           <GatheringLikeButton gatheringId={gatheringId} />
         </div>
 
-        <Link href={ROUTES.GATHERING_DETAIL(gatheringId)}>
+        <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
           <div className="flex w-full items-end gap-2">
             <div className="flex w-full flex-col gap-2">
               {/* 프로그래스 바,  참여자 수 */}

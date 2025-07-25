@@ -1,5 +1,5 @@
+import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Locale } from '@/i18n';
 
 interface SignInPageProps {
   params: Promise<{ locale: Locale }>;
