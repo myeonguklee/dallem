@@ -7,6 +7,9 @@ export const routing = defineRouting({
   // 기본 언어
   defaultLocale: 'ko',
 
+  // 항상 locale prefix 사용
+  localePrefix: 'always',
+
   // URL 경로 설정
   pathnames: {
     '/': '/',
@@ -20,13 +23,8 @@ export const routing = defineRouting({
     '/my-page/gatherings-joined': '/my-page/gatherings-joined',
     '/my-page/reviews': '/my-page/reviews',
     '/my-page/gatherings-created': '/my-page/gatherings-created',
-    '/about': {
-      ko: '/소개',
-      en: '/about',
-    },
   },
 });
 
 // 타입 정의
-export type Locale = (typeof routing.locales)[number];
 export type Pathnames = keyof typeof routing.pathnames;

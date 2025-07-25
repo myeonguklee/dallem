@@ -1,6 +1,6 @@
+import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { MyPageTab } from '@/features/my-page/ui/MyPageTab';
-import { Locale } from '@/i18n/routing';
 import { EditIcon, ProfileBGIcon, ProfileIcon } from '@/shared/ui/icon';
 
 interface MyPageLayoutProps {

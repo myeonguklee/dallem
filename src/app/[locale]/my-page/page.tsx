@@ -1,5 +1,5 @@
+import type { Locale } from 'next-intl';
 import { redirect } from '@/i18n';
-import { Locale } from '@/i18n/routing';
 
 interface MyPageProps {
   params: Promise<{ locale: Locale }>;

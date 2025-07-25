@@ -1,9 +1,10 @@
 import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
+import type { Locale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Script from 'next/script';
-import { type Locale, routing } from '@/i18n';
+import { routing } from '@/i18n';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
 import { Header } from '@/widgets/Header/ui/Header';
