@@ -31,7 +31,7 @@ export const ReviewCard = ({
       data-testid="review-card"
       aria-label={userName ?? '사용자 리뷰'}
       className={cn(
-        'flex max-w-[1200px] flex-col border-b border-gray-400 pb-8',
+        'flex max-w-[1200px] flex-col border-b-2 border-dashed border-gray-200 pb-8',
         'tablet:flex-row tablet:items-stretch tablet:gap-6',
       )}
     >
