@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Pretendard } from '@/app/fonts/pretendard';
 import { type Locale, routing } from '@/i18n';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
@@ -43,23 +42,19 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale}>
-      <body className={Pretendard.className}>
-        <div className="flex min-h-screen flex-col antialiased">
-          <NextIntlClientProvider
-            messages={messages}
-            locale={locale}
-          >
-            <ReactQueryProvider>
-              <Header />
-              <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
-                {children}
-              </main>
-              <ToastProvider />
-            </ReactQueryProvider>
-          </NextIntlClientProvider>
-        </div>
-      </body>
-    </html>
+    <div className="flex min-h-screen flex-col antialiased">
+      <NextIntlClientProvider
+        messages={messages}
+        locale={locale}
+      >
+        <ReactQueryProvider>
+          <Header />
+          <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
+            {children}
+          </main>
+          <ToastProvider />
+        </ReactQueryProvider>
+      </NextIntlClientProvider>
+    </div>
   );
 }

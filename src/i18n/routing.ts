@@ -17,6 +17,9 @@ export const routing = defineRouting({
     '/signin': '/signin',
     '/signup': '/signup',
     '/my-page': '/my-page',
+    '/my-page/gatherings-joined': '/my-page/gatherings-joined',
+    '/my-page/reviews': '/my-page/reviews',
+    '/my-page/gatherings-created': '/my-page/gatherings-created',
     '/about': {
       ko: '/소개',
       en: '/about',
