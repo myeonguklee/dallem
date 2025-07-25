@@ -1,18 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { signup } from '@/entities/auth/signup/api/signup';
+import { type SignupFormData, signupFields, signupSchema } from '@/features/signup/model';
+import { formatSignupFormToPayload } from '@/features/signup/utils/formatSignupFormToPayload';
+import { useRouter } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
-import { localeUrlFormatter } from '@/shared/lib/localeUrlFormatter';
 import { AuthForm } from '@/widgets/AuthForm/ui/AuthForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { signupFields } from '../model/signupFields';
-import { signupSchema } from '../model/signupSchema';
-import { SignupFormData } from '../model/type';
-import { formatSignupFormToPayload } from '../utils/formatSignupFormToPayload';
 
 const ERROR_CASE = {
   EMAIL_EXISTS: 'errors.validation.emailExists',
@@ -35,7 +32,7 @@ export const SignupForm = () => {
     toast.promise(signup(formatSignupFormToPayload(formData)), {
       loading: t('common.saving'),
       success: () => {
-        setTimeout(() => router.push(localeUrlFormatter(ROUTES.SIGNIN)), 2000);
+        setTimeout(() => router.push(ROUTES.SIGNIN), 2000);
         return <b>{t('pages.signup.success')}</b>;
       },
       error: (e) => {

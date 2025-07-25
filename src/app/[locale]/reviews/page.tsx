@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
@@ -6,7 +7,6 @@ import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
 import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
 import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
-import { Locale } from '@/i18n';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';

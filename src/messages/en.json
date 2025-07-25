@@ -16,6 +16,7 @@
   },
   "ui": {
     "timePicker": {
+      "period": "AM/PM",
       "hour": "Hour",
       "minute": "Minute",
       "am": "AM",

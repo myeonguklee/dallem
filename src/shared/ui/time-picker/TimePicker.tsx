@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/shared/lib/cn';
 
 export interface TimePickerProps {
@@ -13,17 +12,17 @@ export interface TimePickerProps {
 
 export const TimePicker = ({ value, onChange, onConfirm, onReset, className }: TimePickerProps) => {
   const t = useTranslations('ui.timePicker');
-  const pathname = usePathname();
   const [selectedHour, setSelectedHour] = useState(value?.getHours() || 14);
   const [selectedMinute, setSelectedMinute] = useState(value?.getMinutes() || 0);
   const [selectedPeriod, setSelectedPeriod] = useState<'AM' | 'PM'>(
     (value?.getHours() || 14) >= 12 ? 'PM' : 'AM',
   );
 
-  // URL에서 로케일 추출
-  const locale = pathname?.split('/')[1] || 'ko';
-  const isKorean = locale === 'ko';
-  const periodOptions = isKorean ? [t('am'), t('pm')] : ['AM', 'PM'];
+  // value/label 구조로 변경
+  const periodOptions: { value: 'AM' | 'PM'; label: string }[] = [
+    { value: 'AM', label: t('am') },
+    { value: 'PM', label: t('pm') },
+  ];
 
   // value가 변경될 때 상태 업데이트
   useEffect(() => {
@@ -40,7 +39,7 @@ export const TimePicker = ({ value, onChange, onConfirm, onReset, className }: T
       setSelectedPeriod(period);
     }
     // value가 undefined일 때는 상태를 초기화하지 않음 (초기화 버튼 클릭 시)
-  }, [value, locale]);
+  }, [value]);
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
   const minutes = Array.from({ length: 60 }, (_, i) => i);
@@ -121,25 +120,20 @@ export const TimePicker = ({ value, onChange, onConfirm, onReset, className }: T
 
       {/* AM/PM 선택 */}
       <div className="flex flex-col items-center">
-        <label className="mb-1 text-xs text-gray-500">{isKorean ? '오전/오후' : 'AM/PM'}</label>
+        <label className="mb-1 text-xs text-gray-500">{t('period')}</label>
         <div className="h-24 w-16 overflow-y-auto rounded-md border border-gray-200 bg-white [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-transparent">
-          {periodOptions.map((period) => (
+          {periodOptions.map((option) => (
             <div
-              key={period}
+              key={option.value}
               className={cn(
                 'flex h-8 cursor-pointer items-center justify-center text-sm transition-colors',
-                selectedPeriod === (isKorean ? (period === t('am') ? 'AM' : 'PM') : period)
+                selectedPeriod === option.value
                   ? 'bg-orange-500 text-white hover:bg-orange-600'
                   : 'hover:bg-orange-50',
               )}
-              onClick={() =>
-                handleTimeChange(
-                  'period',
-                  isKorean ? (period === t('am') ? 'AM' : 'PM') : (period as 'AM' | 'PM'),
-                )
-              }
+              onClick={() => handleTimeChange('period', option.value)}
             >
-              {period}
+              {option.label}
             </div>
           ))}
         </div>

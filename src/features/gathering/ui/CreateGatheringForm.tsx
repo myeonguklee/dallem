@@ -1,17 +1,21 @@
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import { createGathering } from '@/entities/gathering/api/services';
+import { useLocale, useTranslations } from 'next-intl';
+import { useCreateGathering } from '@/entities/gathering/api/queries';
+import {
+  CreateGatheringFormValues,
+  createGatheringSchema,
+} from '@/features/gathering/model/createGatheringSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldError, useForm } from 'react-hook-form';
-import { CreateGatheringFormValues, createGatheringSchema } from '../model/createGatheringSchema';
-import { GatheringCapacityField } from './fields/GatheringCapacityField';
-import { GatheringDateField } from './fields/GatheringDateField';
-import { GatheringImageField } from './fields/GatheringImageField';
-import { GatheringLocationField } from './fields/GatheringLocationField';
-import { GatheringNameField } from './fields/GatheringNameField';
-import { GatheringRegistrationEndField } from './fields/GatheringRegistrationEndField';
-import { GatheringTypeField } from './fields/GatheringTypeField';
+import {
+  GatheringCapacityField,
+  GatheringDateField,
+  GatheringImageField,
+  GatheringLocationField,
+  GatheringNameField,
+  GatheringRegistrationEndField,
+  GatheringTypeField,
+} from './fields';
 
 interface CreateGatheringFormProps {
   onClose: () => void;
@@ -19,12 +23,13 @@ interface CreateGatheringFormProps {
 
 export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
   const t = useTranslations('pages.gatherings.create');
-  const pathname = usePathname();
-  const [loading, setLoading] = useState(false);
+  const locale = useLocale();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentDateField, setCurrentDateField] = useState<'dateTime' | 'registrationEnd' | null>(
     null,
   );
+
+  const { isPending, mutate } = useCreateGathering();
 
   const {
     control,
@@ -47,19 +52,14 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
     },
   });
 
-  const onSubmit = async (data: CreateGatheringFormValues) => {
-    setLoading(true);
-    try {
-      await createGathering(data);
-      onClose();
-    } catch (e) {
-      alert(e instanceof Error ? e.message : t('common:error'));
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit = (data: CreateGatheringFormValues) => {
+    mutate(data, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
-  const locale = pathname?.split('/')[1] || 'ko';
   const formatDateTime = (date: Date | undefined) => {
     if (!date) return '';
     return date.toLocaleString(locale === 'ko' ? 'ko-KR' : 'en-US', {
@@ -148,9 +148,9 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
         <button
           type="submit"
           className="bg-primary hover:bg-primary/80 flex-1 rounded-xl px-4 py-2 font-semibold text-white transition focus:outline-none"
-          disabled={loading}
+          disabled={isPending}
         >
-          {loading ? t('pending') : t('submit')}
+          {isPending ? t('pending') : t('submit')}
         </button>
       </div>
     </form>

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
@@ -12,6 +12,7 @@ export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
   const t = useTranslations('navigation');
   const pathname = usePathname();
+  const locale = useLocale();
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,8 +59,9 @@ export const MobileGNB = () => {
       {/* 드로워 */}
       <nav
         className={clsx(
-          'fixed top-0 left-0 z-[var(--z-drawer)] h-full w-50 bg-white shadow transition-transform duration-300',
+          'fixed top-0 left-0 z-[var(--z-drawer)] h-full bg-white shadow transition-transform duration-300',
           open ? 'translate-x-0' : '-translate-x-full',
+          locale === 'ko' ? 'w-30' : 'w-45',
         )}
       >
         <div className="flex h-14 items-center justify-end p-4">

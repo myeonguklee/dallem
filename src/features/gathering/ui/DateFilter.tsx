@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n';
 import { Button } from '@/shared/ui/button';
 import { Calendar } from '@/shared/ui/calendar/Calendar';
 import { filterButtonVariants } from '@/shared/ui/filter/variants';
@@ -10,22 +11,22 @@ export const DateFilter = () => {
   const t = useTranslations('filters');
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
+  const locale = useLocale();
 
   const selectedDateStr = searchParams.get('date');
   const selectedDate = selectedDateStr ? new Date(selectedDateStr) : undefined;
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [tempDate, setTempDate] = useState<Date | undefined>(selectedDate);
 
-  const isEnglish = pathname.startsWith('/en');
-  const locale = isEnglish ? 'en-US' : 'ko-KR';
-
   const handleApplyDate = () => {
     if (tempDate) {
       const yyyyMMdd = tempDate.toISOString().slice(0, 10);
       const params = new URLSearchParams(searchParams);
       params.set('date', yyyyMMdd);
-      router.push(`${pathname}?${params.toString()}`);
+      router.push({
+        pathname: '/gathering',
+        query: Object.fromEntries(params.entries()),
+      });
     }
     setCalendarOpen(false);
   };
@@ -34,7 +35,10 @@ export const DateFilter = () => {
     setTempDate(undefined);
     const params = new URLSearchParams(searchParams);
     params.delete('date');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
     setCalendarOpen(false);
   };
 

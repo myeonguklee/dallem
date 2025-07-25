@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n';
 import { Sort } from '@/shared/ui/sort';
 
 export const ReviewSort = () => {
@@ -27,7 +28,10 @@ export const ReviewSort = () => {
     }
 
     params.set('offset', '0'); // 필터 변경시 첫 페이지로
-    router.push(`?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   return (

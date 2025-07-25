@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Modal } from '@/shared/ui/modal';
 import { CreateGatheringForm } from './CreateGatheringForm';
 
@@ -8,13 +9,17 @@ interface CreateGatheringModalProps {
   onClose: () => void;
 }
 
-export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalProps) => (
-  <Modal.Root
-    isOpen={isOpen}
-    onClose={onClose}
-    variant="form"
-  >
-    <Modal.Header>모임 만들기</Modal.Header>
-    <CreateGatheringForm onClose={onClose} />
-  </Modal.Root>
-);
+export const CreateGatheringModal = ({ isOpen, onClose }: CreateGatheringModalProps) => {
+  const t = useTranslations('pages.gatherings.create');
+
+  return (
+    <Modal.Root
+      isOpen={isOpen}
+      onClose={onClose}
+      variant="form"
+    >
+      <Modal.Header>{t('title')}</Modal.Header>
+      <CreateGatheringForm onClose={onClose} />
+    </Modal.Root>
+  );
+};

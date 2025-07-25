@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { HeaderLink } from './HeaderLink';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -10,8 +9,6 @@ import { MobileGNB } from './MobileGNB';
 
 export const Header = () => {
   const t = useTranslations('navigation');
-  const pathname = usePathname();
-  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
   return (
     <header className="tablet:h-15 px-mobile-padding tablet:px-tablet-padding fixed z-[var(--z-sticky)] flex h-14 w-full justify-center gap-5 border-b border-gray-200 bg-white">
@@ -27,7 +24,7 @@ export const Header = () => {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <LanguageSwitcher currentLocale={locale} />
+          <LanguageSwitcher />
           <HeaderLink
             href={ROUTES.SIGNUP}
             className="bg-primary w-18 rounded-[5px] px-2.5 py-1 text-center font-semibold whitespace-nowrap text-white hover:bg-orange-600"
