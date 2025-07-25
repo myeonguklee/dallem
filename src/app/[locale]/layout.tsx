@@ -1,6 +1,8 @@
+import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import Script from 'next/script';
 import { type Locale, routing } from '@/i18n';
 import { ReactQueryProvider } from '@/shared/api';
 import { ToastProvider } from '@/shared/ui/toast';
@@ -42,19 +44,30 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages({ locale });
 
   return (
-    <div className="flex min-h-screen flex-col antialiased">
-      <NextIntlClientProvider
-        messages={messages}
-        locale={locale}
-      >
-        <ReactQueryProvider>
-          <Header />
-          <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
-            {children}
-          </main>
-          <ToastProvider />
-        </ReactQueryProvider>
-      </NextIntlClientProvider>
-    </div>
+    <Fragment>
+      {/* 동적으로 html lang 속성 업데이트 */}
+      <Script
+        id="update-lang"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang = '${locale}';`,
+        }}
+      />
+
+      <div className="flex min-h-screen flex-col antialiased">
+        <NextIntlClientProvider
+          messages={messages}
+          locale={locale}
+        >
+          <ReactQueryProvider>
+            <Header />
+            <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
+              {children}
+            </main>
+            <ToastProvider />
+          </ReactQueryProvider>
+        </NextIntlClientProvider>
+      </div>
+    </Fragment>
   );
 }
