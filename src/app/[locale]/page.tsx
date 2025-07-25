@@ -15,7 +15,12 @@ export default async function HomePage({ params }: HomePageProps) {
       <h1 className="text-2xl font-bold">{t('title')}</h1>
       <p className="text-xl text-gray-600">{t('welcome')}</p>
 
-      <Link href="/my-page">My Page</Link>
+      <Link
+        href="/my-page"
+        locale={locale}
+      >
+        My Page
+      </Link>
     </div>
   );
 }
