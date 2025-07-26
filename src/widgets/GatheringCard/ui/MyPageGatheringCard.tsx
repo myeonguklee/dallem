@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { GatheringDateTimeDisplay, GatheringStatusChip } from '@/entities/gathering/ui';
 import { MyPageActionButton } from '@/features/my-page/ui';
@@ -34,6 +34,7 @@ export const MyPageGatheringCard = ({
   isCompleted,
   isReviewed,
 }: MyPageGatheringCardProps) => {
+  const t = useTranslations('gatheringCard');
   const locale = useLocale();
 
   return (
@@ -111,7 +112,7 @@ export const MyPageGatheringCard = ({
       {isCanceled && (
         <div className="rounded-common absolute inset-0 flex items-center justify-center bg-black opacity-80">
           <div className="flex flex-col items-center gap-2 text-center text-white">
-            <div className="text-lg font-medium">취소된 모임이에요!</div>
+            <div className="text-lg font-medium">{t('canceled')}</div>
           </div>
         </div>
       )}

@@ -274,6 +274,9 @@
     },
     "favorites": {
       "title": "Favorites Page"
+    },
+    "gatheringCard": {
+      "canceled": "This gathering has been canceled!"
     }
   },
   "errors": {
