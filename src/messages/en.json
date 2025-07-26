@@ -179,7 +179,55 @@
       }
     },
     "myPage": {
-      "title": "My Page"
+      "title": "My Page",
+      "profile": {
+        "title": "My Profile",
+        "editButton": "Edit",
+        "name": "Name",
+        "company": "Company",
+        "email": "Email",
+        "emailReadOnly": "Email cannot be modified"
+      },
+      "tabs": {
+        "joinedGatherings": "My Gatherings",
+        "createdGatherings": "Created Gatherings",
+        "reviews": "My Reviews",
+        "writableReviews": "Writable Reviews"
+      },
+      "gatherings": {
+        "noJoinedGatherings": "No joined gatherings",
+        "noCreatedGatherings": "No created gatherings",
+        "cancelButton": "Cancel",
+        "cancelConfirm": "Are you sure you want to cancel?",
+        "cancelSuccess": "Gathering participation has been cancelled",
+        "cancelError": "Failed to cancel gathering"
+      },
+      "reviews": {
+        "noWritableReviews": "No writable reviews",
+        "noWrittenReviews": "No written reviews",
+        "writeReview": "Write Review",
+        "rating": "Rating",
+        "comment": "Comment",
+        "commentPlaceholder": "Please write your review",
+        "submit": "Submit Review",
+        "submitSuccess": "Review has been submitted",
+        "submitError": "Failed to submit review"
+      },
+      "form": {
+        "companyName": "Company Name",
+        "companyNamePlaceholder": "Enter your company name",
+        "profileImage": "Profile Image",
+        "imagePlaceholder": "Select an image",
+        "imageButton": "Select Image",
+        "cancel": "Cancel",
+        "submit": "Update Complete",
+        "submitting": "Updating...",
+        "errors": {
+          "companyNameRequired": "Please enter your company name",
+          "imageRequired": "Please select a profile image",
+          "imageType": "Please select a valid image file"
+        }
+      }
     },
     "reviews": {
       "title": "All Reviews",

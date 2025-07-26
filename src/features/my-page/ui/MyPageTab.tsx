@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useRouter } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
@@ -12,14 +12,15 @@ type MyPageRouter =
   | '/my-page/gatherings-created';
 
 export const MyPageTab = () => {
+  const t = useTranslations('pages.myPage');
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
 
   const MyPageTabItems = [
-    { id: 'gatherings-joined', label: '나의 모임' },
-    { id: 'reviews', label: '나의 리뷰' },
-    { id: 'gatherings-created', label: '내가 만든 모임' },
+    { id: 'gatherings-joined', label: t('tabs.joinedGatherings') },
+    { id: 'reviews', label: t('tabs.reviews') },
+    { id: 'gatherings-created', label: t('tabs.createdGatherings') },
   ];
 
   // 현재 경로에서 탭 ID 추출

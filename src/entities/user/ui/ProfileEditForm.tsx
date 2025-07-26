@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { PutUserFormValues, putUserSchema } from '@/entities/user/model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -11,6 +12,7 @@ interface ProfileEditFormProps {
 }
 
 export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditFormProps) => {
+  const t = useTranslations('pages.myPage');
   const { isPending, mutate } = usePutUser();
   const [fileName, setFileName] = useState('');
 
@@ -58,7 +60,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="image"
             className="mb-2 block text-sm font-medium"
           >
-            프로필 이미지
+            {t('form.profileImage')}
           </label>
           <div className="flex w-full items-center gap-2">
             <div
@@ -68,7 +70,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
               }
             >
               <span className={fileName ? 'text-gray-800' : 'text-gray-400'}>
-                {fileName || '이미지를 선택해주세요'}
+                {fileName || t('form.imagePlaceholder')}
               </span>
             </div>
             <button
@@ -76,7 +78,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
               className="rounded-xl border border-orange-500 bg-white px-4 py-2 font-semibold text-orange-500 transition hover:bg-orange-50 focus:outline-none"
               onClick={() => document.getElementById('profile-image-upload')?.click()}
             >
-              이미지 선택
+              {t('form.imageButton')}
             </button>
             <input
               type="file"
@@ -86,7 +88,9 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
               onChange={(e) => handleImageChange(e.target.files?.[0] || null)}
             />
           </div>
-          {errors.image && <p className="mt-1 text-xs text-red-500">{errors.image.message}</p>}
+          {errors.image && (
+            <p className="mt-1 text-xs text-red-500">{t(errors.image.message ?? '')}</p>
+          )}
         </div>
 
         <div>
@@ -94,7 +98,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="companyName"
             className="mb-2 block text-sm font-medium"
           >
-            회사명
+            {t('form.companyName')}
           </label>
           <input
             type="text"
@@ -103,7 +107,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             className="w-full rounded-xl border border-gray-300 px-4 py-2 focus:border-orange-500 focus:outline-none"
           />
           {errors.companyName && (
-            <p className="mt-1 text-xs text-red-500">{errors.companyName.message}</p>
+            <p className="mt-1 text-xs text-red-500">{t(errors.companyName.message ?? '')}</p>
           )}
         </div>
 
@@ -112,7 +116,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="email"
             className="mb-2 block text-sm font-medium"
           >
-            이메일
+            {t('profile.email')}
           </label>
           <input
             type="email"
@@ -121,7 +125,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             disabled
             className="w-full cursor-not-allowed rounded-xl border border-gray-300 bg-gray-50 px-4 py-2 text-gray-500"
           />
-          <p className="mt-1 text-xs text-gray-500">이메일은 수정할 수 없습니다</p>
+          <p className="mt-1 text-xs text-gray-500">{t('profile.emailReadOnly')}</p>
         </div>
       </div>
 
@@ -131,14 +135,14 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
           onClick={onClose}
           className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-700 transition hover:bg-gray-50"
         >
-          취소
+          {t('form.cancel')}
         </button>
         <button
           type="submit"
           disabled={isPending}
           className="flex-1 rounded-xl bg-orange-500 px-4 py-2 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50"
         >
-          {isPending ? '수정 중...' : '수정 완료'}
+          {isPending ? t('form.submitting') : t('form.submit')}
         </button>
       </div>
     </form>

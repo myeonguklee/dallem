@@ -179,7 +179,55 @@
       }
     },
     "myPage": {
-      "title": "마이페이지"
+      "title": "마이페이지",
+      "profile": {
+        "title": "내 프로필",
+        "editButton": "수정",
+        "name": "이름",
+        "company": "회사",
+        "email": "이메일",
+        "emailReadOnly": "이메일은 수정할 수 없습니다"
+      },
+      "tabs": {
+        "joinedGatherings": "나의 모임",
+        "createdGatherings": "내가 만든 모임",
+        "reviews": "나의 리뷰",
+        "writableReviews": "작성 가능한 리뷰"
+      },
+      "gatherings": {
+        "noJoinedGatherings": "참여한 모임이 없습니다",
+        "noCreatedGatherings": "만든 모임이 없습니다",
+        "cancelButton": "취소",
+        "cancelConfirm": "정말 취소하시겠습니까?",
+        "cancelSuccess": "모임 참여가 취소되었습니다",
+        "cancelError": "모임 취소에 실패했습니다"
+      },
+      "reviews": {
+        "noWritableReviews": "작성 가능한 리뷰가 없습니다",
+        "noWrittenReviews": "작성한 리뷰가 없습니다",
+        "writeReview": "리뷰 작성",
+        "rating": "평점",
+        "comment": "코멘트",
+        "commentPlaceholder": "리뷰를 작성해주세요",
+        "submit": "리뷰 등록",
+        "submitSuccess": "리뷰가 등록되었습니다",
+        "submitError": "리뷰 등록에 실패했습니다"
+      },
+      "form": {
+        "companyName": "회사명",
+        "companyNamePlaceholder": "회사명을 입력해주세요",
+        "profileImage": "프로필 이미지",
+        "imagePlaceholder": "이미지를 선택해주세요",
+        "imageButton": "이미지 선택",
+        "cancel": "취소",
+        "submit": "수정 완료",
+        "submitting": "수정 중...",
+        "errors": {
+          "companyNameRequired": "회사명을 입력해주세요",
+          "imageRequired": "프로필 이미지를 선택해주세요",
+          "imageType": "올바른 이미지 파일을 선택해주세요"
+        }
+      }
     },
     "reviews": {
       "title": "모든 리뷰",
