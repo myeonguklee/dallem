@@ -162,7 +162,8 @@
             "registrationEndRequired": "모집 마감일을 선택해주세요",
             "registrationEndInvalid": "모집 마감일은 모임 날짜보다 이전이어야 합니다",
             "capacityMin": "최소 5인 이상 입력해주세요",
-            "imageType": "이미지 파일만 업로드 가능합니다"
+            "imageType": "이미지 파일만 업로드 가능합니다",
+            "imageEmpty": "이미지 파일이 비어있습니다"
           }
         }
       }

@@ -17,17 +17,14 @@ export const createGatheringSchema = z
     }),
     capacity: z.coerce.number().min(5, 'form.errors.capacityMin'),
     image: z
-      .any()
-      .optional()
-      .refine(
-        (file) =>
-          !file ||
-          (typeof File !== 'undefined' && file instanceof File && file.type.startsWith('image/')),
-        {
-          message: 'form.errors.imageType',
-          path: ['image'],
-        },
-      ),
+      .instanceof(File)
+      .refine((file) => file?.size > 0, {
+        message: 'form.errors.imageEmpty',
+      })
+      .refine((file) => file?.type.startsWith('image/'), {
+        message: 'form.errors.imageType',
+      })
+      .optional(),
   })
   .refine(
     (data) => !data.registrationEnd || (data.dateTime && data.registrationEnd < data.dateTime),

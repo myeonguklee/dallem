@@ -162,7 +162,8 @@
             "registrationEndRequired": "Please select the registration end date.",
             "registrationEndInvalid": "Registration deadline must be before the gathering date.",
             "capacityMin": "Please enter at least 5 participants.",
-            "imageType": "Only image files are allowed."
+            "imageType": "Only image files are allowed.",
+            "imageEmpty": "Image file is empty."
           }
         }
       }
