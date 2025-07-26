@@ -35,7 +35,7 @@ export const GatheringCard = ({
   gatheringImage,
   isCanceled,
 }: GatheringCardProps) => {
-  const t = useTranslations('gatheringCard');
+  const t = useTranslations('ui.gatheringCard');
   // 모임 참여자 수가 5명 이상이면 개설확정 칩 표시
   const isConfirmed = gatheringParticipantCount >= participantCountToConfirm;
 

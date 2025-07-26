@@ -23,6 +23,9 @@
       "pm": "오후",
       "reset": "초기화",
       "confirm": "확인"
+    },
+    "gatheringCard": {
+      "canceled": "취소된 모임이에요!"
     }
   },
   "navigation": {
@@ -274,9 +277,6 @@
     },
     "favorites": {
       "title": "찜한 모임 페이지"
-    },
-    "gatheringCard": {
-      "canceled": "취소된 모임이에요!"
     }
   },
   "errors": {

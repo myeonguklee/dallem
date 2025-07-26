@@ -34,7 +34,7 @@ export const MyPageGatheringCard = ({
   isCompleted,
   isReviewed,
 }: MyPageGatheringCardProps) => {
-  const t = useTranslations('gatheringCard');
+  const t = useTranslations('ui.gatheringCard');
   const locale = useLocale();
 
   return (

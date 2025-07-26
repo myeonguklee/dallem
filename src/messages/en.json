@@ -23,6 +23,9 @@
       "pm": "PM",
       "reset": "Reset",
       "confirm": "Confirm"
+    },
+    "gatheringCard": {
+      "canceled": "This gathering has been canceled!"
     }
   },
   "navigation": {
@@ -274,9 +277,6 @@
     },
     "favorites": {
       "title": "Favorites Page"
-    },
-    "gatheringCard": {
-      "canceled": "This gathering has been canceled!"
     }
   },
   "errors": {
