@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const putUserSchema = z.object({
+export const updateUserSchema = z.object({
   companyName: z.string({ required_error: 'form.errors.companyNameRequired' }),
   image: z.string({ required_error: 'form.errors.imageRequired' }).refine(
     (value) => {
@@ -13,4 +13,4 @@ export const putUserSchema = z.object({
   ),
 });
 
-export type PutUserFormValues = z.infer<typeof putUserSchema>;
+export type UpdateUserPayload = z.infer<typeof updateUserSchema>;

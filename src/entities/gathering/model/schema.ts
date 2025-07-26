@@ -41,4 +41,4 @@ export const createGatheringSchema = z
     path: ['dateTime'],
   });
 
-export type CreateGatheringFormValues = z.infer<typeof createGatheringSchema>;
+export type CreateGatheringPayload = z.infer<typeof createGatheringSchema>;

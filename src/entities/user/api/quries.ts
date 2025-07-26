@@ -1,8 +1,8 @@
-import type { PutUserFormValues, User } from '@/entities/user/model';
+import type { UpdateUserPayload, User } from '@/entities/user/model';
 import { ApiError } from '@/shared/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from './queryKeys';
-import { getUser, putUser } from './service';
+import { getUser, updateUser } from './service';
 
 export const useGetUser = () => {
   return useQuery({
@@ -11,10 +11,10 @@ export const useGetUser = () => {
   });
 };
 
-export const usePutUser = () => {
+export const useUpdateUser = () => {
   const queryClient = useQueryClient();
-  return useMutation<User, ApiError, PutUserFormValues>({
-    mutationFn: putUser,
+  return useMutation<User, ApiError, UpdateUserPayload>({
+    mutationFn: updateUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.AUTH.USER.BASE });
     },

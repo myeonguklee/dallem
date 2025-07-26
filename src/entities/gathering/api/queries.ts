@@ -1,10 +1,10 @@
+import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
 import type {
   Gathering,
   GatheringFilters,
   MyGathering,
   MyGatheringParams,
 } from '@/entities/gathering/model/types';
-import type { CreateGatheringFormValues } from '@/features/gathering/model/createGatheringSchema';
 import { ApiError } from '@/shared/api';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from './queryKeys';
@@ -39,7 +39,7 @@ export const useGetGatheringsInfinite = (filters?: Omit<GatheringFilters, 'limit
 // 모임 생성 훅
 export const useCreateGathering = () => {
   const queryClient = useQueryClient();
-  return useMutation<Gathering, ApiError, CreateGatheringFormValues>({
+  return useMutation<Gathering, ApiError, CreateGatheringPayload>({
     mutationFn: createGathering,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });

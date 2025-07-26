@@ -1,1 +1,1 @@
-export { useGetUser, usePutUser } from './quries';
+export { useGetUser, useUpdateUser } from './quries';

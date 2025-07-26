@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { PutUserFormValues, putUserSchema } from '@/entities/user/model';
+import { UpdateUserPayload, updateUserSchema } from '@/entities/user/model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { usePutUser } from '../api/quries';
+import { useUpdateUser } from '../api/quries';
 
 interface ProfileEditFormProps {
   companyName: string;
@@ -13,7 +13,7 @@ interface ProfileEditFormProps {
 
 export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditFormProps) => {
   const t = useTranslations('pages.myPage');
-  const { isPending, mutate } = usePutUser();
+  const { isPending, mutate } = useUpdateUser();
   const [fileName, setFileName] = useState('');
 
   const {
@@ -21,15 +21,15 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<PutUserFormValues>({
-    resolver: zodResolver(putUserSchema),
+  } = useForm<UpdateUserPayload>({
+    resolver: zodResolver(updateUserSchema),
     defaultValues: {
       companyName: companyName,
       image: '',
     },
   });
 
-  const onSubmit = (data: PutUserFormValues) => {
+  const onSubmit = (data: UpdateUserPayload) => {
     mutate(data, {
       onSuccess: () => {
         onClose();

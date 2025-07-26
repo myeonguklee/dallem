@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { CreateGatheringFormValues } from '@/features/gathering/model';
+import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
 import { FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
 interface GatheringImageFieldProps {
-  setValue: UseFormSetValue<CreateGatheringFormValues>;
+  setValue: UseFormSetValue<CreateGatheringPayload>;
   error?: FieldError;
-  watch: UseFormWatch<CreateGatheringFormValues>;
+  watch: UseFormWatch<CreateGatheringPayload>;
 }
 
 export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFieldProps) => {

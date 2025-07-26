@@ -1,10 +1,10 @@
+import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
 import type {
   Gathering,
   GatheringFilters,
   MyGathering,
   MyGatheringParams,
 } from '@/entities/gathering/model/types';
-import type { CreateGatheringFormValues } from '@/features/gathering/model';
 import { httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config/api';
 
@@ -34,9 +34,7 @@ export const getGatherings = async (filters?: GatheringFilters): Promise<Gatheri
 };
 
 // 새 모임 생성
-export const createGathering = async (
-  newGathering: CreateGatheringFormValues,
-): Promise<Gathering> => {
+export const createGathering = async (newGathering: CreateGatheringPayload): Promise<Gathering> => {
   return await httpClient.post<Gathering>(API_ENDPOINTS.GATHERINGS.CREATE, newGathering, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });

@@ -1,3 +1,3 @@
 export type { User } from './type';
-export { putUserSchema } from './userSchema';
-export type { PutUserFormValues } from './userSchema';
+export { updateUserSchema } from './schema';
+export type { UpdateUserPayload } from './schema';
