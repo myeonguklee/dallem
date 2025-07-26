@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { UpdateUserPayload, updateUserSchema } from '@/entities/user/model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useUpdateUser } from '../api/quries';
+import { useUpdateUser } from '../api/queries';
 
 interface ProfileEditFormProps {
   companyName: string;

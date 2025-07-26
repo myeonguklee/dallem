@@ -11,10 +11,11 @@ import { QUERY_KEYS } from './queryKeys';
 import { createGathering, getGatherings, getGatheringsJoined } from './services';
 
 // 모임 조회
-export const useGetGatherings = (filters?: GatheringFilters) => {
+export const useGetGatherings = (filters?: GatheringFilters, options?: { enabled?: boolean }) => {
   return useQuery<Gathering[]>({
     queryKey: QUERY_KEYS.gathering.list(filters),
     queryFn: () => getGatherings(filters),
+    enabled: options?.enabled ?? true,
   });
 };
 

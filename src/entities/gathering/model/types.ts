@@ -47,7 +47,7 @@ export interface GatheringFilters {
 }
 
 export interface MyGathering extends Gathering {
-  joinedAt: Date;
+  joinedAt: string;
   isCompleted: boolean;
   isReviewed: boolean;
 }

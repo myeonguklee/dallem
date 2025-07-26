@@ -20,6 +20,7 @@ interface MyPageGatheringCardProps {
   joinedAt?: Date;
   isCompleted?: boolean;
   isReviewed?: boolean;
+  isActionButtonVisible?: boolean;
 }
 
 export const MyPageGatheringCard = ({
@@ -33,6 +34,7 @@ export const MyPageGatheringCard = ({
   isCanceled,
   isCompleted,
   isReviewed,
+  isActionButtonVisible = true,
 }: MyPageGatheringCardProps) => {
   const t = useTranslations('ui.gatheringCard');
   const locale = useLocale();
@@ -98,7 +100,7 @@ export const MyPageGatheringCard = ({
 
         <div className="flex w-full items-end">
           {/* 액션 버튼 */}
-          {!isCanceled && isCompleted && isReviewed && (
+          {!isCanceled && isActionButtonVisible && (
             <MyPageActionButton
               gatheringId={gatheringId}
               isCompleted={isCompleted}

@@ -8,9 +8,7 @@ import { MyPageGatheringCard } from '@/widgets/GatheringCard/ui/MyPageGatheringC
 export default function GatheringsCreated() {
   const t = useTranslations('pages.myPage');
   const { data: user } = useGetUser();
-  const { data } = useGetGatherings({
-    createdBy: user?.id,
-  });
+  const { data } = useGetGatherings({ createdBy: user?.id }, { enabled: !!user?.id });
 
   return (
     <div>
@@ -27,6 +25,7 @@ export default function GatheringsCreated() {
               gatheringCapacity={gathering.capacity}
               gatheringImage={gathering.image}
               isCanceled={!!gathering.canceledAt}
+              isActionButtonVisible={false}
             />
           ))
         ) : (

@@ -5,7 +5,7 @@ import { QUERY_KEYS } from './queryKeys';
 import { getUser, updateUser } from './service';
 
 export const useGetUser = () => {
-  return useQuery({
+  return useQuery<User>({
     queryKey: QUERY_KEYS.AUTH.USER.BASE,
     queryFn: getUser,
   });

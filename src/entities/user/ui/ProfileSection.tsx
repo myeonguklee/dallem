@@ -10,7 +10,6 @@ export const ProfileSection = () => {
 
   // auth/user 회원 정보 조회
   const { data: user } = useGetUser();
-  console.log(user);
 
   return (
     <div className="flex h-36 w-full flex-col overflow-hidden rounded-2xl border border-gray-100">
@@ -19,8 +18,8 @@ export const ProfileSection = () => {
         <div className="tablet:gap-10 web:gap-20 flex items-center gap-2">
           <ProfileBGIcon className="self-end" />
           <ProfileEditBtn
-            companyName="달램컴퍼니"
-            email="hong@dallem.com"
+            companyName={user?.companyName ?? ''}
+            email={user?.email ?? ''}
           />
         </div>
       </div>
@@ -29,17 +28,14 @@ export const ProfileSection = () => {
       <div className="flex flex-2 gap-2 bg-white px-5">
         <ProfileIcon className="-translate-y-3" />
         <div className="flex flex-col gap-2">
-          <p className="text-lg font-semibold">홍길동</p>
-          {/* <p className="text-lg font-semibold">{user?.name}</p> */}
+          <p className="text-lg font-semibold">{user?.name}</p>
           <div className="flex gap-1">
             <span className="text-xs text-gray-500">{t('profile.company')}</span>
-            <p className="text-xs font-medium">달램컴퍼니</p>
-            {/* <p className="text-sm font-medium">{user?.companyName}</p> */}
+            <p className="text-sm font-medium">{user?.companyName}</p>
           </div>
           <div className="flex gap-1">
             <span className="text-xs text-gray-500">{t('profile.email')}</span>
-            <p className="text-xs font-medium">hong@dallem.com</p>
-            {/* <p className="text-sm font-medium">{user?.email}</p> */}
+            <p className="text-sm font-medium">{user?.email}</p>
           </div>
         </div>
       </div>

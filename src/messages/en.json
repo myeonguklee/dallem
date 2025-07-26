@@ -185,6 +185,7 @@
       "title": "My Page",
       "profile": {
         "title": "My Profile",
+        "edit": "Edit Profile",
         "editButton": "Edit",
         "name": "Name",
         "company": "Company",

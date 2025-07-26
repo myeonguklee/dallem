@@ -8,8 +8,8 @@ import { Button } from '@/shared/ui/button';
 
 interface MyPageActionButtonProps {
   gatheringId: number;
-  isCompleted: boolean;
-  isReviewed: boolean;
+  isCompleted?: boolean;
+  isReviewed?: boolean;
   joinedAt?: Date;
 }
 

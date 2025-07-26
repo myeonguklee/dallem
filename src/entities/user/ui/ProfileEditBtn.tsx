@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { EditIcon } from '@/shared/ui/icon';
 import { Modal } from '@/shared/ui/modal';
 import { ProfileEditForm } from './ProfileEditForm';
@@ -11,6 +12,7 @@ interface ProfileEditBtnProps {
 }
 
 export const ProfileEditBtn = ({ companyName, email }: ProfileEditBtnProps) => {
+  const t = useTranslations('pages.myPage');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -31,7 +33,7 @@ export const ProfileEditBtn = ({ companyName, email }: ProfileEditBtnProps) => {
         onClose={handleCloseModal}
         variant="form"
       >
-        <Modal.Header>프로필 수정</Modal.Header>
+        <Modal.Header>{t('profile.edit')}</Modal.Header>
         <Modal.Body>
           <ProfileEditForm
             companyName={companyName}

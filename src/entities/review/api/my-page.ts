@@ -55,7 +55,7 @@ export interface CreateReviewResponse {
   gatheringId: number;
   score: number;
   comment: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 // services.ts
@@ -76,10 +76,11 @@ export const QUERY_KEYS = {
 };
 
 // queries.ts
-export const useGetReviews = (params: GetReviewsParams) => {
+export const useGetReviews = (params: GetReviewsParams, options?: { enabled?: boolean }) => {
   return useQuery<GetReviewsResponse>({
     queryKey: QUERY_KEYS.review.list(params),
     queryFn: () => getReviews(params),
+    enabled: options?.enabled ?? true,
   });
 };
 
