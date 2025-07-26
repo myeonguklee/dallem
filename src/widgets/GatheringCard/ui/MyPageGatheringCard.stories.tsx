@@ -3,36 +3,6 @@ import ko from '@/messages/ko.json';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { MyPageGatheringCard } from './MyPageGatheringCard';
 
-// Next.js App Router 모킹
-const mockRouter = {
-  push: () => Promise.resolve(true),
-  replace: () => Promise.resolve(true),
-  back: () => {},
-  forward: () => {},
-  refresh: () => {},
-  prefetch: () => Promise.resolve(),
-  beforePopState: () => {},
-  events: {
-    on: () => {},
-    off: () => {},
-    emit: () => {},
-  },
-  isFallback: false,
-  isLocaleDomain: false,
-  isReady: true,
-  defaultLocale: 'ko',
-  domainLocales: [],
-  isPreview: false,
-  basePath: '',
-  pathname: '/',
-  route: '/',
-  asPath: '/',
-  query: {},
-  locale: 'ko',
-  locales: ['ko', 'en'],
-  defaultLocale: 'ko',
-};
-
 const meta: Meta<typeof MyPageGatheringCard> = {
   title: 'Widgets/MyPageGatheringCard',
   component: MyPageGatheringCard,
@@ -52,17 +22,6 @@ const meta: Meta<typeof MyPageGatheringCard> = {
         <Story />
       </NextIntlClientProvider>
     ),
-  ],
-  // Next.js 라우터 모킹
-  mockData: [
-    {
-      path: 'next/navigation',
-      mock: {
-        useRouter: () => mockRouter,
-        usePathname: () => '/',
-        useSearchParams: () => new URLSearchParams(),
-      },
-    },
   ],
 };
 
