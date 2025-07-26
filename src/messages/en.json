@@ -227,6 +227,22 @@
           "imageRequired": "Please select a profile image",
           "imageType": "Please select a valid image file"
         }
+      },
+      "actionButton": {
+        "cancelReservation": "Cancel Reservation",
+        "writeReview": "Write Review"
+      },
+      "reviewModal": {
+        "title": "Write Review",
+        "question": "Was it a satisfactory experience?",
+        "ariaLabel": "{score} stars",
+        "commentLabel": "Please leave a comment about your experience.",
+        "commentPlaceholder": "Your review will be of great help to program operation and other members.",
+        "commentHelpText": "Your review will be of great help to program operation and other members.",
+        "cancel": "Cancel",
+        "submit": "Submit Review",
+        "selectRatingError": "Please select a rating",
+        "success": "Review submitted successfully!"
       }
     },
     "reviews": {

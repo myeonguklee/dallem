@@ -1,4 +1,5 @@
 import { GatheringLocation, GatheringType } from '@/entities/gathering/model/types';
+import { CreateReviewPayload } from '@/entities/review/model/schemas';
 import { ApiError, httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -45,12 +46,6 @@ export interface GetReviewsResponse {
   totalItemCount: number;
   currentPage: number;
   totalPages: number;
-}
-
-export interface CreateReviewPayload {
-  gatheringId: number;
-  score: number;
-  comment: string;
 }
 
 export interface CreateReviewResponse {

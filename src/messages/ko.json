@@ -227,6 +227,22 @@
           "imageRequired": "프로필 이미지를 선택해주세요",
           "imageType": "올바른 이미지 파일을 선택해주세요"
         }
+      },
+      "actionButton": {
+        "cancelReservation": "예약 취소하기",
+        "writeReview": "리뷰 작성하기"
+      },
+      "reviewModal": {
+        "title": "리뷰 쓰기",
+        "question": "만족스러운 경험이었나요?",
+        "ariaLabel": "{score}점",
+        "commentLabel": "경험에 대해 남겨주세요.",
+        "commentPlaceholder": "남겨주신 리뷰는 프로그램 운영 및 다른 회원 분들께 큰 도움이 됩니다.",
+        "commentHelpText": "남겨주신 리뷰는 프로그램 운영 및 다른 회원 분들께 큰 도움이 됩니다.",
+        "cancel": "취소",
+        "submit": "리뷰 등록",
+        "selectRatingError": "평점을 선택해주세요",
+        "success": "리뷰가 성공적으로 작성되었습니다!"
       }
     },
     "reviews": {

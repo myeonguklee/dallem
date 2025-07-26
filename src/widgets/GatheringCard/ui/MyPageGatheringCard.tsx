@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import { GatheringDateTimeDisplay, GatheringStatusChip } from '@/entities/gathering/ui';
-import { MyPageActionButton } from '@/features/gathering/ui';
+import { MyPageActionButton } from '@/features/my-page/ui';
 import { Link } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { PersonIcon } from '@/shared/ui/icon';
@@ -31,7 +31,6 @@ export const MyPageGatheringCard = ({
   gatheringCapacity,
   gatheringImage,
   isCanceled,
-  joinedAt,
   isCompleted,
   isReviewed,
 }: MyPageGatheringCardProps) => {
@@ -102,7 +101,6 @@ export const MyPageGatheringCard = ({
             <MyPageActionButton
               gatheringId={gatheringId}
               isCompleted={isCompleted}
-              joinedAt={joinedAt}
               isReviewed={isReviewed}
             />
           )}
