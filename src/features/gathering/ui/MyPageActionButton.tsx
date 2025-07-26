@@ -1,34 +1,37 @@
+import { useLocale } from 'next-intl';
+import { useLeaveGathering } from '@/entities/gathering-detail/api/queries';
+import { useRouter } from '@/i18n';
 import { Button } from '@/shared/ui/button';
 
 interface MyPageActionButtonProps {
   gatheringId: number;
-  gatheringDateTime: Date;
+  isCompleted: boolean;
+  isReviewed: boolean;
+  joinedAt?: Date;
 }
 
-export const MyPageActionButton = ({ gatheringId, gatheringDateTime }: MyPageActionButtonProps) => {
-  // 날짜 비교로 상태 결정
-  const now = new Date();
-  const gatheringDate = new Date(gatheringDateTime);
-  const isUpcoming = gatheringDate > now;
+export const MyPageActionButton = ({
+  gatheringId,
+  isCompleted,
+  isReviewed,
+}: MyPageActionButtonProps) => {
+  const router = useRouter();
+  const locale = useLocale();
+  const { mutate: leaveGathering } = useLeaveGathering();
 
-  // 사용자 id로 필터링된 리뷰 목록 조회 GatheringId Gathering.id 로 리뷰 작성했는지 조회
-  const isReviewWritten = false;
-
-  const canCancel = isUpcoming;
-  const canReview = !isUpcoming && !isReviewWritten;
-
-  const handleCancelReservation = async () => {
+  const handleCancelReservation = () => {
     // TODO: 예약 취소 로직 구현
+    leaveGathering(gatheringId);
   };
 
   const handleWriteReview = () => {
-    // TODO: 리뷰 작성 페이지로 이동 또는 모달 열기
-    console.log('리뷰 작성:', gatheringId);
+    // 마이페이지-작성 가능한 리뷰 페이지로 이동
+    router.push(`/my-page/reviews`, { locale });
   };
 
   return (
     <>
-      {canCancel && (
+      {!isCompleted && (
         <Button
           variant="outline"
           onClick={handleCancelReservation}
@@ -37,7 +40,7 @@ export const MyPageActionButton = ({ gatheringId, gatheringDateTime }: MyPageAct
           예약 취소하기
         </Button>
       )}
-      {canReview && (
+      {isCompleted && !isReviewed && (
         <Button
           variant="primary"
           onClick={handleWriteReview}

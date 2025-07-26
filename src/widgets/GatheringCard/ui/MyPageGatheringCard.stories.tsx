@@ -1,5 +1,37 @@
+import { NextIntlClientProvider } from 'next-intl';
+import ko from '@/messages/ko.json';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { MyPageGatheringCard } from './MyPageGatheringCard';
+
+// Next.js App Router 모킹
+const mockRouter = {
+  push: () => Promise.resolve(true),
+  replace: () => Promise.resolve(true),
+  back: () => {},
+  forward: () => {},
+  refresh: () => {},
+  prefetch: () => Promise.resolve(),
+  beforePopState: () => {},
+  events: {
+    on: () => {},
+    off: () => {},
+    emit: () => {},
+  },
+  isFallback: false,
+  isLocaleDomain: false,
+  isReady: true,
+  defaultLocale: 'ko',
+  domainLocales: [],
+  isPreview: false,
+  basePath: '',
+  pathname: '/',
+  route: '/',
+  asPath: '/',
+  query: {},
+  locale: 'ko',
+  locales: ['ko', 'en'],
+  defaultLocale: 'ko',
+};
 
 const meta: Meta<typeof MyPageGatheringCard> = {
   title: 'Widgets/MyPageGatheringCard',
@@ -11,6 +43,27 @@ const meta: Meta<typeof MyPageGatheringCard> = {
     },
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <NextIntlClientProvider
+        messages={ko}
+        locale="ko"
+      >
+        <Story />
+      </NextIntlClientProvider>
+    ),
+  ],
+  // Next.js 라우터 모킹
+  mockData: [
+    {
+      path: 'next/navigation',
+      mock: {
+        useRouter: () => mockRouter,
+        usePathname: () => '/',
+        useSearchParams: () => new URLSearchParams(),
+      },
+    },
+  ],
 };
 
 export default meta;
@@ -26,12 +79,17 @@ const baseGatheringData = {
   gatheringImage:
     'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=224&fit=crop&crop=center&q=80',
   isCanceled: false,
+  joinedAt: new Date('2025-07-26T11:40:53.743Z'),
+  isCompleted: false,
+  isReviewed: false,
 };
 
 export const Upcoming: Story = {
   args: {
     ...baseGatheringData,
     gatheringDateTime: new Date('2026-12-31T17:30:00'), // 미래 날짜
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -46,6 +104,8 @@ export const Completed: Story = {
   args: {
     ...baseGatheringData,
     gatheringDateTime: new Date('2025-01-07T17:30:00'), // 확실히 과거 날짜
+    isCompleted: true,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -76,6 +136,8 @@ export const UpcomingNotConfirmed: Story = {
     gatheringDateTime: new Date('2026-12-31T17:30:00'),
     gatheringParticipantCount: 3,
     gatheringCapacity: 10,
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -92,6 +154,8 @@ export const CompletedNotConfirmed: Story = {
     gatheringDateTime: new Date('2025-01-07T17:30:00'),
     gatheringParticipantCount: 3,
     gatheringCapacity: 10,
+    isCompleted: true,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -108,6 +172,8 @@ export const LongText: Story = {
     gatheringName: '매우 긴 모임 이름입니다 이것은 테스트를 위한 것입니다',
     gatheringLocation: '매우 긴 장소 이름입니다 이것도 테스트를 위한 것입니다',
     gatheringDateTime: new Date('2024-12-31T17:30:00'), // 미래 날짜
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -123,6 +189,8 @@ export const NoImage: Story = {
     ...baseGatheringData,
     gatheringImage: '',
     gatheringDateTime: new Date('2024-12-31T17:30:00'), // 미래 날짜
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -139,6 +207,8 @@ export const LowCapacity: Story = {
     gatheringParticipantCount: 5,
     gatheringCapacity: 8,
     gatheringDateTime: new Date('2024-12-31T17:30:00'), // 미래 날짜
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {
@@ -155,6 +225,8 @@ export const FullCapacity: Story = {
     gatheringParticipantCount: 20,
     gatheringCapacity: 20,
     gatheringDateTime: new Date('2024-12-31T17:30:00'), // 미래 날짜
+    isCompleted: false,
+    isReviewed: false,
   },
   parameters: {
     docs: {

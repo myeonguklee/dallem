@@ -1,4 +1,4 @@
-import type { GatheringFilters } from '@/entities/gathering/model/types';
+import type { GatheringFilters, MyGatheringParams } from '@/entities/gathering/model/types';
 
 // 객체로 쿼리 키 관리
 export const QUERY_KEYS = {
@@ -10,6 +10,7 @@ export const QUERY_KEYS = {
     infinite: (filters?: Omit<GatheringFilters, 'limit' | 'offset'>) =>
       [...QUERY_KEYS.gathering.base, 'infinite', filters] as const,
     detail: (id: number) => [...QUERY_KEYS.gathering.base, 'detail', id] as const,
-    joined: (params?: object) => [...QUERY_KEYS.gathering.base, 'joined', params] as const,
+    joined: (params?: MyGatheringParams) =>
+      [...QUERY_KEYS.gathering.base, 'joined', params] as const,
   },
 } as const;
