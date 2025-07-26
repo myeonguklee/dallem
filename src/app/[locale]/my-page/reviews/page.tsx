@@ -21,7 +21,7 @@ export default function Reviews() {
   });
 
   const { data: reviews } = useGetReviews({
-    user: user?.id,
+    userId: user?.id,
   });
 
   return (

@@ -10,7 +10,7 @@ export type SortOrder = 'asc' | 'desc';
 
 export interface GetReviewsParams {
   gatheringId?: number;
-  user?: number;
+  userId?: number;
   type?: GatheringType;
   location?: GatheringLocation;
   date?: string;
