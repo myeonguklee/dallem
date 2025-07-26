@@ -21,12 +21,7 @@ export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFi
     }
 
     setFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const base64 = e.target?.result as string;
-      setValue('image', base64);
-    };
-    reader.readAsDataURL(file);
+    setValue('image', file);
   };
 
   return (

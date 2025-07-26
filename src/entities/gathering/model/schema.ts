@@ -17,11 +17,11 @@ export const createGatheringSchema = z
     }),
     capacity: z.coerce.number().min(5, 'form.errors.capacityMin'),
     image: z
-      .string()
+      .instanceof(File)
       .refine(
-        (value) => {
-          if (!value) return true; // optional이므로 빈 값 허용
-          return value.startsWith('data:image/');
+        (file) => {
+          if (!file) return true; // optional이므로 빈 값 허용
+          return file.type.startsWith('image/');
         },
         {
           message: 'form.errors.imageType',
