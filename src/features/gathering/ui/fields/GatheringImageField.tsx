@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { CreateGatheringFormValues } from '@/features/gathering/model';
 import { FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
@@ -10,25 +11,22 @@ interface GatheringImageFieldProps {
 
 export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFieldProps) => {
   const t = useTranslations('pages.gatherings.create');
+  const [fileName, setFileName] = useState('');
 
   const handleImageChange = (file: File | null) => {
     if (!file) {
       setValue('image', undefined);
+      setFileName('');
       return;
     }
 
+    setFileName(file.name);
     const reader = new FileReader();
     reader.onload = (e) => {
       const base64 = e.target?.result as string;
       setValue('image', base64);
     };
     reader.readAsDataURL(file);
-  };
-
-  const getImageName = (base64String: string | undefined) => {
-    if (!base64String) return '';
-    // Base64에서 파일명을 추출할 수 없으므로 "이미지 파일"로 표시
-    return t('form.imageSuccess');
   };
 
   return (
@@ -41,7 +39,7 @@ export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFi
           }
         >
           <span className={watch('image') ? 'text-gray-800' : 'text-gray-400'}>
-            {watch('image') ? getImageName(watch('image')) : t('form.imagePlaceholder')}
+            {fileName || t('form.imagePlaceholder')}
           </span>
         </div>
         <button
