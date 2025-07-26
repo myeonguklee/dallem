@@ -126,6 +126,7 @@
           "image": "이미지",
           "imagePlaceholder": "이미지를 첨부해주세요",
           "imageButton": "파일 찾기",
+          "imageSuccess": "이미지 파일 업로드 성공",
           "type": "선택 서비스",
           "date": "모임 날짜",
           "datePlaceholder": "모임 날짜를 선택해주세요",

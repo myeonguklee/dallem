@@ -126,6 +126,7 @@
           "image": "Image",
           "imagePlaceholder": "Attach image",
           "imageButton": "Find File",
+          "imageSuccess": "Image file upload successful",
           "type": "Select Service",
           "date": "Gathering Date",
           "datePlaceholder": "Select gathering date",

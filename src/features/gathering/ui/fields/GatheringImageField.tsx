@@ -10,6 +10,27 @@ interface GatheringImageFieldProps {
 
 export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFieldProps) => {
   const t = useTranslations('pages.gatherings.create');
+
+  const handleImageChange = (file: File | null) => {
+    if (!file) {
+      setValue('image', undefined);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64 = e.target?.result as string;
+      setValue('image', base64);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const getImageName = (base64String: string | undefined) => {
+    if (!base64String) return '';
+    // Base64에서 파일명을 추출할 수 없으므로 "이미지 파일"로 표시
+    return t('form.imageSuccess');
+  };
+
   return (
     <div>
       <label className="mb-2 block text-sm font-medium">{t('form.image')}</label>
@@ -20,7 +41,7 @@ export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFi
           }
         >
           <span className={watch('image') ? 'text-gray-800' : 'text-gray-400'}>
-            {watch('image')?.name || t('form.imagePlaceholder')}
+            {watch('image') ? getImageName(watch('image')) : t('form.imagePlaceholder')}
           </span>
         </div>
         <button
@@ -35,7 +56,7 @@ export const GatheringImageField = ({ setValue, error, watch }: GatheringImageFi
           accept="image/*"
           id="gathering-image-upload"
           className="hidden"
-          onChange={(e) => setValue('image', e.target.files?.[0])}
+          onChange={(e) => handleImageChange(e.target.files?.[0] || null)}
         />
       </div>
       {error && <p className="mt-1 text-xs text-red-500">{t(error.message ?? '')}</p>}
