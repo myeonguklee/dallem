@@ -8,6 +8,7 @@ import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/mode
 import { Gathering } from '@/entities/gathering/model/types';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
+import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { GatheringCard } from '@/widgets/GatheringCard/ui';
@@ -17,36 +18,70 @@ export default function FavoritesPage() {
   const searchParams = useSearchParams();
   const type = searchParams.get('type') ?? 'DALLAEMFIT';
 
+  // 서버에서 받아온 모임 목록
   const [gatherings, setGatherings] = useState<Gathering[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
 
-  const fetchFavorites = async () => {
-    const favorites = getFavoriteList();
-    if (favorites.length === 0) {
-      setGatherings([]);
+  const fetchFavoritesList = async () => {
+    const allFavorites = getFavoriteList();
+    setFavorites(allFavorites);
+    if (isFetching || !hasNextPage) return;
+
+    setIsFetching(true);
+    const PAGE_SIZE = 10;
+    const startIndex = currentPage * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    const currentIds = favorites.slice(startIndex, endIndex);
+
+    if (currentIds.length === 0) {
+      setHasNextPage(false);
+      setIsFetching(false);
       return;
     }
 
     try {
-      const gatheringId = favorites.join(',');
-      const searchParamsObj = {
-        id: gatheringId,
-        type,
-      };
-      const filters = parseGatheringFiltersFromSearchParams(searchParamsObj);
-      const res = await getGatherings({
-        ...filters,
-        limit: 10,
-        offset: 0,
+      // API에 전달할 id 파라미터 생성 (예: "1,2,3,...")
+      const gatheringId = currentIds.join(',');
+      const filters = parseGatheringFiltersFromSearchParams({ id: gatheringId, type });
+
+      // id에 대한 데이터 요청
+      const res = await getGatherings({ ...filters });
+      // setGatherings((prev) => [...prev, ...res]);
+      setGatherings((prev) => {
+        const newGatherings = res.filter(
+          (newGath) => !prev.some((prevGath) => prevGath.id === newGath.id),
+        );
+        return [...prev, ...newGatherings];
       });
 
-      setGatherings(res);
+      setCurrentPage((prev) => prev + 1);
+      setHasNextPage(endIndex < favorites.length);
     } catch (error) {
-      console.error('찜한 모임을 불러오는 데 실패했습니다:', error);
+      console.error(error);
+      setHasNextPage(false);
+    } finally {
+      setIsFetching(false);
     }
   };
 
+  //찜 해제 함수
+  const handleToggleFavorite = (toggledId: number) => {
+    setGatherings((prev) => prev.filter((gathering) => gathering.id !== toggledId));
+    setFavorites((prev) => prev.filter((favId) => favId !== toggledId));
+  };
+
   useEffect(() => {
-    fetchFavorites();
+    fetchFavoritesList();
+  }, []);
+
+  useEffect(() => {
+    setGatherings([]);
+    setCurrentPage(0);
+    setHasNextPage(true);
+    setIsFetching(false);
   }, [type]);
 
   return (
@@ -76,7 +111,7 @@ export default function FavoritesPage() {
               gatheringCapacity={gathering.capacity}
               gatheringImage={gathering.image}
               isCanceled={!!gathering.canceledAt}
-              onToggle={fetchFavorites}
+              onToggle={() => handleToggleFavorite(gathering.id)}
             />
           ))
         ) : (
@@ -85,6 +120,12 @@ export default function FavoritesPage() {
           </div>
         )}
       </div>
+
+      <InfiniteScrollObserver
+        onFetchNextPage={fetchFavoritesList}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetching}
+      />
     </div>
   );
 }

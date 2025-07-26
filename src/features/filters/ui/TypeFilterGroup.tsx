@@ -36,7 +36,7 @@ export const TypeFilterGroup = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('type', value);
     if (value !== activeType) {
-      params.set('offset', '0');
+      params.delete('offset');
     }
     router.push(`${pathname}?${params.toString()}`);
   };
