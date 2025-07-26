@@ -1,4 +1,9 @@
-import type { Gathering, GatheringFilters } from '@/entities/gathering/model/types';
+import type {
+  Gathering,
+  GatheringFilters,
+  MyGathering,
+  MyGatheringParams,
+} from '@/entities/gathering/model/types';
 import type { CreateGatheringFormValues } from '@/features/gathering/model';
 import { httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config/api';
@@ -35,4 +40,8 @@ export const createGathering = async (
   return await httpClient.post<Gathering>(API_ENDPOINTS.GATHERINGS.CREATE, newGathering, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
+};
+
+export const getGatheringsJoined = async (params?: MyGatheringParams): Promise<MyGathering[]> => {
+  return await httpClient.get<MyGathering[]>(API_ENDPOINTS.GATHERINGS.JOINED, { params });
 };

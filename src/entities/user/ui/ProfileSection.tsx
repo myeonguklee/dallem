@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useGetUser } from '@/entities/user/api';
 import { ProfileBGIcon, ProfileIcon } from '@/shared/ui/icon';
 import { ProfileEditBtn } from './ProfileEditBtn';
 
@@ -8,7 +9,8 @@ export const ProfileSection = () => {
   const t = useTranslations('pages.myPage');
 
   // auth/user 회원 정보 조회
-  // const { data: user } = useGetUser();
+  const { data: user } = useGetUser();
+  console.log(user);
 
   return (
     <div className="flex h-36 w-full flex-col overflow-hidden rounded-2xl border border-gray-100">
