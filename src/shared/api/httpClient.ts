@@ -81,7 +81,6 @@ axiosInstance.interceptors.response.use(
 
         window.location.href = `/${currentLocale}/signin`;
       }
-      // return Promise.reject(new ApiError(message || '인증이 필요합니다.', code || 'UNAUTHORIZED', status));
       return;
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
