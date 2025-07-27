@@ -73,8 +73,15 @@ axiosInstance.interceptors.response.use(
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
         localStorage.removeItem('accessToken');
-        window.location.href = '/signin';
+
+        // 현재 locale을 가져와서 리다이렉트
+        const currentPath = window.location.pathname;
+        const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
+        const currentLocale = localeMatch ? localeMatch[1] : 'ko';
+
+        window.location.href = `/${currentLocale}/signin`;
       }
+      // return Promise.reject(new ApiError(message || '인증이 필요합니다.', code || 'UNAUTHORIZED', status));
       return;
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
