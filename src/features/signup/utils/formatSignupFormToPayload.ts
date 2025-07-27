@@ -1,4 +1,4 @@
-import { SignupPayload } from '@/entities/auth/signup/api/signup';
+import { SignupPayload } from '@/entities/auth/model/types';
 import { SignupFormData } from '@/features/signup/model/type';
 
 export const formatSignupFormToPayload = (form: SignupFormData): SignupPayload => ({
