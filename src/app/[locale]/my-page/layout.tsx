@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 import { ProfileSection } from '@/entities/user/ui/ProfileSection';
 import { MyPageTab } from '@/features/my-page/ui/MyPageTab';
+import { ProfileSkeleton } from '@/widgets/MyPageSkeleton';
 
 export default function MyPageLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations('pages.myPage');
@@ -13,7 +14,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
       <p className="mt-5 text-2xl font-bold">{t('title')}</p>
 
       {/* 프로필 정보 */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<ProfileSkeleton />}>
         <ProfileSection />
       </Suspense>
       <div className="border-t-2 border-t-gray-100" />
@@ -21,7 +22,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
       <MyPageTab />
 
       {/* 중첩 라우팅을 위한 children 렌더링 */}
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      {children}
     </div>
   );
 }
