@@ -1,7 +1,16 @@
+// import { getToken } from 'next-auth/jwt';
+import { getSession } from 'next-auth/react';
+// import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    authRequired?: boolean;
+  }
+}
 
 // 팀 아이디 : 실제 배포시에는 환경변수로 관리
 const TEST_TEAM_ID = '1';
@@ -13,13 +22,26 @@ const axiosInstance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  // TODO: Next Auth 세션 관리 적용 후 수정
-  if (IS_CLIENT) {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+axiosInstance.interceptors.request.use(async (config) => {
+  if (config.authRequired) {
+    let token;
+    const headers = AxiosHeaders.from(config.headers);
+
+    if (IS_CLIENT) {
+      const session = await getSession();
+      const accessToken = session?.user?.accessToken;
+      token = accessToken;
+    } else {
+      // const rawToken = await getToken({
+      //   req: { headers: headers } as NextApiRequest,
+      //   secret: process.env.NEXTAUTH_SECRET,
+      //   raw: true, // 원본 JWT 문자열
+      // });
+      // token = rawToken;
     }
+
+    headers.set('Authorization', `Bearer ${token}`);
+    config.headers = headers;
   }
 
   // FormData 자동 변환
