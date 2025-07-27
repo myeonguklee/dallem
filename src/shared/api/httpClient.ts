@@ -28,7 +28,15 @@ axiosInstance.interceptors.request.use((config) => {
 
     Object.entries(config.data || {}).forEach(([key, value]) => {
       if (value == null) return;
-      formData.append(key, value instanceof File ? value : String(value));
+
+      // Date 객체를 ISO 형식으로 변환
+      if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, String(value));
+      }
     });
 
     config.data = formData;
@@ -65,7 +73,13 @@ axiosInstance.interceptors.response.use(
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
         localStorage.removeItem('accessToken');
-        window.location.href = '/signin';
+
+        // 현재 locale을 가져와서 리다이렉트
+        const currentPath = window.location.pathname;
+        const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
+        const currentLocale = localeMatch ? localeMatch[1] : 'ko';
+
+        window.location.href = `/${currentLocale}/signin`;
       }
       return;
     }

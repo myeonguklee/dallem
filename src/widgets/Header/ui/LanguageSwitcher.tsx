@@ -1,8 +1,9 @@
 'use client';
 
 import { useTransition } from 'react';
+import type { Locale } from 'next-intl';
 import { useLocale } from 'next-intl';
-import { type Locale, routing, usePathname, useRouter } from '@/i18n';
+import { routing, usePathname, useRouter } from '@/i18n';
 import { Dropdown, DropdownItem, DropdownList, DropdownTrigger } from '@/shared/ui/dropdown';
 import { LanguageIcon } from '@/shared/ui/icon/icons/LanguageIcon';
 
@@ -12,11 +13,29 @@ export const LanguageSwitcher = () => {
   const currentLocale = useLocale() as Locale;
   const [isPending, startTransition] = useTransition();
 
+  // 동적 라우트 감지 함수
+  const isDynamicRoute = (pathname: string): boolean => {
+    // 라우팅 설정에서 동적 라우트 패턴 찾기
+    const dynamicPatterns = Object.keys(routing.pathnames).filter(
+      (pattern) => pattern.includes('[') && pattern.includes(']'),
+    );
+
+    // 현재 경로가 동적 패턴과 매치되는지 확인
+    return dynamicPatterns.some((pattern) => {
+      const regex = pattern
+        .replace(/\[([^\]]+)\]/g, '[^/]+') // [id] -> [^/]+
+        .replace(/\//g, '\\/'); // / -> \/
+
+      return new RegExp(`^${regex}$`).test(pathname);
+    });
+  };
+
   // 디버깅용 로그
   if (process.env.NODE_ENV === 'development') {
     console.log('🔄 Current locale from useLocale:', currentLocale);
     console.log('🔄 Current pathname:', pathname);
     console.log('🔄 Available locales:', routing.locales);
+    console.log('🔄 Is dynamic route:', isDynamicRoute(pathname));
   }
 
   const handleLanguageChange = (newLocale: Locale) => {
@@ -26,10 +45,17 @@ export const LanguageSwitcher = () => {
       if (process.env.NODE_ENV === 'development') {
         console.log('🔄 Changing language from', currentLocale, 'to', newLocale);
       }
-
       // next-intl 동적 라우팅 사용시 타입 추론 불가능하여 명시적으로 any 타입 사용
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      router.replace(pathname as any, { locale: newLocale });
+
+      if (isDynamicRoute(pathname)) {
+        // 동적 라우트에서는 홈으로 이동
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        router.replace('/' as any, { locale: newLocale });
+      } else {
+        // 정적 라우트에서는 현재 페이지 유지
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        router.replace(pathname as any, { locale: newLocale });
+      }
     });
   };
 
