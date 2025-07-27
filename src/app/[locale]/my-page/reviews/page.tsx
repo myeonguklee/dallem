@@ -17,7 +17,7 @@ export default function Reviews() {
 
   const { data: gatherings } = useGetGatheringsJoined({
     completed: true,
-    reviewed: tab === 'writable' ? false : true,
+    reviewed: tab === 'writable' && false,
   });
 
   const { data: reviews } = useGetReviews({ userId: user?.id }, { enabled: !!user?.id });
@@ -28,12 +28,14 @@ export default function Reviews() {
         <Chip
           active={tab === 'writable'}
           onClick={() => setTab('writable')}
+          className="cursor-pointer"
         >
           {t('tabs.writableReviews')}
         </Chip>
         <Chip
           active={tab === 'written'}
           onClick={() => setTab('written')}
+          className="cursor-pointer"
         >
           {t('tabs.reviews')}
         </Chip>
