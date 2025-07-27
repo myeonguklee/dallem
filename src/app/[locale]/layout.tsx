@@ -5,9 +5,8 @@ import type { Locale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Script from 'next/script';
 import { routing } from '@/i18n';
-import { ReactQueryProvider } from '@/shared/api';
-import { ToastProvider } from '@/shared/ui/toast';
 import { Header } from '@/widgets/Header/ui/Header';
+import Providers from '../providers';
 
 export async function generateMetadata({
   params,
@@ -56,18 +55,17 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       />
 
       <div className="flex min-h-screen flex-col antialiased">
-        <NextIntlClientProvider
-          messages={messages}
-          locale={locale}
-        >
-          <ReactQueryProvider>
+        <Providers>
+          <NextIntlClientProvider
+            messages={messages}
+            locale={locale}
+          >
             <Header />
             <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
               {children}
             </main>
-            <ToastProvider />
-          </ReactQueryProvider>
-        </NextIntlClientProvider>
+          </NextIntlClientProvider>
+        </Providers>
       </div>
     </Fragment>
   );
