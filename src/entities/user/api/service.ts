@@ -9,5 +9,8 @@ export const getUser = async (): Promise<User> => {
 };
 
 export const updateUser = async (payload: UpdateUserPayload): Promise<User> => {
-  return await httpClient.put<User>(API_ENDPOINTS.AUTH.USER, payload);
+  return await httpClient.put<User>(API_ENDPOINTS.AUTH.USER, payload, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    authRequired: true,
+  });
 };

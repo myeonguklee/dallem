@@ -25,7 +25,31 @@
       "confirm": "Confirm"
     },
     "gatheringCard": {
-      "canceled": "This gathering has been canceled!"
+      "canceled": "This gathering has been canceled!",
+      "deadline": {
+        "daysLeft": "Ends in {days}d",
+        "todayEnd": "Ends at {time}h",
+        "ended": "Ended"
+      },
+      "dateTime": {
+        "month": "{month}",
+        "day": "{day}",
+        "format": "{month} {day}"
+      },
+      "status": {
+        "confirmed": "Confirmed"
+      },
+      "joinButton": {
+        "join": "Join",
+        "cancel": "Cancel",
+        "full": "Full"
+      },
+      "statusChip": {
+        "scheduled": "Scheduled",
+        "completed": "Completed",
+        "pending": "Pending",
+        "confirmed": "Confirmed"
+      }
     }
   },
   "navigation": {

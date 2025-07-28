@@ -94,7 +94,7 @@ export const GatheringCard = ({
                 <span className="text-sm text-black">
                   {gatheringParticipantCount}/{gatheringCapacity}
                 </span>
-                {isConfirmed && <StateChip variant="confirmed">개설확정</StateChip>}
+                {isConfirmed && <StateChip variant="confirmed">{t('status.confirmed')}</StateChip>}
               </div>
               <ProgressBar
                 current={gatheringParticipantCount}
@@ -104,7 +104,6 @@ export const GatheringCard = ({
             </div>
 
             <GatheringJoinButton
-              gatheringId={gatheringId}
               participantCount={gatheringParticipantCount}
               capacity={gatheringCapacity}
             />

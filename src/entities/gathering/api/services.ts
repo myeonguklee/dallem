@@ -19,8 +19,11 @@ export const getGatherings = async (filters?: GatheringFilters): Promise<Gatheri
     if (filters.location) params.append('location', filters.location);
     if (filters.date) params.append('date', filters.date);
     if (filters.createdBy !== undefined) params.append('createdBy', String(filters.createdBy));
-    if (filters.sortBy) params.append('sortBy', filters.sortBy);
-    if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
+    if (filters.sortBy) {
+      params.append('sortBy', filters.sortBy);
+      // sortBy가 있으면 항상 desc로 정렬
+      params.append('sortOrder', 'desc');
+    }
     if (filters.limit !== undefined) params.append('limit', String(filters.limit));
     if (filters.offset !== undefined) params.append('offset', String(filters.offset));
   }
@@ -43,7 +46,7 @@ export const createGathering = async (newGathering: CreateGatheringPayload): Pro
 
 export const getGatheringsJoined = async (params?: MyGatheringParams): Promise<MyGathering[]> => {
   return await httpClient.get<MyGathering[]>(API_ENDPOINTS.GATHERINGS.JOINED, {
-    authRequired: true,
     params,
+    authRequired: true,
   });
 };
