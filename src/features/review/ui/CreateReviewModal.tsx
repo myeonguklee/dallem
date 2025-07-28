@@ -19,7 +19,7 @@ interface CreateReviewModalProps {
 }
 
 export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReviewModalProps) => {
-  const t = useTranslations('myPage.reviewModal');
+  const t = useTranslations('pages.myPage.reviewModal');
   const { mutate: createReview } = useCreateReview();
 
   const {
@@ -42,13 +42,13 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
 
   const onSubmit = (data: CreateReviewFormData) => {
     if (data.score === 0) {
-      toast.error(t('errors.selectRating'));
+      toast.error(t('selectRatingError'));
       return;
     }
 
     createReview(data, {
       onSuccess: () => {
-        toast.success(t('success.created'));
+        toast.success(t('success'));
         reset();
         onClose();
       },
@@ -74,14 +74,14 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
           className="space-y-6"
         >
           <div>
-            <div className="mb-2 text-base font-semibold text-gray-900">{t('rating.question')}</div>
+            <div className="mb-2 text-base font-semibold text-gray-900">{t('question')}</div>
             <div className="mb-4 flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((score) => (
                 <button
                   key={score}
                   type="button"
                   onClick={() => setValue('score', score)}
-                  aria-label={t('rating.ariaLabel', { score })}
+                  aria-label={t('ariaLabel', { score })}
                   className="focus:outline-none"
                 >
                   <StarIcon
@@ -95,19 +95,19 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
           </div>
 
           <div>
-            <div className="mb-2 text-base font-semibold text-gray-900">{t('comment.label')}</div>
+            <div className="mb-2 text-base font-semibold text-gray-900">{t('commentLabel')}</div>
             <textarea
               id="comment"
               {...register('comment')}
               rows={4}
               className="w-full resize-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 shadow-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none"
-              placeholder={t('comment.placeholder')}
+              placeholder={t('commentPlaceholder')}
             />
             {errors.comment && (
               <p className="mt-1 text-sm text-red-600">{errors.comment.message}</p>
             )}
             <div className="mt-2 rounded-md bg-gray-100 px-3 py-2 text-xs text-gray-500">
-              {t('comment.helpText')}
+              {t('commentHelpText')}
             </div>
           </div>
 
@@ -119,14 +119,14 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
               disabled={isSubmitting}
               className="flex-1 border-orange-400 bg-white text-orange-500 hover:bg-orange-50"
             >
-              {t('buttons.cancel')}
+              {t('cancel')}
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting || selectedScore === 0}
               className="flex-1"
             >
-              {t('buttons.submit')}
+              {t('submit')}
             </Button>
           </div>
         </form>

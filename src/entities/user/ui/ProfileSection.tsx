@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { useGetUser } from '@/entities/user/api';
 import { ProfileBGIcon, ProfileIcon } from '@/shared/ui/icon';
 import { ProfileEditBtn } from './ProfileEditBtn';
@@ -26,7 +27,22 @@ export const ProfileSection = () => {
       <div className="h-2 border-t-2 border-t-orange-500 bg-orange-400" />
 
       <div className="flex flex-2 gap-2 bg-white px-5">
-        <ProfileIcon className="-translate-y-3" />
+        {user?.image ? (
+          <div className="-translate-y-3">
+            <div className="h-10 w-10 overflow-hidden rounded-full">
+              <Image
+                src={user.image}
+                alt={`{user.name || User} 프로필 이미지`}
+                width={40}
+                height={40}
+                className="object-cover"
+                sizes="40px"
+              />
+            </div>
+          </div>
+        ) : (
+          <ProfileIcon className="-translate-y-3" />
+        )}
         <div className="flex flex-col gap-2">
           <p className="text-lg font-semibold">{user?.name}</p>
           <div className="flex items-center gap-1">

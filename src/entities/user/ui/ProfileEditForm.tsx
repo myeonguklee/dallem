@@ -20,12 +20,13 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<UpdateUserPayload>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       companyName: companyName,
-      image: '',
+      image: null,
     },
   });
 
@@ -37,19 +38,21 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
     });
   };
 
+  const truncateFileName = (fileName: string, maxLength: number = 20) => {
+    if (fileName.length <= maxLength) return fileName;
+    const extension = fileName.split('.').pop();
+    const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+    return `${nameWithoutExt.substring(0, maxLength - 3)}...${extension ? `.${extension}` : ''}`;
+  };
+
   const handleImageChange = (file: File | null) => {
     if (!file) {
-      setValue('image', '');
+      setValue('image', null);
       setFileName('');
       return;
     }
     setFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const base64 = e.target?.result as string;
-      setValue('image', base64);
-    };
-    reader.readAsDataURL(file);
+    setValue('image', file);
   };
 
   return (
@@ -69,8 +72,11 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
                 (errors.image ? ' border-red-500' : '')
               }
             >
-              <span className={fileName ? 'text-gray-800' : 'text-gray-400'}>
-                {fileName || t('form.imagePlaceholder')}
+              <span
+                className={watch('image') ? 'text-gray-800' : 'text-gray-400'}
+                title={fileName} // 전체 파일명을 툴팁으로 표시
+              >
+                {fileName ? truncateFileName(fileName) : t('form.imagePlaceholder')}
               </span>
             </div>
             <button

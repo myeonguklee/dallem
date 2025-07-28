@@ -25,7 +25,31 @@
       "confirm": "확인"
     },
     "gatheringCard": {
-      "canceled": "취소된 모임이에요!"
+      "canceled": "취소된 모임이에요!",
+      "deadline": {
+        "daysLeft": "{days}일 후 마감",
+        "todayEnd": "오늘 {time}시 마감",
+        "ended": "마감"
+      },
+      "dateTime": {
+        "month": "{month}월",
+        "day": "{day}일",
+        "format": "{month}월 {day}일"
+      },
+      "status": {
+        "confirmed": "개설확정"
+      },
+      "joinButton": {
+        "join": "참여하기",
+        "cancel": "취소하기",
+        "full": "모집 마감"
+      },
+      "statusChip": {
+        "scheduled": "이용 예정",
+        "completed": "이용 완료",
+        "pending": "개설대기",
+        "confirmed": "개설확정"
+      }
     }
   },
   "navigation": {

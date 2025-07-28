@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Tag } from '@/shared/ui/tag/Tag';
 
 interface GatheringDeadlineTagProps {
@@ -7,6 +8,8 @@ interface GatheringDeadlineTagProps {
 }
 
 export const GatheringDeadlineTag = ({ registrationEnd }: GatheringDeadlineTagProps) => {
+  const t = useTranslations('ui.gatheringCard.deadline');
+
   const calculateDeadlineInfo = (endDate: Date) => {
     const now = new Date();
     const end = new Date(endDate);
@@ -18,17 +21,17 @@ export const GatheringDeadlineTag = ({ registrationEnd }: GatheringDeadlineTagPr
     let text: string;
     switch (true) {
       case diffInDays > 0: {
-        text = `${diffInDays}일 후 마감`;
+        text = t('daysLeft', { days: diffInDays });
         break;
       }
       case diffInHours >= 0: {
         // 오늘 마감이면 실제 마감 시간 표시
         const endHours = end.getHours().toString().padStart(2, '0');
-        text = `오늘 ${endHours}시 마감`;
+        text = t('todayEnd', { time: endHours });
         break;
       }
       default: {
-        text = '마감';
+        text = t('ended');
       }
     }
 
