@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
 import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
 import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
 import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
 import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
+import { QUERY_KEYS } from '@/shared/api';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
@@ -43,13 +43,13 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
   };
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: REVIEW_QUERY_KEYS.review.list(reviewParams),
+    queryKey: QUERY_KEYS.review.list(reviewParams),
     queryFn: () => getReviewList(reviewParams),
     initialPageParam: 0,
   });
 
   await queryClient.prefetchQuery({
-    queryKey: REVIEW_QUERY_KEYS.review.scores({ type: reviewParams.type }),
+    queryKey: QUERY_KEYS.review.scores({ type: reviewParams.type }),
     queryFn: () => getReviewScore({ type: reviewParams.type }),
   });
 

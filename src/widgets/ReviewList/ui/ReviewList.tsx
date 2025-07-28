@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList } from '@/entities/review/api/reviewApi';
 import { ReviewFilterProps, ReviewListResponse } from '@/entities/review/model/type';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
+import { QUERY_KEYS } from '@/shared/api';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -18,7 +18,7 @@ export const ReviewList = ({ filters }: Props) => {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery<ReviewListResponse>({
-      queryKey: REVIEW_QUERY_KEYS.review.list(filters),
+      queryKey: QUERY_KEYS.review.list(filters),
       queryFn: ({ pageParam = 0 }) => {
         const limit = Number(filters.limit ?? 10);
         const offset = (pageParam as number) * limit;

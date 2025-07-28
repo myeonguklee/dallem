@@ -1,10 +1,9 @@
 import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
-import { QUERY_KEYS } from '@/entities/gathering/api/queryKeys';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
 import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
-import { HydrationProvider } from '@/shared/api';
+import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
 import { createQueryClient } from '@/shared/api/query/client';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
