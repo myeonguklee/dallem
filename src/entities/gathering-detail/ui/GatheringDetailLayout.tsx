@@ -9,27 +9,41 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
+import { useGetUser } from '@/entities/user/api';
 import { useRouter } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
-import { BottomFloatingBar, GatheringRole } from '@/widgets/BottomFloatingBar';
+import { BottomFloatingBar } from '@/widgets/BottomFloatingBar';
 import { ContainerInformation } from '@/widgets/ContainerInformation';
+import { calculateGatheringRole } from '../model/calculateGatheringRole';
 import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const { data: gathering } = useGetGatheringDetail(id);
-
-  const { data: participantsData } = useGetParticipants(id);
+  const {
+    data: participantsData,
+    isPending: isParticipantsLoading,
+    isError: isParticipantsError,
+  } = useGetParticipants(id);
+  const { data: user } = useGetUser();
 
   const { mutate: join, isPending: isJoining } = useJoinGathering();
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
   const { mutate: cancel, isPending: isCanceling } = useCancelGathering();
   const router = useRouter();
 
+  if (isParticipantsLoading) {
+    return <div>로딩 중...</div>;
+  }
+  if (isParticipantsError || !participantsData) {
+    return <div>참여자 정보를 불러오는 데 실패했습니다.</div>;
+  }
+
   // isPending 상태 값 활용하기전 임시 콘솔
   console.log(isJoining, isLeaving, isCanceling);
 
   const isFull = gathering.capacity <= gathering.participantCount;
+  const role = calculateGatheringRole(user, gathering, participantsData);
 
   const handleJoin = () => {
     join(id);
@@ -75,7 +89,10 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         {/* Gathering Banner */}
         <div className="relative h-[270px] w-[486px] overflow-hidden rounded-xl">
           <Image
-            src={gathering.image}
+            src={
+              gathering.image ||
+              'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG'
+            }
             alt={'alt'}
             fill
             className="object-cover"
@@ -102,7 +119,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
       </section>
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
-        role={GatheringRole.HOST}
+        role={role}
         title="더 건강한 프로그램"
         content="국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
         isFull={isFull}
