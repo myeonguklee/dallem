@@ -64,7 +64,9 @@ export const getReviews = (params: GetReviewsParams): Promise<GetReviewsResponse
 };
 
 export const createReview = (payload: CreateReviewPayload): Promise<CreateReviewResponse> => {
-  return httpClient.post<CreateReviewResponse>(`${API_ENDPOINTS.REVIEWS.CREATE}`, payload);
+  return httpClient.post<CreateReviewResponse>(`${API_ENDPOINTS.REVIEWS.CREATE}`, payload, {
+    authRequired: true,
+  });
 };
 
 // queryKeys.ts
