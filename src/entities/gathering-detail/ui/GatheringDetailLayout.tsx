@@ -9,7 +9,7 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
-import { Link } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
 import { BottomFloatingBar, GatheringRole } from '@/widgets/BottomFloatingBar';
@@ -24,6 +24,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const { mutate: join, isPending: isJoining } = useJoinGathering();
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
   const { mutate: cancel, isPending: isCanceling } = useCancelGathering();
+  const router = useRouter();
 
   // isPending 상태 값 활용하기전 임시 콘솔
   console.log(isJoining, isLeaving, isCanceling);
@@ -44,7 +45,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
       cancel(id, {
         onSuccess: () => {
           // 성공 시 목록 페이지로 이동
-          <Link href={ROUTES.GATHERING} />;
+          router.push(ROUTES.GATHERING);
         },
       });
     }
@@ -58,12 +59,13 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
     });
   };
 
-  const participants = participantsData!.map(({ userId, User }) => ({
-    id: String(userId),
-    image:
-      User.image ||
-      'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
-  }));
+  const participants =
+    participantsData?.map(({ userId, User }) => ({
+      id: String(userId),
+      image:
+        User.image ||
+        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+    })) ?? [];
 
   const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime);
 
