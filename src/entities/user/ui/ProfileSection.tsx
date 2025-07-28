@@ -29,19 +29,14 @@ export const ProfileSection = () => {
       <div className="flex flex-2 gap-2 bg-white px-5">
         {user?.image ? (
           <div className="-translate-y-3">
-            <div
-              className="h-10 w-10 overflow-hidden rounded-full"
-              style={{
-                width: 40,
-                height: 40,
-              }}
-            >
+            <div className="h-10 w-10 overflow-hidden rounded-full">
               <Image
                 src={user.image}
-                alt="User profile"
+                alt={`{user.name || User} 프로필 이미지`}
                 width={40}
                 height={40}
                 className="object-cover"
+                sizes="40px"
               />
             </div>
           </div>
