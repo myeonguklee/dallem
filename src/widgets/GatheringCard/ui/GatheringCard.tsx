@@ -19,6 +19,7 @@ interface GatheringCardProps {
   gatheringCapacity: number;
   gatheringImage: string;
   isCanceled: boolean;
+  onToggle?: () => void;
 }
 
 const participantCountToConfirm = 5;
@@ -34,6 +35,7 @@ export const GatheringCard = ({
   gatheringCapacity,
   gatheringImage,
   isCanceled,
+  onToggle,
 }: GatheringCardProps) => {
   const t = useTranslations('ui.gatheringCard');
   // 모임 참여자 수가 5명 이상이면 개설확정 칩 표시
@@ -77,7 +79,10 @@ export const GatheringCard = ({
           </Link>
 
           {/* 좋아요 버튼 */}
-          <GatheringLikeButton gatheringId={gatheringId} />
+          <GatheringLikeButton
+            gatheringId={gatheringId}
+            onToggle={onToggle}
+          />
         </div>
 
         <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>

@@ -16,6 +16,7 @@ export const ReviewList = ({ filters }: Props) => {
   // i18n 문자 변환
   const t = useTranslations('pages.reviews');
 
+  //fetchNextPage 가 getNextPageParam 호출, getNextPageParam의 결과가 hasNextPage , fetchNextPage가 호출되면 isFetchingNextPage의 boolean 변경
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery<ReviewListResponse>({
       queryKey: QUERY_KEYS.review.list(filters),
@@ -41,7 +42,7 @@ export const ReviewList = ({ filters }: Props) => {
   }
   return (
     <>
-      <div className="min-h-[40rem] overflow-y-hidden">
+      <div className="">
         <ul className="space-y-6">
           {allReviews.map((review) => (
             <li key={review.id}>

@@ -60,7 +60,9 @@
     "sort": {
       "deadline": "Deadline",
       "participants": "Participants",
-      "date": "Date"
+      "date": "Date",
+      "createdAt": " Latest ",
+      "scoreTop": " score Top"
     },
     "date": {
       "all": "All Dates"
