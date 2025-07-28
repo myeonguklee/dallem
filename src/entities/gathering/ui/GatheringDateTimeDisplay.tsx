@@ -1,3 +1,4 @@
+import { useFormatter } from 'next-intl';
 import { InfoChip } from '@/shared/ui/chip';
 
 interface GatheringDateTimeDisplayProps {
@@ -5,20 +6,18 @@ interface GatheringDateTimeDisplayProps {
 }
 
 export const GatheringDateTimeDisplay = ({ dateTime }: GatheringDateTimeDisplayProps) => {
-  const formatDate = (date: Date): string => {
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${month}월 ${day}일`;
-  };
+  const format = useFormatter();
 
-  const formatTime = (date: Date): string => {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
+  const formattedDate = format.dateTime(dateTime, {
+    month: 'long',
+    day: 'numeric',
+  });
 
-  const formattedDate = formatDate(dateTime);
-  const formattedTime = formatTime(dateTime);
+  const formattedTime = format.dateTime(dateTime, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
 
   return (
     <div className="flex gap-2">

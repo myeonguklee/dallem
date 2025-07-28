@@ -1,5 +1,4 @@
-// 'use client';
-// import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/shared/ui/button/Button';
 
 interface GatheringJoinButtonProps {
@@ -13,6 +12,8 @@ export const GatheringJoinButton = ({
   participantCount,
   capacity,
 }: GatheringJoinButtonProps) => {
+  const t = useTranslations('ui.gatheringCard.joinButton');
+
   // const [isJoining, setIsJoining] = useState(false);
 
   // userId 가져오기
@@ -33,9 +34,9 @@ export const GatheringJoinButton = ({
 
   // 버튼 텍스트 결정
   const getButtonText = () => {
-    if (isFull) return '모집 마감';
-    // if (isJoining) return '취소하기';
-    return '참여하기';
+    if (isFull) return t('full');
+    // if (isJoining) return t('cancel');
+    return t('join');
   };
 
   // 버튼 variant 결정
