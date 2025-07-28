@@ -20,8 +20,6 @@ export const GatheringLikeButton = ({ gatheringId, onToggle }: GatheringLikeButt
     setIsLiked(isFavorite(gatheringId));
   }, [gatheringId]);
 
-  console.log('gatheringId', gatheringId);
-
   const handleLike = () => {
     // localstorage 찜 혹은 찜 해제
     toggleFavorite(gatheringId);
