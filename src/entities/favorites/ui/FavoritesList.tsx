@@ -52,7 +52,7 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
             ))
           ) : (
             <div className="flex items-center justify-center py-8">
-              <p className="text-gray-500">없다고</p>
+              <p className="text-gray-500">데이터가 없습니다</p>
             </div>
           )}
         </div>

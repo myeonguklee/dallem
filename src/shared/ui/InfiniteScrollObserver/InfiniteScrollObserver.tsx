@@ -20,7 +20,7 @@ export const InfiniteScrollObserver = ({
       <Spinner color="currentColor" />
     </div>
   ),
-  endMessage = <div className="h-14">End</div>,
+  endMessage = '',
 }: InfiniteScrollObserverProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
