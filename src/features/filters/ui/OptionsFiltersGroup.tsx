@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n';
 import { Filter } from '@/shared/ui/filter';
 import { Sort } from '@/shared/ui/sort';
 import { DateFilter } from './DateFilter';
@@ -50,7 +51,10 @@ export const OptionsFiltersGroup = ({ sortValue, defaultSort }: OptionsFiltersGr
       params.set(filterType, value);
     }
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: pathname as '/reviews' | '/gathering' | '/favorites',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   return (

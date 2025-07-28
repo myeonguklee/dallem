@@ -1,8 +1,7 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n';
 import { Button } from '@/shared/ui/button';
 import { Calendar } from '@/shared/ui/calendar/Calendar';
 import { filterButtonVariants } from '@/shared/ui/filter/variants';
@@ -13,17 +12,15 @@ export const DateFilter = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
 
   const selectedDateStr = searchParams.get('date');
-  const selectedDate = selectedDateStr ? new Date(selectedDateStr) : undefined;
+  const selectedDate = selectedDateStr ? new Date(selectedDateStr + 'T00:00:00') : undefined;
   const [calendarOpen, setCalendarOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
-
   const [tempDate, setTempDate] = useState<Date | undefined>(selectedDate);
 
-  const isEnglish = pathname.startsWith('/en');
-  const locale = isEnglish ? 'en-US' : 'ko-KR';
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,10 +48,18 @@ export const DateFilter = () => {
 
   const handleApplyDate = () => {
     if (tempDate) {
-      const yyyyMMdd = tempDate.toISOString().slice(0, 10);
+      // 로컬 시간대 기준으로 YYYY-MM-DD 형식 생성
+      const year = tempDate.getFullYear();
+      const month = String(tempDate.getMonth() + 1).padStart(2, '0');
+      const day = String(tempDate.getDate()).padStart(2, '0');
+      const yyyyMMdd = `${year}-${month}-${day}`;
+
       const params = new URLSearchParams(searchParams);
       params.set('date', yyyyMMdd);
-      router.push(`${pathname}?${params.toString()}`);
+      router.push({
+        pathname: pathname as '/reviews' | '/gathering' | '/favorites',
+        query: Object.fromEntries(params.entries()),
+      });
     }
     setCalendarOpen(false);
   };
@@ -63,7 +68,10 @@ export const DateFilter = () => {
     setTempDate(undefined);
     const params = new URLSearchParams(searchParams);
     params.delete('date');
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: '/gathering',
+      query: Object.fromEntries(params.entries()),
+    });
     setCalendarOpen(false);
   };
 
@@ -125,7 +133,15 @@ export const DateFilter = () => {
         <div ref={popupRef}>
           <Calendar
             value={tempDate}
-            onChange={setTempDate}
+            onChange={(date) => {
+              if (date) {
+                // 로컬 시간대 기준으로 날짜 생성
+                const localDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                setTempDate(localDate);
+              } else {
+                setTempDate(undefined);
+              }
+            }}
             footer={calendarFooter}
             className="absolute top-full left-0 z-50 mt-2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
           />

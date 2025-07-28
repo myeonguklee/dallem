@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n';
 import { Chip } from '@/shared/ui/chip';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Tab } from '@/shared/ui/tab';
@@ -38,7 +39,10 @@ export const TypeFilterGroup = () => {
     if (value !== activeType) {
       params.delete('offset');
     }
-    router.push(`${pathname}?${params.toString()}`);
+    router.push({
+      pathname: pathname as '/reviews' | '/gathering' | '/favorites',
+      query: Object.fromEntries(params.entries()),
+    });
   };
 
   return (
