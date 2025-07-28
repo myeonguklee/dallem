@@ -104,7 +104,6 @@ export const GatheringCard = ({
             </div>
 
             <GatheringJoinButton
-              gatheringId={gatheringId}
               participantCount={gatheringParticipantCount}
               capacity={gatheringCapacity}
             />
