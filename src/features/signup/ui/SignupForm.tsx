@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { signup } from '@/entities/auth/signup/api/signup';
+import { signupApi } from '@/entities/auth/api';
 import { type SignupFormData, signupFields, signupSchema } from '@/features/signup/model';
 import { formatSignupFormToPayload } from '@/features/signup/utils/formatSignupFormToPayload';
 import { useRouter } from '@/i18n';
@@ -29,7 +29,7 @@ export const SignupForm = () => {
   });
 
   const onSubmit = async (formData: SignupFormData) => {
-    toast.promise(signup(formatSignupFormToPayload(formData)), {
+    toast.promise(signupApi(formatSignupFormToPayload(formData)), {
       loading: t('common.saving'),
       success: () => {
         setTimeout(() => router.push(ROUTES.SIGNIN), 2000);

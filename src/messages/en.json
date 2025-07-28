@@ -78,7 +78,7 @@
       "email": "Email",
       "password": "Password",
       "loginButton": "Sign In",
-      "noAccount": "Don't have an account?",
+      "footerText": "Don't have an account?",
       "signupLink": "Sign Up"
     },
     "signup": {

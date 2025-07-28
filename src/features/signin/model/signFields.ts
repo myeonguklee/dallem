@@ -1,8 +1,7 @@
-// import { AuthFormField } from '@/widgets/AuthForm/model/types';
+import { AuthFormField } from '@/widgets/AuthForm/model/types';
+import { SigninFormData } from './type';
 
-// import { LoginFormData } from './type';
-
-export const loginFields = [
+export const signFields = [
   { name: 'email', label: 'pages.signup.email', placeholder: 'pages.signup.emailPlaceholder' },
   {
     name: 'password',
@@ -10,5 +9,4 @@ export const loginFields = [
     placeholder: 'pages.signup.passwordPlaceholder',
     type: 'password',
   },
-];
-// as const satisfies AuthFormField<LoginFormData>[];
+] as const satisfies AuthFormField<SigninFormData>[];
