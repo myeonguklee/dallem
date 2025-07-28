@@ -10,10 +10,10 @@ export interface ReviewFilterProps {
   type?: ReviewType;
   location?: ReviewLocation;
   date?: string;
-  sortBy?: string;
-  sortOrder?: string;
-  limit?: number | string;
-  offset?: number | string;
+  sortBy?: ReviewSortBy;
+  sortOrder?: SortOrder;
+  limit?: number;
+  offset?: number;
 }
 
 // 리뷰 평점 요청 props

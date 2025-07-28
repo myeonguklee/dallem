@@ -3,45 +3,49 @@ import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { REVIEW_QUERY_KEYS } from '@/entities/review/api/queryKeys';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
-import { ReviewLocation, ReviewType } from '@/entities/review/model/type';
-import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
-import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
-import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
+import { ReviewFilterProps } from '@/entities/review/model/type';
+import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
+import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
+import { HydrationProvider } from '@/shared/api';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
 import { ReviewList } from '@/widgets/ReviewList/ui/ReviewList';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 
 interface ReviewsPageProps {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{
-    type?: string;
-    location?: string;
-    date?: string;
-    sortBy?: string;
-    sortOrder?: string;
-    limit?: string;
-    offset?: string;
-  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
   const { locale } = await params;
-  const filterQuery = await searchParams;
   const t = await getTranslations({ locale, namespace: 'pages.reviews' });
 
-  const queryClient = new QueryClient();
-  const reviewParams = {
-    type: filterQuery.type as ReviewType | undefined,
-    location: filterQuery.location as ReviewLocation | undefined,
-    date: filterQuery.date ?? undefined,
-    sortBy: filterQuery.sortBy ?? undefined,
-    sortOrder: filterQuery.sortOrder || 'desc',
-    limit: parseInt(filterQuery.limit || '10'),
-    offset: parseInt(filterQuery.offset || '0'),
+  const filterQuery = await searchParams;
+  const reviewParams: ReviewFilterProps = {
+    type:
+      typeof filterQuery.type === 'string'
+        ? (filterQuery.type as ReviewFilterProps['type'])
+        : undefined,
+    location:
+      typeof filterQuery.location === 'string'
+        ? (filterQuery.location as ReviewFilterProps['location'])
+        : undefined,
+    date: typeof filterQuery.date === 'string' ? filterQuery.date : undefined,
+    sortBy:
+      typeof filterQuery.sortBy === 'string'
+        ? (filterQuery.sortBy as ReviewFilterProps['sortBy'])
+        : 'createdAt',
+    sortOrder:
+      typeof filterQuery.sortOrder === 'string'
+        ? (filterQuery.sortOrder as ReviewFilterProps['sortOrder'])
+        : 'desc',
+    limit: 10,
+    offset: 0,
   };
 
+  const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: REVIEW_QUERY_KEYS.review.list(reviewParams),
     queryFn: () => getReviewList(reviewParams),
@@ -61,21 +65,23 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         title={t('title')}
         subtitle={t('subTitle')}
       />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <ReviewTypeFilter />
+      <TypeFilterGroup />
+      <HydrationProvider dehydratedState={dehydrate(queryClient)}>
         <Suspense fallback={t('loading')}>
           <AllReviewRating type={reviewParams.type} />
         </Suspense>
         <div className="mb-4 flex items-center justify-between">
-          <ReviewListFilter />
-          <ReviewSort />
+          <OptionsFiltersGroup
+            sortValue={['createdAt', 'score', 'participantCount']}
+            defaultSort="createdAt"
+          />
         </div>
         <Suspense fallback={t('loading')}>
-          <div className="mt-12">
+          <div className="mt-8 min-h-[28rem]">
             <ReviewList filters={reviewParams} />
           </div>
         </Suspense>
-      </HydrationBoundary>
+      </HydrationProvider>
     </div>
   );
 }
