@@ -2,14 +2,10 @@ import { Suspense } from 'react';
 import { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
-
-import { ReviewLocation, ReviewType, ReviewFilterProps } from '@/entities/review/model/type';
-import { ReviewListFilter } from '@/features/review/ReviewListFilter/ui/ReviewListFilter';
-import { ReviewSort } from '@/features/review/ReviewSort/ui/ReviewSort';
-import { ReviewTypeFilter } from '@/features/review/ReviewTypeFilter/ui/ReviewTypeFilter';
-import { QUERY_KEYS, HydrationProvider } from '@/shared/api';
+import { ReviewFilterProps } from '@/entities/review/model/type';
 import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
+import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
 import { AllReviewRating } from '@/widgets/AllReviewRating';
