@@ -1,7 +1,6 @@
 import type { UpdateUserPayload, User } from '@/entities/user/model';
-import { ApiError } from '@/shared/api';
+import { ApiError, QUERY_KEYS } from '@/shared/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { QUERY_KEYS } from './queryKeys';
 import { getUser, updateUser } from './service';
 
 export const useGetUser = () => {

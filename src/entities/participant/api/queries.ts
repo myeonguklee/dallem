@@ -1,6 +1,6 @@
+import { QUERY_KEYS } from '@/shared/api';
 import { useQuery } from '@tanstack/react-query';
 import { Participant } from '../model/types';
-import { QUERY_KEYS } from './queryKeys';
 import { GetParticipantsOptions, getParticipants } from './services';
 
 export const useGetParticipants = (gatheringId: number, options?: GetParticipantsOptions) => {

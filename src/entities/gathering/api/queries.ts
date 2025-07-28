@@ -5,9 +5,8 @@ import type {
   MyGathering,
   MyGatheringParams,
 } from '@/entities/gathering/model/types';
-import { ApiError } from '@/shared/api';
+import { ApiError, QUERY_KEYS } from '@/shared/api';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { QUERY_KEYS } from './queryKeys';
 import { createGathering, getGatherings, getGatheringsJoined } from './services';
 
 // 모임 조회

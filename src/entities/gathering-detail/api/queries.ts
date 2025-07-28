@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '@/entities/gathering/api';
+import { QUERY_KEYS } from '@/shared/api';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { GatheringDetail } from '../model/types';
@@ -29,6 +29,12 @@ export const useJoinGathering = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.gathering.detail(gatheringId),
       });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.participant.list(gatheringId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.AUTH.USER.BASE,
+      });
     },
     onError: (error) => {
       // 뮤테이션 실패 시
@@ -45,8 +51,16 @@ export const useLeaveGathering = () => {
     mutationFn: (gatheringId: number) => leaveGathering(gatheringId),
     onSuccess: (_, gatheringId) => {
       toast.success('모임 참여를 취소했습니다.');
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.detail(gatheringId) });
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
+      // 모임 상세 정보 쿼리를 무효화
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.gathering.detail(gatheringId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.participant.list(gatheringId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.AUTH.USER.BASE,
+      });
     },
     onError: (error) => {
       console.error(error);
