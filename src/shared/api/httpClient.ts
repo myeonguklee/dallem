@@ -1,5 +1,5 @@
 // import { getToken } from 'next-auth/jwt';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 // import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -30,6 +30,7 @@ axiosInstance.interceptors.request.use(async (config) => {
     if (IS_CLIENT) {
       const session = await getSession();
       const accessToken = session?.user?.accessToken;
+      console.log({ session });
       token = accessToken;
     } else {
       // const rawToken = await getToken({
@@ -89,8 +90,9 @@ axiosInstance.interceptors.response.use(
     }
     const { status, data } = error.response;
     const { code, message } = (data as { code?: string; message?: string }) || {};
-
-    if (status === 401) {
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+    const isAuthPage = pathname.includes('/signin') || pathname.includes('/signup');
+    if (status === 401 && !isAuthPage) {
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
@@ -100,10 +102,12 @@ axiosInstance.interceptors.response.use(
         const currentPath = window.location.pathname;
         const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
         const currentLocale = localeMatch ? localeMatch[1] : 'ko';
-
-        window.location.href = `/${currentLocale}/signin`;
+        signOut({ redirect: false }).then(() => {
+          window.location.href = `/${currentLocale}/signin`;
+        });
       }
-      return;
+      // global-error 를 안태우기 위해 resolve 반환
+      return Promise.resolve(undefined);
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
     if (status >= 500) {

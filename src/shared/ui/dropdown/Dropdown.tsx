@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface DropdownProps {
   children: (props: {
@@ -15,6 +15,7 @@ interface DropdownProps {
 export const Dropdown = ({ children, defaultValue }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>(defaultValue);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
   const onSelect = (value: string) => {
@@ -22,5 +23,24 @@ export const Dropdown = ({ children, defaultValue }: DropdownProps) => {
     setIsOpen(false);
   };
 
-  return <>{children({ isOpen, toggle, selectedValue, onSelect })}</>;
+  // 👉 외부 클릭 감지
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div
+      className="relative"
+      ref={dropdownRef}
+    >
+      {children({ isOpen, toggle, selectedValue, onSelect })}
+    </div>
+  );
 };
