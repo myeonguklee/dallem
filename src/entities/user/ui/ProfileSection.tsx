@@ -32,7 +32,7 @@ export const ProfileSection = () => {
           size={56}
           className="-translate-y-3"
         />
-        <div className="flex flex-col gap-2">
+        <div className="mt-1.5 flex flex-col gap-2">
           <p className="text-lg font-semibold">{user?.name}</p>
           <div className="flex items-center gap-1">
             <span className="text-xs text-gray-500">{t('profile.company')}</span>

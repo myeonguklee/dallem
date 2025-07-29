@@ -41,6 +41,7 @@ export const MyPageTab = () => {
       items={MyPageTabItems}
       selectedId={getCurrentTabId()}
       onSelect={handleTabSelect}
+      className={`${locale === 'en' && 'whitespace-nowrap'}`}
     />
   );
 };
