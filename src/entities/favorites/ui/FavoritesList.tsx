@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { GatheringCard } from '@/widgets/GatheringCard/ui';
@@ -11,14 +12,14 @@ interface FavoritesListProps {
 }
 
 export const FavoritesList = ({ type }: FavoritesListProps) => {
+  const t = useTranslations('pages.favorites');
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
 
   useEffect(() => {
-    const ids = getFavoriteList(); // localStorage 접근
+    const ids = getFavoriteList();
     setFavoriteIds(ids);
   }, []);
 
-  // favoriteIds가 변경되면 수동으로 쿼리 무효화
   const { data, fetchNextPage, hasNextPage, isFetching } = useGetFavoritesGathering({
     type,
     favoriteIds,
@@ -54,7 +55,7 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
             ))
           ) : (
             <div className="flex items-center justify-center py-8">
-              <p className="text-gray-500">찜한 목록이 없습니다.</p>
+              <p className="text-gray-500">{t('noFavorites')}</p>
             </div>
           )}
         </div>
