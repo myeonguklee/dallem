@@ -1,10 +1,9 @@
 'use client';
 
-import * as React from 'react';
-import { useTranslations } from 'next-intl';
-import { Link, usePathname } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
-import { cn } from '@/shared/lib/cn';
+import { cn } from '@/shared/lib';
 
 type LogoProps = {
   className?: string;
@@ -12,11 +11,10 @@ type LogoProps = {
 
 export const Logo = ({ className }: LogoProps) => {
   const t = useTranslations('navigation');
-  const pathname = usePathname();
-  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
+  const locale = useLocale();
   return (
     <Link
-      href={ROUTES.ROOT}
+      href={ROUTES.GATHERING}
       locale={locale}
     >
       <span className={cn('text-primary text-2xl font-extrabold', className)}>{t('brand')}</span>

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { Icon, XIcon } from '@/shared/ui/icon';
 import clsx from 'clsx';
@@ -12,7 +12,13 @@ export const MobileGNB = () => {
   const [open, setOpen] = useState(false);
   const t = useTranslations('navigation');
   const pathname = usePathname();
-  const locale = pathname.startsWith('/en') ? 'en' : 'ko';
+  const locale = useLocale();
+
+  const menuItems = [
+    { href: ROUTES.GATHERING, label: t('findGatherings') },
+    { href: ROUTES.FAVORITE, label: t('favoriteGatherings') },
+    { href: ROUTES.REVIEW, label: t('allReviews') },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +33,10 @@ export const MobileGNB = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -55,40 +65,33 @@ export const MobileGNB = () => {
       {/* 드로워 */}
       <nav
         className={clsx(
-          'fixed top-0 left-0 z-[var(--z-drawer)] h-full w-64 bg-white shadow transition-transform duration-300',
+          'fixed top-0 left-0 z-[var(--z-drawer)] h-full bg-white shadow transition-transform duration-300',
           open ? 'translate-x-0' : '-translate-x-full',
+          locale === 'ko' ? 'w-40' : 'w-45',
         )}
       >
         <div className="flex h-14 items-center justify-end p-4">
-          <button onClick={() => setOpen(false)}>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setOpen(false)}
+          >
             <XIcon className="h-6 w-6 cursor-pointer" />
           </button>
         </div>
-        <ul className="flex flex-col gap-4 p-4 text-center">
-          <li>
-            <HeaderLink
-              href={ROUTES.GATHERING}
-              locale={locale}
-            >
-              {t('findGatherings')}
-            </HeaderLink>
-          </li>
-          <li>
-            <HeaderLink
-              href={ROUTES.FAVORITE}
-              locale={locale}
-            >
-              {t('favoriteGatherings')}
-            </HeaderLink>
-          </li>
-          <li>
-            <HeaderLink
-              href={ROUTES.REVIEW}
-              locale={locale}
-            >
-              {t('allReviews')}
-            </HeaderLink>
-          </li>
+        <ul className="flex flex-col gap-8 p-4 text-center">
+          {menuItems.map((item) => (
+            <li key={item.href}>
+              <HeaderLink
+                href={item.href}
+                onFocus={() => setOpen(true)}
+                onBlur={() => setOpen(false)}
+              >
+                {item.label}
+              </HeaderLink>
+            </li>
+          ))}
         </ul>
       </nav>
     </>

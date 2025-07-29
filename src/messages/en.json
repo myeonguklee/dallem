@@ -1,0 +1,344 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "saving": "Saving...",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "ui": {
+    "timePicker": {
+      "period": "AM/PM",
+      "hour": "Hour",
+      "minute": "Minute",
+      "am": "AM",
+      "pm": "PM",
+      "reset": "Reset",
+      "confirm": "Confirm"
+    },
+    "gatheringCard": {
+      "canceled": "This gathering has been canceled!",
+      "deadline": {
+        "daysLeft": "Ends in {days}d",
+        "todayEnd": "Ends at {time}h",
+        "ended": "Ended"
+      },
+      "dateTime": {
+        "month": "{month}",
+        "day": "{day}",
+        "format": "{month} {day}"
+      },
+      "status": {
+        "confirmed": "Confirmed"
+      },
+      "joinButton": {
+        "join": "Join",
+        "cancel": "Cancel",
+        "full": "Full"
+      },
+      "statusChip": {
+        "scheduled": "Scheduled",
+        "completed": "Completed",
+        "pending": "Pending",
+        "confirmed": "Confirmed"
+      }
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "gatherings": "Gatherings",
+    "profile": "Profile",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "findGatherings": "Find Gatherings",
+    "favoriteGatherings": "Favorite Gatherings",
+    "allReviews": "All Reviews",
+    "brand": "Dallem",
+    "myPage": "My Page"
+  },
+  "filters": {
+    "categories": {
+      "dallaemfit": "Dallaemfit",
+      "workation": "Workation"
+    },
+    "activities": {
+      "all": "All",
+      "officeStretching": "Office Stretching",
+      "mindfulness": "Mindfulness"
+    },
+    "regions": {
+      "all": "All Regions",
+      "konkuk": "Konkuk University",
+      "euljiro": "Euljiro 3-ga",
+      "sinrim": "Sinrim",
+      "hongdae": "Hongdae"
+    },
+    "sort": {
+      "deadline": "Deadline",
+      "participants": "Participants",
+      "date": "Date",
+      "createdAt": " Latest ",
+      "scoreTop": " score Top"
+    },
+    "date": {
+      "all": "All Dates"
+    },
+    "reset": "Reset",
+    "apply": "Apply"
+  },
+  "pages": {
+    "home": {
+      "title": "Homepage",
+      "welcome": "Welcome to Dallem!"
+    },
+    "signin": {
+      "title": "Sign In Page",
+      "email": "Email",
+      "password": "Password",
+      "loginButton": "Sign In",
+      "footerText": "Don't have an account?",
+      "signupLink": "Sign Up",
+      "welcome": "Welcome to Dallem!",
+      "desc1": "Take a break from your busy daily life,",
+      "desc2": "and experience Dallem with us"
+    },
+    "signup": {
+      "title": "Sign Up Page",
+      "name": "Name",
+      "email": "Email",
+      "company": "Company",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "signupButton": "Sign Up",
+      "footerText": "Already have an account?",
+      "signinLink": "Sign In",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "companyPlaceholder": "Enter your company name",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "success": "Signup completed successfully",
+      "failure": "Signup failed"
+    },
+    "gatherings": {
+      "title": "Gatherings List Page",
+      "createButton": "Create Gathering",
+      "noGatherings": "No gatherings available",
+      "loading": "Loading...",
+      "loadingMore": "Loading more...",
+      "header": {
+        "subtitle": "Don't have anyone to join with?",
+        "title": "Join a gathering now"
+      },
+      "error": {
+        "title": "Unable to load gatherings list",
+        "clientErrorDescription": "Invalid request. Please navigate to the gatherings page.",
+        "serverErrorDescription": "A temporary error occurred. Please try again.",
+        "navigateToGathering": "Go to Gatherings",
+        "retry": "Retry"
+      },
+      "create": {
+        "title": "Create Gathering",
+        "pending": "Sending...",
+        "submit": "Confirm",
+        "cancel": "Cancel",
+        "form": {
+          "title": "Gathering Title",
+          "titlePlaceholder": "Enter gathering title",
+          "location": "Location",
+          "locationPlaceholder": "Select gathering location",
+          "image": "Image",
+          "imagePlaceholder": "Attach image",
+          "imageButton": "Find File",
+          "imageSuccess": "Image file upload successful",
+          "type": "Select Service",
+          "date": "Gathering Date",
+          "datePlaceholder": "Select gathering date",
+          "registrationEnd": "Registration End",
+          "registrationEndPlaceholder": "Select registration end date",
+          "participants": "Participants",
+          "participantsPlaceholder": "Enter minimum 5 participants",
+          "locations": {
+            "konkuk": "Konkuk University",
+            "euljiro": "Euljiro 3-ga",
+            "sinrim": "Sinrim",
+            "hongdae": "Hongdae"
+          },
+          "services": {
+            "officeStretching": {
+              "label": "Dallaemfit",
+              "subtitle": "Office Stretching"
+            },
+            "mindfulness": {
+              "label": "Dallaemfit",
+              "subtitle": "Mindfulness"
+            },
+            "workation": {
+              "label": "Workation",
+              "subtitle": ""
+            }
+          },
+          "errors": {
+            "nameRequired": "Please enter the gathering name.",
+            "locationRequired": "Please select a location.",
+            "typeRequired": "Please select a service.",
+            "dateTimeRequired": "Please select the gathering date.",
+            "dateTimePast": "The gathering date must be in the future.",
+            "registrationEndRequired": "Please select the registration end date.",
+            "registrationEndInvalid": "Registration deadline must be before the gathering date.",
+            "capacityMin": "Please enter at least 5 participants.",
+            "imageType": "Only image files are allowed.",
+            "imageEmpty": "Image file is empty."
+          }
+        }
+      }
+    },
+    "gathering": {
+      "detail": {
+        "title": "Gathering Detail Page",
+        "joinButton": "Join",
+        "leaveButton": "Leave",
+        "editButton": "Edit",
+        "deleteButton": "Delete"
+      }
+    },
+    "myPage": {
+      "title": "My Page",
+      "profile": {
+        "title": "My Profile",
+        "edit": "Edit Profile",
+        "editButton": "Edit",
+        "name": "Name",
+        "company": "Company",
+        "email": "Email",
+        "emailReadOnly": "Email cannot be modified"
+      },
+      "tabs": {
+        "joinedGatherings": "My Gatherings",
+        "createdGatherings": "Created Gatherings",
+        "reviews": "My Reviews",
+        "writableReviews": "Writable Reviews"
+      },
+      "gatherings": {
+        "noJoinedGatherings": "No joined gatherings",
+        "noCreatedGatherings": "No created gatherings",
+        "cancelButton": "Cancel",
+        "cancelConfirm": "Are you sure you want to cancel?",
+        "cancelSuccess": "Gathering participation has been cancelled",
+        "cancelError": "Failed to cancel gathering"
+      },
+      "reviews": {
+        "noWritableReviews": "No writable reviews",
+        "noWrittenReviews": "No written reviews",
+        "writeReview": "Write Review",
+        "rating": "Rating",
+        "comment": "Comment",
+        "commentPlaceholder": "Please write your review",
+        "submit": "Submit Review",
+        "submitSuccess": "Review has been submitted",
+        "submitError": "Failed to submit review"
+      },
+      "form": {
+        "companyName": "Company Name",
+        "companyNamePlaceholder": "Enter your company name",
+        "profileImage": "Profile Image",
+        "imagePlaceholder": "Select an image",
+        "imageButton": "Select Image",
+        "cancel": "Cancel",
+        "submit": "Update Complete",
+        "submitting": "Updating...",
+        "errors": {
+          "companyNameRequired": "Please enter your company name",
+          "imageRequired": "Please select a profile image",
+          "imageType": "Please select a valid image file"
+        }
+      },
+      "actionButton": {
+        "cancelReservation": "Cancel Reservation",
+        "writeReview": "Write Review"
+      },
+      "reviewModal": {
+        "title": "Write Review",
+        "question": "Was it a satisfactory experience?",
+        "ariaLabel": "{score} stars",
+        "commentLabel": "Please leave a comment about your experience.",
+        "commentPlaceholder": "Your review will be of great help to program operation and other members.",
+        "commentHelpText": "Your review will be of great help to program operation and other members.",
+        "cancel": "Cancel",
+        "submit": "Submit Review",
+        "selectRatingError": "Please select a rating",
+        "success": "Review submitted successfully!"
+      }
+    },
+    "reviews": {
+      "title": "All Reviews",
+      "subTitle": "Here's how people felt after using Dallaem together",
+      "loading": "Loading...",
+      "run": "Dallaemfit",
+      "workation": "Workation",
+      "all": "All",
+      "allList": "View All",
+      "officeStretching": "Office Stretching",
+      "mindFulness": "Mindfulness",
+      "fiveStars": "5",
+      "fourStars": "4",
+      "threeStars": "3",
+      "twoStars": "2",
+      "oneStar": "1",
+      "noReview": "No reviews",
+      "locationKonkuk": "Konkuk Univ",
+      "sillim": "Sillim",
+      "euljiro": "Euljiro 3-ga",
+      "hongik": "Hongik Univ",
+      "createdAt": "Date",
+      "scoreTop": "scoreTop",
+      "participantCount": "participant",
+      "selectDate": "selectDate",
+      "scoreLoading": "score Loading...",
+      "scoreLoadError": "score Loading Error .."
+    },
+    "favorites": {
+      "title": "Favorites Page",
+      "subTitle": "Join now before the deadline!",
+      "run": "Dallaemfit",
+      "workation": "Workation",
+      "all": "All",
+      "officeStretching": "Office Stretching",
+      "mindFulness": "Mindfulness",
+      "noFavorites": "No favorites found."
+    }
+  },
+  "errors": {
+    "global": {
+      "title": "Oops, an unexpected error occurred!",
+      "message": "Please refresh the page or try again later.",
+      "retryButton": "Try Again"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "message": "The page you requested does not exist or has been moved.",
+      "backToHome": "Back to Home"
+    },
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 8 characters",
+      "passwordConfirm": "Passwords do not match",
+      "emailExists": "This email is already in use",
+      "invalidEmail": "Please enter a valid email address"
+    }
+  },
+  "metadata": {
+    "title": "Dallem",
+    "description": "Create a healthy and vibrant work life through gatherings together"
+  }
+}

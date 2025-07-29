@@ -24,73 +24,62 @@ export const ReviewCard = ({
   gatheringName,
   location,
 }: ReviewCardProps) => {
-  const hasGatheringInfo = gatheringName || location;
   const displayDate = formatDateToYYYYMMDD(dateTime);
 
   return (
     <article
       data-testid="review-card"
-      aria-label={userName ? `${userName}` : '사용자 리뷰'}
+      aria-label={userName ?? '사용자 리뷰'}
       className={cn(
-        'mb-6 flex flex-col justify-between gap-2 border-b border-gray-400 pb-6',
-        'tablet:flex-row tablet:items-start tablet:gap-12',
+        'flex max-w-[1200px] flex-col border-b-2 border-dashed border-gray-200 pb-8',
+        'tablet:flex-row tablet:items-stretch tablet:gap-6',
       )}
     >
-      <header className="flex flex-col">
-        {/* 평점 */}
-        <RatingStarDisplay score={score} />
-        <div
-          className={cn(
-            'mt-2 flex items-center',
-            'tablet:basis-1/3 tablet:flex-col tablet:items-start',
-          )}
-        >
-          {/* 유저 이미지 + 이름 */}
-          <div className="flex items-center gap-3">
+      {/*  이미지 영역 */}
+      {reviewImg && (
+        <div className="tablet:w-72 tablet:h-auto relative h-[156px] w-full flex-shrink-0 overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
+          <Image
+            src={reviewImg}
+            alt={gatheringName ?? '모임 이미지'}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
+      {/*  내용 영역 */}
+      <div className="tablet:mt-0 mt-6 flex flex-col space-y-2">
+        {/*평점 + 코멘트 */}
+        <div className="flex flex-col gap-2">
+          <div className="space-y-2">
+            <RatingStarDisplay score={score} />
+          </div>
+          <p className="overflow-hidden text-base font-medium text-gray-700">{comment}</p>
+        </div>
+
+        {/* 2-2. 모임 정보 + 메타 */}
+        <div className="flex flex-col gap-2 text-xs text-gray-700">
+          <div className="">
+            {gatheringName && <span>{gatheringName} 이용</span>}
+            {location && <span> | {location}</span>}
+          </div>
+          <div className="flex items-center gap-2">
             {userImg && (
-              <div className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-gray-300">
+              <div className="relative h-6 w-6 overflow-hidden rounded-full">
                 <Image
                   src={userImg}
-                  alt={userImg ? `${userName}` : '유저이미지'}
+                  alt={userName ?? '유저 이미지'}
                   fill
                   className="object-cover"
                 />
               </div>
             )}
-            {userName && <span className="mr-4 text-sm leading-6 font-medium">{userName}</span>}
+            {userName && <span>{userName}</span>}
+            <span>|</span>
+            <time>{displayDate}</time>
           </div>
-
-          {/* 날짜 */}
-          <time className={cn('text-xs text-gray-600', 'tablet:mt-1')}>{displayDate}</time>
         </div>
-      </header>
-
-      <main
-        className={cn('mt-2 flex flex-col space-y-1', 'tablet:basis-2/3 tablet:mt-0 tablet:flex-1')}
-      >
-        {/* 모임 이름 + 지역 */}
-        {hasGatheringInfo && (
-          <div className="flex items-center gap-2">
-            {gatheringName && <strong>{gatheringName}</strong>}
-            {location && <span className="text-sm text-gray-600">| {location}</span>}
-          </div>
-        )}
-
-        {/* 코멘트 */}
-        <p className="text-var[(--color-font-secondary)] text-sm leading-6">{comment}</p>
-
-        {/* 모임 이미지 */}
-        {reviewImg && (
-          <div className="relative mt-2 h-32 w-32 overflow-hidden rounded-[var(--radius-common)] bg-gray-300">
-            <Image
-              src={reviewImg}
-              alt={reviewImg ? `${gatheringName}` : '모임 이미지'}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
-      </main>
+      </div>
     </article>
   );
 };

@@ -1,10 +1,19 @@
+// import { getToken } from 'next-auth/jwt';
+import { getSession, signOut } from 'next-auth/react';
+// import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
 
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    authRequired?: boolean;
+  }
+}
+
 // 팀 아이디 : 실제 배포시에는 환경변수로 관리
-const TEST_TEAM_ID = '10-666';
+export const TEST_TEAM_ID = '1';
 const IS_CLIENT = typeof window !== 'undefined';
 
 const axiosInstance = axios.create({
@@ -13,13 +22,27 @@ const axiosInstance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  // TODO: Next Auth 세션 관리 적용 후 수정
-  if (IS_CLIENT) {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+axiosInstance.interceptors.request.use(async (config) => {
+  if (config.authRequired) {
+    let token;
+    const headers = AxiosHeaders.from(config.headers);
+
+    if (IS_CLIENT) {
+      const session = await getSession();
+      const accessToken = session?.user?.accessToken;
+      console.log({ session });
+      token = accessToken;
+    } else {
+      // const rawToken = await getToken({
+      //   req: { headers: headers } as NextApiRequest,
+      //   secret: process.env.NEXTAUTH_SECRET,
+      //   raw: true, // 원본 JWT 문자열
+      // });
+      // token = rawToken;
     }
+
+    headers.set('Authorization', `Bearer ${token}`);
+    config.headers = headers;
   }
 
   // FormData 자동 변환
@@ -28,7 +51,15 @@ axiosInstance.interceptors.request.use((config) => {
 
     Object.entries(config.data || {}).forEach(([key, value]) => {
       if (value == null) return;
-      formData.append(key, value instanceof File ? value : String(value));
+
+      // Date 객체를 ISO 형식으로 변환
+      if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, String(value));
+      }
     });
 
     config.data = formData;
@@ -59,15 +90,24 @@ axiosInstance.interceptors.response.use(
     }
     const { status, data } = error.response;
     const { code, message } = (data as { code?: string; message?: string }) || {};
-
-    if (status === 401) {
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+    const isAuthPage = pathname.includes('/signin') || pathname.includes('/signup');
+    if (status === 401 && !isAuthPage) {
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
         localStorage.removeItem('accessToken');
-        window.location.href = '/signin';
+
+        // 현재 locale을 가져와서 리다이렉트
+        const currentPath = window.location.pathname;
+        const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
+        const currentLocale = localeMatch ? localeMatch[1] : 'ko';
+        signOut({ redirect: false }).then(() => {
+          window.location.href = `/${currentLocale}/signin`;
+        });
       }
-      return;
+      // global-error 를 안태우기 위해 resolve 반환
+      return Promise.resolve(undefined);
     }
     // Sentry 도입시 500대 에러 등 심각한 에러 처리
     if (status >= 500) {

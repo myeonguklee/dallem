@@ -1,6 +1,7 @@
-import { redirect } from 'next/navigation';
-import { defaultLocale } from '@/i18n';
+import { redirect, routing } from '@/i18n';
+import { ROUTES } from '@/shared/config/routes';
 
 export default async function RootPage() {
-  redirect(`/${defaultLocale}`);
+  // 기본 locale로 리다이렉트
+  redirect({ href: ROUTES.GATHERING, locale: routing.defaultLocale });
 }

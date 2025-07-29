@@ -1,8 +1,8 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import clsx from 'clsx';
 
 type AvatarGroupProps = {
-  avatars: StaticImageData[];
+  avatars: string[];
   extraCount?: number;
 };
 
@@ -22,6 +22,7 @@ export const AvatarGroup = ({ avatars, extraCount = 0 }: AvatarGroupProps) => {
             alt={`user${idx}`}
             fill
             className="object-cover"
+            sizes="28px"
           />
         </div>
       ))}

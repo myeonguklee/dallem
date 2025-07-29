@@ -1,18 +1,14 @@
-import React, { ComponentPropsWithoutRef } from 'react';
-import { Locale } from '@/i18n';
-import { Link } from '@/i18n/navigation';
+import { ComponentPropsWithoutRef } from 'react';
+import { useLocale } from 'next-intl';
+import { Link, Pathnames } from '@/i18n';
 
 interface HeaderLinkProps extends ComponentPropsWithoutRef<'a'> {
-  href: string;
-  locale?: Locale;
+  href: Exclude<Pathnames, '/gathering/[id]'>;
 }
 
-export const HeaderLink: React.FunctionComponent<HeaderLinkProps> = ({
-  href,
-  locale,
-  children,
-  ...props
-}) => {
+export const HeaderLink = ({ href, children, ...props }: HeaderLinkProps) => {
+  const locale = useLocale();
+
   return (
     <Link
       href={href}

@@ -1,5 +1,5 @@
-import { Locale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import type { Locale } from 'next-intl';
+import { redirect } from '@/i18n';
 
 interface MyPageProps {
   params: Promise<{ locale: Locale }>;
@@ -7,11 +7,7 @@ interface MyPageProps {
 
 export default async function MyPage({ params }: MyPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.myPage' });
 
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="text-2xl font-bold">{t('title')}</div>
-    </div>
-  );
+  // 기본적으로 gatherings-joined 페이지로 리다이렉트
+  redirect({ href: '/my-page/gatherings-joined', locale });
 }

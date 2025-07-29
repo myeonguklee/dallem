@@ -1,38 +1,55 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Gathering } from '../model/types';
-import { QUERY_KEYS } from './queryKeys';
-import { createGathering, getGatheringById, getGatherings } from './services';
+import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
+import type {
+  Gathering,
+  GatheringFilters,
+  MyGathering,
+  MyGatheringParams,
+} from '@/entities/gathering/model/types';
+import { ApiError, QUERY_KEYS } from '@/shared/api';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { createGathering, getGatherings, getGatheringsJoined } from './services';
 
 // 모임 조회
-export const useGetGatherings = (filters?: object) => {
+export const useGetGatherings = (filters?: GatheringFilters, options?: { enabled?: boolean }) => {
   return useQuery<Gathering[]>({
     queryKey: QUERY_KEYS.gathering.list(filters),
     queryFn: () => getGatherings(filters),
-    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    enabled: options?.enabled ?? true,
   });
 };
 
-// 모임 상세 조회
-export const useGetGathering = (id: number) => {
-  return useQuery<Gathering>({
-    queryKey: QUERY_KEYS.gathering.detail(id),
-    queryFn: () => getGatheringById(id),
-    enabled: !!id,
-    staleTime: 1000 * 60 * 3, // 3분 동안 캐시 유지
+// 무한스크롤 모임 조회
+export const useGetGatheringsInfinite = (filters?: Omit<GatheringFilters, 'limit' | 'offset'>) => {
+  return useInfiniteQuery({
+    queryKey: QUERY_KEYS.gathering.infinite(filters),
+    queryFn: ({ pageParam = 0 }) =>
+      getGatherings({
+        ...filters,
+        limit: 10, // 페이지당 10개
+        offset: pageParam * 10,
+      }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      // 마지막 페이지가 10개 미만이면 더 이상 페이지가 없음
+      return lastPage.length === 10 ? allPages.length : undefined;
+    },
   });
 };
 
 // 모임 생성 훅
 export const useCreateGathering = () => {
   const queryClient = useQueryClient();
-  return useMutation({
+  return useMutation<Gathering, ApiError, CreateGatheringPayload>({
     mutationFn: createGathering,
     onSuccess: () => {
-      // 모임 생성이 완료되면 목록 쿼리를 무효화하여 최신 데이터로 갱신
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
     },
-    onError: (error) => {
-      console.error('모임 생성 실패:', error);
-    },
+  });
+};
+
+export const useGetGatheringsJoined = (params?: MyGatheringParams) => {
+  return useQuery<MyGathering[]>({
+    queryKey: QUERY_KEYS.gathering.joined(params),
+    queryFn: () => getGatheringsJoined(params),
   });
 };

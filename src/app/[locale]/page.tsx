@@ -1,5 +1,5 @@
+import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Locale } from '@/i18n';
 
 interface HomePageProps {
   params: Promise<{ locale: Locale }>;

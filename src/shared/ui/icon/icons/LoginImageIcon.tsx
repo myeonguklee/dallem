@@ -1,7 +1,7 @@
 import { IconProps } from '../IconType';
 import { calculateIconSizeByWidth } from '../iconUtils';
 
-export const LoginImageIcon = ({ size = 620, ...props }: IconProps) => {
+export const LoginImageIcon = ({ size = 588, ...props }: IconProps) => {
   const { width, height } = calculateIconSizeByWidth(size, 620 / 513); // width/height 비율
 
   return (

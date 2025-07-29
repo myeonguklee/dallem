@@ -20,7 +20,7 @@ export interface TabProps
   orientation?: 'horizontal' | 'vertical';
 }
 
-const TabVariants = cva('flex items-center gap-2 cursor-pointer transition-colors', {
+const TabVariants = cva('flex items-center gap-1 cursor-pointer transition-colors', {
   variants: {
     isSelected: {
       true: 'text-[var(--color-font-base)] font-semibold',
@@ -31,9 +31,9 @@ const TabVariants = cva('flex items-center gap-2 cursor-pointer transition-color
       false: '',
     },
     size: {
-      sm: 'text-sm gap-1',
-      md: 'text-base gap-2',
-      lg: 'text-lg gap-3',
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
     },
   },
   defaultVariants: {

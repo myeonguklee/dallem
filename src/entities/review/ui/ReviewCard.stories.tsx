@@ -58,7 +58,8 @@ export const DefultReviewCard: Story = {
 
 export const DetailReviewCard: Story = {
   args: {
-    comment: '뛰어난 실력자들이 많앙서 기쁩니다!',
+    comment:
+      '처음 스터디룸 문을 열고 들어섰을 때, 각자 노트북 앞에 진지하게 앉아 있는 동료 개발자들의 모습이 인상적이었어요. 서로의 화면을 부담 없이 공유하며 코드를 리뷰해주고, 질문이 생기면 바로 그 자리에서 해결하려는 열정이 느껴졌습니다. ',
     score: 3,
     userName: '감자돌이',
     userImg: userCat,
