@@ -11,7 +11,7 @@ interface FetchFavoritesDataProps {
 const LIMIT = 10;
 export const fetchFavoritesData = async ({ ids, type, pageParam = 0 }: FetchFavoritesDataProps) => {
   if (ids.length === 0) {
-    return { items: [], nextOffset: undefined }; // 빈 배열과 다음 페이지 없음을 반환
+    return { items: [], nextOffset: undefined };
   }
 
   try {
@@ -32,6 +32,6 @@ export const fetchFavoritesData = async ({ ids, type, pageParam = 0 }: FetchFavo
     };
   } catch (error) {
     console.error('fetchFavoritesData error:', error);
-    return { items: [], nextOffset: undefined }; // 실패 시 빈 목록으로 fallback
+    return { items: [], nextOffset: undefined };
   }
 };
