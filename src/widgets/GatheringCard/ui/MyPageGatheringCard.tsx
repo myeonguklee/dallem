@@ -10,6 +10,7 @@ import { PersonIcon } from '@/shared/ui/icon';
 
 interface MyPageGatheringCardProps {
   gatheringId: number;
+  gatheringType: string;
   gatheringName: string;
   gatheringLocation: string;
   gatheringDateTime: Date;
@@ -25,6 +26,7 @@ interface MyPageGatheringCardProps {
 
 export const MyPageGatheringCard = ({
   gatheringId,
+  gatheringType,
   gatheringName,
   gatheringLocation,
   gatheringDateTime,
@@ -55,7 +57,7 @@ export const MyPageGatheringCard = ({
             width={400}
             height={224}
             alt={`${gatheringName} 이미지`}
-            className="tablet:h-full h-40 w-full object-cover"
+            className="tablet:h-[160px] h-40 w-full object-cover"
             sizes="(max-width: 744px) 100vw, 280px"
             priority
           />
@@ -80,6 +82,8 @@ export const MyPageGatheringCard = ({
                 <h3 className="text-base font-semibold text-black">{gatheringName}</h3>
                 <span>|</span>
                 <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
+                <span>|</span>
+                <span className="text-sm font-medium text-gray-700">{gatheringType}</span>
               </div>
 
               <div className="flex items-center gap-2">
