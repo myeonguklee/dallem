@@ -1,12 +1,13 @@
 'use client';
 
-// import { Suspense } from 'react';
+import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { FavoritesList } from '@/entities/favorites/ui/FavoritesList';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
+import { FavoritesSkeletonList } from '@/widgets/FavoritesSkeleton';
 
 export default function FavoritesPage() {
   const t = useTranslations('pages.favorites');
@@ -25,7 +26,9 @@ export default function FavoritesPage() {
 
       <TypeFilterGroup />
 
-      <FavoritesList type={type} />
+      <Suspense fallback={<FavoritesSkeletonList />}>
+        <FavoritesList type={type} />
+      </Suspense>
     </div>
   );
 }

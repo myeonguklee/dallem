@@ -303,7 +303,14 @@
       "scoreLoadError": "score Loading Error .."
     },
     "favorites": {
-      "title": "Favorites Page"
+      "title": "Favorites Page",
+      "subTitle": "Join now before the deadline!",
+      "run": "Dallaemfit",
+      "workation": "Workation",
+      "all": "All",
+      "officeStretching": "Office Stretching",
+      "mindFulness": "Mindfulness",
+      "noFavorites": "No favorites found."
     }
   },
   "errors": {
