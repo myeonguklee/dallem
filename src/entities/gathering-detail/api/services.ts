@@ -8,9 +8,13 @@ export const getGatheringById = async (id: number): Promise<GatheringDetail> => 
 
 // 모임 참여 join
 export const joinGathering = async (gatheringId: number): Promise<void> => {
-  await httpClient.post<void>(API_ENDPOINTS.GATHERINGS.JOIN(gatheringId), {
-    authRequired: true,
-  });
+  await httpClient.post<void>(
+    API_ENDPOINTS.GATHERINGS.JOIN(gatheringId),
+    {},
+    {
+      authRequired: true,
+    },
+  );
 };
 
 // 모임 참여 취소 leave
@@ -22,7 +26,11 @@ export const leaveGathering = async (gatheringId: number): Promise<void> => {
 
 // 모임 취소 cancel
 export const cancelGathering = async (gatheringId: number): Promise<void> => {
-  await httpClient.put<void>(API_ENDPOINTS.GATHERINGS.CANCEL(gatheringId), {
-    authRequired: true,
-  });
+  await httpClient.put<void>(
+    API_ENDPOINTS.GATHERINGS.CANCEL(gatheringId),
+    {},
+    {
+      authRequired: true,
+    },
+  );
 };
