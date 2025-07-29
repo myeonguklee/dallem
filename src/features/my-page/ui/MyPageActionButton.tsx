@@ -18,7 +18,7 @@ export const MyPageActionButton = ({
   isCompleted,
   isReviewed,
 }: MyPageActionButtonProps) => {
-  const t = useTranslations('myPage.actionButton');
+  const t = useTranslations('pages.myPage.actionButton');
   const { mutate: leaveGathering } = useLeaveGathering();
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 

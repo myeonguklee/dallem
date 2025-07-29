@@ -3,6 +3,7 @@ import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { useGetUser } from '@/entities/user/api/queries';
 import { ROUTES } from '@/shared/config/routes';
 import { ProfileImage } from '@/shared/ui/ProfileImage';
 import { Dropdown, DropdownItem, DropdownList, DropdownTrigger } from '@/shared/ui/dropdown';
@@ -11,6 +12,7 @@ import { HeaderLink } from './HeaderLink';
 type Props = { session: Session | null; status: string };
 
 const HeaderProfileDropdownMenu = ({ session, status }: Props) => {
+  console.log({ session });
   const router = useRouter();
   const handleClickSignOut = async () => {
     await signOut({ redirect: true });
@@ -18,6 +20,7 @@ const HeaderProfileDropdownMenu = ({ session, status }: Props) => {
   };
 
   const t = useTranslations('navigation');
+  const { data: user } = useGetUser();
 
   return (
     <Dropdown>
@@ -30,7 +33,7 @@ const HeaderProfileDropdownMenu = ({ session, status }: Props) => {
             className="flex w-fit items-center justify-center rounded-full px-0 py-0 transition-colors hover:border-gray-300 hover:bg-gray-50"
           >
             <ProfileImage
-              url={session?.user?.image}
+              url={user?.image}
               size={40}
             />
           </DropdownTrigger>

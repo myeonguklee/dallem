@@ -67,7 +67,7 @@ export const MobileGNB = () => {
         className={clsx(
           'fixed top-0 left-0 z-[var(--z-drawer)] h-full bg-white shadow transition-transform duration-300',
           open ? 'translate-x-0' : '-translate-x-full',
-          locale === 'ko' ? 'w-30' : 'w-45',
+          locale === 'ko' ? 'w-40' : 'w-45',
         )}
       >
         <div className="flex h-14 items-center justify-end p-4">

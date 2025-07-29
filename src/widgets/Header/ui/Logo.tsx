@@ -14,7 +14,7 @@ export const Logo = ({ className }: LogoProps) => {
   const locale = useLocale();
   return (
     <Link
-      href={ROUTES.ROOT}
+      href={ROUTES.GATHERING}
       locale={locale}
     >
       <span className={cn('text-primary text-2xl font-extrabold', className)}>{t('brand')}</span>
