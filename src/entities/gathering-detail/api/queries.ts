@@ -61,6 +61,9 @@ export const useLeaveGathering = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
       });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.gathering.joined(),
+      });
     },
     onError: (error) => {
       console.error(error);
