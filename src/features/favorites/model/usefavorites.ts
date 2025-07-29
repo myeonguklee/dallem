@@ -3,14 +3,17 @@
 import { useEffect, useState } from 'react';
 import { isFavorite, toggleFavorite } from './favoritesStorage';
 
-export const useFavoritesAction = (id: number) => {
+export const useFavoritesAction = (id?: number) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    setIsLiked(isFavorite(id));
+    if (id !== undefined) {
+      setIsLiked(isFavorite(id));
+    }
   }, [id]);
 
   const handleFavoritesStorage = () => {
+    if (id === undefined) return;
     toggleFavorite(id);
     setIsLiked(!isLiked);
   };
