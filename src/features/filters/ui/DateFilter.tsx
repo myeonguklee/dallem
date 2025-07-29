@@ -69,7 +69,7 @@ export const DateFilter = () => {
     const params = new URLSearchParams(searchParams);
     params.delete('date');
     router.push({
-      pathname: '/gathering',
+      pathname: pathname as '/reviews' | '/gathering' | '/favorites',
       query: Object.fromEntries(params.entries()),
     });
     setCalendarOpen(false);

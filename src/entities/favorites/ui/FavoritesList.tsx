@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { GatheringCard } from '@/widgets/GatheringCard/ui';
@@ -11,23 +11,25 @@ interface FavoritesListProps {
 }
 
 export const FavoritesList = ({ type }: FavoritesListProps) => {
-  const [favoriteIds, setFavoriteIds] = useState<number[]>(() => getFavoriteList());
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
 
-  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useGetFavoritesGathering({
+  useEffect(() => {
+    const ids = getFavoriteList(); // localStorage 접근
+    setFavoriteIds(ids);
+  }, []);
+
+  // favoriteIds가 변경되면 수동으로 쿼리 무효화
+  const { data, fetchNextPage, hasNextPage, isFetching } = useGetFavoritesGathering({
     type,
     favoriteIds,
+    enabled: favoriteIds.length > 0,
   });
 
   const allGatherings = data?.pages.flatMap((page) => page.items) ?? [];
-  // 4. 찜 해제 함수: 로컬 스토리지와 state만 변경!
+
   const handleToggleFavorite = (toggledId: number) => {
-    // 컴포넌트의 state 업데이트 -> 이로 인해 쿼리 키가 변경되고 React Query가 자동 리프레시!
     setFavoriteIds((prev) => prev.filter((id) => id !== toggledId));
   };
-
-  if (isLoading) {
-    return <div className="py-8 text-center">목록을 불러오는 중...</div>;
-  }
 
   return (
     <>
@@ -52,16 +54,18 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
             ))
           ) : (
             <div className="flex items-center justify-center py-8">
-              <p className="text-gray-500">데이터가 없습니다</p>
+              <p className="text-gray-500">찜한 목록이 없습니다.</p>
             </div>
           )}
         </div>
 
-        <InfiniteScrollObserver
-          onFetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetching}
-        />
+        {allGatherings.length > 0 && (
+          <InfiniteScrollObserver
+            onFetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetching}
+          />
+        )}
       </div>
     </>
   );
