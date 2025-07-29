@@ -8,7 +8,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { AvatarGroup } from './AvatarGroup';
 
 type ContainerInformationProps = {
-  id: number;
+  id?: number;
   title: string;
   location: string;
   date: string; // e.g. '1월 7일'
@@ -45,10 +45,10 @@ export const ContainerInformation = ({
   id,
 }: ContainerInformationProps) => {
   const { isLiked, handleFavoritesStorage } = useFavoritesAction(id);
-  // const [isLiked, setIsLiked] = useState(false);
   const isConfirmed = participants.length >= minParticipants;
   const visibleAvatars = participants.slice(0, 4).map((p) => p.image);
   const extraCount = participants.length > 4 ? participants.length - 4 : 0;
+  console.log(isLiked, ' 좋냐!');
 
   return (
     <div className={containerInformationVariants({ size })}>
