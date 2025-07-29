@@ -28,7 +28,7 @@ export const ReviewList = ({ id }: { id: number }) => {
 
   if (isEmpty) {
     return (
-      <div className="flex h-full flex-grow items-center justify-center">
+      <div className="mt-10 flex h-full flex-grow justify-center">
         <p className="text-gray-500">아직 리뷰가 없어요.</p>
       </div>
     );
