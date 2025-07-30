@@ -103,6 +103,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         </div>
         {/* ContainerInformation 컴포넌트 */}
         <ContainerInformation
+          id={id}
           title={gathering.name || '제목 없음'}
           location={gathering.location}
           date={formattedDate}
