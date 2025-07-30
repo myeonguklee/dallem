@@ -12,6 +12,9 @@ jobs:
   test:
     name: Run CI Checks
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_TEAM_ID: ${{ secrets.NEXT_PUBLIC_TEAM_ID }}
 
     steps:
       - name: Checkout code
