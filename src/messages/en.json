@@ -135,6 +135,8 @@
       "noGatherings": "No gatherings available",
       "loading": "Loading...",
       "loadingMore": "Loading more...",
+      "loginRequired": "This service requires login.",
+      "loginButton": "Login",
       "header": {
         "subtitle": "Don't have anyone to join with?",
         "title": "Join a gathering now"

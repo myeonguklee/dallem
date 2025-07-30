@@ -1,9 +1,24 @@
 // API 설정
 
 export const API_CONFIG = {
-  BASE_URL: (teamId: string) =>
-    process.env.NEXT_PUBLIC_API_URL ||
-    `https://fe-adv-project-together-dallaem.vercel.app/${teamId}`,
+  BASE_URL: () => {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_URL || 'https://fe-adv-project-together-dallaem.vercel.app';
+    const teamId = process.env.NEXT_PUBLIC_TEAM_ID;
+
+    // 개발 환경에서만 기본값 허용
+    if (process.env.NODE_ENV === 'development' && !teamId) {
+      console.warn('⚠️ NEXT_PUBLIC_TEAM_ID가 설정되지 않아 기본값(1)을 사용합니다.');
+      return `${baseUrl}/1`;
+    }
+
+    // 프로덕션에서는 엄격하게 체크
+    if (!teamId) {
+      throw new Error('NEXT_PUBLIC_TEAM_ID 환경변수가 설정되지 않았습니다.');
+    }
+
+    return `${baseUrl}/${teamId}`;
+  },
   TIMEOUT: 10000, // 10초
 } as const;
 

@@ -36,16 +36,14 @@ export const ReviewCard = ({
       )}
     >
       {/*  이미지 영역 */}
-      {reviewImg && (
-        <div className="tablet:w-72 tablet:h-auto relative h-[156px] w-full flex-shrink-0 overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
-          <Image
-            src={reviewImg}
-            alt={gatheringName ?? '모임 이미지'}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="tablet:w-72 tablet:h-auto relative h-[156px] w-full flex-shrink-0 overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
+        <Image
+          src={reviewImg || '/gathering-default-image.png'}
+          alt={gatheringName ?? '모임 이미지'}
+          fill
+          className="object-cover"
+        />
+      </div>
 
       {/*  내용 영역 */}
       <div className="tablet:mt-0 mt-6 flex flex-col space-y-2">

@@ -48,6 +48,7 @@ export function ReviewsContent() {
                 <MyPageGatheringCard
                   key={gathering.id}
                   gatheringId={gathering.id}
+                  gatheringType={gathering.type}
                   gatheringName={gathering.name}
                   gatheringLocation={gathering.location}
                   gatheringDateTime={new Date(gathering.dateTime)}

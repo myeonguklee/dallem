@@ -14,14 +14,16 @@ export function parseGatheringFiltersFromSearchParams(searchParams: {
   } else {
     filters.type = 'DALLAEMFIT'; // 기본값
   }
-
   if (typeof searchParams.location === 'string')
     filters.location = searchParams.location as GatheringFilters['location'];
   if (typeof searchParams.date === 'string') filters.date = searchParams.date;
   if (typeof searchParams.createdBy === 'string')
     filters.createdBy = Number(searchParams.createdBy);
-  if (typeof searchParams.sortBy === 'string')
+  if (typeof searchParams.sortBy === 'string') {
     filters.sortBy = searchParams.sortBy as GatheringFilters['sortBy'];
+  } else {
+    filters.sortBy = 'registrationEnd';
+  }
   if (typeof searchParams.sortOrder === 'string')
     filters.sortOrder = searchParams.sortOrder as GatheringFilters['sortOrder'];
 

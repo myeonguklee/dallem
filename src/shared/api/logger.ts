@@ -21,7 +21,6 @@ export const logResponse = (response: AxiosResponse) => {
       `✅ API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`,
     );
     console.log('Status:', response.status);
-    console.log('Data:', response.data);
     console.groupEnd();
   }
 };

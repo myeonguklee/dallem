@@ -47,12 +47,13 @@ jest.mock('@/features/gathering/ui/MyPageActionButton', () => ({
 
 const mockGatheringData = {
   gatheringId: 1,
+  gatheringType: '워케이션',
   gatheringName: '달램핏 오피스 스트레칭',
   gatheringLocation: '을지로 3가',
   gatheringDateTime: new Date('2024-01-07T17:30:00'),
   gatheringParticipantCount: 20,
   gatheringCapacity: 20,
-  gatheringImage: 'https://example.com/image.jpg',
+  gatheringImage: '/gathering-default-image.png',
   isCanceled: false,
 };
 

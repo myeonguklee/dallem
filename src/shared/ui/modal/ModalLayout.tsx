@@ -4,11 +4,11 @@ import { Button } from '../button';
 import { ModalBase } from './ModalBase';
 
 const Header = ({ children }: { children: React.ReactNode }) => (
-  <h3 className="mb-4 text-left break-words">{children}</h3>
+  <h3 className="text-left break-words">{children}</h3>
 );
 
 const Body = ({ children }: { children: React.ReactNode }) => (
-  <div className="mb-4 overflow-y-auto">{children}</div>
+  <div className="mt-4 overflow-y-auto">{children}</div>
 );
 
 interface ModalFooterProps {
@@ -26,7 +26,7 @@ const Footer = ({
   onPrimaryClick,
   onSecondaryClick,
 }: ModalFooterProps) => (
-  <div className="mt-6 flex items-center justify-between gap-2">
+  <div className="mt-4 flex items-center justify-between gap-2">
     {children}
     {secondaryButtonText && (
       <Button

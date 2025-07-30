@@ -24,10 +24,12 @@ export const useJoinGathering = () => {
     onSuccess: (_, gatheringId) => {
       // 뮤테이션 성공 시
       toast.success('모임 참여가 완료되었습니다.');
-
       // 모임 상세 정보 쿼리를 무효화
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.gathering.detail(gatheringId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.gathering.joined(),
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.participant.list(gatheringId),
@@ -56,13 +58,13 @@ export const useLeaveGathering = () => {
         queryKey: QUERY_KEYS.gathering.detail(gatheringId),
       });
       queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.gathering.joined(),
+      });
+      queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.participant.list(gatheringId),
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.gathering.joined(),
       });
     },
     onError: (error) => {
@@ -77,9 +79,9 @@ export const useCancelGathering = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (gatheringId: number) => cancelGathering(gatheringId),
-    onSuccess: (_, gatheringId) => {
+    onSuccess: () => {
       toast.success('모임이 취소되었습니다.');
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.detail(gatheringId) });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
     },
     onError: (error) => {
       console.error(error);

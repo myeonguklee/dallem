@@ -135,6 +135,8 @@
       "noGatherings": "모임이 없습니다",
       "loading": "로딩 중...",
       "loadingMore": "더 불러오는 중...",
+      "loginRequired": "로그인이 필요한 서비스 입니다.",
+      "loginButton": "로그인 하기",
       "header": {
         "subtitle": "함께 할 사람이 없나요?",
         "title": "지금 모임에 참여해보세요"
