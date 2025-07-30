@@ -48,8 +48,8 @@ export const GatheringCard = ({
         <div className="tablet:w-[280px] relative w-full">
           <Image
             src={gatheringImage || '/gathering-default-image.png'}
-            width={400}
-            height={224}
+            width={280}
+            height={160}
             alt={`${gatheringName} 이미지`}
             className="tablet:h-[160px] h-40 w-full object-cover"
             sizes="(max-width: 744px) 100vw, 280px"
