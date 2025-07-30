@@ -45,7 +45,6 @@ export const ContainerInformation = ({
   id,
 }: ContainerInformationProps) => {
   const { isLiked, handleFavoritesStorage } = useFavoritesAction(id);
-  // const [isLiked, setIsLiked] = useState(false);
   const isConfirmed = participants.length >= minParticipants;
   const visibleAvatars = participants.slice(0, 4).map((p) => p.image);
   const extraCount = participants.length > 4 ? participants.length - 4 : 0;
