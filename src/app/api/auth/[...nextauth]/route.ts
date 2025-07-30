@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 // import { decode as jwtDecode, encode as jwtEncode } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { signinApi, signoutApi } from '@/entities/auth/api/services';
-import { TEST_TEAM_ID } from '@/shared/api/httpClient';
 import { API_CONFIG, API_ENDPOINTS } from '@/shared/config';
 
 const handler = NextAuth({
@@ -69,12 +68,9 @@ const handler = NextAuth({
         token.accessToken = user.token;
 
         try {
-          const userInfoResponse = await fetch(
-            API_CONFIG.BASE_URL(TEST_TEAM_ID) + API_ENDPOINTS.AUTH.USER,
-            {
-              headers: { Authorization: `Bearer ${user.token}` },
-            },
-          );
+          const userInfoResponse = await fetch(API_CONFIG.BASE_URL() + API_ENDPOINTS.AUTH.USER, {
+            headers: { Authorization: `Bearer ${user.token}` },
+          });
 
           if (!userInfoResponse.ok) {
             console.error('Failed to fetch user info:', userInfoResponse.status);

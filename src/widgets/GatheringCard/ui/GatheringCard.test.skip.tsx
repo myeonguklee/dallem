@@ -51,7 +51,7 @@ const mockGatheringData = {
   gatheringRegistrationEnd: new Date('2024-01-20T21:00:00'),
   gatheringParticipantCount: 8,
   gatheringCapacity: 20,
-  gatheringImage: 'https://example.com/image.jpg',
+  gatheringImage: '/gathering-default-image.png',
   isCanceled: false,
 };
 

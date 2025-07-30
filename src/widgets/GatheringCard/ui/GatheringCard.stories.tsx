@@ -95,8 +95,7 @@ export const Default: Story = {
     gatheringRegistrationEnd: getFutureDate(7, 21, 0), // 7일 후 21:00 마감
     gatheringParticipantCount: 8,
     gatheringCapacity: 20,
-    gatheringImage:
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=224&fit=crop&crop=center&q=80',
+    gatheringImage: '/gathering-default-image.png',
     isCanceled: false,
   },
 };
@@ -178,8 +177,7 @@ export const DifferentType: Story = {
     gatheringType: '스터디',
     gatheringName: 'React 스터디',
     gatheringLocation: '강남역',
-    gatheringImage:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=224&fit=crop&crop=center&q=80',
+    gatheringImage: '/gathering-default-image.png',
     gatheringRegistrationEnd: getFutureDate(5, 19, 30), // 5일 후 19:30 마감
   },
 };

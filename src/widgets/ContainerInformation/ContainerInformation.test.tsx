@@ -56,6 +56,7 @@ describe('ContainerInformation', () => {
   it('좋아요 버튼 클릭 시 아이콘 상태가 토글된다', () => {
     render(
       <ContainerInformation
+        id={1}
         title="테스트 모임"
         location="서울 강남"
         date="1월 7일"

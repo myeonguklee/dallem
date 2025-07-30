@@ -89,10 +89,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         {/* Gathering Banner */}
         <div className="relative h-[270px] w-[486px] overflow-hidden rounded-xl">
           <Image
-            src={
-              gathering.image ||
-              'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG'
-            }
+            src={gathering.image || '/gathering-default-image.png'}
             alt={'alt'}
             fill
             className="object-cover"
@@ -103,6 +100,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         </div>
         {/* ContainerInformation 컴포넌트 */}
         <ContainerInformation
+          id={id}
           title={gathering.name || '제목 없음'}
           location={gathering.location}
           date={formattedDate}

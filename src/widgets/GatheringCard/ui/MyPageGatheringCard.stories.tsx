@@ -35,8 +35,7 @@ const baseGatheringData = {
   gatheringDateTime: new Date('2026-01-07T17:30:00'),
   gatheringParticipantCount: 20,
   gatheringCapacity: 20,
-  gatheringImage:
-    'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=224&fit=crop&crop=center&q=80',
+  gatheringImage: '/gathering-default-image.png',
   isCanceled: false,
   joinedAt: new Date('2025-07-26T11:40:53.743Z'),
   isCompleted: false,

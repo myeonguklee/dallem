@@ -10,6 +10,7 @@ import { PersonIcon } from '@/shared/ui/icon';
 
 interface MyPageGatheringCardProps {
   gatheringId: number;
+  gatheringType: string;
   gatheringName: string;
   gatheringLocation: string;
   gatheringDateTime: Date;
@@ -25,6 +26,7 @@ interface MyPageGatheringCardProps {
 
 export const MyPageGatheringCard = ({
   gatheringId,
+  gatheringType,
   gatheringName,
   gatheringLocation,
   gatheringDateTime,
@@ -40,73 +42,74 @@ export const MyPageGatheringCard = ({
   const locale = useLocale();
 
   return (
-    <div className="rounded-common tablet:flex-row relative flex w-full max-w-[996px] flex-col gap-4">
+    <div className="rounded-common tablet:flex-row relative flex w-full flex-col gap-1 overflow-hidden border border-gray-200 bg-white">
       {/* eslint-disable @typescript-eslint/no-explicit-any */}
       <Link
         href={ROUTES.GATHERING_DETAIL(gatheringId) as any}
         locale={locale}
       >
-        <div className="rounded-common tablet:w-[280px] relative w-full overflow-hidden">
+        <div className="tablet:w-[280px] relative w-full">
           <Image
-            src={
-              gatheringImage ||
-              'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=224&fit=crop&crop=center&q=80'
-            }
+            src={gatheringImage || '/gathering-default-image.png'}
             width={400}
             height={224}
             alt={`${gatheringName} 이미지`}
-            className="tablet:h-full h-40 w-full object-cover"
+            className="tablet:h-[160px] h-40 w-full object-cover"
             sizes="(max-width: 744px) 100vw, 280px"
             priority
           />
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col justify-between gap-4">
-        <Link
-          href={ROUTES.GATHERING_DETAIL(gatheringId) as any}
-          locale={locale}
-        >
-          <div className="flex items-start justify-between">
-            <div className="flex flex-col gap-2">
-              {/* 상태 칩들 */}
-              <GatheringStatusChip
-                gatheringDateTime={gatheringDateTime}
-                participantCount={gatheringParticipantCount}
-              />
+      <div className="flex-1">
+        <div className="flex flex-col justify-between gap-4 p-2">
+          <Link
+            href={ROUTES.GATHERING_DETAIL(gatheringId) as any}
+            locale={locale}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-1">
+                {/* 상태 칩들 */}
+                <GatheringStatusChip
+                  gatheringDateTime={gatheringDateTime}
+                  participantCount={gatheringParticipantCount}
+                />
 
-              {/* 모임 타입과 장소 */}
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-semibold text-black">{gatheringName}</h3>
-                <span>|</span>
-                <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
-              </div>
+                {/* 모임 타입과 장소 */}
+                <div className="flex items-center gap-1">
+                  <h3 className="text-base font-semibold text-black">{gatheringName}</h3>
+                  <span>|</span>
+                  <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
+                  <span>|</span>
+                  <span className="text-sm font-medium text-gray-700">{gatheringType}</span>
+                </div>
 
-              <div className="flex items-center gap-2">
-                {/* 모임 날짜 시간 정보 */}
-                <GatheringDateTimeDisplay dateTime={gatheringDateTime} />
-
-                {/* 참여자 수 */}
                 <div className="flex items-center gap-2">
-                  <PersonIcon />
-                  <span className="text-sm text-black">
-                    {gatheringParticipantCount}/{gatheringCapacity}
-                  </span>
+                  {/* 모임 날짜 시간 정보 */}
+                  <GatheringDateTimeDisplay dateTime={gatheringDateTime} />
+
+                  {/* 참여자 수 */}
+                  <div className="flex items-center gap-2">
+                    <PersonIcon />
+                    <span className="text-sm text-black">
+                      {gatheringParticipantCount}/{gatheringCapacity}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
 
-        <div className="flex w-full items-end">
-          {/* 액션 버튼 */}
-          {!isCanceled && isActionButtonVisible && (
-            <MyPageActionButton
-              gatheringId={gatheringId}
-              isCompleted={isCompleted}
-              isReviewed={isReviewed}
-            />
-          )}
+          <div className="flex w-full">
+            {/* 액션 버튼 */}
+            {!isCanceled && isActionButtonVisible && (
+              <MyPageActionButton
+                gatheringId={gatheringId}
+                isCompleted={isCompleted}
+                isReviewed={isReviewed}
+              />
+            )}
+          </div>
         </div>
       </div>
 

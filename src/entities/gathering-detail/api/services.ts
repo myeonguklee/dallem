@@ -1,5 +1,4 @@
 import { httpClient } from '@/shared/api';
-import { TEST_TEAM_ID } from '@/shared/api/httpClient';
 import { API_ENDPOINTS } from '@/shared/config/api';
 import { GatheringDetail } from '../model/types';
 
@@ -11,9 +10,7 @@ export const getGatheringById = async (id: number): Promise<GatheringDetail> => 
 export const joinGathering = async (gatheringId: number): Promise<void> => {
   await httpClient.post<void>(
     API_ENDPOINTS.GATHERINGS.JOIN(gatheringId),
-    // 팀 아이디는 임시로 1로 설정
-
-    { teamId: TEST_TEAM_ID, id: gatheringId },
+    {},
     {
       authRequired: true,
     },
@@ -31,7 +28,7 @@ export const leaveGathering = async (gatheringId: number): Promise<void> => {
 export const cancelGathering = async (gatheringId: number): Promise<void> => {
   await httpClient.put<void>(
     API_ENDPOINTS.GATHERINGS.CANCEL(gatheringId),
-    { teamId: TEST_TEAM_ID, id: gatheringId },
+    {},
     {
       authRequired: true,
     },

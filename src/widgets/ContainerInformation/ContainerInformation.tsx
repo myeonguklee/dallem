@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useFavoritesAction } from '@/features/favorites/model/usefavorites';
 import { InfoChip, StateChip } from '@/shared/ui/chip';
 import { LikeIcon, UnlikeIcon } from '@/shared/ui/icon';
 import { ProgressBar } from '@/shared/ui/progressbar';
@@ -8,6 +8,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { AvatarGroup } from './AvatarGroup';
 
 type ContainerInformationProps = {
+  id?: number;
   title: string;
   location: string;
   date: string; // e.g. '1월 7일'
@@ -41,8 +42,9 @@ export const ContainerInformation = ({
   maxParticipants,
   minParticipants,
   size,
+  id,
 }: ContainerInformationProps) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const { isLiked, handleFavoritesStorage } = useFavoritesAction(id);
   const isConfirmed = participants.length >= minParticipants;
   const visibleAvatars = participants.slice(0, 4).map((p) => p.image);
   const extraCount = participants.length > 4 ? participants.length - 4 : 0;
@@ -66,7 +68,7 @@ export const ContainerInformation = ({
         {/* 우측 상단 좋아요 */}
         <div className="flex">
           <button
-            onClick={() => setIsLiked((prev) => !prev)}
+            onClick={handleFavoritesStorage}
             className="cursor-pointer"
             aria-label={isLiked ? '좋아요 취소' : '좋아요'}
           >
