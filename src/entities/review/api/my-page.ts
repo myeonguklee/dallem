@@ -93,7 +93,7 @@ export const useCreateReview = () => {
     mutationFn: (payload) => createReview(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.review.base });
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.joined() });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
     },
   });
 };
