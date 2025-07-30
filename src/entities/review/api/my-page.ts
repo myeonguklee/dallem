@@ -1,6 +1,7 @@
 import { GatheringLocation, GatheringType } from '@/entities/gathering/model/types';
 import { CreateReviewPayload } from '@/entities/review/model/schemas';
 import { ApiError, httpClient } from '@/shared/api';
+import { QUERY_KEYS } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -70,12 +71,12 @@ export const createReview = (payload: CreateReviewPayload): Promise<CreateReview
 };
 
 // queryKeys.ts
-export const QUERY_KEYS = {
-  review: {
-    base: ['reviews'] as const,
-    list: (params: GetReviewsParams) => [...QUERY_KEYS.review.base, 'list', params] as const,
-  },
-};
+// export const QUERY_KEYS = {
+//   review: {
+//     base: ['reviews'] as const,
+//     list: (params: GetReviewsParams) => [...QUERY_KEYS.review.base, 'list', params] as const,
+//   },
+// };
 
 // queries.ts
 export const useGetReviews = (params: GetReviewsParams, options?: { enabled?: boolean }) => {
@@ -92,6 +93,7 @@ export const useCreateReview = () => {
     mutationFn: (payload) => createReview(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.review.base });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.joined() });
     },
   });
 };

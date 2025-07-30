@@ -42,7 +42,7 @@ export const MyPageActionButton = ({
         <Button
           variant="outline"
           onClick={handleCancelReservation}
-          className="border-orange-500 text-orange-500 hover:bg-orange-50"
+          className="border-orange-500 px-3 py-1.5 text-orange-500 hover:bg-orange-50"
         >
           {t('cancelReservation')}
         </Button>
@@ -51,7 +51,7 @@ export const MyPageActionButton = ({
         <Button
           variant="primary"
           onClick={handleWriteReview}
-          className="bg-orange-500 text-white hover:bg-orange-600"
+          className="bg-orange-500 px-3 py-1.5 text-white hover:bg-orange-600"
         >
           {t('writeReview')}
         </Button>

@@ -64,6 +64,7 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
     <Modal.Root
       isOpen={isOpen}
       onClose={handleClose}
+      variant="dialog"
     >
       <Modal.Header>
         <span className="text-lg font-bold">{t('title')}</span>
@@ -74,7 +75,9 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
           className="space-y-6"
         >
           <div>
-            <div className="mb-2 text-base font-semibold text-gray-900">{t('question')}</div>
+            <div className="mb-2 text-left text-base font-semibold text-gray-900">
+              {t('question')}
+            </div>
             <div className="mb-4 flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((score) => (
                 <button
@@ -95,23 +98,22 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
           </div>
 
           <div>
-            <div className="mb-2 text-base font-semibold text-gray-900">{t('commentLabel')}</div>
+            <div className="mb-2 text-left text-base font-semibold text-gray-900">
+              {t('commentLabel')}
+            </div>
             <textarea
               id="comment"
               {...register('comment')}
               rows={4}
-              className="w-full resize-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 shadow-sm focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none"
+              className="w-full resize-none rounded-md bg-gray-50 px-3 py-2 focus:outline-none"
               placeholder={t('commentPlaceholder')}
             />
             {errors.comment && (
               <p className="mt-1 text-sm text-red-600">{errors.comment.message}</p>
             )}
-            <div className="mt-2 rounded-md bg-gray-100 px-3 py-2 text-xs text-gray-500">
-              {t('commentHelpText')}
-            </div>
           </div>
 
-          <div className="mt-6 flex gap-3">
+          <div className="flex gap-3">
             <Button
               type="button"
               variant="outline"
