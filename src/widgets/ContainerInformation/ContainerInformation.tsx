@@ -48,7 +48,6 @@ export const ContainerInformation = ({
   const isConfirmed = participants.length >= minParticipants;
   const visibleAvatars = participants.slice(0, 4).map((p) => p.image);
   const extraCount = participants.length > 4 ? participants.length - 4 : 0;
-  console.log(isLiked, ' 좋냐!');
 
   return (
     <div className={containerInformationVariants({ size })}>
