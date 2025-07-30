@@ -21,8 +21,12 @@ export const getGatherings = async (filters?: GatheringFilters): Promise<Gatheri
     if (filters.createdBy !== undefined) params.append('createdBy', String(filters.createdBy));
     if (filters.sortBy) {
       params.append('sortBy', filters.sortBy);
-      // sortBy가 있으면 항상 desc로 정렬
-      params.append('sortOrder', 'desc');
+
+      if (filters.sortBy === 'registrationEnd') {
+        params.append('sortOrder', 'asc');
+      } else {
+        params.append('sortOrder', 'desc');
+      }
     }
     if (filters.limit !== undefined) params.append('limit', String(filters.limit));
     if (filters.offset !== undefined) params.append('offset', String(filters.offset));
