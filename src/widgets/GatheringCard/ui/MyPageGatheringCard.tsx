@@ -50,10 +50,7 @@ export const MyPageGatheringCard = ({
       >
         <div className="rounded-common tablet:w-[280px] relative w-full overflow-hidden">
           <Image
-            src={
-              gatheringImage ||
-              'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=224&fit=crop&crop=center&q=80'
-            }
+            src={gatheringImage || '/gathering-default-image.png'}
             width={400}
             height={224}
             alt={`${gatheringName} 이미지`}
