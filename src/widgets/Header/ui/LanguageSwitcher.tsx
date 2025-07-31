@@ -36,9 +36,8 @@ export const LanguageSwitcher = () => {
     startTransition(() => {
       // next-intl 동적 라우팅 사용시 타입 추론 불가능하여 명시적으로 any 타입 사용
       if (isDynamicRoute(pathname)) {
-        // 동적 라우트에서는 홈으로 이동
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        router.replace('/' as any, { locale: newLocale });
+        // 동적 라우트에서는 홈(모임 목록)으로 이동
+        router.replace('/gathering', { locale: newLocale });
       } else {
         // 정적 라우트에서는 현재 페이지 유지
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
