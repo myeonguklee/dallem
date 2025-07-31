@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    // 이미지 최적화 설정
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   // Turbopack 설정 (개발 환경)
   turbopack: {
@@ -25,11 +29,21 @@ const nextConfig: NextConfig = {
     },
   },
   // Webpack 설정 (빌드 환경)
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // SVG 처리
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+
+    // Web Worker 설정 (클라이언트 사이드만)
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+
     return config;
   },
 };

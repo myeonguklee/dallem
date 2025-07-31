@@ -56,14 +56,18 @@ const handler = NextAuth({
 
   events: {
     async signOut(message) {
-      console.log('User signed out:', message);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('User signed out:', message);
+      }
       await signoutApi();
     },
   },
   callbacks: {
     async jwt({ token, user }) {
       // user.token(=signinApi에서 받은 토큰)을 jwt token.accessToken에 저장
-      console.log({ token, user });
+      if (process.env.NODE_ENV === 'development') {
+        console.log({ token, user });
+      }
       if (user?.token) {
         token.accessToken = user.token;
 
@@ -78,7 +82,9 @@ const handler = NextAuth({
           }
 
           const userInfo = await userInfoResponse.json();
-          console.log('USER INFO', userInfo);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('USER INFO', userInfo);
+          }
           token.name = userInfo.name;
           token.id = userInfo.id;
           token.image = userInfo.image;
@@ -98,8 +104,10 @@ const handler = NextAuth({
       session.user.image = token.image;
       session.user.companyName = token.companyName;
 
-      console.log('SESSION - token exp', token.exp);
-      console.log('session.expires', token, token.exp, session.expires);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('SESSION - token exp', token.exp);
+        console.log('session.expires', token, token.exp, session.expires);
+      }
 
       return session;
     },

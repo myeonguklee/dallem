@@ -19,6 +19,7 @@ interface GatheringCardProps {
   gatheringCapacity: number;
   gatheringImage: string;
   isCanceled: boolean;
+  isFirstCard?: boolean;
   onToggle?: () => void;
 }
 
@@ -35,6 +36,7 @@ export const GatheringCard = ({
   gatheringCapacity,
   gatheringImage,
   isCanceled,
+  isFirstCard = false,
   onToggle,
 }: GatheringCardProps) => {
   const t = useTranslations('ui.gatheringCard');
@@ -52,8 +54,12 @@ export const GatheringCard = ({
             height={160}
             alt={`${gatheringName} 이미지`}
             className="tablet:h-[160px] h-40 w-full object-cover"
-            sizes="(max-width: 744px) 100vw, 280px"
-            priority
+            sizes="(max-width: 744px) 100vw, (max-width: 1024px) 50vw, 280px"
+            priority={isFirstCard}
+            fetchPriority={isFirstCard ? 'high' : 'auto'}
+            quality={isFirstCard ? 90 : 75}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           />
           {/* 모집 마감 시간 */}
           <GatheringDeadlineTag registrationEnd={gatheringRegistrationEnd} />

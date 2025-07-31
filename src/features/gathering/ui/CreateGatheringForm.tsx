@@ -4,6 +4,7 @@ import { useCreateGathering } from '@/entities/gathering/api/queries';
 import { CreateGatheringPayload, createGatheringSchema } from '@/entities/gathering/model/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldError, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import {
   GatheringCapacityField,
   GatheringDateField,
@@ -25,6 +26,7 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
   const [currentDateField, setCurrentDateField] = useState<'dateTime' | 'registrationEnd' | null>(
     null,
   );
+  const [isImageProcessing, setIsImageProcessing] = useState(false);
 
   const { isPending, mutate } = useCreateGathering();
 
@@ -50,6 +52,12 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
   });
 
   const onSubmit = (data: CreateGatheringPayload) => {
+    // 이미지 처리 중이면 제출 방지
+    if (isImageProcessing) {
+      toast.error(t('form.errors.imageProcessing'));
+      return;
+    }
+
     mutate(data, {
       onSuccess: () => {
         onClose();
@@ -98,6 +106,7 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
           setValue={setValue}
           error={errors.image as FieldError}
           watch={watch}
+          onProcessingChange={setIsImageProcessing}
         />
         <div className="flex w-full gap-4">
           <GatheringDateField
@@ -144,10 +153,10 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
         </button>
         <button
           type="submit"
-          className="bg-primary hover:bg-primary/80 flex-1 rounded-xl px-4 py-2 font-semibold text-white transition focus:outline-none"
-          disabled={isPending}
+          className="bg-primary hover:bg-primary/80 flex-1 rounded-xl px-4 py-2 font-semibold text-white transition focus:outline-none disabled:opacity-50"
+          disabled={isPending || isImageProcessing}
         >
-          {isPending ? t('pending') : t('submit')}
+          {isPending ? t('pending') : isImageProcessing ? t('imageProcessing') : t('submit')}
         </button>
       </div>
     </form>

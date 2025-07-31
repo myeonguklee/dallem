@@ -13,7 +13,6 @@ export const Header = () => {
   const t = useTranslations('navigation');
   const { status, data: session } = useSession();
   // const session = getSession();
-  console.log({ session }, status, session?.user?.id, session?.user.image);
 
   // useEffect(() => {
   //   if (status === 'authenticated' && session) {

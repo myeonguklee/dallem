@@ -153,6 +153,7 @@
         "pending": "Sending...",
         "submit": "Confirm",
         "cancel": "Cancel",
+        "imageProcessing": "Processing image...",
         "form": {
           "title": "Gathering Title",
           "titlePlaceholder": "Enter gathering title",
@@ -198,8 +199,22 @@
             "registrationEndRequired": "Please select the registration end date.",
             "registrationEndInvalid": "Registration deadline must be before the gathering date.",
             "capacityMin": "Please enter at least 5 participants.",
-            "imageType": "Only image files are allowed.",
-            "imageEmpty": "Image file is empty."
+            "imageType": "Only image files can be uploaded",
+            "imageEmpty": "Image file is empty",
+            "imageProcessing": "Image is being processed. Please try again after completion.",
+            "fileSize": "File size is too large. (Maximum 20MB)",
+            "unsupportedType": "Unsupported image format. (Only JPEG, PNG, WebP, GIF supported)",
+            "processing": "Image is being processed. Please try again later.",
+            "timeout": "Image processing timed out. Please try a smaller image.",
+            "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
+            "corrupted": "The image file is corrupted.",
+            "default": "An error occurred while processing the image."
+          },
+          "processing": {
+            "status": "Processing...",
+            "progress": "Processing image... {progress}%",
+            "complete": "Image processing complete!",
+            "waitMessage": "Image is being processed. Please submit the form after completion."
           }
         }
       }
@@ -250,18 +265,33 @@
         "submitError": "Failed to submit review"
       },
       "form": {
-        "companyName": "Company Name",
+        "companyName": "Company",
         "companyNamePlaceholder": "Enter your company name",
         "profileImage": "Profile Image",
-        "imagePlaceholder": "Select an image",
+        "imagePlaceholder": "Select image",
         "imageButton": "Select Image",
         "cancel": "Cancel",
         "submit": "Update Complete",
         "submitting": "Updating...",
+        "imageProcessing": "Processing image...",
         "errors": {
           "companyNameRequired": "Please enter your company name",
           "imageRequired": "Please select a profile image",
-          "imageType": "Please select a valid image file"
+          "imageType": "Please select a valid image file",
+          "imageProcessing": "Image is being processed. Please try again after completion.",
+          "fileSize": "File size is too large. (Maximum 20MB)",
+          "unsupportedType": "Unsupported image format. (Only JPEG, PNG, WebP, GIF supported)",
+          "processing": "Image is being processed. Please try again later.",
+          "timeout": "Image processing timed out. Please try a smaller image.",
+          "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
+          "corrupted": "The image file is corrupted.",
+          "default": "An error occurred while processing the image."
+        },
+        "processing": {
+          "status": "Processing...",
+          "progress": "Processing image... {progress}%",
+          "complete": "Image processing complete!",
+          "waitMessage": "Image is being processed. Please submit the form after completion."
         }
       },
       "actionButton": {
@@ -341,6 +371,30 @@
   },
   "metadata": {
     "title": "Dallem",
-    "description": "Create a healthy and vibrant work life through gatherings together"
+    "description": "Create a healthy and vibrant work life through gatherings together",
+    "gathering": {
+      "title": "Gathering List - Dallem",
+      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Dallem.",
+      "keywords": "gathering, office worker, health, exercise, stretching, mindfulness, workation, dallaemfit",
+      "ogImageAlt": "Dallem Gathering List"
+    },
+    "reviews": {
+      "title": "Gathering Reviews - Dallem",
+      "description": "Check out Dallem gathering reviews. Read real experiences from participants.",
+      "keywords": "gathering reviews, dallem, experiences, reviews, participant reviews",
+      "ogImageAlt": "Dallem Gathering Reviews"
+    },
+    "gatheringDetail": {
+      "titleTemplate": "{name} - Dallem",
+      "descriptionTemplate": "{name} - {type} gathering at {location} on {dateTime}. Join us!",
+      "keywords": "gathering, dallem, join, office worker, health",
+      "ogImageAlt": "{name} gathering"
+    },
+    "notFound": {
+      "gathering": {
+        "title": "Gathering Not Found",
+        "message": "The gathering you requested does not exist or has been deleted."
+      }
+    }
   }
 }
