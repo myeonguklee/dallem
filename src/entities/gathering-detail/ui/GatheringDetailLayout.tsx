@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
   useCancelGathering,
@@ -19,6 +20,8 @@ import { calculateGatheringRole } from '../model/calculateGatheringRole';
 import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id }: { id: number }) => {
+  const t = useTranslations('pages.gathering.detail');
+
   const { data: gathering } = useGetGatheringDetail(id);
   const {
     data: participantsData,
@@ -33,10 +36,10 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const router = useRouter();
 
   if (isParticipantsLoading) {
-    return <div>로딩 중...</div>;
+    return <div>{t('loadingParticipants')}</div>;
   }
   if (isParticipantsError || !participantsData) {
-    return <div>참여자 정보를 불러오는 데 실패했습니다.</div>;
+    return <div>{t('failedToLoadParticipants')}</div>;
   }
 
   // isPending 상태 값 활용하기전 임시 콘솔
@@ -55,7 +58,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
 
   const handleCancel = () => {
     // 윈도우 컨펌 대신 모달 or 알림 표시 x
-    if (window.confirm('정말로 모임을 취소하시겠습니까?')) {
+    if (window.confirm(t('confirmCancel'))) {
       cancel(id, {
         onSuccess: () => {
           // 성공 시 목록 페이지로 이동
@@ -69,7 +72,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
     // 공유하기 로직 구현
     // url링크 클립보드로 복사
     navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('모임 링크가 클립보드에 복사되었습니다!');
+      alert(t('copySuccess'));
     });
   };
 
@@ -84,16 +87,16 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime);
 
   return (
-    <div className="tablet:mb-[100px] mb-[200px] flex flex-col items-center px-4 py-8">
-      <section className="mb-8 flex w-full max-w-[996px] flex-col gap-4 md:flex-row">
+    <div className="tablet:mb-[100px] mb-[200px] flex w-[996px] flex-col px-4 py-8">
+      <section className="mx-auto mb-8 flex w-full max-w-[996px] flex-col gap-4 md:flex-row">
         {/* Gathering Banner */}
-        <div className="relative h-[270px] w-[486px] overflow-hidden rounded-xl">
+        <div className="relative h-[270px] w-full overflow-hidden rounded-xl md:h-auto md:min-w-0 md:flex-1">
           <Image
             src={gathering.image || '/gathering-default-image.png'}
             alt={'alt'}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 486px"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
           {/* Tag */}
           <GatheringDeadlineTag registrationEnd={new Date(gathering.registrationEnd)} />
@@ -111,15 +114,15 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         />
         {/* 리뷰 리스트 컴포넌트 */}
       </section>
-      <section className="h-[687px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
-        <h2 className="mb-4 text-xl font-semibold">이용자들은 이 프로그램을 이렇게 느꼈어요!</h2>
+      <section className="mx-auto h-[687px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
+        <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
         <ReviewList id={id} />
       </section>
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
         role={role}
-        title="더 건강한 프로그램"
-        content="국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
+        title={t('bottomBar.title')}
+        content={t('bottomBar.content')}
         isFull={isFull}
         onJoin={handleJoin}
         onCancelJoin={handleLeave}

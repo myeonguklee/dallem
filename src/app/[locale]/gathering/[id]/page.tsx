@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+<<<<<<< HEAD
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -59,6 +60,21 @@ export async function generateMetadata({
 export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
   const { id } = await params;
   const numericId = Number(id);
+=======
+import { Locale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
+
+interface GatheringDetailPageProps {
+  params: { locale: Locale; id: string };
+}
+
+export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
+  const t = await getTranslations({ locale: params.locale, namespace: 'pages.gathering.detail' });
+
+  const numericId = Number(params.id);
+>>>>>>> 368e53f (feat: 다국어 번역 적용)
   if (isNaN(numericId)) {
     notFound();
   }
@@ -66,7 +82,7 @@ export default async function GatheringDetailPage({ params }: GatheringDetailPag
     // 에러 바운더리 사용시 수정 예정
     // <ErrorBoundary fallback={<p>데이터를 불러오는 중 에러가 발생했습니다.</p>}>
     // </ErrorBoundary>
-    <Suspense fallback={<p>모임 정보를 불러오는 중...</p>}>
+    <Suspense fallback={<p>{t('loading')}</p>}>
       <GatheringDetailLayout id={numericId} />
     </Suspense>
   );
