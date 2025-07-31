@@ -1,6 +1,5 @@
 export function formatDateAndTime(isoString: string) {
   const date = new Date(isoString);
-  date.setHours(date.getHours() + 9); // KST 보정
 
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
