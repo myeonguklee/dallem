@@ -171,7 +171,7 @@ export class ImageResizer {
     return new Promise((resolve, reject) => {
       try {
         const worker = this.createWorker();
-        const timeoutId: NodeJS.Timeout = setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           reject({ code: 'TIMEOUT', message: '이미지 처리 시간이 초과되었습니다.' });
         }, 30000);
 
