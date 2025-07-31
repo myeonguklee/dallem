@@ -143,7 +143,7 @@ export const DateFilter = () => {
               }
             }}
             footer={calendarFooter}
-            className="absolute top-full left-0 z-50 mt-2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
+            className="tablet:left-0 tablet:translate-x-0 absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
           />
         </div>
       )}

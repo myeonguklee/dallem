@@ -36,12 +36,15 @@ export const ReviewCard = ({
       )}
     >
       {/*  이미지 영역 */}
-      <div className="tablet:w-72 tablet:h-auto relative h-[156px] w-full flex-shrink-0 overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
+
+      <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
         <Image
           src={reviewImg || '/gathering-default-image.png'}
           alt={gatheringName ?? '모임 이미지'}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
+          priority
         />
       </div>
 
@@ -68,7 +71,9 @@ export const ReviewCard = ({
                   src={userImg}
                   alt={userName ?? '유저 이미지'}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
+                  priority
                 />
               </div>
             )}
