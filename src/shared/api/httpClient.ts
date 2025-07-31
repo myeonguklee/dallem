@@ -28,7 +28,6 @@ axiosInstance.interceptors.request.use(async (config) => {
     if (IS_CLIENT) {
       const session = await getSession();
       const accessToken = session?.user?.accessToken;
-      console.log({ session });
       token = accessToken;
     } else {
       // const rawToken = await getToken({

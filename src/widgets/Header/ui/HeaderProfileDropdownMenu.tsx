@@ -11,8 +11,7 @@ import { HeaderLink } from './HeaderLink';
 
 type Props = { session: Session | null; status: string };
 
-const HeaderProfileDropdownMenu = ({ session, status }: Props) => {
-  console.log({ session });
+const HeaderProfileDropdownMenu = ({ status }: Props) => {
   const router = useRouter();
   const handleClickSignOut = async () => {
     await signOut({ redirect: true });

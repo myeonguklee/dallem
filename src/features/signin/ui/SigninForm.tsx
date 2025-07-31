@@ -34,9 +34,11 @@ export const SigninForm = () => {
       return;
     }
 
-    console.log('LOGIN', { result });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('LOGIN', { result });
+      console.log('[REFERRER]', document.referrer);
+    }
 
-    console.log('[REFERRER]', document.referrer);
     if (
       !document.referrer ||
       document.referrer.includes(ROUTES.SIGNIN) ||
