@@ -341,6 +341,30 @@
   },
   "metadata": {
     "title": "Dallem",
-    "description": "Create a healthy and vibrant work life through gatherings together"
+    "description": "Create a healthy and vibrant work life through gatherings together",
+    "gathering": {
+      "title": "Gathering List - Dallem",
+      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Dallem.",
+      "keywords": "gathering, office worker, health, exercise, stretching, mindfulness, workation, dallaemfit",
+      "ogImageAlt": "Dallem Gathering List"
+    },
+    "reviews": {
+      "title": "Gathering Reviews - Dallem",
+      "description": "Check out Dallem gathering reviews. Read real experiences from participants.",
+      "keywords": "gathering reviews, dallem, experiences, reviews, participant reviews",
+      "ogImageAlt": "Dallem Gathering Reviews"
+    },
+    "gatheringDetail": {
+      "titleTemplate": "{name} - Dallem",
+      "descriptionTemplate": "{name} - {type} gathering at {location} on {dateTime}. Join us!",
+      "keywords": "gathering, dallem, join, office worker, health",
+      "ogImageAlt": "{name} gathering"
+    },
+    "notFound": {
+      "gathering": {
+        "title": "Gathering Not Found",
+        "message": "The gathering you requested does not exist or has been deleted."
+      }
+    }
   }
 }

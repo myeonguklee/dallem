@@ -54,3 +54,8 @@ export const getGatheringsJoined = async (params?: MyGatheringParams): Promise<M
     authRequired: true,
   });
 };
+
+// 개별 모임 조회
+export const getGathering = async (id: number): Promise<Gathering> => {
+  return await httpClient.get<Gathering>(API_ENDPOINTS.GATHERINGS.DETAIL(id));
+};

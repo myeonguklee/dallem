@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
 import { ReviewFilterProps } from '@/entities/review/model/type';
 import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
+import { generateReviewsMetadata } from '@/lib/metadata';
 import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
 import { PencilIcon } from '@/shared/ui/icon';
 import { PageInfoLayout } from '@/shared/ui/pageInfoLayout';
@@ -15,6 +17,16 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 interface ReviewsPageProps {
   params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = await getMessages({ locale });
+  return generateReviewsMetadata(locale, messages);
 }
 
 export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
