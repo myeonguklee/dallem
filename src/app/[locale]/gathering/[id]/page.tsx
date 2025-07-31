@@ -5,7 +5,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
 import { getGathering } from '@/entities/gathering/api';
-import { generateGatheringDetailMetadata } from '@/lib/metadata';
+import { generateGatheringDetailMetadata } from '@/shared/lib';
 
 interface GatheringDetailPageProps {
   params: Promise<{ id: string; locale: Locale }>;
