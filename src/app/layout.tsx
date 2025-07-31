@@ -20,7 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={Pretendard.className}>
         {children}
-        <SpeedInsights />
+        {/* 배포 환경에서만 Speed Insights 활성화 */}
+        {process.env.NODE_ENV === 'production' && <SpeedInsights />}
       </body>
     </html>
   );
