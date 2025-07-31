@@ -25,9 +25,17 @@ export const GatheringDeadlineTag = ({ registrationEnd }: GatheringDeadlineTagPr
         break;
       }
       case diffInHours >= 0: {
-        // 오늘 마감이면 실제 마감 시간 표시
-        const endHours = end.getHours().toString().padStart(2, '0');
-        text = t('todayEnd', { time: endHours });
+        // 오늘 마감인지 확인 (같은 날짜인지 체크)
+        const isToday = now.toDateString() === end.toDateString();
+
+        if (isToday) {
+          // 오늘 마감이면 실제 마감 시간 표시
+          const endHours = end.getHours().toString().padStart(2, '0');
+          text = t('todayEnd', { time: endHours });
+        } else {
+          // 내일 마감이면 하루 남음으로 표시
+          text = t('daysLeft', { days: 1 });
+        }
         break;
       }
       default: {
