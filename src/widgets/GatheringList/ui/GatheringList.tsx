@@ -64,7 +64,7 @@ export function GatheringList({ initialGatherings, initialFilters }: GatheringLi
     <div className="flex flex-col gap-4">
       {allGatherings.length > 0 ? (
         <>
-          {allGatherings.map((gathering) => (
+          {allGatherings.map((gathering, index) => (
             <GatheringCard
               key={gathering.id}
               gatheringId={gathering.id}
@@ -77,6 +77,7 @@ export function GatheringList({ initialGatherings, initialFilters }: GatheringLi
               gatheringCapacity={gathering.capacity}
               gatheringImage={gathering.image}
               isCanceled={!!gathering.canceledAt}
+              isFirstCard={index === 0}
             />
           ))}
 
