@@ -1,10 +1,12 @@
+import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
 import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
 import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
 import { createQueryClient } from '@/shared/api/query/client';
+import { generateGatheringMetadata } from '@/shared/lib';
 import { DoubleHeartIcon } from '@/shared/ui/icon';
 import { GatheringList } from '@/widgets/GatheringList/ui/GatheringList';
 import { dehydrate } from '@tanstack/react-query';
@@ -12,6 +14,16 @@ import { dehydrate } from '@tanstack/react-query';
 interface GatheringPageProps {
   params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const messages = await getMessages({ locale });
+  return generateGatheringMetadata(locale, messages);
 }
 
 export default async function GatheringPage({ params, searchParams }: GatheringPageProps) {

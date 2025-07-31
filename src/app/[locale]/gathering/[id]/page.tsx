@@ -1,8 +1,62 @@
 import { Suspense } from 'react';
-import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
+import type { Metadata } from 'next';
+import { Locale } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
+import { getGathering } from '@/entities/gathering/api';
+import { generateGatheringDetailMetadata } from '@/shared/lib';
 
-export default async function GatheringDetailPage({ params }: { params: Promise<{ id: string }> }) {
+interface GatheringDetailPageProps {
+  params: Promise<{ id: string; locale: Locale }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string; locale: Locale }>;
+}): Promise<Metadata> {
+  const { id, locale } = await params;
+  const numericId = Number(id);
+
+  if (isNaN(numericId)) {
+    const messages = await getMessages({ locale });
+    const notFoundMetadata = messages.metadata.notFound.gathering as {
+      title: string;
+      message: string;
+    };
+    return {
+      title: notFoundMetadata.title,
+    };
+  }
+
+  try {
+    // 모임 데이터 가져오기
+    const gathering = await getGathering(numericId);
+    const messages = await getMessages({ locale });
+
+    return generateGatheringDetailMetadata(locale, messages, {
+      id: gathering.id,
+      name: gathering.name,
+      type: gathering.type,
+      location: gathering.location,
+      dateTime: gathering.dateTime,
+      image: gathering.image,
+    });
+  } catch {
+    // 모임을 찾을 수 없는 경우
+    const messages = await getMessages({ locale });
+    const notFoundMetadata = messages.metadata.notFound.gathering as {
+      title: string;
+      message: string;
+    };
+    return {
+      title: notFoundMetadata.title,
+    };
+  }
+}
+
+export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
   const { id } = await params;
   const numericId = Number(id);
   if (isNaN(numericId)) {
