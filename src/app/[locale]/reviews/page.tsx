@@ -29,6 +29,8 @@ export async function generateMetadata({
   return generateReviewsMetadata(locale, messages);
 }
 
+const sortOption = ['createdAt', 'score', 'participantCount'];
+
 export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'pages.reviews' });
@@ -76,6 +78,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         title={t('title')}
         subtitle={t('subTitle')}
       />
+
       <TypeFilterGroup />
       <HydrationProvider dehydratedState={dehydrate(queryClient)}>
         <Suspense fallback={t('loading')}>
@@ -83,7 +86,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         </Suspense>
         <div className="mb-4 flex items-center justify-between">
           <OptionsFiltersGroup
-            sortValue={['createdAt', 'score', 'participantCount']}
+            sortValue={sortOption}
             defaultSort="createdAt"
           />
         </div>

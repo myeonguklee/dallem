@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { cn, formatDateToYYYYMMDD } from '@/shared/lib';
@@ -14,7 +15,7 @@ export interface ReviewCardProps {
   location?: string;
 }
 
-export const ReviewCard = ({
+export const ReviewCard = React.memo(function ReviewCardMemo({
   score,
   comment,
   dateTime,
@@ -23,7 +24,7 @@ export const ReviewCard = ({
   userImg,
   gatheringName,
   location,
-}: ReviewCardProps) => {
+}: ReviewCardProps) {
   const displayDate = formatDateToYYYYMMDD(dateTime);
 
   return (
@@ -85,4 +86,4 @@ export const ReviewCard = ({
       </div>
     </article>
   );
-};
+});

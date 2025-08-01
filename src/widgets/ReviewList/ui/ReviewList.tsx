@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { getReviewList } from '@/entities/review/api/reviewApi';
 import { ReviewFilterProps, ReviewListResponse } from '@/entities/review/model/type';
@@ -35,7 +36,9 @@ export const ReviewList = ({ filters }: Props) => {
     });
 
   // 새로 창조된 data , 하나의 배열로 합치기
-  const allReviews = data.pages.flatMap((page) => page.data);
+  const allReviews = useMemo(() => {
+    return data.pages.flatMap((page) => page.data);
+  }, [data.pages]);
 
   if (allReviews.length === 0) {
     return <div>{t('noReview')} 😶</div>;
