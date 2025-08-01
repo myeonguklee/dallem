@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
@@ -28,9 +28,9 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
 
   const allGatherings = data?.pages.flatMap((page) => page.items) ?? [];
 
-  const handleToggleFavorite = (toggledId: number) => {
+  const handleToggleFavorite = useCallback((toggledId: number) => {
     setFavoriteIds((prev) => prev.filter((id) => id !== toggledId));
-  };
+  }, []);
 
   return (
     <>

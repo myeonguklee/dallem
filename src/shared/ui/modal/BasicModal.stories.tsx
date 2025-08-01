@@ -32,7 +32,6 @@ const ModalTemplet: Story['render'] = (args) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('제출됨:', { name, email });
     setName('');
     setEmail('');
     setIsOpen(false);

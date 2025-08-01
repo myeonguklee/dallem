@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
-import { getReviewList, getReviewScore } from '@/entities/review/api/reviewApi';
-import { ReviewFilterProps } from '@/entities/review/model/type';
+import { getReviewList, getReviewScore } from '@/entities/review/api/services';
+import { parseReviewFilters } from '@/entities/review/model/filtres';
 import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
 import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
@@ -29,34 +29,14 @@ export async function generateMetadata({
   return generateReviewsMetadata(locale, messages);
 }
 
-const sortOption = ['createdAt', 'score', 'participantCount'];
+const sortOptions = ['createdAt', 'score', 'participantCount'];
 
 export default async function ReviewsPage({ params, searchParams }: ReviewsPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'pages.reviews' });
 
   const filterQuery = await searchParams;
-  const reviewParams: ReviewFilterProps = {
-    type:
-      typeof filterQuery.type === 'string'
-        ? (filterQuery.type as ReviewFilterProps['type'])
-        : undefined,
-    location:
-      typeof filterQuery.location === 'string'
-        ? (filterQuery.location as ReviewFilterProps['location'])
-        : undefined,
-    date: typeof filterQuery.date === 'string' ? filterQuery.date : undefined,
-    sortBy:
-      typeof filterQuery.sortBy === 'string'
-        ? (filterQuery.sortBy as ReviewFilterProps['sortBy'])
-        : 'createdAt',
-    sortOrder:
-      typeof filterQuery.sortOrder === 'string'
-        ? (filterQuery.sortOrder as ReviewFilterProps['sortOrder'])
-        : 'desc',
-    limit: 10,
-    offset: 0,
-  };
+  const reviewParams = parseReviewFilters(filterQuery);
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
@@ -86,7 +66,7 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
         </Suspense>
         <div className="mb-4 flex items-center justify-between">
           <OptionsFiltersGroup
-            sortValue={sortOption}
+            sortValue={sortOptions}
             defaultSort="createdAt"
           />
         </div>

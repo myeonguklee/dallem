@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { cn, formatDateToYYYYMMDD } from '@/shared/lib';
+import { SmartImage } from '@/shared/ui/SmartImage/SmartImage';
 import { RatingStarDisplay } from '@/shared/ui/ratingStarDisplay/RatingStarDisplay';
 
 export interface ReviewCardProps {
@@ -13,6 +13,7 @@ export interface ReviewCardProps {
   reviewImg?: string | StaticImageData;
   gatheringName?: string;
   location?: string;
+  idx?: number;
 }
 
 export const ReviewCard = React.memo(function ReviewCardMemo({
@@ -24,6 +25,7 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
   userImg,
   gatheringName,
   location,
+  idx,
 }: ReviewCardProps) {
   const displayDate = formatDateToYYYYMMDD(dateTime);
 
@@ -38,16 +40,15 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
     >
       {/*  이미지 영역 */}
 
-      <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
-        <Image
-          src={reviewImg || '/gathering-default-image.png'}
-          alt={gatheringName ?? '모임 이미지'}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
-          priority
-        />
-      </div>
+      {reviewImg && (
+        <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
+          <SmartImage
+            src={reviewImg || '/gathering-default-image.png'}
+            alt={gatheringName ?? '모임 이미지'}
+            index={idx}
+          />
+        </div>
+      )}
 
       {/*  내용 영역 */}
       <div className="tablet:mt-0 mt-6 flex flex-col space-y-2">
@@ -68,13 +69,10 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
           <div className="flex items-center gap-2">
             {userImg && (
               <div className="relative h-6 w-6 overflow-hidden rounded-full">
-                <Image
+                <SmartImage
                   src={userImg}
                   alt={userName ?? '유저 이미지'}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  priority
+                  index={idx}
                 />
               </div>
             )}

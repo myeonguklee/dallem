@@ -45,7 +45,6 @@ const ModalTemplet: Story['render'] = (args) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onConfirm={() => {
-          console.log('Confirm clicked');
           setIsOpen(false);
         }}
       />

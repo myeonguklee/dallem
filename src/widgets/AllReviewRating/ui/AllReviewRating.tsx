@@ -1,10 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { getReviewScore } from '@/entities/review/api/reviewApi';
-import { ReviewScoreItem, ReviewType } from '@/entities/review/model/type';
-import { QUERY_KEYS } from '@/shared/api';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useGetReviewScore } from '@/entities/review/api/queries';
+import { ReviewType } from '@/entities/review/model/type';
 import { RatingScore } from './RatingScore';
 import { RatingScoreProgressBar } from './RatingScoreProgressBar';
 
@@ -15,14 +13,9 @@ interface Props {
 export const AllReviewRating = ({ type }: Props) => {
   // i18n 문자 변환
   const t = useTranslations('pages.reviews');
-  const { data, error } = useSuspenseQuery<ReviewScoreItem[], Error>({
-    queryKey: QUERY_KEYS.review.scores({ type }),
-    queryFn: () => getReviewScore({ type }),
-  });
-
+  const { data, error } = useGetReviewScore(type);
   if (error || !data) return <div>{t('scoreLoadError')}</div>;
 
-  // 추후 최적화 필요한 코드
   const {
     oneStar = 0,
     twoStars = 0,
