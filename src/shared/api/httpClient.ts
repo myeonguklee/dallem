@@ -2,6 +2,7 @@
 import { getSession, signOut } from 'next-auth/react';
 // import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
+import * as Sentry from '@sentry/nextjs';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
@@ -94,7 +95,6 @@ axiosInstance.interceptors.response.use(
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
-        localStorage.removeItem('accessToken');
 
         // 현재 locale을 가져와서 리다이렉트
         const currentPath = window.location.pathname;
@@ -107,9 +107,25 @@ axiosInstance.interceptors.response.use(
       // global-error 를 안태우기 위해 resolve 반환
       return Promise.resolve(undefined);
     }
-    // Sentry 도입시 500대 에러 등 심각한 에러 처리
-    if (status >= 500) {
-      // Sentry.captureException(error);
+    // Sentry로 모든 HTTP 에러 추적 (개발 환경에서는 4xx 에러 제외)
+    const shouldTrackError =
+      status >= 500 || (process.env.NODE_ENV === 'production' && status >= 400);
+
+    if (shouldTrackError) {
+      Sentry.captureException(error, {
+        tags: {
+          endpoint: error.config?.url,
+          method: error.config?.method,
+          status: status.toString(),
+          errorType: status >= 500 ? 'server_error' : 'client_error',
+        },
+        extra: {
+          response: data,
+          request: error.config,
+          userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
+        },
+        level: status >= 500 ? 'error' : 'warning',
+      });
     }
 
     // 그 외 에러는 ApiError로 래핑하여 반환
