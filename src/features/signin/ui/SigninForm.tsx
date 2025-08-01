@@ -30,7 +30,7 @@ export const SigninForm = () => {
 
     if (result?.error) {
       // 에러 처리
-      setError('email', { type: 'manual', message: result.error });
+      setError('email', { type: 'manual', message: 'errors.validation.cannotSignIn' });
       return;
     }
 

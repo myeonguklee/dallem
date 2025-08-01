@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/shared/lib/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { VisibilityOffIcon, VisibilityOnIcon } from '../icon';
@@ -60,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
+    const t = useTranslations();
     return (
       <>
         <div className={cn(inputVariants({ variant, inputSize, isError }), className)}>
@@ -81,7 +82,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
         </div>
-        {errorMessage && <p className="pt-[8px] text-xs text-red-500">{errorMessage}</p>}
+        {errorMessage && <p className="pt-[8px] text-xs text-red-500">{t(errorMessage)}</p>}
       </>
     );
   },
