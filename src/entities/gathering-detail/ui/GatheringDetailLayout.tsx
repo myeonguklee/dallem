@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { Locale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
   useCancelGathering,
@@ -11,7 +11,6 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
-import { useGetUser } from '@/entities/user/api';
 import { useRouter } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
@@ -20,9 +19,10 @@ import { ContainerInformation } from '@/widgets/ContainerInformation';
 import { calculateGatheringRole } from '../model/calculateGatheringRole';
 import { ReviewList } from './ReviewList';
 
-export const GatheringDetailLayout = ({ id }: { id: number }) => {
+export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Locale }) => {
   const t = useTranslations('pages.gathering.detail');
-  const { status: sessionStatus } = useSession();
+  const { data: sessionData } = useSession();
+  const rawUser = sessionData?.user;
 
   const { data: gathering } = useGetGatheringDetail(id);
   const {
@@ -30,10 +30,6 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
     isPending: isParticipantsLoading,
     isError: isParticipantsError,
   } = useGetParticipants(id);
-
-  const { data: user } = useGetUser({
-    enabled: sessionStatus === 'authenticated',
-  });
 
   const { mutate: join, isPending: isJoining } = useJoinGathering();
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
@@ -51,7 +47,14 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
   console.log(isJoining, isLeaving, isCanceling);
 
   const isFull = gathering.capacity <= gathering.participantCount;
-  const role = calculateGatheringRole(user, gathering, participantsData);
+
+  const userSession = rawUser
+    ? {
+        id: Number(rawUser.id),
+      }
+    : undefined;
+
+  const role = calculateGatheringRole(userSession, gathering, participantsData);
 
   const handleJoin = () => {
     join(id);
@@ -89,7 +92,7 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
     })) ?? [];
 
-  const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime);
+  const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime, locale);
 
   return (
     <div className="tablet:mb-[100px] mb-[200px] flex w-[996px] flex-col px-4 py-8">
