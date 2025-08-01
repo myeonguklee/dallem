@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
-<<<<<<< HEAD
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
 import { getGathering } from '@/entities/gathering/api';
@@ -58,23 +57,12 @@ export async function generateMetadata({
 }
 
 export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
-  const { id } = await params;
+  const { locale, id } = await params;
+
+  const t = await getTranslations({ locale, namespace: 'pages.gathering.detail' });
+
   const numericId = Number(id);
-=======
-import { Locale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
 
-interface GatheringDetailPageProps {
-  params: { locale: Locale; id: string };
-}
-
-export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'pages.gathering.detail' });
-
-  const numericId = Number(params.id);
->>>>>>> 368e53f (feat: 다국어 번역 적용)
   if (isNaN(numericId)) {
     notFound();
   }
