@@ -12,13 +12,18 @@ Sentry.init({
   // 개발 환경에서는 더 자세한 로깅
   debug: process.env.NODE_ENV === 'development',
 
-  // 에러 필터링 (개발 환경에서도 전송하도록 변경)
+  // 사용자 정보 설정
   beforeSend(event) {
     // 개발 환경에서도 Sentry로 전송 (테스트용)
     if (process.env.NODE_ENV === 'development') {
       console.log('Sentry event (development):', event);
       // return null; // 이 줄을 주석처리하여 개발 환경에서도 전송
     }
+    return event;
+  },
+
+  // 사용자 정보 설정
+  beforeSendTransaction(event) {
     return event;
   },
 });
