@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCreateGathering } from '@/entities/gathering/api/queries';
 import { CreateGatheringPayload, createGatheringSchema } from '@/entities/gathering/model/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import * as Sentry from '@sentry/nextjs';
 import { FieldError, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {
@@ -51,6 +52,25 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
     },
   });
 
+  // 폼 검증 에러 추적
+  React.useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      Sentry.captureMessage('모임 생성 폼 검증 에러', {
+        level: 'warning',
+        tags: {
+          form: 'create_gathering',
+          errorType: 'validation_error',
+        },
+        extra: {
+          errors: Object.keys(errors).map((key) => ({
+            field: key,
+            message: errors[key as keyof typeof errors]?.message,
+          })),
+        },
+      });
+    }
+  }, [errors]);
+
   const onSubmit = (data: CreateGatheringPayload) => {
     // 이미지 처리 중이면 제출 방지
     if (isImageProcessing) {
@@ -58,9 +78,43 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
       return;
     }
 
+    // 모임 생성 성공 추적
+    Sentry.captureMessage('모임 생성 성공', {
+      level: 'info',
+      tags: {
+        form: 'create_gathering',
+        action: 'submit_success',
+      },
+      extra: {
+        gatheringType: data.type,
+        location: data.location,
+        capacity: data.capacity,
+        hasImage: !!data.image,
+      },
+    });
+
     mutate(data, {
       onSuccess: () => {
         onClose();
+      },
+      onError: (error) => {
+        // 모임 생성 실패 추적
+        Sentry.captureException(error, {
+          tags: {
+            form: 'create_gathering',
+            action: 'submit_error',
+            errorType: 'api_error',
+          },
+          extra: {
+            formData: {
+              type: data.type,
+              location: data.location,
+              capacity: data.capacity,
+              hasImage: !!data.image,
+            },
+            error: error,
+          },
+        });
       },
     });
   };
@@ -145,6 +199,18 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
           type="button"
           className="border-primary text-primary flex-1 rounded-xl border bg-white px-4 py-2 font-semibold transition hover:bg-gray-50 focus:outline-none"
           onClick={() => {
+            // 폼 포기 추적
+            Sentry.captureMessage('모임 생성 폼 포기', {
+              level: 'info',
+              tags: {
+                form: 'create_gathering',
+                action: 'abandon',
+              },
+              extra: {
+                formData: watch(), // 현재 입력된 데이터
+                hasErrors: Object.keys(errors).length > 0,
+              },
+            });
             reset();
             onClose();
           }}

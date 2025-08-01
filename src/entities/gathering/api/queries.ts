@@ -7,6 +7,7 @@ import type {
 } from '@/entities/gathering/model/types';
 import { ApiError, QUERY_KEYS } from '@/shared/api';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { createGathering, getGatherings, getGatheringsJoined } from './services';
 
 // 모임 조회
@@ -37,12 +38,20 @@ export const useGetGatheringsInfinite = (filters?: Omit<GatheringFilters, 'limit
 };
 
 // 모임 생성 훅
-export const useCreateGathering = () => {
+export const useCreateGathering = (callback?: {
+  onSuccess?: () => void;
+  onError?: (error: ApiError) => void;
+}) => {
   const queryClient = useQueryClient();
   return useMutation<Gathering, ApiError, CreateGatheringPayload>({
     mutationFn: createGathering,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
+      callback?.onSuccess?.();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      callback?.onError?.(error);
     },
   });
 };
