@@ -71,7 +71,10 @@ export default async function GatheringDetailPage({ params }: GatheringDetailPag
     // <ErrorBoundary fallback={<p>데이터를 불러오는 중 에러가 발생했습니다.</p>}>
     // </ErrorBoundary>
     <Suspense fallback={<p>{t('loading')}</p>}>
-      <GatheringDetailLayout id={numericId} />
+      <GatheringDetailLayout
+        id={numericId}
+        locale={locale}
+      />
     </Suspense>
   );
 }

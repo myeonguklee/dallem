@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { QUERY_KEYS } from '@/shared/api';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -17,13 +18,14 @@ export const useGetGatheringDetail = (id: number) => {
 
 // 모임 참여
 export const useJoinGathering = () => {
+  const t = useTranslations('pages.gathering.detail');
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (gatheringId: number) => joinGathering(gatheringId),
     onSuccess: (_, gatheringId) => {
       // 뮤테이션 성공 시
-      toast.success('모임 참여가 완료되었습니다.');
+      toast.success(t('joinSuccess'));
       // 모임 상세 정보 쿼리를 무효화
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.gathering.detail(gatheringId),
@@ -37,22 +39,18 @@ export const useJoinGathering = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
       });
-    },
-    onError: (error) => {
-      // 뮤테이션 실패 시
-      console.error(error);
-      toast.error('모임 참여에 실패했습니다. 다시 시도해주세요.');
     },
   });
 };
 
 // 모임 참여 취소
 export const useLeaveGathering = () => {
+  const t = useTranslations('pages.gathering.detail');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (gatheringId: number) => leaveGathering(gatheringId),
     onSuccess: (_, gatheringId) => {
-      toast.success('모임 참여를 취소했습니다.');
+      toast.success(t('cancelJoin'));
       // 모임 상세 정보 쿼리를 무효화
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.gathering.detail(gatheringId),
@@ -67,25 +65,18 @@ export const useLeaveGathering = () => {
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
       });
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error('요청에 실패했습니다.');
-    },
   });
 };
 
 // 모임 취소
 export const useCancelGathering = () => {
+  const t = useTranslations('pages.gathering.detail');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (gatheringId: number) => cancelGathering(gatheringId),
     onSuccess: () => {
-      toast.success('모임이 취소되었습니다.');
+      toast.success(t('removeGathering'));
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error('모임 취소에 실패했습니다.');
     },
   });
 };
