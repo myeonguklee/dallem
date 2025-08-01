@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import { useCreateReview } from '@/entities/review/api/my-page';
 import { CreateReviewPayload, createReviewSchema } from '@/entities/review/model/schemas';
-import { trackReviewError, trackReviewSuccess } from '@/shared/lib/sentry/tracking';
 import { Button } from '@/shared/ui/button';
 import { StarIcon } from '@/shared/ui/icon/icons/StarIcon';
 import { Modal } from '@/shared/ui/modal';
@@ -50,18 +49,8 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
     createReview(data, {
       onSuccess: () => {
         toast.success(t('success'));
-        trackReviewSuccess('create', {
-          gatheringId: gatheringId.toString(),
-          rating: data.score,
-        });
         reset();
         onClose();
-      },
-      onError: (error) => {
-        trackReviewError('create', error, {
-          gatheringId: gatheringId.toString(),
-          rating: data.score,
-        });
       },
     });
   };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCreateGathering } from '@/entities/gathering/api/queries';
 import { CreateGatheringPayload, createGatheringSchema } from '@/entities/gathering/model/schema';
-import { trackGatheringError, trackGatheringSuccess } from '@/shared/lib/sentry/tracking';
+import { trackFormValidationError } from '@/shared/lib/sentry/tracking';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldError, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -55,7 +55,7 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
   // 폼 검증 에러 추적
   React.useEffect(() => {
     if (Object.keys(errors).length > 0) {
-      trackGatheringError('create', new Error('폼 검증 에러'), {
+      trackFormValidationError('gathering', errors, {
         formData: {
           errors: Object.keys(errors).map((key) => ({
             field: key,
@@ -73,31 +73,10 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
       return;
     }
 
-    // 모임 생성 성공 추적
-    trackGatheringSuccess('create', {
-      formData: {
-        gatheringType: data.type,
-        location: data.location,
-        capacity: data.capacity,
-        hasImage: !!data.image,
-      },
-    });
-
     mutate(data, {
       onSuccess: () => {
         toast.success(t('success'));
         onClose();
-      },
-      onError: (error) => {
-        // 모임 생성 실패 추적
-        trackGatheringError('create', error, {
-          formData: {
-            type: data.type,
-            location: data.location,
-            capacity: data.capacity,
-            hasImage: !!data.image,
-          },
-        });
       },
     });
   };
@@ -182,14 +161,6 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
           type="button"
           className="border-primary text-primary flex-1 rounded-xl border bg-white px-4 py-2 font-semibold transition hover:bg-gray-50 focus:outline-none"
           onClick={() => {
-            // 폼 포기 추적
-            trackGatheringSuccess('create', {
-              formData: {
-                ...watch(), // 현재 입력된 데이터
-                hasErrors: Object.keys(errors).length > 0,
-                action: 'abandon',
-              },
-            });
             reset();
             onClose();
           }}

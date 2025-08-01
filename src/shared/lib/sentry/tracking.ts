@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 
-/**
- * API 성능 추적
- */
+// API 성능 추적
 export const trackApiPerformance = (
   endpoint: string,
   method: string,
@@ -24,133 +22,27 @@ export const trackApiPerformance = (
   });
 };
 
-/**
- * 리뷰 관련 에러 추적
- */
-export const trackReviewError = (
-  action: 'create' | 'update' | 'delete',
-  error: Error,
-  context?: {
-    gatheringId?: string;
-    reviewId?: string;
-    rating?: number;
-  },
+// 폼 검증 에러 추적
+export const trackFormValidationError = (
+  formName: string,
+  errors: Record<string, unknown>,
+  context?: Record<string, unknown>,
 ) => {
-  Sentry.captureException(error, {
+  Sentry.captureMessage(`폼 검증 에러: ${formName}`, {
+    level: 'warning',
     tags: {
-      errorType: 'business_logic',
-      domain: 'review',
-      action,
+      errorType: 'form_validation',
+      formName,
     },
     extra: {
+      errors,
       context,
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
     },
   });
 };
 
-/**
- * 리뷰 성공 추적
- */
-export const trackReviewSuccess = (
-  action: 'create' | 'update' | 'delete',
-  context?: {
-    gatheringId?: string;
-    reviewId?: string;
-    rating?: number;
-  },
-) => {
-  Sentry.captureMessage(`리뷰 ${action} 성공`, {
-    level: 'info',
-    tags: {
-      actionType: 'business_success',
-      domain: 'review',
-      action,
-    },
-    extra: {
-      context,
-      timestamp: new Date().toISOString(),
-    },
-  });
-};
-
-/**
- * 모임 참여/탈퇴 에러 추적
- */
-export const trackGatheringParticipationError = (
-  action: 'join' | 'leave',
-  error: Error,
-  context?: {
-    gatheringId?: string;
-    gatheringTitle?: string;
-  },
-) => {
-  Sentry.captureException(error, {
-    tags: {
-      errorType: 'business_logic',
-      domain: 'gathering_participation',
-      action,
-    },
-    extra: {
-      context,
-      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
-    },
-  });
-};
-
-/**
- * 모임 생성/수정/삭제 에러 추적
- */
-export const trackGatheringError = (
-  action: 'create' | 'update' | 'delete',
-  error: Error,
-  context?: {
-    gatheringId?: string;
-    gatheringTitle?: string;
-    formData?: Record<string, unknown>;
-  },
-) => {
-  Sentry.captureException(error, {
-    tags: {
-      errorType: 'business_logic',
-      domain: 'gathering',
-      action,
-    },
-    extra: {
-      context,
-      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
-    },
-  });
-};
-
-/**
- * 모임 생성/수정/삭제 성공 추적
- */
-export const trackGatheringSuccess = (
-  action: 'create' | 'update' | 'delete',
-  context?: {
-    gatheringId?: string;
-    gatheringTitle?: string;
-    formData?: Record<string, unknown>;
-  },
-) => {
-  Sentry.captureMessage(`모임 ${action} 성공`, {
-    level: 'info',
-    tags: {
-      actionType: 'business_success',
-      domain: 'gathering',
-      action,
-    },
-    extra: {
-      context,
-      timestamp: new Date().toISOString(),
-    },
-  });
-};
-
-/**
- * API 에러 추적
- */
+// API 에러 추적
 export const trackApiError = (
   error: Error,
   context?: {
