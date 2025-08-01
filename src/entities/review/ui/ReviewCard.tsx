@@ -40,7 +40,7 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
     >
       {/*  이미지 영역 */}
 
-      {reviewImg && (
+      {reviewImg !== undefined && (
         <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
           <SmartImage
             src={reviewImg || '/gathering-default-image.png'}
