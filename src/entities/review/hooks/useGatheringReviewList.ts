@@ -1,6 +1,6 @@
 import { QUERY_KEYS } from '@/shared/api';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { getGatheringReviewList } from '../api/reviewApi';
+import { getGatheringReviewList } from '../api/services';
 import type { ReviewFilterProps, ReviewListResponse } from '../model/type';
 
 export const useGatheringReviewList = (

@@ -1,6 +1,7 @@
-import Image from 'next/image';
+import React from 'react';
 import type { StaticImageData } from 'next/image';
 import { cn, formatDateToYYYYMMDD } from '@/shared/lib';
+import { SmartImage } from '@/shared/ui/SmartImage/SmartImage';
 import { RatingStarDisplay } from '@/shared/ui/ratingStarDisplay/RatingStarDisplay';
 
 export interface ReviewCardProps {
@@ -12,9 +13,10 @@ export interface ReviewCardProps {
   reviewImg?: string | StaticImageData;
   gatheringName?: string;
   location?: string;
+  idx?: number;
 }
 
-export const ReviewCard = ({
+export const ReviewCard = React.memo(function ReviewCardMemo({
   score,
   comment,
   dateTime,
@@ -23,7 +25,8 @@ export const ReviewCard = ({
   userImg,
   gatheringName,
   location,
-}: ReviewCardProps) => {
+  idx,
+}: ReviewCardProps) {
   const displayDate = formatDateToYYYYMMDD(dateTime);
 
   return (
@@ -36,14 +39,16 @@ export const ReviewCard = ({
       )}
     >
       {/*  이미지 영역 */}
-      <div className="tablet:w-72 tablet:h-auto relative h-[156px] w-full flex-shrink-0 overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
-        <Image
-          src={reviewImg || '/gathering-default-image.png'}
-          alt={gatheringName ?? '모임 이미지'}
-          fill
-          className="object-cover"
-        />
-      </div>
+
+      {reviewImg !== undefined && (
+        <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
+          <SmartImage
+            src={reviewImg || '/gathering-default-image.png'}
+            alt={gatheringName ?? '모임 이미지'}
+            index={idx}
+          />
+        </div>
+      )}
 
       {/*  내용 영역 */}
       <div className="tablet:mt-0 mt-6 flex flex-col space-y-2">
@@ -64,11 +69,10 @@ export const ReviewCard = ({
           <div className="flex items-center gap-2">
             {userImg && (
               <div className="relative h-6 w-6 overflow-hidden rounded-full">
-                <Image
+                <SmartImage
                   src={userImg}
                   alt={userName ?? '유저 이미지'}
-                  fill
-                  className="object-cover"
+                  index={idx}
                 />
               </div>
             )}
@@ -80,4 +84,4 @@ export const ReviewCard = ({
       </div>
     </article>
   );
-};
+});
