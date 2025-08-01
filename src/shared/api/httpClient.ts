@@ -2,7 +2,7 @@
 import { getSession, signOut } from 'next-auth/react';
 // import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
-import * as Sentry from '@sentry/nextjs';
+import { trackApiError, trackApiPerformance } from '@/shared/lib/sentry/tracking';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
@@ -10,6 +10,9 @@ import { logError, logRequest, logResponse } from './logger';
 declare module 'axios' {
   interface AxiosRequestConfig {
     authRequired?: boolean;
+    metadata?: {
+      startTime: Date;
+    };
   }
 }
 
@@ -71,6 +74,19 @@ axiosInstance.interceptors.request.use(async (config) => {
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     logResponse(response);
+
+    // API 성능 추적
+    const startTime = response.config.metadata?.startTime;
+    if (startTime) {
+      const duration = Date.now() - startTime.getTime();
+      trackApiPerformance(
+        response.config.url || '',
+        response.config.method || '',
+        duration,
+        response.status,
+      );
+    }
+
     return response;
   },
   (error: AxiosError) => {
@@ -107,24 +123,21 @@ axiosInstance.interceptors.response.use(
       // global-error 를 안태우기 위해 resolve 반환
       return Promise.resolve(undefined);
     }
-    // Sentry로 모든 HTTP 에러 추적 (개발 환경에서는 4xx 에러 제외)
+    // Sentry로 HTTP 에러 추적
+    // - 500+ 에러: 모든 환경에서 추적 (서버 에러)
+    // - 400+ 에러: 프로덕션에서만 추적 (클라이언트 에러)
+    const isServerError = status >= 500;
+    const isClientError = status >= 400 && status < 500;
     const shouldTrackError =
-      status >= 500 || (process.env.NODE_ENV === 'production' && status >= 400);
+      isServerError || (process.env.NODE_ENV === 'production' && isClientError);
 
     if (shouldTrackError) {
-      Sentry.captureException(error, {
-        tags: {
-          endpoint: error.config?.url,
-          method: error.config?.method,
-          status: status.toString(),
-          errorType: status >= 500 ? 'server_error' : 'client_error',
-        },
-        extra: {
-          response: data,
-          request: error.config,
-          userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
-        },
-        level: status >= 500 ? 'error' : 'warning',
+      trackApiError(error, {
+        endpoint: error.config?.url,
+        method: error.config?.method,
+        status,
+        response: data,
+        request: error.config,
       });
     }
 
