@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Locale, useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -14,6 +15,7 @@ import { useGetParticipants } from '@/entities/participant/api/queries';
 import { useRouter } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
+import { Popup } from '@/shared/ui/modal/Popup';
 import { BottomFloatingBar } from '@/widgets/BottomFloatingBar';
 import { ContainerInformation } from '@/widgets/ContainerInformation';
 import { calculateGatheringRole } from '../model/calculateGatheringRole';
@@ -35,6 +37,11 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
   const { mutate: cancel, isPending: isCanceling } = useCancelGathering();
   const router = useRouter();
+
+  const [isCancelPopupOpen, setIsCancelPopupOpen] = useState(false);
+
+  const openCancelPopup = () => setIsCancelPopupOpen(true);
+  const closeCancelPopup = () => setIsCancelPopupOpen(false);
 
   if (isParticipantsLoading) {
     return <div>{t('loadingParticipants')}</div>;
@@ -63,17 +70,16 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const handleLeave = () => {
     leave(id);
   };
-
+  const confirmCancel = () => {
+    cancel(id, {
+      onSuccess: () => {
+        closeCancelPopup();
+        router.push(ROUTES.GATHERING);
+      },
+    });
+  };
   const handleCancel = () => {
-    // 윈도우 컨펌 대신 모달 or 알림 표시 x
-    if (window.confirm(t('confirmCancel'))) {
-      cancel(id, {
-        onSuccess: () => {
-          // 성공 시 목록 페이지로 이동
-          router.push(ROUTES.GATHERING);
-        },
-      });
-    }
+    openCancelPopup();
   };
 
   const handleShare = () => {
@@ -126,6 +132,15 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
         <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
         <ReviewList id={id} />
       </section>
+      <Popup
+        isOpen={isCancelPopupOpen}
+        onClose={closeCancelPopup}
+        onConfirm={confirmCancel}
+        title={t('cancelTitle')}
+        message={t('confirmCancel')}
+        primaryButtonText={t('confirm')}
+        secondaryButtonText={t('cancel')}
+      />
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
         role={role}

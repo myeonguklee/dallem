@@ -244,7 +244,13 @@
         "confirmed": "Confirmed",
         "participantStatus": "{count} participants",
         "minParticipants": "Minimum {count}",
-        "maxParticipants": "Maximum {count}"
+        "maxParticipants": "Maximum {count}",
+        "joinSuccess": "Joined successfully.",
+        "cancelJoin": "Participation cancelled.",
+        "removeGathering": "Gathering cancelled.",
+        "cancelTitle": "Cancel the gathering?",
+        "confirm": "Yes",
+        "cancel": "No"
       }
     },
     "myPage": {
