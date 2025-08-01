@@ -4,6 +4,7 @@ import { ApiError, httpClient } from '@/shared/api';
 import { QUERY_KEYS } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 // type.ts
 export type ReviewSortBy = 'createdAt' | 'score' | 'participantCount';
@@ -87,13 +88,21 @@ export const useGetReviews = (params: GetReviewsParams, options?: { enabled?: bo
   });
 };
 
-export const useCreateReview = () => {
+export const useCreateReview = (callback?: {
+  onSuccess?: () => void;
+  onError?: (error: ApiError) => void;
+}) => {
   const queryClient = useQueryClient();
   return useMutation<CreateReviewResponse, ApiError, CreateReviewPayload>({
     mutationFn: (payload) => createReview(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.review.base });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
+      callback?.onSuccess?.();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      callback?.onError?.(error);
     },
   });
 };

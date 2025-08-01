@@ -153,6 +153,7 @@
         "pending": "전송 중...",
         "submit": "확인",
         "cancel": "취소",
+        "success": "모임 생성이 완료되었습니다",
         "imageProcessing": "이미지 처리 중...",
         "form": {
           "title": "모임 이름",
@@ -259,8 +260,7 @@
         "editButton": "수정",
         "name": "이름",
         "company": "회사",
-        "email": "이메일",
-        "emailReadOnly": "이메일은 수정할 수 없습니다"
+        "email": "이메일"
       },
       "tabs": {
         "joinedGatherings": "나의 모임",
@@ -288,6 +288,9 @@
         "submitError": "리뷰 등록에 실패했습니다"
       },
       "form": {
+        "email": "이메일",
+        "emailPlaceholder": "이메일을 입력해주세요",
+        "emailReadOnly": "이메일은 수정할 수 없습니다",
         "companyName": "회사명",
         "companyNamePlaceholder": "회사명을 입력해주세요",
         "profileImage": "프로필 이미지",
@@ -297,6 +300,7 @@
         "submit": "수정 완료",
         "submitting": "수정 중...",
         "imageProcessing": "이미지 처리 중...",
+        "success": "프로필 수정이 완료되었습니다",
         "errors": {
           "companyNameRequired": "회사명을 입력해주세요",
           "imageRequired": "프로필 이미지를 선택해주세요",

@@ -95,6 +95,7 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
 
     mutate(data, {
       onSuccess: () => {
+        toast.success(t('success'));
         onClose();
       },
       onError: (error) => {
