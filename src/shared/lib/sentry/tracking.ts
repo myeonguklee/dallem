@@ -99,6 +99,56 @@ export const trackGatheringParticipationError = (
 };
 
 /**
+ * 모임 생성/수정/삭제 에러 추적
+ */
+export const trackGatheringError = (
+  action: 'create' | 'update' | 'delete',
+  error: Error,
+  context?: {
+    gatheringId?: string;
+    gatheringTitle?: string;
+    formData?: Record<string, unknown>;
+  },
+) => {
+  Sentry.captureException(error, {
+    tags: {
+      errorType: 'business_logic',
+      domain: 'gathering',
+      action,
+    },
+    extra: {
+      context,
+      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
+    },
+  });
+};
+
+/**
+ * 모임 생성/수정/삭제 성공 추적
+ */
+export const trackGatheringSuccess = (
+  action: 'create' | 'update' | 'delete',
+  context?: {
+    gatheringId?: string;
+    gatheringTitle?: string;
+    formData?: Record<string, unknown>;
+  },
+) => {
+  Sentry.captureMessage(`모임 ${action} 성공`, {
+    level: 'info',
+    tags: {
+      actionType: 'business_success',
+      domain: 'gathering',
+      action,
+    },
+    extra: {
+      context,
+      timestamp: new Date().toISOString(),
+    },
+  });
+};
+
+/**
  * API 에러 추적
  */
 export const trackApiError = (
