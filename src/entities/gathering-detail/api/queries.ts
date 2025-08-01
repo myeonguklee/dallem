@@ -38,11 +38,6 @@ export const useJoinGathering = () => {
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
       });
     },
-    onError: (error) => {
-      // 뮤테이션 실패 시
-      console.error(error);
-      toast.error('모임 참여에 실패했습니다. 다시 시도해주세요.');
-    },
   });
 };
 
@@ -67,10 +62,6 @@ export const useLeaveGathering = () => {
         queryKey: QUERY_KEYS.AUTH.USER.BASE,
       });
     },
-    onError: (error) => {
-      console.error(error);
-      toast.error('요청에 실패했습니다.');
-    },
   });
 };
 
@@ -82,10 +73,6 @@ export const useCancelGathering = () => {
     onSuccess: () => {
       toast.success('모임이 취소되었습니다.');
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error('모임 취소에 실패했습니다.');
     },
   });
 };
