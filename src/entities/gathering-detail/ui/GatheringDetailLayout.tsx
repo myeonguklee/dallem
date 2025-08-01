@@ -18,6 +18,7 @@ import { formatDateAndTime } from '@/shared/lib/date';
 import { Popup } from '@/shared/ui/modal/Popup';
 import { BottomFloatingBar } from '@/widgets/BottomFloatingBar';
 import { ContainerInformation } from '@/widgets/ContainerInformation';
+import toast from 'react-hot-toast';
 import { calculateGatheringRole } from '../model/calculateGatheringRole';
 import { ReviewList } from './ReviewList';
 
@@ -87,7 +88,7 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
     // 공유하기 로직 구현
     // url링크 클립보드로 복사
     navigator.clipboard.writeText(window.location.href).then(() => {
-      alert(t('copySuccess'));
+      toast.success(t('copySuccess'));
     });
   };
 
@@ -137,7 +138,6 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
         isOpen={isCancelPopupOpen}
         onClose={closeCancelPopup}
         onConfirm={confirmCancel}
-        title={t('cancelTitle')}
         message={t('confirmCancel')}
         primaryButtonText={tCommon('confirm')}
         secondaryButtonText={tCommon('cancel')}
