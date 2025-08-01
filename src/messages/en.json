@@ -385,7 +385,8 @@
       "password": "Password must be at least 8 characters",
       "passwordConfirm": "Passwords do not match",
       "emailExists": "This email is already in use",
-      "invalidEmail": "Please enter a valid email address"
+      "invalidEmail": "Please enter a valid email address",
+      "cannotSignIn": "Failed to sign in."
     }
   },
   "metadata": {
