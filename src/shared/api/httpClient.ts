@@ -25,6 +25,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
+  config.metadata = { startTime: new Date() };
+
   if (config.authRequired) {
     let token;
     const headers = AxiosHeaders.from(config.headers);
