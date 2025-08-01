@@ -222,10 +222,29 @@
     "gathering": {
       "detail": {
         "title": "모임 상세 페이지",
+        "loading": "로딩 중...",
         "joinButton": "참여하기",
-        "leaveButton": "나가기",
+        "cancelJoinButton": "참여 취소하기",
+        "cancelButton": "취소하기",
+        "shareButton": "공유하기",
         "editButton": "수정하기",
-        "deleteButton": "삭제하기"
+        "deleteButton": "삭제하기",
+        "loadingParticipants": "참여자 정보를 불러오는 중...",
+        "failedToLoadParticipants": "참여자 정보를 불러오는 데 실패했습니다.",
+        "reviewTitle": "이용자들은 이 프로그램을 이렇게 느꼈어요!",
+        "bottomBar": {
+          "title": "더 건강한 프로그램",
+          "content": "국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
+        },
+        "confirmCancel": "정말로 모임을 취소하시겠습니까?",
+        "copySuccess": "모임 링크가 클립보드에 복사되었습니다!",
+        "emptyReview": "아직 리뷰가 없어요.",
+        "like": "좋아요",
+        "unlike": "좋아요 취소",
+        "participantStatus": "모집 정원 {count}명",
+        "confirmed": "개설확정",
+        "minParticipants": "최소인원 {count}명",
+        "maxParticipants": "최대인원 {count}명"
       }
     },
     "myPage": {

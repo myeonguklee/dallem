@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useGatheringReviewList } from '@/entities/review/hooks/useGatheringReviewList';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { Pagination } from '@/shared/ui/pagination';
 
 export const ReviewList = ({ id }: { id: number }) => {
+  const t = useTranslations('pages.gathering.detail');
   // 페이지당 리뷰 개수 설정
   // 상수 코드 추후 분리
   const PAGE_SIZE = 4;
@@ -23,13 +25,13 @@ export const ReviewList = ({ id }: { id: number }) => {
   const isEmpty = !reviews || reviews.length === 0;
 
   if (isLoading) {
-    return <div className="flex h-full items-center justify-center">로딩 중...</div>;
+    return <div className="flex h-full items-center justify-center">{t('loading')}</div>;
   }
 
   if (isEmpty) {
     return (
-      <div className="flex h-full flex-grow items-center justify-center">
-        <p className="text-gray-500">아직 리뷰가 없어요.</p>
+      <div className="mt-10 flex h-full flex-grow justify-center">
+        <p className="text-gray-500">{t('emptyReview')}</p>
       </div>
     );
   }

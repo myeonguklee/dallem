@@ -1,12 +1,14 @@
 import type { UpdateUserPayload, User } from '@/entities/user/model';
 import { ApiError, QUERY_KEYS } from '@/shared/api';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { UseQueryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUser, updateUser } from './service';
 
-export const useGetUser = () => {
+export const useGetUser = (options?: Omit<UseQueryOptions<User>, 'queryKey' | 'queryFn'>) => {
   return useQuery<User>({
     queryKey: QUERY_KEYS.AUTH.USER.BASE,
     queryFn: getUser,
+    retry: false,
+    ...options,
   });
 };
 

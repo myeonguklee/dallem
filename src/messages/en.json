@@ -221,11 +221,30 @@
     },
     "gathering": {
       "detail": {
-        "title": "Gathering Detail Page",
+        "title": "Gathering Details",
+        "loading": "Loading...",
         "joinButton": "Join",
-        "leaveButton": "Leave",
+        "cancelJoinButton": "Cancel",
+        "cancelButton": "Cancel Gathering",
+        "shareButton": "Share",
         "editButton": "Edit",
-        "deleteButton": "Delete"
+        "deleteButton": "Delete",
+        "loadingParticipants": "Loading participants...",
+        "failedToLoadParticipants": "Failed to load participants.",
+        "reviewTitle": "Here’s how others felt about this program!",
+        "bottomBar": {
+          "title": "Better Program",
+          "content": "Recover with top wellness experts in Korea"
+        },
+        "confirmCancel": "Are you sure you want to cancel this gathering?",
+        "copySuccess": "Link copied to clipboard!",
+        "emptyReview": "No reviews yet.",
+        "like": "Like",
+        "unlike": "Unlike",
+        "confirmed": "Confirmed",
+        "participantStatus": "{count} participants",
+        "minParticipants": "Minimum {count}",
+        "maxParticipants": "Maximum {count}"
       }
     },
     "myPage": {

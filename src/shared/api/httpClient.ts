@@ -37,9 +37,10 @@ axiosInstance.interceptors.request.use(async (config) => {
       // });
       // token = rawToken;
     }
-
-    headers.set('Authorization', `Bearer ${token}`);
-    config.headers = headers;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+      config.headers = headers;
+    }
   }
 
   // FormData 자동 변환
@@ -96,6 +97,7 @@ axiosInstance.interceptors.response.use(
         localStorage.removeItem('accessToken');
 
         // 현재 locale을 가져와서 리다이렉트
+
         const currentPath = window.location.pathname;
         const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
         const currentLocale = localeMatch ? localeMatch[1] : 'ko';
