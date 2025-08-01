@@ -1,6 +1,7 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { AuthForm } from '@/widgets/AuthForm/ui/AuthForm';
@@ -22,15 +23,16 @@ export const SigninForm = () => {
     mode: 'onChange',
   });
 
+  const t = useTranslations();
+
   const onSubmit = async (formData: SigninFormData) => {
     const result = await signIn('credentials', {
       ...formData,
       redirect: false,
     });
-
     if (result?.error) {
       // 에러 처리
-      setError('email', { type: 'manual', message: 'errors.validation.cannotSignIn' });
+      setError('email', { type: 'manual', message: t('errors.validation.cannotSignIn') });
       return;
     }
 
