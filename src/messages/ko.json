@@ -248,9 +248,7 @@
         "joinSuccess": "모임 참여가 완료되었습니다.",
         "cancelJoin": "모임 참여를 취소했습니다.",
         "removeGathering": "모임이 취소되었습니다.",
-        "cancelTitle": "정말로 모임을 취소하시겠습니까?",
-        "confirm": "확인",
-        "cancel": "취소하기"
+        "cancelTitle": "정말로 모임을 취소하시겠습니까?"
       }
     },
     "myPage": {

@@ -23,6 +23,7 @@ import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Locale }) => {
   const t = useTranslations('pages.gathering.detail');
+  const tCommon = useTranslations('common');
   const { data: sessionData } = useSession();
   const rawUser = sessionData?.user;
 
@@ -138,8 +139,8 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
         onConfirm={confirmCancel}
         title={t('cancelTitle')}
         message={t('confirmCancel')}
-        primaryButtonText={t('confirm')}
-        secondaryButtonText={t('cancel')}
+        primaryButtonText={tCommon('confirm')}
+        secondaryButtonText={tCommon('cancel')}
       />
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
