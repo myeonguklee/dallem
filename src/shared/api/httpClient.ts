@@ -1,5 +1,6 @@
 // import { getToken } from 'next-auth/jwt';
-import { getSession, signOut } from 'next-auth/react';
+// import { getSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 // import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -37,9 +38,10 @@ axiosInstance.interceptors.request.use(async (config) => {
       // });
       // token = rawToken;
     }
-
-    headers.set('Authorization', `Bearer ${token}`);
-    config.headers = headers;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+      config.headers = headers;
+    }
   }
 
   // FormData 자동 변환
@@ -96,12 +98,15 @@ axiosInstance.interceptors.response.use(
         localStorage.removeItem('accessToken');
 
         // 현재 locale을 가져와서 리다이렉트
-        const currentPath = window.location.pathname;
-        const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
-        const currentLocale = localeMatch ? localeMatch[1] : 'ko';
-        signOut({ redirect: false }).then(() => {
-          window.location.href = `/${currentLocale}/signin`;
-        });
+
+        // 잠시 리다이렉트 코드 제거  잠시 리다이렉트 코드 제거 잠시 리다이렉트 코드 제거 잠시 리다이렉트 코드 제거 잠시 리다이렉트 코드 제거 잠시 리다이렉트 코드 제거 잠시 리다이렉트 코드 제거
+
+        // const currentPath = window.location.pathname;
+        // const localeMatch = currentPath.match(/^\/([a-z]{2})(\/|$)/);
+        // const currentLocale = localeMatch ? localeMatch[1] : 'ko';
+        // signOut({ redirect: false }).then(() => {
+        //   window.location.href = `/${currentLocale}/signin`;
+        // });
       }
       // global-error 를 안태우기 위해 resolve 반환
       return Promise.resolve(undefined);

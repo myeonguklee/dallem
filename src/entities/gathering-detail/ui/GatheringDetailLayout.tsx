@@ -1,5 +1,6 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
@@ -21,6 +22,7 @@ import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const t = useTranslations('pages.gathering.detail');
+  const { status: sessionStatus } = useSession();
 
   const { data: gathering } = useGetGatheringDetail(id);
   const {
@@ -28,7 +30,10 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
     isPending: isParticipantsLoading,
     isError: isParticipantsError,
   } = useGetParticipants(id);
-  const { data: user } = useGetUser();
+
+  const { data: user } = useGetUser({
+    enabled: sessionStatus === 'authenticated',
+  });
 
   const { mutate: join, isPending: isJoining } = useJoinGathering();
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
