@@ -153,6 +153,7 @@
         "pending": "Sending...",
         "submit": "Confirm",
         "cancel": "Cancel",
+        "success": "Gathering created successfully",
         "imageProcessing": "Processing image...",
         "form": {
           "title": "Gathering Title",
@@ -221,11 +222,34 @@
     },
     "gathering": {
       "detail": {
-        "title": "Gathering Detail Page",
+        "title": "Gathering Details",
+        "loading": "Loading...",
         "joinButton": "Join",
-        "leaveButton": "Leave",
+        "cancelJoinButton": "Cancel",
+        "cancelButton": "Cancel Gathering",
+        "shareButton": "Share",
         "editButton": "Edit",
-        "deleteButton": "Delete"
+        "deleteButton": "Delete",
+        "loadingParticipants": "Loading participants...",
+        "failedToLoadParticipants": "Failed to load participants.",
+        "reviewTitle": "Here’s how others felt about this program!",
+        "bottomBar": {
+          "title": "Better Program",
+          "content": "Recover with top wellness experts in Korea"
+        },
+        "confirmCancel": "Are you sure you want to cancel this gathering?",
+        "copySuccess": "Link copied to clipboard!",
+        "emptyReview": "No reviews yet.",
+        "like": "Like",
+        "unlike": "Unlike",
+        "confirmed": "Confirmed",
+        "participantStatus": "{count} participants",
+        "minParticipants": "Minimum {count}",
+        "maxParticipants": "Maximum {count}",
+        "joinSuccess": "Joined successfully.",
+        "cancelJoin": "Participation cancelled.",
+        "removeGathering": "Gathering cancelled.",
+        "cancelTitle": "Cancel the gathering?"
       }
     },
     "myPage": {
@@ -236,8 +260,7 @@
         "editButton": "Edit",
         "name": "Name",
         "company": "Company",
-        "email": "Email",
-        "emailReadOnly": "Email cannot be modified"
+        "email": "Email"
       },
       "tabs": {
         "joinedGatherings": "My Gatherings",
@@ -265,6 +288,9 @@
         "submitError": "Failed to submit review"
       },
       "form": {
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "emailReadOnly": "Email cannot be modified",
         "companyName": "Company",
         "companyNamePlaceholder": "Enter your company name",
         "profileImage": "Profile Image",
@@ -274,6 +300,7 @@
         "submit": "Update Complete",
         "submitting": "Updating...",
         "imageProcessing": "Processing image...",
+        "success": "Profile updated successfully",
         "errors": {
           "companyNameRequired": "Please enter your company name",
           "imageRequired": "Please select a profile image",
@@ -366,7 +393,8 @@
       "password": "Password must be at least 8 characters",
       "passwordConfirm": "Passwords do not match",
       "emailExists": "This email is already in use",
-      "invalidEmail": "Please enter a valid email address"
+      "invalidEmail": "Please enter a valid email address",
+      "cannotSignIn": "Failed to sign in."
     }
   },
   "metadata": {

@@ -9,7 +9,6 @@ import {
 
 // 전체목록 조회
 export const getReviewList = (params: ReviewFilterProps): Promise<ReviewListResponse> => {
-  console.log('🔥 리뷰 요청:', params);
   return httpClient.get(`${API_ENDPOINTS.REVIEWS.LIST}`, { params });
 };
 

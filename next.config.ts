@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
@@ -48,4 +49,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+const sentryWebpackPluginOptions = {
+  // 추가 설정이 필요한 경우 여기에 추가
+  silent: true, // 빌드 시 Sentry 로그 숨김
+};
+
+export default withSentryConfig(withNextIntl(nextConfig), sentryWebpackPluginOptions);

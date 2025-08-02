@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n';
@@ -39,7 +40,9 @@ export const OptionsFiltersGroup = ({ sortValue, defaultSort }: OptionsFiltersGr
   // URL에서 현재 값들 가져오기
   const selectedLocation = searchParams.get('location') || '전체보기';
   const selectedSortBy = searchParams.get('sortBy') || defaultSort;
-  const filteredSortOptions = sortOptions.filter((opt) => sortValue.includes(opt.value));
+  const filteredSortOptions = sortOptions
+    .filter((opt) => sortValue.includes(opt.value))
+    .sort((a, b) => sortValue.indexOf(a.value) - sortValue.indexOf(b.value));
 
   const updateFilter = (filterType: string, value: string) => {
     const params = new URLSearchParams(searchParams);

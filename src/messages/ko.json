@@ -153,6 +153,7 @@
         "pending": "전송 중...",
         "submit": "확인",
         "cancel": "취소",
+        "success": "모임 생성이 완료되었습니다",
         "imageProcessing": "이미지 처리 중...",
         "form": {
           "title": "모임 이름",
@@ -222,10 +223,33 @@
     "gathering": {
       "detail": {
         "title": "모임 상세 페이지",
+        "loading": "로딩 중...",
         "joinButton": "참여하기",
-        "leaveButton": "나가기",
+        "cancelJoinButton": "참여 취소하기",
+        "cancelButton": "취소하기",
+        "shareButton": "공유하기",
         "editButton": "수정하기",
-        "deleteButton": "삭제하기"
+        "deleteButton": "삭제하기",
+        "loadingParticipants": "참여자 정보를 불러오는 중...",
+        "failedToLoadParticipants": "참여자 정보를 불러오는 데 실패했습니다.",
+        "reviewTitle": "이용자들은 이 프로그램을 이렇게 느꼈어요!",
+        "bottomBar": {
+          "title": "더 건강한 프로그램",
+          "content": "국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
+        },
+        "confirmCancel": "정말로 모임을 취소하시겠습니까?",
+        "copySuccess": "모임 링크가 클립보드에 복사되었습니다!",
+        "emptyReview": "아직 리뷰가 없어요.",
+        "like": "좋아요",
+        "unlike": "좋아요 취소",
+        "participantStatus": "모집 정원 {count}명",
+        "confirmed": "개설확정",
+        "minParticipants": "최소인원 {count}명",
+        "maxParticipants": "최대인원 {count}명",
+        "joinSuccess": "모임 참여가 완료되었습니다.",
+        "cancelJoin": "모임 참여를 취소했습니다.",
+        "removeGathering": "모임이 취소되었습니다.",
+        "cancelTitle": "정말로 모임을 취소하시겠습니까?"
       }
     },
     "myPage": {
@@ -236,8 +260,7 @@
         "editButton": "수정",
         "name": "이름",
         "company": "회사",
-        "email": "이메일",
-        "emailReadOnly": "이메일은 수정할 수 없습니다"
+        "email": "이메일"
       },
       "tabs": {
         "joinedGatherings": "나의 모임",
@@ -265,6 +288,9 @@
         "submitError": "리뷰 등록에 실패했습니다"
       },
       "form": {
+        "email": "이메일",
+        "emailPlaceholder": "이메일을 입력해주세요",
+        "emailReadOnly": "이메일은 수정할 수 없습니다",
         "companyName": "회사명",
         "companyNamePlaceholder": "회사명을 입력해주세요",
         "profileImage": "프로필 이미지",
@@ -274,6 +300,7 @@
         "submit": "수정 완료",
         "submitting": "수정 중...",
         "imageProcessing": "이미지 처리 중...",
+        "success": "프로필 수정이 완료되었습니다",
         "errors": {
           "companyNameRequired": "회사명을 입력해주세요",
           "imageRequired": "프로필 이미지를 선택해주세요",
@@ -366,7 +393,8 @@
       "password": "비밀번호는 8자 이상이어야 합니다",
       "passwordConfirm": "비밀번호가 일치하지 않습니다",
       "emailExists": "이미 사용 중인 이메일입니다",
-      "invalidEmail": "유효한 이메일 주소를 입력하세요"
+      "invalidEmail": "유효한 이메일 주소를 입력하세요",
+      "cannotSignIn": "로그인에 실패했습니다."
     }
   },
   "metadata": {

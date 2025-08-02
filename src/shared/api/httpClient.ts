@@ -2,6 +2,7 @@
 import { getSession, signOut } from 'next-auth/react';
 // import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
+import { trackApiError, trackApiPerformance } from '@/shared/lib/sentry/tracking';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
 import { logError, logRequest, logResponse } from './logger';
@@ -9,6 +10,9 @@ import { logError, logRequest, logResponse } from './logger';
 declare module 'axios' {
   interface AxiosRequestConfig {
     authRequired?: boolean;
+    metadata?: {
+      startTime: Date;
+    };
   }
 }
 
@@ -21,6 +25,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
+  config.metadata = { startTime: new Date() };
+
   if (config.authRequired) {
     let token;
     const headers = AxiosHeaders.from(config.headers);
@@ -37,9 +43,10 @@ axiosInstance.interceptors.request.use(async (config) => {
       // });
       // token = rawToken;
     }
-
-    headers.set('Authorization', `Bearer ${token}`);
-    config.headers = headers;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+      config.headers = headers;
+    }
   }
 
   // FormData 자동 변환
@@ -69,6 +76,19 @@ axiosInstance.interceptors.request.use(async (config) => {
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     logResponse(response);
+
+    // API 성능 추적
+    const startTime = response.config.metadata?.startTime;
+    if (startTime) {
+      const duration = Date.now() - startTime.getTime();
+      trackApiPerformance(
+        response.config.url || '',
+        response.config.method || '',
+        duration,
+        response.status,
+      );
+    }
+
     return response;
   },
   (error: AxiosError) => {
@@ -93,7 +113,6 @@ axiosInstance.interceptors.response.use(
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       if (IS_CLIENT) {
         console.error('401 Unauthorized:', message);
-        localStorage.removeItem('accessToken');
 
         // 현재 locale을 가져와서 리다이렉트
         const currentPath = window.location.pathname;
@@ -106,9 +125,22 @@ axiosInstance.interceptors.response.use(
       // global-error 를 안태우기 위해 resolve 반환
       return Promise.resolve(undefined);
     }
-    // Sentry 도입시 500대 에러 등 심각한 에러 처리
-    if (status >= 500) {
-      // Sentry.captureException(error);
+    // Sentry로 HTTP 에러 추적
+    // - 500+ 에러: 모든 환경에서 추적 (서버 에러)
+    // - 400+ 에러: 프로덕션에서만 추적 (클라이언트 에러)
+    const isServerError = status >= 500;
+    const isClientError = status >= 400 && status < 500;
+    const shouldTrackError =
+      isServerError || (process.env.NODE_ENV === 'production' && isClientError);
+
+    if (shouldTrackError) {
+      trackApiError(error, {
+        endpoint: error.config?.url,
+        method: error.config?.method,
+        status,
+        response: data,
+        request: error.config,
+      });
     }
 
     // 그 외 에러는 ApiError로 래핑하여 반환

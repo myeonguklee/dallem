@@ -12,3 +12,12 @@ export interface GatheringDetail {
   createdBy: number;
   canceledAt: string | null;
 }
+
+export interface SessionData {
+  expires: string;
+  user: UserSession;
+}
+
+export interface UserSession {
+  id: number;
+}

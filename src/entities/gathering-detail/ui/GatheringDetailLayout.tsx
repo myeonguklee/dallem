@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { Locale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import {
   useCancelGathering,
@@ -9,41 +12,58 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
-import { useGetUser } from '@/entities/user/api';
 import { useRouter } from '@/i18n/navigation';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
+import { Popup } from '@/shared/ui/modal/Popup';
 import { BottomFloatingBar } from '@/widgets/BottomFloatingBar';
 import { ContainerInformation } from '@/widgets/ContainerInformation';
+import toast from 'react-hot-toast';
 import { calculateGatheringRole } from '../model/calculateGatheringRole';
 import { ReviewList } from './ReviewList';
 
-export const GatheringDetailLayout = ({ id }: { id: number }) => {
+export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Locale }) => {
+  const t = useTranslations('pages.gathering.detail');
+  const tCommon = useTranslations('common');
+  const { data: sessionData } = useSession();
+  const rawUser = sessionData?.user;
+
   const { data: gathering } = useGetGatheringDetail(id);
   const {
     data: participantsData,
     isPending: isParticipantsLoading,
     isError: isParticipantsError,
   } = useGetParticipants(id);
-  const { data: user } = useGetUser();
 
   const { mutate: join, isPending: isJoining } = useJoinGathering();
   const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
   const { mutate: cancel, isPending: isCanceling } = useCancelGathering();
   const router = useRouter();
 
+  const [isCancelPopupOpen, setIsCancelPopupOpen] = useState(false);
+
+  const openCancelPopup = () => setIsCancelPopupOpen(true);
+  const closeCancelPopup = () => setIsCancelPopupOpen(false);
+
   if (isParticipantsLoading) {
-    return <div>로딩 중...</div>;
+    return <div>{t('loadingParticipants')}</div>;
   }
   if (isParticipantsError || !participantsData) {
-    return <div>참여자 정보를 불러오는 데 실패했습니다.</div>;
+    return <div>{t('failedToLoadParticipants')}</div>;
   }
 
   // isPending 상태 값 활용하기전 임시 콘솔
   console.log(isJoining, isLeaving, isCanceling);
 
   const isFull = gathering.capacity <= gathering.participantCount;
-  const role = calculateGatheringRole(user, gathering, participantsData);
+
+  const userSession = rawUser
+    ? {
+        id: Number(rawUser.id),
+      }
+    : undefined;
+
+  const role = calculateGatheringRole(userSession, gathering, participantsData);
 
   const handleJoin = () => {
     join(id);
@@ -52,24 +72,23 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
   const handleLeave = () => {
     leave(id);
   };
-
+  const confirmCancel = () => {
+    cancel(id, {
+      onSuccess: () => {
+        closeCancelPopup();
+        router.push(ROUTES.GATHERING);
+      },
+    });
+  };
   const handleCancel = () => {
-    // 윈도우 컨펌 대신 모달 or 알림 표시 x
-    if (window.confirm('정말로 모임을 취소하시겠습니까?')) {
-      cancel(id, {
-        onSuccess: () => {
-          // 성공 시 목록 페이지로 이동
-          router.push(ROUTES.GATHERING);
-        },
-      });
-    }
+    openCancelPopup();
   };
 
   const handleShare = () => {
     // 공유하기 로직 구현
     // url링크 클립보드로 복사
     navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('모임 링크가 클립보드에 복사되었습니다!');
+      toast.success(t('copySuccess'));
     });
   };
 
@@ -81,19 +100,19 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
     })) ?? [];
 
-  const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime);
+  const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime, locale);
 
   return (
-    <div className="tablet:mb-[100px] mb-[200px] flex flex-col items-center px-4 py-8">
-      <section className="mb-8 flex w-full max-w-[996px] flex-col gap-4 md:flex-row">
+    <div className="tablet:mb-[100px] mb-[200px] flex w-[996px] flex-col px-4 py-8">
+      <section className="mx-auto mb-8 flex w-full max-w-[996px] flex-col gap-4 md:flex-row">
         {/* Gathering Banner */}
-        <div className="relative h-[270px] w-[486px] overflow-hidden rounded-xl">
+        <div className="relative h-[270px] w-full overflow-hidden rounded-xl md:h-auto md:min-w-0 md:flex-1">
           <Image
             src={gathering.image || '/gathering-default-image.png'}
             alt={'alt'}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 486px"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
           {/* Tag */}
           <GatheringDeadlineTag registrationEnd={new Date(gathering.registrationEnd)} />
@@ -111,15 +130,23 @@ export const GatheringDetailLayout = ({ id }: { id: number }) => {
         />
         {/* 리뷰 리스트 컴포넌트 */}
       </section>
-      <section className="h-[687px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
-        <h2 className="mb-4 text-xl font-semibold">이용자들은 이 프로그램을 이렇게 느꼈어요!</h2>
+      <section className="mx-auto h-[687px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
+        <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
         <ReviewList id={id} />
       </section>
+      <Popup
+        isOpen={isCancelPopupOpen}
+        onClose={closeCancelPopup}
+        onConfirm={confirmCancel}
+        message={t('confirmCancel')}
+        primaryButtonText={tCommon('confirm')}
+        secondaryButtonText={tCommon('cancel')}
+      />
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
         role={role}
-        title="더 건강한 프로그램"
-        content="국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
+        title={t('bottomBar.title')}
+        content={t('bottomBar.content')}
         isFull={isFull}
         onJoin={handleJoin}
         onCancelJoin={handleLeave}

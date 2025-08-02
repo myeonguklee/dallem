@@ -20,7 +20,7 @@ export const INPUT_VARIANT = {
   error: 'border-2 border-red-600 text-gray-800',
 };
 
-export const inputVariants = cva(
+const inputVariants = cva(
   'flex w-full rounded-xl px-4 py-2.5 outline-none transition bg-gray-50 text-sm leading-5 tablet:text-base tablet:leading-6',
   {
     variants: {
@@ -60,7 +60,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
     return (
       <>
         <div className={cn(inputVariants({ variant, inputSize, isError }), className)}>

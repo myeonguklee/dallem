@@ -14,7 +14,7 @@ interface ProfileEditFormProps {
 }
 
 export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditFormProps) => {
-  const t = useTranslations('pages.myPage');
+  const t = useTranslations('pages.myPage.form');
   const { isPending, mutate } = useUpdateUser();
   const [fileName, setFileName] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -37,12 +37,13 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
   const onSubmit = (data: UpdateUserPayload) => {
     // 이미지 처리 중이면 제출 방지
     if (isProcessing) {
-      toast.error(t('form.errors.imageProcessing'));
+      toast.error(t('imageProcessing'));
       return;
     }
 
     mutate(data, {
       onSuccess: () => {
+        toast.success(t('success'));
         onClose();
       },
     });
@@ -64,27 +65,27 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
 
     // 파일 유효성 검사
     if (!file.type.startsWith('image/')) {
-      toast.error(t('form.errors.imageType'));
+      toast.error(t('errors.imageType'));
       return;
     }
 
     // 파일 크기 제한 (20MB)
     const MAX_FILE_SIZE = 20 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
-      toast.error(t('form.errors.fileSize'));
+      toast.error(t('errors.fileSize'));
       return;
     }
 
     // 지원하는 이미지 형식 확인
     const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
     if (!supportedTypes.includes(file.type)) {
-      toast.error(t('form.errors.unsupportedType'));
+      toast.error(t('errors.unsupportedType'));
       return;
     }
 
     // 이미 처리 중인지 확인
     if (imageResizer.isCurrentlyProcessing()) {
-      toast.error(t('form.errors.processing'));
+      toast.error(t('errors.processing'));
       return;
     }
 
@@ -93,7 +94,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
 
     try {
       // 진행률 토스트 생성
-      const toastId = toast.loading(t('form.processing.progress', { progress: 0 }), {
+      const toastId = toast.loading(t('processing.progress', { progress: 0 }), {
         duration: Infinity,
       });
       progressToastIdRef.current = toastId;
@@ -101,7 +102,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
       // 진행률 업데이트 함수
       const updateProgress = (progress: number) => {
         if (progressToastIdRef.current) {
-          toast.loading(t('form.processing.progress', { progress }), {
+          toast.loading(t('processing.progress', { progress }), {
             id: progressToastIdRef.current,
           });
         }
@@ -128,7 +129,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
 
       // 완료 토스트 (3초 후 자동 닫힘)
       if (progressToastIdRef.current) {
-        toast.success(t('form.processing.complete'), {
+        toast.success(t('processing.complete'), {
           id: progressToastIdRef.current,
           duration: 3000, // 3초
         });
@@ -136,32 +137,32 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
       }
     } catch (error) {
       console.error('이미지 처리 오류:', error);
-      let errorMessage = t('form.errors.default');
+      let errorMessage = t('errors.default');
       if (error && typeof error === 'object' && 'code' in error) {
         switch ((error as { code: string }).code) {
           case 'TIMEOUT':
-            errorMessage = t('form.errors.timeout');
+            errorMessage = t('errors.timeout');
             break;
           case 'MEMORY':
-            errorMessage = t('form.errors.memory');
+            errorMessage = t('errors.memory');
             break;
           case 'UNSUPPORTED_TYPE':
-            errorMessage = t('form.errors.unsupportedType');
+            errorMessage = t('errors.unsupportedType');
             break;
           case 'CORRUPTED':
-            errorMessage = t('form.errors.corrupted');
+            errorMessage = t('errors.corrupted');
             break;
           case 'PROCESSING':
-            errorMessage = t('form.errors.processing');
+            errorMessage = t('errors.processing');
             break;
           case 'FILE_SIZE':
-            errorMessage = t('form.errors.fileSize');
+            errorMessage = t('errors.fileSize');
             break;
           case 'IMAGE_TYPE':
-            errorMessage = t('form.errors.imageType');
+            errorMessage = t('errors.imageType');
             break;
           default:
-            errorMessage = t('form.errors.default');
+            errorMessage = t('errors.default');
         }
       }
       if (progressToastIdRef.current) {
@@ -186,7 +187,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="image"
             className="mb-2 block text-sm font-medium"
           >
-            {t('form.profileImage')}
+            {t('profileImage')}
           </label>
           <div className="flex w-full items-center gap-2">
             <div
@@ -199,10 +200,10 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
                 className={watch('image') ? 'text-gray-800' : 'text-gray-400'}
                 title={fileName} // 전체 파일명을 툴팁으로 표시
               >
-                {fileName ? truncateFileName(fileName) : t('form.imagePlaceholder')}
+                {fileName ? truncateFileName(fileName) : t('imagePlaceholder')}
               </span>
               {isProcessing && (
-                <span className="ml-2 text-sm text-orange-500">{t('form.processing.status')}</span>
+                <span className="ml-2 text-sm text-orange-500">{t('processing.status')}</span>
               )}
             </div>
             <button
@@ -211,7 +212,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
               onClick={() => document.getElementById('profile-image-upload')?.click()}
               disabled={isProcessing}
             >
-              {isProcessing ? t('form.processing.status') : t('form.imageButton')}
+              {isProcessing ? t('processing.status') : t('imageButton')}
             </button>
             <input
               type="file"
@@ -226,7 +227,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             <p className="mt-1 text-xs text-red-500">{t(errors.image.message ?? '')}</p>
           )}
           {isProcessing && (
-            <p className="mt-1 text-xs text-orange-500">{t('form.processing.waitMessage')}</p>
+            <p className="mt-1 text-xs text-orange-500">{t('processing.waitMessage')}</p>
           )}
         </div>
 
@@ -235,7 +236,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="companyName"
             className="mb-2 block text-sm font-medium"
           >
-            {t('form.companyName')}
+            {t('companyName')}
           </label>
           <input
             type="text"
@@ -253,7 +254,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             htmlFor="email"
             className="mb-2 block text-sm font-medium"
           >
-            {t('profile.email')}
+            {t('email')}
           </label>
           <input
             type="email"
@@ -262,7 +263,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
             disabled
             className="w-full cursor-not-allowed rounded-xl border border-gray-300 bg-gray-50 px-4 py-2 text-gray-500"
           />
-          <p className="mt-1 text-xs text-gray-500">{t('profile.emailReadOnly')}</p>
+          <p className="mt-1 text-xs text-gray-500">{t('emailReadOnly')}</p>
         </div>
       </div>
 
@@ -272,18 +273,14 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
           onClick={onClose}
           className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-700 transition hover:bg-gray-50"
         >
-          {t('form.cancel')}
+          {t('cancel')}
         </button>
         <button
           type="submit"
           disabled={isPending || isProcessing}
           className="flex-1 rounded-xl bg-orange-500 px-4 py-2 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-50"
         >
-          {isPending
-            ? t('form.submitting')
-            : isProcessing
-              ? t('form.imageProcessing')
-              : t('form.submit')}
+          {isPending ? t('submitting') : isProcessing ? t('imageProcessing') : t('submit')}
         </button>
       </div>
     </form>

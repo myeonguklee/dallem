@@ -1,19 +1,23 @@
-export function formatDateAndTime(isoString: string) {
+export function formatDateAndTime(isoString: string, locale: string) {
   const date = new Date(isoString);
-  date.setHours(date.getHours() + 9); // KST 보정
 
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  // 2025-01-01T00:00:00Z -> 2025-01-01
   const formattedYearMonthDay = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-  // 2025-01-01T00:00:00Z -> 1월 1일
-  const formattedDate = `${month}월 ${day}일`;
-  // 2025-01-01T07:09:00Z -> 07:09
-  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+  // 날짜를 locale에 맞게 "7월 7일" or "July 7" 같이 포맷팅
+  const formattedDate = new Intl.DateTimeFormat(locale, {
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+
+  // 시간은 24시간 기준 HH:mm 포맷
+  const formattedTime = date.toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
 
   return { formattedYearMonthDay, formattedDate, formattedTime };
 }

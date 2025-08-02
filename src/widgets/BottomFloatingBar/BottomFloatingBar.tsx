@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { Button } from '@/shared/ui/button';
 import { twMerge } from 'tailwind-merge';
 
@@ -33,6 +34,7 @@ export const BottomFloatingBar = ({
   onCancelProject,
   onShare,
 }: BottomFloatingBarProps) => {
+  const t = useTranslations('pages.gathering.detail');
   const isHost = role === GatheringRole.HOST;
   const commonButtonClass = 'h-[44px] w-[115px] font-semibold whitespace-nowrap';
   return (
@@ -57,7 +59,7 @@ export const BottomFloatingBar = ({
               disabled={isFull}
               className={twMerge(commonButtonClass, isFull && 'bg-gray-400 text-white opacity-50')}
             >
-              참여하기
+              {t('joinButton')}
             </Button>
           )}
           {role === GatheringRole.MEMBER && (
@@ -66,7 +68,7 @@ export const BottomFloatingBar = ({
               onClick={onCancelJoin}
               className={commonButtonClass}
             >
-              참여 취소하기
+              {t('cancelJoinButton')}
             </Button>
           )}
           {role === GatheringRole.HOST && (
@@ -76,14 +78,14 @@ export const BottomFloatingBar = ({
                 onClick={onCancelProject}
                 className={commonButtonClass}
               >
-                취소하기
+                {t('cancelButton')}
               </Button>
               <Button
                 variant={'primary'}
                 onClick={onShare}
                 className={commonButtonClass}
               >
-                공유하기
+                {t('shareButton')}
               </Button>
             </>
           )}
