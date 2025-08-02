@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCreateGathering } from '@/entities/gathering/api/queries';
 import { CreateGatheringPayload, createGatheringSchema } from '@/entities/gathering/model/schema';
+import { trackFormValidationError } from '@/shared/lib/sentry/tracking';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldError, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -51,6 +52,20 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
     },
   });
 
+  // 폼 검증 에러 추적
+  React.useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      trackFormValidationError('gathering', errors, {
+        formData: {
+          errors: Object.keys(errors).map((key) => ({
+            field: key,
+            message: errors[key as keyof typeof errors]?.message,
+          })),
+        },
+      });
+    }
+  }, [errors]);
+
   const onSubmit = (data: CreateGatheringPayload) => {
     // 이미지 처리 중이면 제출 방지
     if (isImageProcessing) {
@@ -60,6 +75,7 @@ export const CreateGatheringForm = ({ onClose }: CreateGatheringFormProps) => {
 
     mutate(data, {
       onSuccess: () => {
+        toast.success(t('success'));
         onClose();
       },
     });

@@ -153,6 +153,7 @@
         "pending": "Sending...",
         "submit": "Confirm",
         "cancel": "Cancel",
+        "success": "Gathering created successfully",
         "imageProcessing": "Processing image...",
         "form": {
           "title": "Gathering Title",
@@ -259,8 +260,7 @@
         "editButton": "Edit",
         "name": "Name",
         "company": "Company",
-        "email": "Email",
-        "emailReadOnly": "Email cannot be modified"
+        "email": "Email"
       },
       "tabs": {
         "joinedGatherings": "My Gatherings",
@@ -288,6 +288,9 @@
         "submitError": "Failed to submit review"
       },
       "form": {
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "emailReadOnly": "Email cannot be modified",
         "companyName": "Company",
         "companyNamePlaceholder": "Enter your company name",
         "profileImage": "Profile Image",
@@ -297,6 +300,7 @@
         "submit": "Update Complete",
         "submitting": "Updating...",
         "imageProcessing": "Processing image...",
+        "success": "Profile updated successfully",
         "errors": {
           "companyNameRequired": "Please enter your company name",
           "imageRequired": "Please select a profile image",

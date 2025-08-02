@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { signinApi, signoutApi } from '@/entities/auth/api/services';
 import { API_CONFIG, API_ENDPOINTS } from '@/shared/config';
+import * as Sentry from '@sentry/nextjs';
 
 const handler = NextAuth({
   providers: [
@@ -59,6 +60,11 @@ const handler = NextAuth({
       if (process.env.NODE_ENV === 'development') {
         console.log('User signed out:', message);
       }
+
+      // 센트리에서 사용자 정보 제거
+      Sentry.setUser(null);
+      Sentry.setTag('user.company', null);
+
       await signoutApi();
     },
   },
@@ -103,6 +109,20 @@ const handler = NextAuth({
       session.user.name = token.name;
       session.user.image = token.image;
       session.user.companyName = token.companyName;
+
+      // 센트리에 사용자 정보 설정 (개인정보 보호)
+      if (token.id) {
+        Sentry.setUser({
+          id: token.id.toString(),
+        });
+        if (token.companyName) {
+          Sentry.setTag('user.company', token.companyName as string);
+        }
+      } else {
+        // 로그아웃 상태일 때 사용자 정보 제거
+        Sentry.setUser(null);
+        Sentry.setTag('user.company', null);
+      }
 
       if (process.env.NODE_ENV === 'development') {
         console.log('SESSION - token exp', token.exp);
