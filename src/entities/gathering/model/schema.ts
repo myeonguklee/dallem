@@ -29,14 +29,11 @@ export const createGatheringSchema = z
       )
       .optional(),
   })
-  .refine(
-    (data) => !data.registrationEnd || (data.dateTime && data.registrationEnd < data.dateTime),
-    {
-      message: 'form.errors.registrationEndInvalid',
-      path: ['registrationEnd'],
-    },
-  )
-  .refine((data) => data.dateTime && data.dateTime > new Date(), {
+  .refine((data) => data.registrationEnd < data.dateTime, {
+    message: 'form.errors.registrationEndInvalid',
+    path: ['registrationEnd'],
+  })
+  .refine((data) => new Date() < data.dateTime, {
     message: 'form.errors.dateTimePast',
     path: ['dateTime'],
   });
