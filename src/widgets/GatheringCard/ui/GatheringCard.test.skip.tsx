@@ -53,6 +53,7 @@ const mockGatheringData = {
   gatheringCapacity: 20,
   gatheringImage: '/gathering-default-image.png',
   isCanceled: false,
+  isEnded: false,
 };
 
 describe('GatheringCard', () => {
