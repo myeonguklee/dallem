@@ -17,7 +17,7 @@ export const GatheringJoinButton = ({ participantCount, capacity }: GatheringJoi
   // 버튼 텍스트 결정
   const getButtonText = () => {
     if (isFull) return t('full');
-    return t('join');
+    return t('detail');
   };
 
   // 버튼 variant 결정

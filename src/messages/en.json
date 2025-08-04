@@ -40,7 +40,7 @@
         "confirmed": "Confirmed"
       },
       "joinButton": {
-        "join": "Join",
+        "detail": "Detail",
         "cancel": "Cancel",
         "full": "Full"
       },
