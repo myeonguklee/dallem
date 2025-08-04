@@ -6,7 +6,7 @@ Sentry.init({
   dsn: DSN,
   environment: process.env.NODE_ENV,
   sendDefaultPii: true,
-  tracesSampleRate: 1.0,
+  tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
   // 프로덕션 환경에서만 에러 추적 활성화
   enabled: process.env.NODE_ENV === 'production',
