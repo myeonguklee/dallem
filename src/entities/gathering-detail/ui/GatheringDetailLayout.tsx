@@ -143,9 +143,9 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
           minParticipants={5}
           maxParticipants={gathering.capacity}
         />
-        {/* 리뷰 리스트 컴포넌트 */}
       </section>
-      <section className="mx-auto h-[687px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
+      {/* 리뷰 리스트 컴포넌트 */}
+      <section className="mx-auto min-h-[200px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
         <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
         <ReviewList id={id} />
       </section>
