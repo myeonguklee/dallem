@@ -19,6 +19,7 @@ interface GatheringCardProps {
   gatheringCapacity: number;
   gatheringImage: string;
   isCanceled: boolean;
+  isEnded: boolean;
   isFirstCard?: boolean;
   onToggle?: () => void;
 }
@@ -36,6 +37,7 @@ export const GatheringCard = ({
   gatheringCapacity,
   gatheringImage,
   isCanceled,
+  isEnded,
   isFirstCard = false,
   onToggle,
 }: GatheringCardProps) => {
@@ -123,6 +125,17 @@ export const GatheringCard = ({
             <div className="text-lg font-medium">{t('canceled')}</div>
           </div>
         </div>
+      )}
+
+      {/* 모임이 종료된 경우 */}
+      {isEnded && (
+        <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
+          <div className="rounded-common absolute inset-0 flex items-center justify-center bg-black opacity-60">
+            <div className="flex flex-col items-center gap-2">
+              <div className="text-lg font-medium text-white">{t('ended')}</div>
+            </div>
+          </div>
+        </Link>
       )}
     </div>
   );

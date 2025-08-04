@@ -26,6 +26,7 @@
     },
     "gatheringCard": {
       "canceled": "This gathering has been canceled!",
+      "ended": "This gathering has ended!",
       "deadline": {
         "daysLeft": "Ends in {days}d",
         "todayEnd": "Ends at {time}h",

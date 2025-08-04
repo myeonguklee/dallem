@@ -77,6 +77,7 @@ export function GatheringList({ initialGatherings, initialFilters }: GatheringLi
               gatheringCapacity={gathering.capacity}
               gatheringImage={gathering.image}
               isCanceled={!!gathering.canceledAt}
+              isEnded={new Date(gathering.dateTime) < new Date()}
               isFirstCard={index === 0}
             />
           ))}
