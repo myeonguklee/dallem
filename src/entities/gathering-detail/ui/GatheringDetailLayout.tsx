@@ -41,9 +41,13 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const router = useRouter();
 
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const openCancelPopup = () => setIsCancelPopupOpen(true);
   const closeCancelPopup = () => setIsCancelPopupOpen(false);
+
+  const openLoginPopup = () => setIsLoginPopupOpen(true);
+  const closeLoginPopup = () => setIsLoginPopupOpen(false);
 
   if (isParticipantsLoading) {
     return <div>{t('loadingParticipants')}</div>;
@@ -66,7 +70,18 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const role = calculateGatheringRole(userSession, gathering, participantsData);
 
   const handleJoin = () => {
-    join(id);
+    // 로그인 상태 확인
+    if (!sessionData) {
+      // 비로그인 상태이면 로그인 필요 팝업을 띄움
+      openLoginPopup();
+    } else {
+      // 로그인 상태이면 기존 로직대로 참여 요청
+      join(id);
+    }
+  };
+
+  const handleLoginRedirect = () => {
+    router.push(ROUTES.SIGNIN);
   };
 
   const handleLeave = () => {
@@ -134,12 +149,22 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
         <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
         <ReviewList id={id} />
       </section>
+      {/* 모임 취소 팝업 */}
       <Popup
         isOpen={isCancelPopupOpen}
         onClose={closeCancelPopup}
         onConfirm={confirmCancel}
         message={t('confirmCancel')}
         primaryButtonText={tCommon('confirm')}
+        secondaryButtonText={tCommon('cancel')}
+      />
+      {/* 비로그인 모임 참여 팝업 */}
+      <Popup
+        isOpen={isLoginPopupOpen}
+        onClose={closeLoginPopup}
+        onConfirm={handleLoginRedirect}
+        message={t('loginRequired')}
+        primaryButtonText={tCommon('login')}
         secondaryButtonText={tCommon('cancel')}
       />
       {/* 하단 플로팅 바 */}

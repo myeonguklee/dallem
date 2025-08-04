@@ -12,7 +12,8 @@
     "close": "닫기",
     "back": "뒤로",
     "next": "다음",
-    "previous": "이전"
+    "previous": "이전",
+    "login": "로그인"
   },
   "ui": {
     "timePicker": {
@@ -249,7 +250,8 @@
         "joinSuccess": "모임 참여가 완료되었습니다.",
         "cancelJoin": "모임 참여를 취소했습니다.",
         "removeGathering": "모임이 취소되었습니다.",
-        "cancelTitle": "정말로 모임을 취소하시겠습니까?"
+        "cancelTitle": "정말로 모임을 취소하시겠습니까?",
+        "loginRequired": "로그인이 필요한 서비스 입니다."
       }
     },
     "myPage": {

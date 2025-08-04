@@ -12,7 +12,8 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "login": "Login"
   },
   "ui": {
     "timePicker": {
@@ -249,7 +250,8 @@
         "joinSuccess": "Joined successfully.",
         "cancelJoin": "Participation cancelled.",
         "removeGathering": "Gathering cancelled.",
-        "cancelTitle": "Cancel the gathering?"
+        "cancelTitle": "Cancel the gathering?",
+        "loginRequired": "You must be logged in to use this service."
       }
     },
     "myPage": {
