@@ -7,6 +7,17 @@ Sentry.init({
   environment: process.env.NODE_ENV,
   sendDefaultPii: true,
   tracesSampleRate: 1.0,
+
+  // 프로덕션 환경에서만 에러 추적 활성화
+  enabled: process.env.NODE_ENV === 'production',
+
+  // 개발 환경에서는 에러 전송 비활성화
+  beforeSend(event) {
+    if (process.env.NODE_ENV !== 'production') {
+      return null;
+    }
+    return event;
+  },
 });
 
 // This export will instrument router navigations
