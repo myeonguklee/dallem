@@ -49,11 +49,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withNextIntl(nextConfig), {
-  silent: !process.env.CI,
-  disableLogger: true,
-  tunnelRoute: '/sentry-tunnel',
-  reactComponentAnnotation: {
-    enabled: true,
-  },
-});
+export default withSentryConfig(withNextIntl(nextConfig));
