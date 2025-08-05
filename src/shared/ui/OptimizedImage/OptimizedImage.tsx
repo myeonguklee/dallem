@@ -11,7 +11,7 @@ interface SmartImageProps {
   quality?: number;
 }
 
-export const SmartImage = ({
+export const OptimizedImage = ({
   src,
   alt,
   index = 0,

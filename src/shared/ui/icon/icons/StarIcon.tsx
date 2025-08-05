@@ -9,6 +9,8 @@ export const StarIcon = ({
 }: IconProps) => {
   return (
     <svg
+      role="img"
+      aria-label={filled ? 'filled-star' : 'empty-star'}
       width={size}
       height={size}
       fill="none"
