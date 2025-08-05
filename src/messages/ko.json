@@ -16,6 +16,10 @@
     "login": "로그인"
   },
   "ui": {
+    "likeButton": {
+      "like": "좋아요",
+      "unlike": "좋아요 취소"
+    },
     "timePicker": {
       "period": "오전/오후",
       "hour": "시",

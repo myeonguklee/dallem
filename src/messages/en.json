@@ -16,6 +16,10 @@
     "login": "Login"
   },
   "ui": {
+    "likeButton": {
+      "like": "Like",
+      "unlike": "Unlike"
+    },
     "timePicker": {
       "period": "AM/PM",
       "hour": "Hour",
