@@ -20,6 +20,9 @@
       "like": "좋아요",
       "unlike": "좋아요 취소"
     },
+    "progressBar": {
+      "defaultLabel": "{current}명 참여 중 (총 {total}명 중)"
+    },
     "timePicker": {
       "period": "오전/오후",
       "hour": "시",
