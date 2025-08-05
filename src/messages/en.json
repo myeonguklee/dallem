@@ -12,7 +12,8 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "login": "Login"
   },
   "ui": {
     "timePicker": {
@@ -235,8 +236,8 @@
         "failedToLoadParticipants": "Failed to load participants.",
         "reviewTitle": "Here’s how others felt about this program!",
         "bottomBar": {
-          "title": "Better Program",
-          "content": "Recover with top wellness experts in Korea"
+          "title": "Gatherings are more fun together",
+          "content": "Connect with others through topics you care about"
         },
         "confirmCancel": "Are you sure you want to cancel this gathering?",
         "copySuccess": "Link copied to clipboard!",
@@ -250,7 +251,8 @@
         "joinSuccess": "Joined successfully.",
         "cancelJoin": "Participation cancelled.",
         "removeGathering": "Gathering cancelled.",
-        "cancelTitle": "Cancel the gathering?"
+        "cancelTitle": "Cancel the gathering?",
+        "loginRequired": "You must be logged in to use this service."
       }
     },
     "myPage": {

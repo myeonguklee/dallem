@@ -36,7 +36,7 @@ export const BottomFloatingBar = ({
 }: BottomFloatingBarProps) => {
   const t = useTranslations('pages.gathering.detail');
   const isHost = role === GatheringRole.HOST;
-  const commonButtonClass = 'h-[44px] w-[115px] font-semibold whitespace-nowrap';
+  const commonButtonClass = 'h-[44px] min-w-[115px] font-semibold whitespace-nowrap';
   return (
     <div className="fixed bottom-0 left-0 w-full border-t-2 border-gray-900 bg-white px-4">
       <div

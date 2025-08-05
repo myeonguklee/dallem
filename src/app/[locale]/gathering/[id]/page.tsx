@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { GatheringDetailLayout } from '@/entities/gathering-detail/ui';
+import { GatheringDetailSkeleton } from '@/entities/gathering-detail/ui/GatheringDetailSkeleton';
 import { getGathering } from '@/entities/gathering/api';
 import { generateGatheringDetailMetadata } from '@/shared/lib';
 
@@ -59,7 +60,7 @@ export async function generateMetadata({
 export default async function GatheringDetailPage({ params }: GatheringDetailPageProps) {
   const { locale, id } = await params;
 
-  const t = await getTranslations({ locale, namespace: 'pages.gathering.detail' });
+  // const t = await getTranslations({ locale, namespace: 'pages.gathering.detail' });
 
   const numericId = Number(id);
 
@@ -70,7 +71,7 @@ export default async function GatheringDetailPage({ params }: GatheringDetailPag
     // 에러 바운더리 사용시 수정 예정
     // <ErrorBoundary fallback={<p>데이터를 불러오는 중 에러가 발생했습니다.</p>}>
     // </ErrorBoundary>
-    <Suspense fallback={<p>{t('loading')}</p>}>
+    <Suspense fallback={<GatheringDetailSkeleton />}>
       <GatheringDetailLayout
         id={numericId}
         locale={locale}
