@@ -2,16 +2,17 @@
 
 import { useEffect } from 'react';
 import { GlobalErrorFallback } from '@/shared/ui/fallback';
+import * as Sentry from '@sentry/nextjs';
 
 export default function GlobalError({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  reset: (() => void) | (() => Promise<void>);
 }) {
   useEffect(() => {
-    console.error('Global Error Boundary Caught:', error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (

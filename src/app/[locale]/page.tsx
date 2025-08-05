@@ -1,5 +1,6 @@
 import type { Locale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { redirect } from '@/i18n';
+import { ROUTES } from '@/shared/config/routes';
 
 interface HomePageProps {
   params: Promise<{ locale: Locale }>;
@@ -7,12 +8,7 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.home' });
 
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-4">
-      <h1 className="text-2xl font-bold">{t('title')}</h1>
-      <p className="text-xl text-gray-600">{t('welcome')}</p>
-    </div>
-  );
+  // 홈페이지를 모임 목록 페이지로 리다이렉트
+  redirect({ href: ROUTES.GATHERING, locale });
 }

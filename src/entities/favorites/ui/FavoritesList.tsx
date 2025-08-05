@@ -50,6 +50,7 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
                 gatheringCapacity={gathering.capacity}
                 gatheringImage={gathering.image}
                 isCanceled={!!gathering.canceledAt}
+                isEnded={new Date(gathering.dateTime) < new Date()}
                 onToggle={() => handleToggleFavorite(gathering.id)}
               />
             ))

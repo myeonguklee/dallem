@@ -26,6 +26,7 @@
     },
     "gatheringCard": {
       "canceled": "This gathering has been canceled!",
+      "ended": "This gathering has ended!",
       "deadline": {
         "daysLeft": "Ends in {days}d",
         "todayEnd": "Ends at {time}h",
@@ -40,7 +41,7 @@
         "confirmed": "Confirmed"
       },
       "joinButton": {
-        "join": "Join",
+        "detail": "Detail",
         "cancel": "Cancel",
         "full": "Full"
       },
