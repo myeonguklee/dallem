@@ -58,16 +58,21 @@ export const LanguageSwitcher = () => {
             onClick={toggle}
             disabled={isPending}
             size="small"
+            isOpen={isOpen}
+            aria-label={currentLocale === 'ko' ? '언어 선택' : 'Language Selection'}
             className="flex h-7.5 !w-auto items-center justify-center rounded-full border border-gray-200 bg-white px-1.5 py-0 transition-colors hover:border-gray-300 hover:bg-gray-50"
           >
             <LanguageIcon
               size={20}
               className="text-gray-600"
+              aria-hidden="true"
+              role="img"
             />
           </DropdownTrigger>
 
           <DropdownList
             isOpen={isOpen}
+            aria-label={currentLocale === 'ko' ? '언어 옵션' : 'Language Options'}
             className="absolute top-full -right-11/12 z-[var(--z-dropdown)] mt-1 !w-[120px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             {/* 드롭다운 헤더 */}
@@ -76,6 +81,8 @@ export const LanguageSwitcher = () => {
                 <LanguageIcon
                   size={14}
                   className="text-gray-500"
+                  aria-hidden="true"
+                  role="img"
                 />
                 <span className="text-sm font-medium text-gray-700">
                   {currentLocale === 'ko' ? '언어 선택' : 'Language'}

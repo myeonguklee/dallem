@@ -19,6 +19,7 @@ export const DropdownList = ({ isOpen, className, children, ...props }: Dropdown
         'right-0',
         className,
       )}
+      role="listbox"
       {...props}
     >
       {children}

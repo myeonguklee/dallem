@@ -29,16 +29,20 @@ const HeaderProfileDropdownMenu = ({ status }: Props) => {
             onClick={toggle}
             disabled={status === 'loading'}
             size="small"
+            isOpen={isOpen}
+            aria-label={t('myPage')}
             className="flex w-fit items-center justify-center rounded-full px-0 py-0 transition-colors hover:border-gray-300 hover:bg-gray-50"
           >
             <ProfileImage
               url={user?.image}
               size={40}
+              aria-hidden="true"
             />
           </DropdownTrigger>
 
           <DropdownList
             isOpen={isOpen}
+            aria-label={t('myPage')}
             className="absolute top-full z-[var(--z-dropdown)] mt-1 !w-[120px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
           >
             <DropdownItem
