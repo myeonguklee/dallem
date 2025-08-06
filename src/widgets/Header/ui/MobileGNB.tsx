@@ -57,7 +57,7 @@ export const MobileGNB = () => {
       <button
         onClick={() => setOpen(true)}
         className="tablet:hidden cursor-pointer"
-        aria-label={locale === 'ko' ? '메뉴 열기' : 'Open menu'}
+        aria-label={t('aria.openMenu')}
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-haspopup="dialog"
@@ -88,7 +88,7 @@ export const MobileGNB = () => {
           open ? 'translate-x-0' : '-translate-x-full',
           locale === 'ko' ? 'w-40' : 'w-45',
         )}
-        aria-label={locale === 'ko' ? '메뉴' : 'Menu'}
+        aria-label={t('aria.menu')}
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
@@ -98,7 +98,7 @@ export const MobileGNB = () => {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            aria-label={locale === 'ko' ? '메뉴 닫기' : 'Close menu'}
+            aria-label={t('aria.closeMenu')}
             className="rounded focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none"
             disabled={!open}
             tabIndex={open ? 0 : -1}

@@ -72,7 +72,12 @@
     "favoriteGatherings": "Favorite Gatherings",
     "allReviews": "All Reviews",
     "brand": "Dallem",
-    "myPage": "My Page"
+    "myPage": "My Page",
+    "aria": {
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "menu": "Menu"
+    }
   },
   "filters": {
     "categories": {

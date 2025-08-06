@@ -72,7 +72,12 @@
     "favoriteGatherings": "찜한 모임",
     "allReviews": "모든 리뷰",
     "brand": "같이달램",
-    "myPage": "마이페이지"
+    "myPage": "마이페이지",
+    "aria": {
+      "openMenu": "메뉴 열기",
+      "closeMenu": "메뉴 닫기",
+      "menu": "메뉴"
+    }
   },
   "filters": {
     "categories": {
