@@ -20,6 +20,35 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+
+  // ESM 모듈 변환 설정
+  transformIgnorePatterns: ['node_modules/(?!(next-intl|use-intl)/)'],
+
+  // 커버리지 설정
+  collectCoverageFrom: [
+    'src/entities/**/*.{ts,tsx}',
+    'src/features/**/*.{ts,tsx}',
+    'src/shared/lib/**/*.{ts,tsx}',
+    'src/shared/ui/**/*.{ts,tsx}',
+    '!src/entities/**/*.test.{ts,tsx}',
+    '!src/features/**/*.test.{ts,tsx}',
+    '!src/shared/lib/**/*.test.{ts,tsx}',
+    '!src/shared/ui/**/*.test.{ts,tsx}',
+    '!src/**/*.stories.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/index.{ts,tsx}',
+    '!src/**/api/**/*.{ts,tsx}',
+    '!src/**/toast/**/*.{ts,tsx}',
+    '!src/**/image/**/*.{ts,tsx}',
+    '!src/**/sentry/**/*.{ts,tsx}',
+    '!src/**/store/**/*.{ts,tsx}',
+    '!src/**/msw/browser.{ts,tsx}',
+    '!src/**/msw/startWorker.{ts,tsx}',
+  ],
+
+  // 커버리지 리포트 설정
+  coverageReporters: ['text', 'lcov', 'html'],
+  coverageDirectory: 'coverage',
 };
 
 // next/jest 설정을 불러와 사용자 정의 설정과 병합합니다.

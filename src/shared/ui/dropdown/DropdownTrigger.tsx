@@ -7,18 +7,23 @@ import { dropdownTriggerVariants } from './dropdown-variants';
 
 export interface DropdownTriggerProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof dropdownTriggerVariants> {}
+    VariantProps<typeof dropdownTriggerVariants> {
+  isOpen?: boolean;
+}
 
 export const DropdownTrigger = ({
   size,
   state,
   className,
   children,
+  isOpen,
   ...props
 }: DropdownTriggerProps) => {
   return (
     <button
       className={twMerge(dropdownTriggerVariants({ size, state }), className)}
+      aria-expanded={isOpen}
+      aria-haspopup="listbox"
       {...props}
     >
       {children}

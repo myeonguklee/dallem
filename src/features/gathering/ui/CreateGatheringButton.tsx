@@ -36,7 +36,7 @@ export const CreateGatheringButton = () => {
   return (
     <>
       <Button
-        className="font-semibold"
+        className="font-bold"
         onClick={handleOpenModal}
       >
         {t('createButton')}

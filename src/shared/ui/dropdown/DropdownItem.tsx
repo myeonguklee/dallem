@@ -37,6 +37,8 @@ export const DropdownItem = ({
     <div
       className={twMerge(dropdownItemVariants({ state: currentState, size }), className)}
       onClick={handleClick}
+      role="option"
+      aria-selected={isSelected}
       {...props}
     >
       {children}

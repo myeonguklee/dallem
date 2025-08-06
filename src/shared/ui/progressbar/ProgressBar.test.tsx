@@ -4,6 +4,16 @@ import { PROGRESS_STATE } from '@/shared/types/progressStatus';
 import { render, screen } from '@testing-library/react';
 import { ProgressBar } from './ProgressBar';
 
+// next-intl 모킹
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string, values?: Record<string, unknown>) => {
+    if (key === 'ui.progressBar.defaultLabel') {
+      return `진행률: ${values?.current}/${values?.total}`;
+    }
+    return key;
+  },
+}));
+
 jest.mock('@/shared/lib/gathering/determineProgressStatus');
 const mockDetermineProgressStatus = determineProgressStatus as jest.Mock;
 
