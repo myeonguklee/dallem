@@ -5,6 +5,7 @@ import type { Locale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import Script from 'next/script';
 import { routing } from '@/i18n';
+import { ScrollToTopButton } from '@/shared/ui/scrollToTopButton';
 import { Header } from '@/widgets/Header/ui/Header';
 import Providers from '../providers';
 
@@ -64,6 +65,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
             <main className="tablet:mt-15 web:max-w-web web:px-0 tablet:px-tablet-padding px-mobile-padding mt-14 flex w-full flex-1 justify-center self-center overflow-auto">
               {children}
             </main>
+            <ScrollToTopButton />
           </NextIntlClientProvider>
         </Providers>
       </div>
