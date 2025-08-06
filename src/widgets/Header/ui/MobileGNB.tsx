@@ -123,6 +123,8 @@ export const MobileGNB = () => {
                 role="menuitem"
                 className="block w-full text-left"
                 tabIndex={open ? 0 : -1}
+                onFocus={() => setOpen(true)}
+                onBlur={() => setOpen(false)}
               >
                 {item.label}
               </HeaderLink>
