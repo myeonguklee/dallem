@@ -1,7 +1,8 @@
 import React from 'react';
 import type { StaticImageData } from 'next/image';
-import { cn, formatDateToYYYYMMDD } from '@/shared/lib';
-import { SmartImage } from '@/shared/ui/SmartImage/SmartImage';
+import { cn } from '@/shared/lib';
+import { formatDateToYYYYMMDD } from '@/shared/lib/date';
+import { OptimizedImage } from '@/shared/ui/OptimizedImage/OptimizedImage';
 import { RatingStarDisplay } from '@/shared/ui/ratingStarDisplay/RatingStarDisplay';
 
 export interface ReviewCardProps {
@@ -41,8 +42,11 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
       {/*  이미지 영역 */}
 
       {reviewImg !== undefined && (
-        <div className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200">
-          <SmartImage
+        <div
+          aria-label="모임이미지"
+          className="tablet:w-[280px] relative aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-common)] bg-gray-200"
+        >
+          <OptimizedImage
             src={reviewImg || '/gathering-default-image.png'}
             alt={gatheringName ?? '모임 이미지'}
             index={idx}
@@ -54,31 +58,42 @@ export const ReviewCard = React.memo(function ReviewCardMemo({
       <div className="tablet:mt-0 mt-6 flex flex-col space-y-2">
         {/*평점 + 코멘트 */}
         <div className="flex flex-col gap-2">
-          <div className="space-y-2">
+          <div
+            className="space-y-2"
+            aria-label="평점"
+          >
             <RatingStarDisplay score={score} />
           </div>
-          <p className="overflow-hidden text-base font-medium text-gray-700">{comment}</p>
+          <p
+            className="overflow-hidden text-base font-medium text-gray-700"
+            aria-label="후기"
+          >
+            {comment}
+          </p>
         </div>
 
         {/* 2-2. 모임 정보 + 메타 */}
         <div className="flex flex-col gap-2 text-xs text-gray-700">
           <div className="">
-            {gatheringName && <span>{gatheringName} 이용</span>}
-            {location && <span> | {location}</span>}
+            {gatheringName && <span aria-label="모임이름">{gatheringName} 이용</span>}
+            {location && <span aria-label="지역"> | {location}</span>}
           </div>
           <div className="flex items-center gap-2">
             {userImg && (
-              <div className="relative h-6 w-6 overflow-hidden rounded-full">
-                <SmartImage
+              <div
+                aria-label="프로필 이미지"
+                className="relative h-6 w-6 overflow-hidden rounded-full"
+              >
+                <OptimizedImage
                   src={userImg}
                   alt={userName ?? '유저 이미지'}
                   index={idx}
                 />
               </div>
             )}
-            {userName && <span>{userName}</span>}
+            {userName && <span aria-label="유저이름">{userName}</span>}
             <span>|</span>
-            <time>{displayDate}</time>
+            <time aria-label="모임시간">{displayDate}</time>
           </div>
         </div>
       </div>

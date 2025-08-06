@@ -44,15 +44,42 @@ export const ModalBase = ({
     }
   }, [isOpen]);
 
-  // Scroll Lock 전용
+  // Scroll Lock 전용 + 스크롤바 상태 유지
   useEffect(() => {
     if (isOpen && isOverlay) {
-      document.body.style.overflow = 'hidden';
+      const hasScrollbar =
+        document.documentElement.scrollHeight > document.documentElement.clientHeight;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      if (hasScrollbar && scrollbarWidth > 0) {
+        // 스크롤바가 있었던 경우: 스크롤바 공간 유지
+        document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = `${scrollbarWidth}px`;
+        // fixed 헤더 내부 컨테이너 조정
+        const headerContainer = document.querySelector('header > div') as HTMLElement;
+        if (headerContainer) {
+          headerContainer.style.marginRight = `${scrollbarWidth}px`;
+        }
+      } else {
+        // 스크롤바가 없었던 경우: 그냥 스크롤 락만
+        document.body.style.overflow = 'hidden';
+      }
     } else {
       document.body.style.overflow = '';
+      document.body.style.marginRight = '';
+      // 헤더 내부 컨테이너 마진도 제거
+      const headerContainer = document.querySelector('header > div') as HTMLElement;
+      if (headerContainer) {
+        headerContainer.style.marginRight = '';
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.marginRight = '';
+      const headerContainer = document.querySelector('header > div') as HTMLElement;
+      if (headerContainer) {
+        headerContainer.style.marginRight = '';
+      }
     };
   }, [isOpen, isOverlay]);
 

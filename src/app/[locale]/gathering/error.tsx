@@ -1,6 +1,9 @@
 'use client';
 
+import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n';
+import { ROUTES } from '@/shared/config/routes';
 
 export default function GatheringError({
   error,
@@ -10,15 +13,14 @@ export default function GatheringError({
   reset: () => void;
 }) {
   const t = useTranslations('pages.gatherings.error');
+  const locale = useLocale();
+  const router = useRouter();
 
   // 에러 메시지로 400 에러인지 확인
   const isClientError = error.message === '유효한 모임 종류를 입력하세요' || error.status === 400;
 
   const handleNavigateToGathering = () => {
-    // 현재 locale을 가져와서 강제 이동
-    const currentPath = window.location.pathname;
-    const locale = currentPath.split('/')[1]; // /ko/gathering/error -> ko
-    window.location.href = `/${locale}/gathering`;
+    router.push(ROUTES.GATHERING, { locale });
   };
 
   return (

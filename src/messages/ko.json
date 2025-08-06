@@ -12,9 +12,17 @@
     "close": "닫기",
     "back": "뒤로",
     "next": "다음",
-    "previous": "이전"
+    "previous": "이전",
+    "login": "로그인"
   },
   "ui": {
+    "likeButton": {
+      "like": "좋아요",
+      "unlike": "좋아요 취소"
+    },
+    "progressBar": {
+      "defaultLabel": "{current}명 참여 중 (총 {total}명 중)"
+    },
     "timePicker": {
       "period": "오전/오후",
       "hour": "시",
@@ -26,6 +34,7 @@
     },
     "gatheringCard": {
       "canceled": "취소된 모임이에요!",
+      "ended": "모임이 종료되었어요!",
       "deadline": {
         "daysLeft": "{days}일 후 마감",
         "todayEnd": "오늘 {time}시 마감",
@@ -40,7 +49,7 @@
         "confirmed": "개설확정"
       },
       "joinButton": {
-        "join": "참여하기",
+        "detail": "상세보기",
         "cancel": "취소하기",
         "full": "모집 마감"
       },
@@ -63,7 +72,12 @@
     "favoriteGatherings": "찜한 모임",
     "allReviews": "모든 리뷰",
     "brand": "같이달램",
-    "myPage": "마이페이지"
+    "myPage": "마이페이지",
+    "aria": {
+      "openMenu": "메뉴 열기",
+      "closeMenu": "메뉴 닫기",
+      "menu": "메뉴"
+    }
   },
   "filters": {
     "categories": {
@@ -234,8 +248,8 @@
         "failedToLoadParticipants": "참여자 정보를 불러오는 데 실패했습니다.",
         "reviewTitle": "이용자들은 이 프로그램을 이렇게 느꼈어요!",
         "bottomBar": {
-          "title": "더 건강한 프로그램",
-          "content": "국내 최고 웰니스 전문가와 프로그램을 통해 회복해요"
+          "title": "함께할수록 즐거운 모임",
+          "content": "관심 있는 주제로 사람들과 연결되어 보세요"
         },
         "confirmCancel": "정말로 모임을 취소하시겠습니까?",
         "copySuccess": "모임 링크가 클립보드에 복사되었습니다!",
@@ -249,7 +263,8 @@
         "joinSuccess": "모임 참여가 완료되었습니다.",
         "cancelJoin": "모임 참여를 취소했습니다.",
         "removeGathering": "모임이 취소되었습니다.",
-        "cancelTitle": "정말로 모임을 취소하시겠습니까?"
+        "cancelTitle": "정말로 모임을 취소하시겠습니까?",
+        "loginRequired": "로그인이 필요한 서비스 입니다."
       }
     },
     "myPage": {

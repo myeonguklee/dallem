@@ -12,9 +12,17 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "login": "Login"
   },
   "ui": {
+    "likeButton": {
+      "like": "Like",
+      "unlike": "Unlike"
+    },
+    "progressBar": {
+      "defaultLabel": "{current} participants (out of {total})"
+    },
     "timePicker": {
       "period": "AM/PM",
       "hour": "Hour",
@@ -26,6 +34,7 @@
     },
     "gatheringCard": {
       "canceled": "This gathering has been canceled!",
+      "ended": "This gathering has ended!",
       "deadline": {
         "daysLeft": "Ends in {days}d",
         "todayEnd": "Ends at {time}h",
@@ -40,7 +49,7 @@
         "confirmed": "Confirmed"
       },
       "joinButton": {
-        "join": "Join",
+        "detail": "Detail",
         "cancel": "Cancel",
         "full": "Full"
       },
@@ -63,7 +72,12 @@
     "favoriteGatherings": "Favorite Gatherings",
     "allReviews": "All Reviews",
     "brand": "Dallem",
-    "myPage": "My Page"
+    "myPage": "My Page",
+    "aria": {
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "menu": "Menu"
+    }
   },
   "filters": {
     "categories": {
@@ -234,8 +248,8 @@
         "failedToLoadParticipants": "Failed to load participants.",
         "reviewTitle": "Here’s how others felt about this program!",
         "bottomBar": {
-          "title": "Better Program",
-          "content": "Recover with top wellness experts in Korea"
+          "title": "Gatherings are more fun together",
+          "content": "Connect with others through topics you care about"
         },
         "confirmCancel": "Are you sure you want to cancel this gathering?",
         "copySuccess": "Link copied to clipboard!",
@@ -249,7 +263,8 @@
         "joinSuccess": "Joined successfully.",
         "cancelJoin": "Participation cancelled.",
         "removeGathering": "Gathering cancelled.",
-        "cancelTitle": "Cancel the gathering?"
+        "cancelTitle": "Cancel the gathering?",
+        "loginRequired": "You must be logged in to use this service."
       }
     },
     "myPage": {

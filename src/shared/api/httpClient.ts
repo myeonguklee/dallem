@@ -107,8 +107,19 @@ axiosInstance.interceptors.response.use(
     }
     const { status, data } = error.response;
     const { code, message } = (data as { code?: string; message?: string }) || {};
+
+    // Sentry로 HTTP 에러 추적
+    trackApiError(error, {
+      endpoint: error.config?.url,
+      method: error.config?.method,
+      status,
+      response: data,
+      request: error.config,
+    });
+
     const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
     const isAuthPage = pathname.includes('/signin') || pathname.includes('/signup');
+
     if (status === 401 && !isAuthPage) {
       // 인증 실패 시 로그아웃 처리 후 로그인 페이지로 이동
       if (IS_CLIENT) {
@@ -124,23 +135,6 @@ axiosInstance.interceptors.response.use(
       }
       // global-error 를 안태우기 위해 resolve 반환
       return Promise.resolve(undefined);
-    }
-    // Sentry로 HTTP 에러 추적
-    // - 500+ 에러: 모든 환경에서 추적 (서버 에러)
-    // - 400+ 에러: 프로덕션에서만 추적 (클라이언트 에러)
-    const isServerError = status >= 500;
-    const isClientError = status >= 400 && status < 500;
-    const shouldTrackError =
-      isServerError || (process.env.NODE_ENV === 'production' && isClientError);
-
-    if (shouldTrackError) {
-      trackApiError(error, {
-        endpoint: error.config?.url,
-        method: error.config?.method,
-        status,
-        response: data,
-        request: error.config,
-      });
     }
 
     // 그 외 에러는 ApiError로 래핑하여 반환

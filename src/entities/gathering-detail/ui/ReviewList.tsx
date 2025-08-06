@@ -25,18 +25,18 @@ export const ReviewList = ({ id }: { id: number }) => {
   const isEmpty = !reviews || reviews.length === 0;
 
   if (isLoading) {
-    return <div className="flex h-full items-center justify-center">{t('loading')}</div>;
+    return <div className="flex items-center justify-center py-10">{t('loading')}</div>;
   }
 
   if (isEmpty) {
     return (
-      <div className="mt-10 flex h-full flex-grow justify-center">
+      <div className="flex justify-center py-10">
         <p className="text-gray-500">{t('emptyReview')}</p>
       </div>
     );
   }
   return (
-    <div className="flex h-full flex-col justify-between">
+    <div className="flex flex-col justify-between">
       {/* 리뷰 카드 리스트 */}
       <div className="space-y-4">
         {/* 각 카드 사이에 수직 간격 추가 */}
@@ -52,11 +52,13 @@ export const ReviewList = ({ id }: { id: number }) => {
           />
         ))}
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
+      <div className="mt-8">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </div>
     </div>
   );
 };
