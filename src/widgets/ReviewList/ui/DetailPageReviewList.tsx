@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useGetGatheringReviewList } from '@/entities/review/api/queries';
+import { REVIEW_PAGE_SIZE } from '@/entities/review/model/constants';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { Pagination } from '@/shared/ui/pagination';
 
-export const ReviewList = ({ id }: { id: number }) => {
+export const DetailPageReviewList = ({ id }: { id: number }) => {
   const t = useTranslations('pages.gathering.detail');
-  // 페이지당 리뷰 개수 설정
-  // 상수 코드 추후 분리
-  const PAGE_SIZE = 4;
 
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * PAGE_SIZE;
+  const offset = (page - 1) * REVIEW_PAGE_SIZE;
 
   const { data, isLoading } = useGetGatheringReviewList(id, {
     offset,
-    limit: PAGE_SIZE,
+    limit: REVIEW_PAGE_SIZE,
     sortBy: 'createdAt',
     sortOrder: 'desc',
   });
