@@ -350,7 +350,12 @@
         "cancel": "Cancel",
         "submit": "Submit Review",
         "selectRatingError": "Please select a rating",
-        "success": "Review submitted successfully!"
+        "success": "Review submitted successfully!",
+        "errors": {
+          "selectRating": "Please select a rating",
+          "reviewContentRequired": "Please enter your review content",
+          "reviewContentMaxLength": "Review must be within 500 characters"
+        }
       }
     },
     "reviews": {

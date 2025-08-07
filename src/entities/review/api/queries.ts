@@ -1,5 +1,5 @@
 import { GatheringType } from '@/entities/gathering/model/types';
-import { CreateReviewPayload } from '@/entities/review/model/schemas';
+import { CreateReviewPayload } from '@/entities/review/model/schema';
 import {
   CreateReviewResponse,
   ReviewFilterParams,

@@ -1,6 +1,6 @@
 import { httpClient } from '@/shared/api';
 import { API_ENDPOINTS } from '@/shared/config';
-import { CreateReviewPayload } from '../model/schemas';
+import { CreateReviewPayload } from '../model/schema';
 import {
   CreateReviewResponse,
   ReviewFilterParams,

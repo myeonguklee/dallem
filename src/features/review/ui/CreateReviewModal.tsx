@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useCreateReview } from '@/entities/review/api/queries';
-import { CreateReviewPayload, createReviewSchema } from '@/entities/review/model/schemas';
+import { CreateReviewPayload, createReviewSchema } from '@/entities/review/model/schema';
 import { Button } from '@/shared/ui/button';
 import { StarIcon } from '@/shared/ui/icon/icons/StarIcon';
 import { Modal } from '@/shared/ui/modal';
@@ -33,19 +33,15 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
     resolver: zodResolver(createReviewSchema),
     defaultValues: {
       gatheringId,
-      score: 0,
+      score: undefined,
       comment: '',
     },
   });
 
   const selectedScore = watch('score');
+  const comment = watch('comment');
 
   const onSubmit = (data: CreateReviewFormData) => {
-    if (data.score === 0) {
-      toast.error(t('selectRatingError'));
-      return;
-    }
-
     createReview(data, {
       onSuccess: () => {
         toast.success(t('success'));
@@ -89,12 +85,15 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
                 >
                   <StarIcon
                     size={32}
-                    filled={score <= selectedScore}
-                    className={`transition-colors ${score <= selectedScore ? '' : 'opacity-60'}`}
+                    filled={selectedScore ? score <= selectedScore : false}
+                    className={`transition-colors ${selectedScore && score <= selectedScore ? '' : 'opacity-60'}`}
                   />
                 </button>
               ))}
             </div>
+            {errors.score && errors.score.message && (
+              <p className="mt-1 text-left text-sm text-red-600">{t(errors.score.message)}</p>
+            )}
           </div>
 
           <div>
@@ -108,8 +107,8 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
               className="w-full resize-none rounded-md bg-gray-50 px-3 py-2 focus:outline-none"
               placeholder={t('commentPlaceholder')}
             />
-            {errors.comment && (
-              <p className="mt-1 text-sm text-red-600">{errors.comment.message}</p>
+            {errors.comment && errors.comment.message && (
+              <p className="mt-1 text-left text-sm text-red-600">{t(errors.comment.message)}</p>
             )}
           </div>
 
@@ -125,7 +124,7 @@ export const CreateReviewModal = ({ isOpen, onClose, gatheringId }: CreateReview
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting || selectedScore === 0}
+              disabled={isSubmitting || !selectedScore || !comment?.trim()}
               className="flex-1"
             >
               {t('submit')}
