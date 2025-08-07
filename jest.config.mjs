@@ -7,8 +7,8 @@ const createJestConfig = nextJest({
 
 // Jest에 전달할 사용자 정의 설정
 const customJestConfig = {
-  // 테스트 실행 전에 polyfill을 먼저 적용합니다.
-  setupFiles: ['<rootDir>/jest.polyfill.js'],
+  // 테스트 환경변수 로드
+  setupFiles: ['<rootDir>/jest.polyfill.js', '<rootDir>/jest.env.js'],
 
   // 각 테스트 실행 전에 실행할 파일을 지정합니다.
   setupFilesAfterEnv: ['<rootDir>/jest.setup.msw.js', '<rootDir>/jest.setup.js'],
