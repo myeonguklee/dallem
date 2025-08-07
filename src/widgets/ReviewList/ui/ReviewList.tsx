@@ -3,12 +3,12 @@
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useGetReviewListInfinite } from '@/entities/review/api/queries';
-import { ReviewFilterProps } from '@/entities/review/model/type';
+import { ReviewFilterParams } from '@/entities/review/model/type';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 
 interface ReviewListProps {
-  filters: ReviewFilterProps;
+  filters: ReviewFilterParams;
 }
 
 export const ReviewList = ({ filters }: ReviewListProps) => {

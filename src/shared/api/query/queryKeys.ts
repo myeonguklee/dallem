@@ -1,5 +1,5 @@
 import { GatheringFilters, MyGatheringParams } from '@/entities/gathering/model/types';
-import { ReviewFilterProps, ReviewScoreProps } from '@/entities/review/model/type';
+import { ReviewFilterParams, ReviewScoreParams } from '@/entities/review/model/type';
 
 // 객체로 쿼리 키 관리
 export const QUERY_KEYS = {
@@ -18,8 +18,8 @@ export const QUERY_KEYS = {
   },
   review: {
     base: ['reviews'] as const,
-    list: (params: ReviewFilterProps) => [...QUERY_KEYS.review.base, 'list', params] as const,
-    scores: (params: ReviewScoreProps) => [...QUERY_KEYS.review.base, 'score', params] as const,
+    list: (params: ReviewFilterParams) => [...QUERY_KEYS.review.base, 'list', params] as const,
+    scores: (params: ReviewScoreParams) => [...QUERY_KEYS.review.base, 'score', params] as const,
   },
   participant: {
     base: ['participant'] as const,
