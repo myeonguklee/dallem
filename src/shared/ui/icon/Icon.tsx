@@ -4,7 +4,7 @@ const iconMap = {
   'hamburger-menu': HamburgerMenuIcon,
 };
 
-type IconProps = {
+export type IconProps = {
   name: keyof typeof iconMap;
 } & React.ComponentProps<'svg'>;
 
