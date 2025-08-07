@@ -1,13 +1,13 @@
-import { httpClient } from '@/shared/api';
-import { API_ENDPOINTS } from '@/shared/config';
-import { CreateReviewPayload } from '../model/schema';
-import {
+import type { CreateReviewPayload } from '@/entities/review/model/schema';
+import type {
   CreateReviewResponse,
   ReviewFilterParams,
   ReviewListResponse,
   ReviewScoreParams,
   ReviewScoreResponse,
-} from '../model/type';
+} from '@/entities/review/model/type';
+import { httpClient } from '@/shared/api';
+import { API_ENDPOINTS } from '@/shared/config';
 
 // 리뷰 조회
 export const getReviewList = (params: ReviewFilterParams): Promise<ReviewListResponse> => {
