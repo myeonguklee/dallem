@@ -52,7 +52,12 @@ describe('useImageResizer', () => {
       const mockBlob = new Blob(['resized content'], { type: 'image/webp' });
 
       mockImageResizer.isCurrentlyProcessing.mockReturnValue(false);
-      mockImageResizer.resizeImage.mockResolvedValue({ blob: mockBlob });
+      mockImageResizer.resizeImage.mockResolvedValue({
+        blob: mockBlob,
+        width: 800,
+        height: 600,
+        size: 1024 * 1024,
+      });
 
       const { result } = renderHook(() =>
         useImageResizer({
@@ -214,7 +219,7 @@ describe('useImageResizer', () => {
           progressCallback(50);
           progressCallback(100);
         }
-        return { blob: mockBlob };
+        return { blob: mockBlob, width: 800, height: 600, size: 1024 * 1024 };
       });
 
       const { result } = renderHook(() =>
@@ -265,7 +270,12 @@ describe('useImageResizer', () => {
       const mockBlob = new Blob(['resized content'], { type: 'image/webp' });
 
       mockImageResizer.isCurrentlyProcessing.mockReturnValue(false);
-      mockImageResizer.resizeImage.mockResolvedValue({ blob: mockBlob });
+      mockImageResizer.resizeImage.mockResolvedValue({
+        blob: mockBlob,
+        width: 800,
+        height: 600,
+        size: 1024 * 1024,
+      });
 
       const { result } = renderHook(() =>
         useImageResizer({
@@ -288,7 +298,12 @@ describe('useImageResizer', () => {
       const mockBlob = new Blob(['resized content'], { type: 'image/webp' });
 
       mockImageResizer.isCurrentlyProcessing.mockReturnValue(false);
-      mockImageResizer.resizeImage.mockResolvedValue({ blob: mockBlob });
+      mockImageResizer.resizeImage.mockResolvedValue({
+        blob: mockBlob,
+        width: 800,
+        height: 600,
+        size: 1024 * 1024,
+      });
 
       const { result } = renderHook(() =>
         useImageResizer({
