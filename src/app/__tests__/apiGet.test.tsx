@@ -5,7 +5,6 @@ describe('GET /api/example', () => {
   it('should return mocked data', async () => {
     const res = await fetch('http://localhost:3000/api/example');
     const data = await res.json();
-    console.log('Response:', res.status, data);
     expect(res.status).toBe(200);
     expect(data).toEqual({
       message: 'This is a mocked response',
