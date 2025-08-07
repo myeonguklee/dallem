@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Icon, IconProps } from './Icon';
+import { Icon, IconMapProps } from './Icon';
 
 // SVG 모킹
 jest.mock('./svg/hamburger-menu-icon.svg', () => {
@@ -39,7 +39,7 @@ describe('Icon 컴포넌트', () => {
   });
 
   it('존재하지 않는 아이콘 이름을 전달하면 null을 반환해야 한다', () => {
-    const { container } = render(<Icon name={'non-existent-icon' as IconProps['name']} />);
+    const { container } = render(<Icon name={'non-existent-icon' as IconMapProps['name']} />);
 
     // null을 반환하므로 container가 비어있어야 함
     expect(container.firstChild).toBeNull();
