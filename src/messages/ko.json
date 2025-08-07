@@ -240,12 +240,6 @@
             "memory": "메모리 부족으로 처리할 수 없습니다. 더 작은 이미지를 시도해주세요.",
             "corrupted": "손상된 이미지 파일입니다.",
             "default": "이미지 처리 중 오류가 발생했습니다."
-          },
-          "processing": {
-            "status": "처리 중...",
-            "progress": "이미지 처리 중... {progress}%",
-            "complete": "이미지 처리 완료!",
-            "waitMessage": "이미지 처리 중입니다. 완료 후 폼을 제출해주세요."
           }
         }
       }
@@ -344,12 +338,6 @@
           "memory": "메모리 부족으로 처리할 수 없습니다. 더 작은 이미지를 시도해주세요.",
           "corrupted": "손상된 이미지 파일입니다.",
           "default": "이미지 처리 중 오류가 발생했습니다."
-        },
-        "processing": {
-          "status": "처리 중...",
-          "progress": "이미지 처리 중... {progress}%",
-          "complete": "이미지 처리 완료!",
-          "waitMessage": "이미지 처리 중입니다. 완료 후 폼을 제출해주세요."
         }
       },
       "actionButton": {

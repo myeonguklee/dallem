@@ -240,12 +240,6 @@
             "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
             "corrupted": "The image file is corrupted.",
             "default": "An error occurred while processing the image."
-          },
-          "processing": {
-            "status": "Processing...",
-            "progress": "Processing image... {progress}%",
-            "complete": "Image processing complete!",
-            "waitMessage": "Image is being processed. Please submit the form after completion."
           }
         }
       }
@@ -344,12 +338,6 @@
           "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
           "corrupted": "The image file is corrupted.",
           "default": "An error occurred while processing the image."
-        },
-        "processing": {
-          "status": "Processing...",
-          "progress": "Processing image... {progress}%",
-          "complete": "Image processing complete!",
-          "waitMessage": "Image is being processed. Please submit the form after completion."
         }
       },
       "actionButton": {
