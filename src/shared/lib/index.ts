@@ -5,3 +5,4 @@ export {
   generateReviewsMetadata,
   generateGatheringDetailMetadata,
 } from './metadata';
+export { mapImageErrorToMessage } from './utils/imageErrorMapper';

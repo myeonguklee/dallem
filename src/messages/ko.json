@@ -13,7 +13,23 @@
     "back": "뒤로",
     "next": "다음",
     "previous": "이전",
-    "login": "로그인"
+    "login": "로그인",
+    "imageResizer": {
+      "processing": {
+        "progress": "이미지 처리 중... {progress}%",
+        "complete": "이미지 처리 완료!"
+      },
+      "errors": {
+        "timeout": "이미지 처리 시간이 초과되었습니다. 더 작은 이미지를 시도해주세요.",
+        "memory": "메모리 부족으로 처리할 수 없습니다. 더 작은 이미지를 시도해주세요.",
+        "fileSize": "파일 크기가 너무 큽니다. (최대 20MB)",
+        "unsupportedType": "지원하지 않는 이미지 형식입니다. (JPEG, PNG, WebP, GIF만 지원)",
+        "processing": "이미지 처리 중입니다. 잠시 후 다시 시도해주세요.",
+        "imageType": "올바른 이미지 파일을 선택해주세요",
+        "corrupted": "손상된 이미지 파일입니다.",
+        "default": "이미지 처리 중 오류가 발생했습니다."
+      }
+    }
   },
   "ui": {
     "likeButton": {

@@ -13,7 +13,23 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous",
-    "login": "Login"
+    "login": "Login",
+    "imageResizer": {
+      "processing": {
+        "progress": "Processing image... {progress}%",
+        "complete": "Image processing complete!"
+      },
+      "errors": {
+        "timeout": "Image processing timed out. Please try a smaller image.",
+        "memory": "Insufficient memory to process. Please try a smaller image.",
+        "fileSize": "File size is too large. (Maximum 20MB)",
+        "unsupportedType": "Unsupported image format. (JPEG, PNG, WebP, GIF only)",
+        "processing": "Image is being processed. Please try again later.",
+        "imageType": "Please select a valid image file.",
+        "corrupted": "Corrupted image file.",
+        "default": "An error occurred while processing the image."
+      }
+    }
   },
   "ui": {
     "likeButton": {

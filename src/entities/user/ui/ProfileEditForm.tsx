@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { UpdateUserPayload, updateUserSchema } from '@/entities/user/model';
-import { IMAGE_SIZE_CONFIG, imageResizer } from '@/shared/lib/image';
+import { useImageProcessingToast, useImageResizer } from '@/shared/lib/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -16,9 +15,23 @@ interface ProfileEditFormProps {
 export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditFormProps) => {
   const t = useTranslations('pages.myPage.form');
   const { isPending, mutate } = useUpdateUser();
-  const [fileName, setFileName] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const progressToastIdRef = useRef<string | null>(null);
+
+  // 토스트 처리 훅 사용
+  const { createProgressToast, showProgressToast, showSuccessToast, showErrorToast } =
+    useImageProcessingToast();
+
+  // 이미지 리사이징 훅 사용
+  const { isProcessing, fileName, displayFileName, handleImageChange } = useImageResizer({
+    sizeConfig: 'profile',
+    onSuccess: (file) => {
+      setValue('image', file);
+      showSuccessToast();
+    },
+    onError: (error) => {
+      console.error('이미지 처리 오류:', error);
+      showErrorToast(error);
+    },
+  });
 
   const {
     register,
@@ -49,134 +62,23 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
     });
   };
 
-  const truncateFileName = (fileName: string, maxLength: number = 20) => {
-    if (fileName.length <= maxLength) return fileName;
-    const extension = fileName.split('.').pop();
-    const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
-    return `${nameWithoutExt.substring(0, maxLength - 3)}...${extension ? `.${extension}` : ''}`;
-  };
-
-  const handleImageChange = async (file: File | null) => {
+  // 커스텀 훅에서 제공하는 handleImageChange를 래핑하여 토스트 처리 추가
+  const handleImageChangeWithToast = async (file: File | null) => {
     if (!file) {
       setValue('image', null);
-      setFileName('');
       return;
     }
 
-    // 파일 유효성 검사
-    if (!file.type.startsWith('image/')) {
-      toast.error(t('errors.imageType'));
-      return;
-    }
+    // 진행률 토스트 생성
+    createProgressToast();
 
-    // 파일 크기 제한 (20MB)
-    const MAX_FILE_SIZE = 20 * 1024 * 1024;
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error(t('errors.fileSize'));
-      return;
-    }
+    // 진행률 업데이트 함수
+    const updateProgress = (progress: number) => {
+      showProgressToast(progress);
+    };
 
-    // 지원하는 이미지 형식 확인
-    const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
-    if (!supportedTypes.includes(file.type)) {
-      toast.error(t('errors.unsupportedType'));
-      return;
-    }
-
-    // 이미 처리 중인지 확인
-    if (imageResizer.isCurrentlyProcessing()) {
-      toast.error(t('errors.processing'));
-      return;
-    }
-
-    setIsProcessing(true);
-    setFileName(file.name);
-
-    try {
-      // 진행률 토스트 생성
-      const toastId = toast.loading(t('processing.progress', { progress: 0 }), {
-        duration: Infinity,
-      });
-      progressToastIdRef.current = toastId;
-
-      // 진행률 업데이트 함수
-      const updateProgress = (progress: number) => {
-        if (progressToastIdRef.current) {
-          toast.loading(t('processing.progress', { progress }), {
-            id: progressToastIdRef.current,
-          });
-        }
-      };
-
-      // 이미지 리사이징
-      const result = await imageResizer.resizeImage(
-        file,
-        {
-          ...IMAGE_SIZE_CONFIG.profile,
-          format: 'webp',
-        },
-        updateProgress,
-      );
-
-      // Blob을 File로 변환
-      const resizedFile = new File([result.blob], file.name.replace(/\.[^/.]+$/, '.webp'), {
-        type: 'image/webp',
-      });
-
-      // 폼에 설정
-      setValue('image', resizedFile);
-      setFileName(resizedFile.name);
-
-      // 완료 토스트 (3초 후 자동 닫힘)
-      if (progressToastIdRef.current) {
-        toast.success(t('processing.complete'), {
-          id: progressToastIdRef.current,
-          duration: 3000, // 3초
-        });
-        progressToastIdRef.current = null;
-      }
-    } catch (error) {
-      console.error('이미지 처리 오류:', error);
-      let errorMessage = t('errors.default');
-      if (error && typeof error === 'object' && 'code' in error) {
-        switch ((error as { code: string }).code) {
-          case 'TIMEOUT':
-            errorMessage = t('errors.timeout');
-            break;
-          case 'MEMORY':
-            errorMessage = t('errors.memory');
-            break;
-          case 'UNSUPPORTED_TYPE':
-            errorMessage = t('errors.unsupportedType');
-            break;
-          case 'CORRUPTED':
-            errorMessage = t('errors.corrupted');
-            break;
-          case 'PROCESSING':
-            errorMessage = t('errors.processing');
-            break;
-          case 'FILE_SIZE':
-            errorMessage = t('errors.fileSize');
-            break;
-          case 'IMAGE_TYPE':
-            errorMessage = t('errors.imageType');
-            break;
-          default:
-            errorMessage = t('errors.default');
-        }
-      }
-      if (progressToastIdRef.current) {
-        toast.error(errorMessage, {
-          id: progressToastIdRef.current,
-          duration: 3000,
-        });
-        progressToastIdRef.current = null;
-      }
-      setValue('image', file);
-      setFileName(file.name);
-    } finally {
-      setIsProcessing(false);
-    }
+    // 커스텀 훅의 handleImageChange 호출 (진행률 콜백 전달)
+    await handleImageChange(file, updateProgress);
   };
 
   return (
@@ -200,7 +102,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
                 className={watch('image') ? 'text-gray-800' : 'text-gray-400'}
                 title={fileName} // 전체 파일명을 툴팁으로 표시
               >
-                {fileName ? truncateFileName(fileName) : t('imagePlaceholder')}
+                {fileName ? displayFileName : t('imagePlaceholder')}
               </span>
               {isProcessing && (
                 <span className="ml-2 text-sm text-orange-500">{t('processing.status')}</span>
@@ -219,7 +121,7 @@ export const ProfileEditForm = ({ companyName, email, onClose }: ProfileEditForm
               accept="image/*"
               id="profile-image-upload"
               className="hidden"
-              onChange={(e) => handleImageChange(e.target.files?.[0] || null)}
+              onChange={(e) => handleImageChangeWithToast(e.target.files?.[0] || null)}
               disabled={isProcessing}
             />
           </div>
