@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useGetGatherings } from '@/entities/gathering/api/queries';
+import { useGetGatherings } from '@/entities/gathering/api';
 import { useGetUser } from '@/entities/user/api';
-import { MyPageGatheringCard } from '@/widgets/GatheringCard/ui/MyPageGatheringCard';
+import { MyPageGatheringCard } from '@/widgets/GatheringCard/ui';
 
 export function GatheringsCreatedContent() {
   const t = useTranslations('pages.myPage');

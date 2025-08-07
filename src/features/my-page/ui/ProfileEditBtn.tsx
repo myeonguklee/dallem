@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { ProfileEditForm } from '@/entities/user/ui';
 import { EditIcon } from '@/shared/ui/icon';
 import { Modal } from '@/shared/ui/modal';
-import { ProfileEditForm } from './ProfileEditForm';
 
 interface ProfileEditBtnProps {
   companyName: string;

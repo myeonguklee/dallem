@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useLeaveGathering } from '@/entities/gathering-detail/api/queries';
-import { CreateReviewModal } from '@/features/review/ui/CreateReviewModal';
+import { CreateReviewModal } from '@/features/my-page/ui';
 import { Button } from '@/shared/ui/button';
 
 interface MyPageActionButtonProps {

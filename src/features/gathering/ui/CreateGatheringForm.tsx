@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCreateGathering } from '@/entities/gathering/api/queries';
+import { useCreateGathering } from '@/entities/gathering/api';
 import { CreateGatheringPayload, createGatheringSchema } from '@/entities/gathering/model/schema';
-import { trackFormValidationError } from '@/shared/lib/sentry/tracking';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldError, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import {
   GatheringCapacityField,
   GatheringDateField,
@@ -14,7 +10,11 @@ import {
   GatheringNameField,
   GatheringRegistrationEndField,
   GatheringTypeField,
-} from './fields';
+} from '@/entities/gathering/ui/fields';
+import { trackFormValidationError } from '@/shared/lib/sentry/tracking';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldError, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 interface CreateGatheringFormProps {
   onClose: () => void;

@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useGetGatheringsJoined } from '@/entities/gathering/api/queries';
+import { useGetGatheringsJoined } from '@/entities/gathering/api';
 import { useGetReviews } from '@/entities/review/api/queries';
-import { ReviewCard } from '@/entities/review/ui/ReviewCard';
-import { useGetUser } from '@/entities/user/api/queries';
+import { ReviewCard } from '@/entities/review/ui';
+import { useGetUser } from '@/entities/user/api';
 import { Chip } from '@/shared/ui/chip';
-import { MyPageGatheringCard } from '@/widgets/GatheringCard/ui/MyPageGatheringCard';
+import { MyPageGatheringCard } from '@/widgets/GatheringCard/ui';
 
 export function ReviewsContent() {
   const t = useTranslations('pages.myPage');

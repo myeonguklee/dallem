@@ -1,12 +1,12 @@
 import { useTranslations } from 'next-intl';
 import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
-import { cn } from '@/shared/lib/cn';
-import { Calendar } from '@/shared/ui/calendar/Calendar';
-import { CalendarIcon } from '@/shared/ui/icon/icons/CalendarIcon';
+import { cn } from '@/shared/lib';
+import { Calendar } from '@/shared/ui/calendar';
+import { CalendarIcon } from '@/shared/ui/icon';
 import { TimePicker } from '@/shared/ui/time-picker';
 import { Control, Controller, FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
-interface GatheringRegistrationEndFieldProps {
+interface GatheringDateFieldProps {
   control: Control<CreateGatheringPayload>;
   error?: FieldError;
   showDatePicker: boolean;
@@ -19,7 +19,7 @@ interface GatheringRegistrationEndFieldProps {
   formatDateTimeMobile: (date: Date | undefined) => string;
 }
 
-export const GatheringRegistrationEndField = ({
+export const GatheringDateField = ({
   control,
   error,
   showDatePicker,
@@ -30,14 +30,14 @@ export const GatheringRegistrationEndField = ({
   watch,
   formatDateTime,
   formatDateTimeMobile,
-}: GatheringRegistrationEndFieldProps) => {
+}: GatheringDateFieldProps) => {
   const t = useTranslations('pages.gatherings.create');
   return (
     <div className="min-w-0 flex-1">
-      <label className="mb-2 block text-sm font-medium">{t('form.registrationEnd')}</label>
+      <label className="mb-2 block text-sm font-medium">{t('form.date')}</label>
       <Controller
         control={control}
-        name="registrationEnd"
+        name="dateTime"
         render={({ field }) => (
           <div className="relative">
             <div
@@ -47,11 +47,11 @@ export const GatheringRegistrationEndField = ({
                 error && 'border-red-500',
               )}
               onClick={() => {
-                setCurrentDateField('registrationEnd');
-                if (!watch('registrationEnd')) {
+                setCurrentDateField('dateTime');
+                if (!watch('dateTime')) {
                   const now = new Date();
                   now.setHours(14, 0, 0, 0);
-                  setValue('registrationEnd', now);
+                  setValue('dateTime', now);
                 }
                 setShowDatePicker(!showDatePicker);
               }}
@@ -68,7 +68,7 @@ export const GatheringRegistrationEndField = ({
                     <span className="tablet:hidden">{formatDateTimeMobile(field.value)}</span>
                   </>
                 ) : (
-                  t('form.registrationEndPlaceholder')
+                  t('form.datePlaceholder')
                 )}
               </span>
               <CalendarIcon
@@ -76,38 +76,40 @@ export const GatheringRegistrationEndField = ({
                 className="ml-auto flex-shrink-0 text-gray-400"
               />
             </div>
-            {showDatePicker && currentDateField === 'registrationEnd' && (
+            {showDatePicker && currentDateField === 'dateTime' && (
               <div className="fixed top-1/2 left-1/2 z-[9999] -translate-x-1/2 -translate-y-1/2">
-                <Calendar
-                  value={field.value}
-                  onChange={(date) => {
-                    if (date) {
-                      // 날짜 선택 시 자동으로 14:00로 설정
-                      const newDate = new Date(date);
-                      newDate.setHours(14, 0, 0, 0); // 14:00로 고정
-                      field.onChange(newDate);
+                <div className="">
+                  <Calendar
+                    value={field.value}
+                    onChange={(date) => {
+                      if (date) {
+                        // 날짜 선택 시 자동으로 오후 2시로 설정
+                        const newDate = new Date(date);
+                        newDate.setHours(14, 0, 0, 0); // 오후 2시로 고정
+                        field.onChange(newDate);
+                      }
+                    }}
+                    footer={
+                      <TimePicker
+                        value={field.value}
+                        onChange={(timeDate) => {
+                          if (field.value) {
+                            const newDate = new Date(field.value);
+                            newDate.setHours(timeDate.getHours(), timeDate.getMinutes(), 0, 0);
+                            field.onChange(newDate);
+                          }
+                        }}
+                        onReset={() => {
+                          // 날짜와 시간 모두 초기화
+                          field.onChange(undefined);
+                        }}
+                        onConfirm={() => {
+                          setShowDatePicker(false);
+                        }}
+                      />
                     }
-                  }}
-                  footer={
-                    <TimePicker
-                      value={field.value}
-                      onChange={(timeDate) => {
-                        if (field.value) {
-                          const newDate = new Date(field.value);
-                          newDate.setHours(timeDate.getHours(), timeDate.getMinutes(), 0, 0);
-                          field.onChange(newDate);
-                        }
-                      }}
-                      onReset={() => {
-                        // 날짜와 시간 모두 초기화
-                        field.onChange(undefined);
-                      }}
-                      onConfirm={() => {
-                        setShowDatePicker(false);
-                      }}
-                    />
-                  }
-                />
+                  />
+                </div>
               </div>
             )}
             {error && <p className="mt-1 text-xs text-red-500">{t(error.message ?? '')}</p>}
