@@ -110,7 +110,10 @@ export const useImageResizer = (options: UseImageResizerOptions): UseImageResize
         setFileName(resizedFile.name);
         setDisplayFileName(truncateFileName(resizedFile.name));
       } catch (error) {
-        console.error('이미지 처리 오류:', error);
+        // 테스트 환경이 아닐 때만 콘솔 에러 출력
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('이미지 처리 오류:', error);
+        }
         onError?.(error);
         setFileName(file.name);
         setDisplayFileName(truncateFileName(file.name));
