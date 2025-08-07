@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useGetGatheringsJoined } from '@/entities/gathering/api/queries';
-import { useGetReviews } from '@/entities/review/api/my-page';
+import { useGetReviews } from '@/entities/review/api/queries';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { useGetUser } from '@/entities/user/api/queries';
 import { Chip } from '@/shared/ui/chip';

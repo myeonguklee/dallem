@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useCreateReview } from '@/entities/review/api/my-page';
+import { useCreateReview } from '@/entities/review/api/queries';
 import { CreateReviewPayload, createReviewSchema } from '@/entities/review/model/schemas';
 import { Button } from '@/shared/ui/button';
 import { StarIcon } from '@/shared/ui/icon/icons/StarIcon';
