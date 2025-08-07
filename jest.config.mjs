@@ -48,6 +48,8 @@ const customJestConfig = {
     '!src/shared/ui/icon/icons/**/*.{ts,tsx}',
     // StarIcon만 다시 포함
     'src/shared/ui/icon/icons/StarIcon.tsx',
+    // 메타데이터 파일 제외
+    '!src/shared/lib/metadata.ts',
   ],
 
   // 커버리지 리포트 설정
