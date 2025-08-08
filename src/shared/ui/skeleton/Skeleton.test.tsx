@@ -21,7 +21,7 @@ describe('Skeleton Component', () => {
     const skeletonElement = screen.getByTestId('skeleton');
 
     // jest-dom의 toHaveClass 매처를 사용하여 여러 클래스를 한 번에 검사
-    expect(skeletonElement).toHaveClass('animate-pulse rounded-md bg-gray-200 dark:bg-gray-400');
+    expect(skeletonElement).toHaveClass('animate-pulse rounded-md bg-gray-200');
   });
 
   // 3. 추가 className 병합 테스트

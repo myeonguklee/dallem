@@ -87,7 +87,7 @@
     "findGatherings": "Find Gatherings",
     "favoriteGatherings": "Favorite Gatherings",
     "allReviews": "All Reviews",
-    "brand": "Dallem",
+    "brand": "Moizayo",
     "myPage": "My Page",
     "aria": {
       "openMenu": "Open menu",
@@ -128,7 +128,7 @@
   "pages": {
     "home": {
       "title": "Homepage",
-      "welcome": "Welcome to Dallem!"
+      "welcome": "Welcome to Moizayo!"
     },
     "signin": {
       "title": "Sign In Page",
@@ -137,9 +137,9 @@
       "loginButton": "Sign In",
       "footerText": "Don't have an account?",
       "signupLink": "Sign Up",
-      "welcome": "Welcome to Dallem!",
+      "welcome": "Welcome to Moizayo!",
       "desc1": "Take a break from your busy daily life,",
-      "desc2": "and experience Dallem with us"
+      "desc2": "and experience Moizayo with us"
     },
     "signup": {
       "title": "Sign Up Page",
@@ -372,7 +372,7 @@
     },
     "reviews": {
       "title": "All Reviews",
-      "subTitle": "Here's how people felt after using Dallaem together",
+      "subTitle": "Here's how people felt after using Moizayo together",
       "loading": "Loading...",
       "run": "Dallaemfit",
       "workation": "Workation",
@@ -430,24 +430,24 @@
     }
   },
   "metadata": {
-    "title": "Dallem",
+    "title": "Moizayo",
     "description": "Create a healthy and vibrant work life through gatherings together",
     "gathering": {
-      "title": "Gathering List - Dallem",
-      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Dallem.",
+      "title": "Gathering List - Moizayo",
+      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Moizayo.",
       "keywords": "gathering, office worker, health, exercise, stretching, mindfulness, workation, dallaemfit",
-      "ogImageAlt": "Dallem Gathering List"
+      "ogImageAlt": "Moizayo Gathering List"
     },
     "reviews": {
-      "title": "Gathering Reviews - Dallem",
-      "description": "Check out Dallem gathering reviews. Read real experiences from participants.",
-      "keywords": "gathering reviews, dallem, experiences, reviews, participant reviews",
-      "ogImageAlt": "Dallem Gathering Reviews"
+      "title": "Gathering Reviews - Moizayo",
+      "description": "Check out Moizayo gathering reviews. Read real experiences from participants.",
+      "keywords": "gathering reviews, moizayo, experiences, reviews, participant reviews",
+      "ogImageAlt": "Moizayo Gathering Reviews"
     },
     "gatheringDetail": {
-      "titleTemplate": "{name} - Dallem",
+      "titleTemplate": "{name} - Moizayo",
       "descriptionTemplate": "{name} - {type} gathering at {location} on {dateTime}. Join us!",
-      "keywords": "gathering, dallem, join, office worker, health",
+      "keywords": "gathering, moizayo, join, office worker, health",
       "ogImageAlt": "{name} gathering"
     },
     "notFound": {

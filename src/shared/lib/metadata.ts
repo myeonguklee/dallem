@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-const baseUrl = 'https://dallem-beryl.vercel.app';
+const baseUrl = 'https://moizayo.vercel.app';
 
 // 모임 목록 페이지 메타데이터
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
