@@ -4,7 +4,7 @@ import { routing } from '@/i18n';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 배포된 웹사이트의 도메인 주소 (검색 엔진 크롤링용)
-  const baseUrl = 'https://dallem-beryl.vercel.app';
+  const baseUrl = 'https://moizayo.vercel.app';
   const currentDate = new Date();
 
   // 기본 페이지들

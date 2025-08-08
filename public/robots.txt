@@ -8,7 +8,7 @@ Disallow: /_next/
 Disallow: /static/
 
 # 사이트맵 위치
-Sitemap: https://dallem-beryl.vercel.app/sitemap.xml
+Sitemap: https://moizayo.vercel.app/sitemap.xml
 
 # 크롤링 지연 (선택사항)
 Crawl-delay: 1
