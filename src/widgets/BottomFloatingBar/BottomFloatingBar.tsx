@@ -3,7 +3,7 @@ import { GatheringRole } from '@/entities/gathering-detail/model/types';
 import { Button } from '@/shared/ui/button';
 import { twMerge } from 'tailwind-merge';
 
-type BottomFloatingBarProps = {
+export type BottomFloatingBarProps = {
   role: GatheringRole;
   title: string;
   content: string;
