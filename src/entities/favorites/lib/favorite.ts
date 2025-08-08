@@ -23,7 +23,7 @@ export const fetchFavoritesData = async ({ ids, type, pageParam = 0 }: FetchFavo
       offset: pageParam,
     });
 
-    const hasNextPage = data.length === LIMIT;
+    const hasNextPage = data?.length === LIMIT;
     const nextOffset = hasNextPage ? pageParam + data.length : undefined;
 
     return {
