@@ -8,4 +8,3 @@ export {
 export { mapImageErrorToMessage } from './utils/imageErrorMapper';
 export { getBreakpointsPx } from './getBreakpointsPx';
 export { getAuthImageSize } from './getAuthImageSize';
-export { mapImageErrorToMessage } from './utils/imageErrorMapper';
