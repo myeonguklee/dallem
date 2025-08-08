@@ -1,6 +1,6 @@
+import { GatheringRole } from '@/entities/gathering-detail/model/types';
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { BottomFloatingBar } from './BottomFloatingBar';
-import { GatheringRole } from './BottomFloatingBar';
 
 const meta: Meta<typeof BottomFloatingBar> = {
   title: 'Widgets/BottomFloatingBar',
