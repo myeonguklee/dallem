@@ -110,9 +110,7 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const participants =
     participantsData?.map(({ userId, User }) => ({
       id: String(userId),
-      image:
-        User.image ||
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1728361169610_19610008.JPG',
+      image: User.image || '/favicon-32x32.png',
     })) ?? [];
 
   const { formattedDate, formattedTime } = formatDateAndTime(gathering.dateTime, locale);
