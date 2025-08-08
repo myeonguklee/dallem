@@ -5,7 +5,6 @@ import { API_CONFIG } from '@/shared/config';
 import { trackApiError, trackApiPerformance } from '@/shared/lib/sentry/tracking';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './apiError';
-import { logError, logRequest, logResponse } from './logger';
 
 declare module 'axios' {
   interface AxiosRequestConfig {
@@ -68,15 +67,11 @@ axiosInstance.interceptors.request.use(async (config) => {
 
     config.data = formData;
   }
-
-  logRequest(config);
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    logResponse(response);
-
     // API 성능 추적
     const startTime = response.config.metadata?.startTime;
     if (startTime) {
@@ -92,8 +87,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    logError(error);
-
     if (!error.response) {
       console.error('Network Error:', error);
       // 네트워크 에러는 일반 Error로 처리
