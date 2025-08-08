@@ -6,6 +6,9 @@ import { OptimizedImage } from './OptimizedImage';
 jest.mock('next/image', () => {
   return function MockedImage(props: ImageProps) {
     const { src, alt, ...rest } = props;
+    // fill과 priority는 rest에서 제거
+    delete rest.fill;
+    delete rest.priority;
 
     return (
       <img
