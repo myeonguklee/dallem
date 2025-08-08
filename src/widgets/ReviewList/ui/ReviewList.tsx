@@ -24,7 +24,11 @@ export const ReviewList = ({ filters }: ReviewListProps) => {
   }, [data.pages]);
 
   if (allReviews.length === 0) {
-    return <div>{t('noReview')} 😶</div>;
+    return (
+      <div className="flex items-center justify-center py-8">
+        <p className="text-gray-500">{t('noReview')}</p>
+      </div>
+    );
   }
   return (
     <>
