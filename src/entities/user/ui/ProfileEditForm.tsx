@@ -1,10 +1,10 @@
 import { useTranslations } from 'next-intl';
+import { useUpdateUser } from '@/entities/user/api/queries';
 import { UpdateUserPayload, updateUserSchema } from '@/entities/user/model';
-import { useImageProcessingToast, useImageResizer } from '@/shared/lib/hooks';
+import { useImageProcessingToast, useImageResizer } from '@/shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useUpdateUser } from '../api/queries';
 
 interface ProfileEditFormProps {
   companyName: string;

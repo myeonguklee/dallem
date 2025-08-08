@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
-import { useImageProcessingToast, useImageResizer } from '@/shared/lib/hooks';
+import { useImageProcessingToast, useImageResizer } from '@/shared/hooks';
 import { FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
 interface GatheringImageFieldProps {

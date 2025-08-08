@@ -24,7 +24,7 @@ jest.mock('next-intl', () => ({
 }));
 
 // Mock hooks
-jest.mock('@/shared/lib/hooks', () => ({
+jest.mock('@/shared/hooks', () => ({
   useImageProcessingToast: () => ({
     createProgressToast: jest.fn(),
     showProgressToast: jest.fn(),

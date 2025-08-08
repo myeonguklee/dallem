@@ -24,7 +24,7 @@ jest.mock('next-intl', () => ({
 const mockUseImageResizer = jest.fn();
 const mockUseImageProcessingToast = jest.fn();
 
-jest.mock('@/shared/lib/hooks', () => ({
+jest.mock('@/shared/hooks', () => ({
   useImageProcessingToast: () => mockUseImageProcessingToast(),
   useImageResizer: () => mockUseImageResizer(),
 }));

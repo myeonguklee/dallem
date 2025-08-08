@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import { mapImageErrorToMessage } from '@/shared/lib/utils/imageErrorMapper';
 import toast from 'react-hot-toast';
-import { mapImageErrorToMessage } from '../utils/imageErrorMapper';
 
 export const useImageProcessingToast = () => {
   const t = useTranslations('common.imageResizer');
