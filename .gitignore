@@ -25,8 +25,8 @@ Thumbs.db
 *.sublime-workspace
 
 # 테스트 관련
-/coverage # Jest 테스트 커버리지 리포트
-coverage/ # Jest 테스트 커버리지 리포트 (슬래시 없이)
+/coverage
+coverage/
 *.lcov # LCOV 커버리지 파일
 .jest-cache
 .cache

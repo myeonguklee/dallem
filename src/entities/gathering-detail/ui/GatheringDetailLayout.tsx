@@ -12,15 +12,15 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
-import { useRouter } from '@/i18n/navigation';
+import { useRouter } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
 import { Popup } from '@/shared/ui/modal/Popup';
 import { BottomFloatingBar } from '@/widgets/BottomFloatingBar';
 import { ContainerInformation } from '@/widgets/ContainerInformation';
+import { DetailPageReviewList } from '@/widgets/ReviewList/ui/DetailPageReviewList';
 import toast from 'react-hot-toast';
 import { calculateGatheringRole } from '../model/calculateGatheringRole';
-import { ReviewList } from './ReviewList';
 
 export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Locale }) => {
   const t = useTranslations('pages.gathering.detail');
@@ -147,7 +147,7 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
       {/* 리뷰 리스트 컴포넌트 */}
       <section className="mx-auto min-h-[200px] w-full max-w-[996px] border-t-2 border-gray-300 p-4">
         <h2 className="mb-4 text-xl font-semibold">{t('reviewTitle')}</h2>
-        <ReviewList id={id} />
+        <DetailPageReviewList id={id} />
       </section>
       {/* 모임 취소 팝업 */}
       <Popup

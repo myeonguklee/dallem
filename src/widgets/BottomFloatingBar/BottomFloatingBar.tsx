@@ -1,19 +1,9 @@
 import { useTranslations } from 'next-intl';
+import { GatheringRole } from '@/entities/gathering-detail/model/types';
 import { Button } from '@/shared/ui/button';
 import { twMerge } from 'tailwind-merge';
 
-// 모임 내 사용자 역할을 정의하는 enum
-// 역할에 따라 버튼 UI가 달라짐
-export enum GatheringRole {
-  // 모임에 참여하지 않은 사용자
-  GUEST = 'guest',
-  // 모임에 참여한 사용자
-  MEMBER = 'member',
-  // 모임을 주최한 사용자
-  HOST = 'host',
-}
-
-type BottomFloatingBarProps = {
+export type BottomFloatingBarProps = {
   role: GatheringRole;
   title: string;
   content: string;

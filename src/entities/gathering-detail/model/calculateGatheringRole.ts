@@ -1,6 +1,5 @@
 import { Participant } from '@/entities/participant/model/types';
-import { GatheringRole } from '@/widgets/BottomFloatingBar';
-import { GatheringDetail, UserSession } from './types';
+import { GatheringDetail, GatheringRole, UserSession } from './types';
 
 export const calculateGatheringRole = (
   sessionData: UserSession | undefined, // user도 undefined일 수 있음을 명시
