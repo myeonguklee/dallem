@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useGatheringReviewList } from '@/entities/review/hooks/useGatheringReviewList';
+import { useGetGatheringReviewList } from '@/entities/review/api/queries';
 import { REVIEW_PAGE_SIZE } from '@/entities/review/model/constants';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { Pagination } from '@/shared/ui/pagination';
@@ -11,7 +11,7 @@ export const DetailPageReviewList = ({ id }: { id: number }) => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * REVIEW_PAGE_SIZE;
 
-  const { data, isLoading } = useGatheringReviewList(id, {
+  const { data, isLoading } = useGetGatheringReviewList(id, {
     offset,
     limit: REVIEW_PAGE_SIZE,
     sortBy: 'createdAt',

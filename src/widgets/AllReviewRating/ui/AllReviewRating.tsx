@@ -1,13 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { GatheringType } from '@/entities/gathering/model/types';
 import { useGetReviewScore } from '@/entities/review/api/queries';
-import { ReviewType } from '@/entities/review/model/type';
 import { RatingScore } from './RatingScore';
 import { RatingScoreProgressBar } from './RatingScoreProgressBar';
 
 interface Props {
-  type?: ReviewType;
+  type?: GatheringType;
 }
 
 export const AllReviewRating = ({ type }: Props) => {

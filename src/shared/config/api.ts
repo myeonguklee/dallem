@@ -6,6 +6,11 @@ export const API_CONFIG = {
       process.env.NEXT_PUBLIC_API_URL || 'https://fe-adv-project-together-dallaem.vercel.app';
     const teamId = process.env.NEXT_PUBLIC_TEAM_ID;
 
+    // 테스트 환경에서는 기본값 허용
+    if (process.env.NODE_ENV === 'test' && !teamId) {
+      return `${baseUrl}/1`;
+    }
+
     // 개발 환경에서만 기본값 허용
     if (process.env.NODE_ENV === 'development' && !teamId) {
       console.warn('⚠️ NEXT_PUBLIC_TEAM_ID가 설정되지 않아 기본값(1)을 사용합니다.');

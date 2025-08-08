@@ -8,7 +8,7 @@ import { Link } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { PersonIcon } from '@/shared/ui/icon';
 
-interface MyPageGatheringCardProps {
+export interface MyPageGatheringCardProps {
   gatheringId: number;
   gatheringType: string;
   gatheringName: string;

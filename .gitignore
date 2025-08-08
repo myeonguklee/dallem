@@ -26,8 +26,7 @@ Thumbs.db
 
 # 테스트 관련
 /coverage
-coverage/
-*.lcov # LCOV 커버리지 파일
+*.lcov
 .jest-cache
 .cache
 

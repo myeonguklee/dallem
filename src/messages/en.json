@@ -13,7 +13,23 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous",
-    "login": "Login"
+    "login": "Login",
+    "imageResizer": {
+      "processing": {
+        "progress": "Processing image... {progress}%",
+        "complete": "Image processing complete!"
+      },
+      "errors": {
+        "timeout": "Image processing timed out. Please try a smaller image.",
+        "memory": "Insufficient memory to process. Please try a smaller image.",
+        "fileSize": "File size is too large. (Maximum 20MB)",
+        "unsupportedType": "Unsupported image format. (JPEG, PNG, WebP, GIF only)",
+        "processing": "Image is being processed. Please try again later.",
+        "imageType": "Please select a valid image file.",
+        "corrupted": "Corrupted image file.",
+        "default": "An error occurred while processing the image."
+      }
+    }
   },
   "ui": {
     "likeButton": {
@@ -178,6 +194,10 @@
           "imagePlaceholder": "Attach image",
           "imageButton": "Find File",
           "imageSuccess": "Image file upload successful",
+          "processing": {
+            "status": "Processing",
+            "waitMessage": "Please wait a moment"
+          },
           "type": "Select Service",
           "date": "Gathering Date",
           "datePlaceholder": "Select gathering date",
@@ -224,12 +244,6 @@
             "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
             "corrupted": "The image file is corrupted.",
             "default": "An error occurred while processing the image."
-          },
-          "processing": {
-            "status": "Processing...",
-            "progress": "Processing image... {progress}%",
-            "complete": "Image processing complete!",
-            "waitMessage": "Image is being processed. Please submit the form after completion."
           }
         }
       }
@@ -315,6 +329,10 @@
         "submit": "Update Complete",
         "submitting": "Updating...",
         "imageProcessing": "Processing image...",
+        "processing": {
+          "status": "Processing",
+          "waitMessage": "Please wait a moment"
+        },
         "success": "Profile updated successfully",
         "errors": {
           "companyNameRequired": "Please enter your company name",
@@ -328,20 +346,14 @@
           "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
           "corrupted": "The image file is corrupted.",
           "default": "An error occurred while processing the image."
-        },
-        "processing": {
-          "status": "Processing...",
-          "progress": "Processing image... {progress}%",
-          "complete": "Image processing complete!",
-          "waitMessage": "Image is being processed. Please submit the form after completion."
         }
       },
       "actionButton": {
-        "cancelReservation": "Cancel Reservation",
-        "writeReview": "Write Review"
+        "cancelReservation": "Cancel Reservation"
       },
       "reviewModal": {
         "title": "Write Review",
+        "button": "Write Review",
         "question": "Was it a satisfactory experience?",
         "ariaLabel": "{score} stars",
         "commentLabel": "Please leave a comment about your experience.",
@@ -350,7 +362,12 @@
         "cancel": "Cancel",
         "submit": "Submit Review",
         "selectRatingError": "Please select a rating",
-        "success": "Review submitted successfully!"
+        "success": "Review submitted successfully!",
+        "errors": {
+          "selectRating": "Please select a rating",
+          "reviewContentRequired": "Please enter your review content",
+          "reviewContentMaxLength": "Review must be within 500 characters"
+        }
       }
     },
     "reviews": {

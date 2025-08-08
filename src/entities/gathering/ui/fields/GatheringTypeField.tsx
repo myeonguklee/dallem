@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
-import { BoxSelector } from '@/shared/ui/box-selector/BoxSelector';
+import { BoxSelector } from '@/shared/ui/box-selector';
 import { Control, Controller, FieldError } from 'react-hook-form';
 
 interface GatheringTypeFieldProps {

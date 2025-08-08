@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
 import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
-import { IMAGE_SIZE_CONFIG, imageResizer } from '@/shared/lib/image';
+import { useImageProcessingToast, useImageResizer } from '@/shared/lib/hooks';
 import { FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import toast from 'react-hot-toast';
 
 interface GatheringImageFieldProps {
   setValue: UseFormSetValue<CreateGatheringPayload>;
@@ -19,134 +18,47 @@ export const GatheringImageField = ({
   onProcessingChange,
 }: GatheringImageFieldProps) => {
   const t = useTranslations('pages.gatherings.create');
-  const [fileName, setFileName] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const progressToastIdRef = useRef<string | null>(null);
 
-  const handleImageChange = async (file: File | null) => {
+  // 토스트 처리 훅 사용
+  const { createProgressToast, showProgressToast, showSuccessToast, showErrorToast } =
+    useImageProcessingToast();
+
+  // 이미지 리사이징 훅 사용
+  const { isProcessing, fileName, displayFileName, handleImageChange } = useImageResizer({
+    sizeConfig: 'gathering',
+    onSuccess: (file) => {
+      setValue('image', file);
+      showSuccessToast();
+    },
+    onError: (error) => {
+      console.error('이미지 처리 오류:', error);
+      showErrorToast(error);
+    },
+  });
+
+  // 커스텀 훅에서 제공하는 handleImageChange를 래핑하여 토스트 처리 추가
+  const handleImageChangeWithToast = async (file: File | null) => {
     if (!file) {
       setValue('image', undefined);
-      setFileName('');
       return;
     }
 
-    // 파일 유효성 검사
-    if (!file.type.startsWith('image/')) {
-      toast.error(t('form.errors.imageType'));
-      return;
-    }
+    // 진행률 토스트 생성
+    createProgressToast();
 
-    // 파일 크기 제한 (20MB)
-    const MAX_FILE_SIZE = 20 * 1024 * 1024;
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error(t('form.errors.fileSize'));
-      return;
-    }
+    // 진행률 업데이트 함수
+    const updateProgress = (progress: number) => {
+      showProgressToast(progress);
+    };
 
-    // 지원하는 이미지 형식 확인
-    const supportedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
-    if (!supportedTypes.includes(file.type)) {
-      toast.error(t('form.errors.unsupportedType'));
-      return;
-    }
-
-    // 이미 처리 중인지 확인
-    if (imageResizer.isCurrentlyProcessing()) {
-      toast.error(t('form.errors.processing'));
-      return;
-    }
-
-    setIsProcessing(true);
-    onProcessingChange?.(true);
-    setFileName(file.name);
-
-    try {
-      // 진행률 토스트 생성
-      const toastId = toast.loading(t('form.processing.progress', { progress: 0 }), {
-        duration: Infinity,
-      });
-      progressToastIdRef.current = toastId;
-
-      // 진행률 업데이트 함수
-      const updateProgress = (progress: number) => {
-        if (progressToastIdRef.current) {
-          toast.loading(t('form.processing.progress', { progress }), {
-            id: progressToastIdRef.current,
-          });
-        }
-      };
-
-      // 이미지 리사이징
-      const result = await imageResizer.resizeImage(
-        file,
-        {
-          ...IMAGE_SIZE_CONFIG.gathering,
-          format: 'webp',
-        },
-        updateProgress,
-      );
-
-      // Blob을 File로 변환
-      const resizedFile = new File([result.blob], file.name.replace(/\.[^/.]+$/, '.webp'), {
-        type: 'image/webp',
-      });
-
-      // 폼에 설정
-      setValue('image', resizedFile);
-      setFileName(resizedFile.name);
-
-      // 완료 토스트 (3초 후 자동 닫힘)
-      if (progressToastIdRef.current) {
-        toast.success(t('form.processing.complete'), {
-          id: progressToastIdRef.current,
-          duration: 3000, // 3초
-        });
-        progressToastIdRef.current = null;
-      }
-    } catch (error) {
-      console.error('이미지 처리 오류:', error);
-      let errorMessage = t('form.errors.default');
-      if (error && typeof error === 'object' && 'code' in error) {
-        switch ((error as { code: string }).code) {
-          case 'TIMEOUT':
-            errorMessage = t('form.errors.timeout');
-            break;
-          case 'MEMORY':
-            errorMessage = t('form.errors.memory');
-            break;
-          case 'UNSUPPORTED_TYPE':
-            errorMessage = t('form.errors.unsupportedType');
-            break;
-          case 'CORRUPTED':
-            errorMessage = t('form.errors.corrupted');
-            break;
-          case 'PROCESSING':
-            errorMessage = t('form.errors.processing');
-            break;
-          case 'FILE_SIZE':
-            errorMessage = t('form.errors.fileSize');
-            break;
-          case 'IMAGE_TYPE':
-            errorMessage = t('form.errors.imageType');
-            break;
-          default:
-            errorMessage = t('form.errors.default');
-        }
-      }
-      if (progressToastIdRef.current) {
-        toast.error(errorMessage, {
-          id: progressToastIdRef.current,
-          duration: 3000,
-        });
-        progressToastIdRef.current = null;
-      }
-      setValue('image', file);
-      setFileName(file.name);
-    } finally {
-      setIsProcessing(false);
-      onProcessingChange?.(false);
-    }
+    // 커스텀 훅의 handleImageChange 호출 (진행률 콜백 전달)
+    await handleImageChange(file, updateProgress);
   };
+
+  // isProcessing 상태가 변경될 때 부모 컴포넌트에 알림
+  React.useEffect(() => {
+    onProcessingChange?.(isProcessing);
+  }, [isProcessing, onProcessingChange]);
 
   return (
     <div>
@@ -158,7 +70,7 @@ export const GatheringImageField = ({
           }
         >
           <span className={watch('image') ? 'text-gray-800' : 'text-gray-400'}>
-            {fileName || t('form.imagePlaceholder')}
+            {fileName ? displayFileName : t('form.imagePlaceholder')}
           </span>
           {isProcessing && (
             <span className="ml-2 text-sm text-orange-500">{t('form.processing.status')}</span>
@@ -177,7 +89,7 @@ export const GatheringImageField = ({
           accept="image/*"
           id="gathering-image-upload"
           className="hidden"
-          onChange={(e) => handleImageChange(e.target.files?.[0] || null)}
+          onChange={(e) => handleImageChangeWithToast(e.target.files?.[0] || null)}
           disabled={isProcessing}
         />
       </div>

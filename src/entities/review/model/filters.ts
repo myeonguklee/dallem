@@ -1,25 +1,25 @@
-import { ReviewFilterProps } from './type';
+import { ReviewFilterParams } from './type';
 
 export const parseReviewFilters = (
   filterQuery: Record<string, string | string[] | undefined>,
-): ReviewFilterProps => {
+): ReviewFilterParams => {
   return {
     type:
       typeof filterQuery.type === 'string'
-        ? (filterQuery.type as ReviewFilterProps['type'])
+        ? (filterQuery.type as ReviewFilterParams['type'])
         : undefined,
     location:
       typeof filterQuery.location === 'string'
-        ? (filterQuery.location as ReviewFilterProps['location'])
+        ? (filterQuery.location as ReviewFilterParams['location'])
         : undefined,
     date: typeof filterQuery.date === 'string' ? filterQuery.date : undefined,
     sortBy:
       typeof filterQuery.sortBy === 'string'
-        ? (filterQuery.sortBy as ReviewFilterProps['sortBy'])
+        ? (filterQuery.sortBy as ReviewFilterParams['sortBy'])
         : 'createdAt',
     sortOrder:
       typeof filterQuery.sortOrder === 'string'
-        ? (filterQuery.sortOrder as ReviewFilterProps['sortOrder'])
+        ? (filterQuery.sortOrder as ReviewFilterParams['sortOrder'])
         : 'desc',
     limit: 10,
     offset: 0,
