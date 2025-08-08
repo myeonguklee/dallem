@@ -7,7 +7,7 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    if: github.repository == 'FESI-10th-team6/dallem'
+    if: github.repository == 'FESI-10th-team6/moizayo'
     
     steps:
     - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
         gh auth login --with-token <<< "${{ secrets.PERSONAL_GITHUB_TOKEN }}"
         
         # 조직 레포 클론 (main 브랜치 체크아웃)
-        gh repo clone FESI-10th-team6/dallem temp
+        gh repo clone FESI-10th-team6/moizayo temp
         cd temp
         
         # main 브랜치로 체크아웃 (dev에서 머지된 최신 main)
