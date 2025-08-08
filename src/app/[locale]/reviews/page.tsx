@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { getReviewList, getReviewScore } from '@/entities/review/api/services';
-import { parseReviewFilters } from '@/entities/review/model/filtres';
+import { parseReviewFilters } from '@/entities/review/model/filters';
 import { OptionsFiltersGroup } from '@/features/filters/ui/OptionsFiltersGroup';
 import { TypeFilterGroup } from '@/features/filters/ui/TypeFilterGroup';
 import { HydrationProvider, QUERY_KEYS } from '@/shared/api';

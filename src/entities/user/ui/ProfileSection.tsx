@@ -2,9 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { useGetUser } from '@/entities/user/api';
+import { ProfileEditBtn } from '@/features/my-page/ui';
 import { ProfileImage } from '@/shared/ui/ProfileImage';
 import { ProfileBGIcon } from '@/shared/ui/icon';
-import { ProfileEditBtn } from './ProfileEditBtn';
 
 export const ProfileSection = () => {
   const t = useTranslations('pages.myPage');

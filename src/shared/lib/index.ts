@@ -5,3 +5,6 @@ export {
   generateReviewsMetadata,
   generateGatheringDetailMetadata,
 } from './metadata';
+export { mapImageErrorToMessage } from './utils/imageErrorMapper';
+export { getBreakpointsPx } from './getBreakpointsPx';
+export { getAuthImageSize } from './getAuthImageSize';

@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import reviewImg from '../ui/reviewImg.jpg';
-import userCat from '../ui/userCat.jpg';
 import { ReviewCard } from './ReviewCard';
 
 const meta = {
@@ -49,10 +47,10 @@ export const DefultReviewCard: Story = {
       '이번 모임은 기대 이상이었어요. 평소 온라인으로만 보던 동료들을 직접 만날 수 있다는 설렘으로 시작해, 따뜻한 환영 인사와 함께 마치 오랜 친구처럼 어울릴 수 있었습니다. ',
     score: 5,
     userName: '고구마',
-    userImg: userCat,
+    userImg: '/apple-touch-icon.png',
     gatheringName: '코딩 스터디 ',
     location: '강남',
-    reviewImg: reviewImg,
+    reviewImg: '/gathering-default-image.png',
   },
 };
 
@@ -62,7 +60,7 @@ export const DetailReviewCard: Story = {
       '처음 스터디룸 문을 열고 들어섰을 때, 각자 노트북 앞에 진지하게 앉아 있는 동료 개발자들의 모습이 인상적이었어요. 서로의 화면을 부담 없이 공유하며 코드를 리뷰해주고, 질문이 생기면 바로 그 자리에서 해결하려는 열정이 느껴졌습니다. ',
     score: 3,
     userName: '감자돌이',
-    userImg: userCat,
+    userImg: '/apple-touch-icon.png',
   },
 };
 
@@ -70,7 +68,7 @@ export const MypageReviewCard: Story = {
   args: {
     comment: '모두 화이팅해서 나아갑시다 ',
     score: 1,
-    reviewImg: reviewImg,
+    reviewImg: '/gathering-default-image.png',
     gatheringName: '코딩 스터디',
     location: '강남',
   },

@@ -1,6 +1,6 @@
 import { getBreakpointsPx } from '@/shared/lib/getBreakpointsPx';
 
-const IMAGE_SIZE_BY_BREAKPOINTS = {
+export const IMAGE_SIZE_BY_BREAKPOINTS = {
   mobile: 290,
   tablet: 407,
   web: 588,

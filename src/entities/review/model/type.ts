@@ -1,28 +1,29 @@
-// enums
+import type { GatheringLocation, GatheringType } from '@/entities/gathering/model/types';
+import type { User } from '@/entities/user/model';
 
-export type ReviewType = 'DALLAEMFIT' | 'OFFICE_STRETCHING' | 'MINDFULNESS' | 'WORKATION';
-export type ReviewLocation = '건대입구' | '을지로3가' | '신림' | '홍대입구';
+// enums
 export type ReviewSortBy = 'createdAt' | 'score' | 'participantCount';
 export type SortOrder = 'asc' | 'desc';
 
-//리뷰 리스트 요청 props
-export interface ReviewFilterProps {
-  type?: ReviewType;
-  location?: ReviewLocation;
+//리뷰 리스트 요청 파라미터
+export interface ReviewFilterParams {
+  type?: GatheringType;
+  location?: GatheringLocation;
   date?: string;
   sortBy?: ReviewSortBy;
   sortOrder?: SortOrder;
   limit?: number;
   offset?: number;
+  gatheringId?: number;
+  userId?: number;
 }
 
-// 리뷰 평점 요청 props
-export interface ReviewScoreProps {
-  type?: ReviewType;
+// 리뷰 평점 요청 파라미터
+export interface ReviewScoreParams {
+  type?: GatheringType;
 }
 
 //응답 props
-
 export interface ReviewListItem {
   teamId: string;
   id: number;
@@ -32,18 +33,13 @@ export interface ReviewListItem {
   Gathering: {
     teamId: string;
     id: number;
-    type: ReviewType;
+    type: GatheringType;
     name: string;
     dateTime: string;
-    location: ReviewLocation;
+    location: GatheringLocation;
     image: string;
   };
-  User: {
-    teamId: string;
-    id: number;
-    name: string;
-    image: string;
-  };
+  User: Pick<User, 'teamId' | 'id' | 'name' | 'image'>;
 }
 
 export interface ReviewListResponse {
@@ -55,7 +51,7 @@ export interface ReviewListResponse {
 
 export interface ReviewScoreItem {
   teamId: string;
-  type: ReviewType;
+  type: GatheringType;
   averageScore: number;
   oneStar: number;
   twoStars: number;
@@ -65,3 +61,13 @@ export interface ReviewScoreItem {
 }
 
 export type ReviewScoreResponse = ReviewScoreItem[];
+
+export interface CreateReviewResponse {
+  teamId: string;
+  id: number;
+  userId: number;
+  gatheringId: number;
+  score: number;
+  comment: string;
+  createdAt: string;
+}

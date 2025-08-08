@@ -3,12 +3,12 @@
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useGetReviewListInfinite } from '@/entities/review/api/queries';
-import { ReviewFilterProps } from '@/entities/review/model/type';
+import { ReviewFilterParams } from '@/entities/review/model/type';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 
 interface ReviewListProps {
-  filters: ReviewFilterProps;
+  filters: ReviewFilterParams;
 }
 
 export const ReviewList = ({ filters }: ReviewListProps) => {
@@ -24,7 +24,11 @@ export const ReviewList = ({ filters }: ReviewListProps) => {
   }, [data.pages]);
 
   if (allReviews.length === 0) {
-    return <div>{t('noReview')} 😶</div>;
+    return (
+      <div className="flex items-center justify-center py-8">
+        <p className="text-gray-500">{t('noReview')}</p>
+      </div>
+    );
   }
   return (
     <>

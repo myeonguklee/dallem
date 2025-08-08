@@ -6,7 +6,6 @@ interface ProfileImageProps {
   size?: number; // 정사각형 한 변의 길이 (px)
   url?: string; // 프로필 이미지 URL
   className?: string; // 추가 커스텀 클래스
-  alt?: string; // img alt
 }
 
 export const ProfileImage = ({ size = 40, url, className }: ProfileImageProps) => {
@@ -18,13 +17,16 @@ export const ProfileImage = ({ size = 40, url, className }: ProfileImageProps) =
       {url ? (
         <Image
           src={url}
-          alt={'alt'}
+          alt={'user profile image'}
           fill
           sizes={`${size}px`}
           className="object-cover"
         />
       ) : (
-        <ProfileIcon size={size} />
+        <ProfileIcon
+          size={size}
+          data-testid="profile-icon"
+        />
       )}
     </div>
   );

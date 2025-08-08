@@ -13,7 +13,23 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous",
-    "login": "Login"
+    "login": "Login",
+    "imageResizer": {
+      "processing": {
+        "progress": "Processing image... {progress}%",
+        "complete": "Image processing complete!"
+      },
+      "errors": {
+        "timeout": "Image processing timed out. Please try a smaller image.",
+        "memory": "Insufficient memory to process. Please try a smaller image.",
+        "fileSize": "File size is too large. (Maximum 20MB)",
+        "unsupportedType": "Unsupported image format. (JPEG, PNG, WebP, GIF only)",
+        "processing": "Image is being processed. Please try again later.",
+        "imageType": "Please select a valid image file.",
+        "corrupted": "Corrupted image file.",
+        "default": "An error occurred while processing the image."
+      }
+    }
   },
   "ui": {
     "likeButton": {
@@ -71,7 +87,7 @@
     "findGatherings": "Find Gatherings",
     "favoriteGatherings": "Favorite Gatherings",
     "allReviews": "All Reviews",
-    "brand": "Dallem",
+    "brand": "Moizayo",
     "myPage": "My Page",
     "aria": {
       "openMenu": "Open menu",
@@ -112,7 +128,7 @@
   "pages": {
     "home": {
       "title": "Homepage",
-      "welcome": "Welcome to Dallem!"
+      "welcome": "Welcome to Moizayo!"
     },
     "signin": {
       "title": "Sign In Page",
@@ -121,9 +137,9 @@
       "loginButton": "Sign In",
       "footerText": "Don't have an account?",
       "signupLink": "Sign Up",
-      "welcome": "Welcome to Dallem!",
+      "welcome": "Welcome to Moizayo!",
       "desc1": "Take a break from your busy daily life,",
-      "desc2": "and experience Dallem with us"
+      "desc2": "and experience Moizayo with us"
     },
     "signup": {
       "title": "Sign Up Page",
@@ -178,6 +194,10 @@
           "imagePlaceholder": "Attach image",
           "imageButton": "Find File",
           "imageSuccess": "Image file upload successful",
+          "processing": {
+            "status": "Processing",
+            "waitMessage": "Please wait a moment"
+          },
           "type": "Select Service",
           "date": "Gathering Date",
           "datePlaceholder": "Select gathering date",
@@ -224,12 +244,6 @@
             "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
             "corrupted": "The image file is corrupted.",
             "default": "An error occurred while processing the image."
-          },
-          "processing": {
-            "status": "Processing...",
-            "progress": "Processing image... {progress}%",
-            "complete": "Image processing complete!",
-            "waitMessage": "Image is being processed. Please submit the form after completion."
           }
         }
       }
@@ -315,6 +329,10 @@
         "submit": "Update Complete",
         "submitting": "Updating...",
         "imageProcessing": "Processing image...",
+        "processing": {
+          "status": "Processing",
+          "waitMessage": "Please wait a moment"
+        },
         "success": "Profile updated successfully",
         "errors": {
           "companyNameRequired": "Please enter your company name",
@@ -328,20 +346,14 @@
           "memory": "Cannot process due to insufficient memory. Please try a smaller image.",
           "corrupted": "The image file is corrupted.",
           "default": "An error occurred while processing the image."
-        },
-        "processing": {
-          "status": "Processing...",
-          "progress": "Processing image... {progress}%",
-          "complete": "Image processing complete!",
-          "waitMessage": "Image is being processed. Please submit the form after completion."
         }
       },
       "actionButton": {
-        "cancelReservation": "Cancel Reservation",
-        "writeReview": "Write Review"
+        "cancelReservation": "Cancel Reservation"
       },
       "reviewModal": {
         "title": "Write Review",
+        "button": "Write Review",
         "question": "Was it a satisfactory experience?",
         "ariaLabel": "{score} stars",
         "commentLabel": "Please leave a comment about your experience.",
@@ -350,12 +362,17 @@
         "cancel": "Cancel",
         "submit": "Submit Review",
         "selectRatingError": "Please select a rating",
-        "success": "Review submitted successfully!"
+        "success": "Review submitted successfully!",
+        "errors": {
+          "selectRating": "Please select a rating",
+          "reviewContentRequired": "Please enter your review content",
+          "reviewContentMaxLength": "Review must be within 500 characters"
+        }
       }
     },
     "reviews": {
       "title": "All Reviews",
-      "subTitle": "Here's how people felt after using Dallaem together",
+      "subTitle": "Here's how people felt after using Moizayo together",
       "loading": "Loading...",
       "run": "Dallaemfit",
       "workation": "Workation",
@@ -413,24 +430,24 @@
     }
   },
   "metadata": {
-    "title": "Dallem",
+    "title": "Moizayo",
     "description": "Create a healthy and vibrant work life through gatherings together",
     "gathering": {
-      "title": "Gathering List - Dallem",
-      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Dallem.",
+      "title": "Gathering List - Moizayo",
+      "description": "Create a healthy and vibrant work life through gatherings together. Find various gatherings on Moizayo.",
       "keywords": "gathering, office worker, health, exercise, stretching, mindfulness, workation, dallaemfit",
-      "ogImageAlt": "Dallem Gathering List"
+      "ogImageAlt": "Moizayo Gathering List"
     },
     "reviews": {
-      "title": "Gathering Reviews - Dallem",
-      "description": "Check out Dallem gathering reviews. Read real experiences from participants.",
-      "keywords": "gathering reviews, dallem, experiences, reviews, participant reviews",
-      "ogImageAlt": "Dallem Gathering Reviews"
+      "title": "Gathering Reviews - Moizayo",
+      "description": "Check out Moizayo gathering reviews. Read real experiences from participants.",
+      "keywords": "gathering reviews, moizayo, experiences, reviews, participant reviews",
+      "ogImageAlt": "Moizayo Gathering Reviews"
     },
     "gatheringDetail": {
-      "titleTemplate": "{name} - Dallem",
+      "titleTemplate": "{name} - Moizayo",
       "descriptionTemplate": "{name} - {type} gathering at {location} on {dateTime}. Join us!",
-      "keywords": "gathering, dallem, join, office worker, health",
+      "keywords": "gathering, moizayo, join, office worker, health",
       "ogImageAlt": "{name} gathering"
     },
     "notFound": {

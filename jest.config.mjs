@@ -7,8 +7,8 @@ const createJestConfig = nextJest({
 
 // Jest에 전달할 사용자 정의 설정
 const customJestConfig = {
-  // 테스트 실행 전에 polyfill을 먼저 적용합니다.
-  setupFiles: ['<rootDir>/jest.polyfill.js'],
+  // 테스트 환경변수 로드
+  setupFiles: ['<rootDir>/jest.polyfill.js', '<rootDir>/jest.env.js'],
 
   // 각 테스트 실행 전에 실행할 파일을 지정합니다.
   setupFilesAfterEnv: ['<rootDir>/jest.setup.msw.js', '<rootDir>/jest.setup.js'],
@@ -44,6 +44,12 @@ const customJestConfig = {
     '!src/**/store/**/*.{ts,tsx}',
     '!src/**/msw/browser.{ts,tsx}',
     '!src/**/msw/startWorker.{ts,tsx}',
+    // 아이콘들을 모두 제외
+    '!src/shared/ui/icon/icons/**/*.{ts,tsx}',
+    // StarIcon만 다시 포함
+    'src/shared/ui/icon/icons/StarIcon.tsx',
+    // 메타데이터 파일 제외
+    '!src/shared/lib/metadata.ts',
   ],
 
   // 커버리지 리포트 설정
