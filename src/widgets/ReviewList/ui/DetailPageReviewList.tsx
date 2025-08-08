@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useGetGatheringReviewList } from '@/entities/review/api/queries';]
+import { useGetGatheringReviewList } from '@/entities/review/api/queries';
 import { REVIEW_PAGE_SIZE } from '@/entities/review/model/constants';
 import { ReviewCard } from '@/entities/review/ui/ReviewCard';
 import { Pagination } from '@/shared/ui/pagination';
