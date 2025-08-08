@@ -12,7 +12,7 @@ import {
 } from '@/entities/gathering-detail/api/queries';
 import { GatheringDeadlineTag } from '@/entities/gathering/ui';
 import { useGetParticipants } from '@/entities/participant/api/queries';
-import { useRouter } from '@/i18n/navigation';
+import { useRouter } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { formatDateAndTime } from '@/shared/lib/date';
 import { Popup } from '@/shared/ui/modal/Popup';
