@@ -5,3 +5,5 @@ export {
   generateReviewsMetadata,
   generateGatheringDetailMetadata,
 } from './metadata';
+export { getBreakpointsPx } from './getBreakpointsPx';
+export { getAuthImageSize } from './getAuthImageSize';
