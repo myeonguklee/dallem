@@ -60,7 +60,7 @@ describe('GatheringCapacityField', () => {
   });
 
   it('에러가 있을 때 에러 스타일이 적용되어야 한다', () => {
-    const error = {
+    const error: FieldError = {
       type: 'min',
       message: 'form.participants.min',
     };

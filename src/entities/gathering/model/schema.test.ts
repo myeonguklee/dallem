@@ -5,8 +5,8 @@ describe('createGatheringSchema', () => {
     name: '테스트 모임',
     location: '건대입구',
     type: 'OFFICE_STRETCHING',
-    dateTime: new Date('2025-12-31T18:00:00'), // 미래 날짜로 변경
-    registrationEnd: new Date('2025-12-30T18:00:00'), // dateTime보다 이전
+    dateTime: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    registrationEnd: new Date(Date.now() + 29 * 24 * 60 * 60 * 1000),
     capacity: 10,
   };
 

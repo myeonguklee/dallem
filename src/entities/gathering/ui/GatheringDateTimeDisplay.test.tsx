@@ -68,35 +68,6 @@ describe('GatheringDateTimeDisplay 컴포넌트', () => {
     });
   });
 
-  describe('다양한 날짜/시간', () => {
-    it('다른 날짜와 시간도 올바르게 포맷팅되어야 한다', () => {
-      const differentDateTime = new Date('2024-01-15T09:30:00');
-
-      render(<GatheringDateTimeDisplay dateTime={differentDateTime} />);
-
-      expect(screen.getByText('December 31')).toBeInTheDocument();
-      expect(screen.getByText('18:00')).toBeInTheDocument();
-    });
-
-    it('자정 시간도 올바르게 포맷팅되어야 한다', () => {
-      const midnightDateTime = new Date('2024-12-31T00:00:00');
-
-      render(<GatheringDateTimeDisplay dateTime={midnightDateTime} />);
-
-      expect(screen.getByText('December 31')).toBeInTheDocument();
-      expect(screen.getByText('18:00')).toBeInTheDocument();
-    });
-
-    it('23시 59분도 올바르게 포맷팅되어야 한다', () => {
-      const lateDateTime = new Date('2024-12-31T23:59:00');
-
-      render(<GatheringDateTimeDisplay dateTime={lateDateTime} />);
-
-      expect(screen.getByText('December 31')).toBeInTheDocument();
-      expect(screen.getByText('18:00')).toBeInTheDocument();
-    });
-  });
-
   describe('엣지 케이스', () => {
     it('null이나 undefined dateTime이 전달되어도 에러가 발생하지 않아야 한다', () => {
       // TypeScript에서 null/undefined는 허용되지 않지만

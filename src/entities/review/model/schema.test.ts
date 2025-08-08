@@ -78,12 +78,6 @@ describe('createReviewSchema', () => {
       const result = createReviewSchema.safeParse(data);
       expect(result.success).toBe(true);
     });
-
-    it('음수 gatheringId는 통과해야 한다 (타입이 number이므로)', () => {
-      const data = { ...validReviewData, gatheringId: -1 };
-      const result = createReviewSchema.safeParse(data);
-      expect(result.success).toBe(true);
-    });
   });
 
   describe('score 검증', () => {

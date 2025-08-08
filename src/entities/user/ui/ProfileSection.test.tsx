@@ -227,20 +227,4 @@ describe('ProfileSection', () => {
     const bgIcon = screen.getByTestId('profile-bg-icon');
     expect(bgIcon).toHaveClass('self-end');
   });
-
-  it('ProfileBGIcon이 올바른 클래스를 가져야 한다', () => {
-    mockUseGetUser.mockReturnValue({
-      data: defaultUser,
-      isLoading: false,
-    });
-
-    render(
-      <TestWrapper>
-        <ProfileSection />
-      </TestWrapper>,
-    );
-
-    const bgIcon = screen.getByTestId('profile-bg-icon');
-    expect(bgIcon).toHaveClass('self-end');
-  });
 });
