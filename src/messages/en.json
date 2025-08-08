@@ -194,6 +194,10 @@
           "imagePlaceholder": "Attach image",
           "imageButton": "Find File",
           "imageSuccess": "Image file upload successful",
+          "processing": {
+            "status": "Processing",
+            "waitMessage": "Please wait a moment"
+          },
           "type": "Select Service",
           "date": "Gathering Date",
           "datePlaceholder": "Select gathering date",
@@ -325,6 +329,10 @@
         "submit": "Update Complete",
         "submitting": "Updating...",
         "imageProcessing": "Processing image...",
+        "processing": {
+          "status": "Processing",
+          "waitMessage": "Please wait a moment"
+        },
         "success": "Profile updated successfully",
         "errors": {
           "companyNameRequired": "Please enter your company name",
@@ -341,11 +349,11 @@
         }
       },
       "actionButton": {
-        "cancelReservation": "Cancel Reservation",
-        "writeReview": "Write Review"
+        "cancelReservation": "Cancel Reservation"
       },
       "reviewModal": {
         "title": "Write Review",
+        "button": "Write Review",
         "question": "Was it a satisfactory experience?",
         "ariaLabel": "{score} stars",
         "commentLabel": "Please leave a comment about your experience.",
