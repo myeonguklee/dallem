@@ -46,8 +46,8 @@
 
 ```bash
 # 저장소 클론
-git clone https://github.com/FESI-10th-team6/dallem.git
-cd dallem
+git clone https://github.com/FESI-10th-team6/moizayo.git
+cd moizayo
 
 # pnpm이 없다면 먼저 설치
 npm install -g pnpm
@@ -67,7 +67,7 @@ cp .env.example .env.local
 
 # 환경 변수 설정
 NEXT_PUBLIC_API_URL=https://fe-adv-project-together-dallaem.vercel.app
-NEXT_PUBLIC_TEAM_ID=1
+NEXT_PUBLIC_TEAM_ID=10-6
 ```
 
 ### 개발 서버 실행
