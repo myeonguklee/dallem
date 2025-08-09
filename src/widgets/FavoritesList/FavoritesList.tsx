@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { GatheringCard } from '@/widgets/GatheringCard/ui';
-import { useGetFavoritesGathering } from '../api/queries';
+import { useGetFavoritesGathering } from '../../entities/favorites/api/queries';
 
 interface FavoritesListProps {
   type: string;
