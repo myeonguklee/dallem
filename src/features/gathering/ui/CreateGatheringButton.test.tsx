@@ -1,6 +1,33 @@
+import React, { Suspense } from 'react';
 import { TestWrapper } from '@/shared/lib/test/testUtils';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { CreateGatheringButton } from './CreateGatheringButton';
+
+// Mock next/dynamic
+jest.mock('next/dynamic', () => {
+  return jest.fn((importFunc) => {
+    // 테스트에서 사용하는 컴포넌트들을 직접 반환
+    if (importFunc.toString().includes('CreateGatheringModal')) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { CreateGatheringModal } = require('./CreateGatheringModal');
+      return CreateGatheringModal;
+    }
+    if (importFunc.toString().includes('Modal.Root')) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { Modal } = require('@/shared/ui/modal');
+      return Modal.Root;
+    }
+    if (importFunc.toString().includes('Modal.Body')) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { Modal } = require('@/shared/ui/modal');
+      return Modal.Body;
+    }
+    // 기본적으로는 빈 div 반환
+    return function DynamicPlaceholder() {
+      return <div data-testid="dynamic-placeholder" />;
+    };
+  });
+});
 
 // Mock next-auth/react
 jest.mock('next-auth/react', () => ({
@@ -64,7 +91,12 @@ jest.mock('@/shared/ui/modal', () => ({
         {isOpen && (
           <div>
             {children}
-            <button onClick={onClose}>모달 닫기</button>
+            <button
+              onClick={onClose}
+              data-testid="modal-close"
+            >
+              모달 닫기
+            </button>
           </div>
         )}
       </div>
@@ -111,7 +143,9 @@ describe('CreateGatheringButton', () => {
 
     render(
       <TestWrapper>
-        <CreateGatheringButton />
+        <Suspense fallback={<div>Loading...</div>}>
+          <CreateGatheringButton />
+        </Suspense>
       </TestWrapper>,
     );
 
@@ -158,10 +192,8 @@ describe('CreateGatheringButton', () => {
     fireEvent.click(button);
 
     // 모달이나 팝업이 열리지 않아야 함
-    const modal = screen.getByTestId('create-gathering-modal');
-    const modalRoot = screen.getByTestId('modal-root');
-    expect(modal).toHaveAttribute('data-open', 'false');
-    expect(modalRoot).toHaveAttribute('data-open', 'false');
+    expect(screen.queryByTestId('create-gathering-modal')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('modal-root')).not.toBeInTheDocument();
   });
 
   it('로그인 팝업에서 로그인 버튼을 클릭하면 로그인 페이지로 이동해야 한다', () => {
@@ -212,7 +244,7 @@ describe('CreateGatheringButton', () => {
     const closeButton = screen.getByText('닫기');
     fireEvent.click(closeButton);
 
-    expect(modal).toHaveAttribute('data-open', 'false');
+    expect(screen.queryByTestId('create-gathering-modal')).not.toBeInTheDocument();
   });
 
   it('로그인 팝업을 닫을 수 있어야 한다', () => {
@@ -233,10 +265,10 @@ describe('CreateGatheringButton', () => {
     const modalRoot = screen.getByTestId('modal-root');
     expect(modalRoot).toHaveAttribute('data-open', 'true');
 
-    const closeButton = screen.getByText('모달 닫기');
+    const closeButton = screen.getByTestId('modal-close');
     fireEvent.click(closeButton);
 
-    expect(modalRoot).toHaveAttribute('data-open', 'false');
+    expect(screen.queryByTestId('modal-root')).not.toBeInTheDocument();
   });
 
   it('버튼에 올바른 텍스트가 표시되어야 한다', () => {

@@ -28,6 +28,7 @@ jest.mock('@/features/my-page/ui', () => ({
 // Mock ProfileImage
 jest.mock('@/shared/ui/ProfileImage', () => ({
   ProfileImage: ({ url, size, className }: { url?: string; size: number; className?: string }) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       data-testid="profile-image"
       src={url}
