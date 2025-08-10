@@ -46,9 +46,9 @@ export const GatheringCard = ({
   const isConfirmed = gatheringParticipantCount >= participantCountToConfirm;
 
   return (
-    <div className="tablet:flex-row rounded-common relative flex w-full flex-col overflow-hidden border border-gray-200 bg-white">
-      {/* eslint-disable @typescript-eslint/no-explicit-any */}
-      <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
+      <div className="tablet:flex-row rounded-common relative flex w-full flex-col overflow-hidden border border-gray-200 bg-white">
         <div className="tablet:w-[280px] relative w-full">
           <Image
             src={gatheringImage || '/gathering-default-image.png'}
@@ -66,11 +66,9 @@ export const GatheringCard = ({
           {/* 모집 마감 시간 */}
           <GatheringDeadlineTag registrationEnd={gatheringRegistrationEnd} />
         </div>
-      </Link>
 
-      <div className="flex flex-1 flex-col justify-between gap-4 p-4">
-        <div className="flex items-start justify-between">
-          <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
+        <div className="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div className="flex items-start justify-between">
             <div className="flex flex-col gap-2">
               {/* 모임 타입, 장소 */}
               <div className="flex items-center gap-2">
@@ -83,16 +81,14 @@ export const GatheringCard = ({
               {/* 모임 날짜 시간 정보 */}
               <GatheringDateTimeDisplay dateTime={gatheringDateTime} />
             </div>
-          </Link>
 
-          {/* 좋아요 버튼 */}
-          <GatheringLikeButton
-            gatheringId={gatheringId}
-            onToggle={onToggle}
-          />
-        </div>
+            {/* 좋아요 버튼 */}
+            <GatheringLikeButton
+              gatheringId={gatheringId}
+              onToggle={onToggle}
+            />
+          </div>
 
-        <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
           <div className="flex w-full items-end gap-2">
             <div className="flex w-full flex-col gap-2">
               {/* 프로그래스 바,  참여자 수 */}
@@ -115,28 +111,26 @@ export const GatheringCard = ({
               capacity={gatheringCapacity}
             />
           </div>
-        </Link>
-      </div>
-
-      {/* 취소된 모임 오버레이 */}
-      {isCanceled && (
-        <div className="rounded-common absolute inset-0 flex items-center justify-center bg-black opacity-80">
-          <div className="flex flex-col items-center gap-2 text-white">
-            <div className="text-lg font-medium">{t('canceled')}</div>
-          </div>
         </div>
-      )}
 
-      {/* 모임이 종료된 경우 */}
-      {isEnded && (
-        <Link href={ROUTES.GATHERING_DETAIL(gatheringId) as any}>
-          <div className="rounded-common absolute inset-0 flex items-center justify-center bg-black opacity-60">
+        {/* 취소된 모임 오버레이 */}
+        {isCanceled && (
+          <div className="rounded-common pointer-events-none absolute inset-0 flex items-center justify-center bg-black opacity-80">
+            <div className="flex flex-col items-center gap-2 text-white">
+              <div className="text-lg font-medium">{t('canceled')}</div>
+            </div>
+          </div>
+        )}
+
+        {/* 모임이 종료된 경우 */}
+        {isEnded && (
+          <div className="rounded-common pointer-events-none absolute inset-0 flex items-center justify-center bg-black opacity-60">
             <div className="flex flex-col items-center gap-2">
               <div className="text-lg font-medium text-white">{t('ended')}</div>
             </div>
           </div>
-        </Link>
-      )}
-    </div>
+        )}
+      </div>
+    </Link>
   );
 };
