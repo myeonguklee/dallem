@@ -22,9 +22,7 @@
 - **Framework**: Next.js 15.3.5 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
-- **State Management**:
-  - 서버 상태: TanStack Query (React Query)
-  - 클라이언트 상태: Zustand
+- **State Management**: TanStack Query (React Query)
 - **Form**: React Hook Form + Zod
 - **UI Components**: Storybook
 
