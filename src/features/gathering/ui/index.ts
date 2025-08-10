@@ -1,5 +1,5 @@
 export { GatheringLikeButton } from './GatheringLikeButton';
-export { GatheringJoinButton } from './GatheringJoinButton';
+export { GatheringDetailButton } from './GatheringDetailButton';
 export { FilterSection } from './FilterSection';
 export { CreateGatheringButton } from './CreateGatheringButton';
 export { CreateGatheringModal } from './CreateGatheringModal';

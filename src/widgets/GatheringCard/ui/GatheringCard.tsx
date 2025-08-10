@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { GatheringDateTimeDisplay, GatheringDeadlineTag } from '@/entities/gathering/ui';
-import { GatheringJoinButton, GatheringLikeButton } from '@/features/gathering/ui';
+import { GatheringDetailButton, GatheringLikeButton } from '@/features/gathering/ui';
 import { Link } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { StateChip } from '@/shared/ui/chip';
@@ -110,7 +110,7 @@ export const GatheringCard = ({
               />
             </div>
 
-            <GatheringJoinButton
+            <GatheringDetailButton
               participantCount={gatheringParticipantCount}
               capacity={gatheringCapacity}
             />
