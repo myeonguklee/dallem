@@ -1,10 +1,17 @@
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import type { CreateGatheringPayload } from '@/entities/gathering/model/schema';
 import { cn } from '@/shared/lib';
-import { Calendar } from '@/shared/ui/calendar';
 import { CalendarIcon } from '@/shared/ui/icon';
 import { TimePicker } from '@/shared/ui/time-picker';
 import { Control, Controller, FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+
+const Calendar = dynamic(
+  () => import('@/shared/ui/calendar').then((mod) => ({ default: mod.Calendar })),
+  {
+    ssr: false,
+  },
+);
 
 interface GatheringDateFieldProps {
   control: Control<CreateGatheringPayload>;

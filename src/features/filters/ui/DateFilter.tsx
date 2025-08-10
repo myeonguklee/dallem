@@ -1,11 +1,20 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n';
 import { Button } from '@/shared/ui/button';
-import { Calendar } from '@/shared/ui/calendar/Calendar';
 import { filterButtonVariants } from '@/shared/ui/filter/variants';
 import { ArrowDownIcon, ArrowUpIcon, WhiteArrowDownIcon } from '@/shared/ui/icon';
+
+const Calendar = dynamic(
+  () => import('@/shared/ui/calendar/Calendar').then((mod) => ({ default: mod.Calendar })),
+  {
+    ssr: false,
+  },
+);
 
 export const DateFilter = () => {
   const t = useTranslations('filters');
