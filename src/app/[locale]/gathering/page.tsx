@@ -3,7 +3,8 @@ import { Locale } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { getGatherings } from '@/entities/gathering/api';
 import { parseGatheringFiltersFromSearchParams } from '@/entities/gathering/model/filters';
-import { CreateGatheringButton, FilterSection } from '@/features/gathering/ui';
+import { CreateGatheringButton } from '@/features/gathering/ui/CreateGatheringButton';
+import { FilterSection } from '@/features/gathering/ui/FilterSection';
 import { HydrationProvider, QUERY_KEYS } from '@/shared/api';
 import { createQueryClient } from '@/shared/api/query/client';
 import { generateGatheringMetadata } from '@/shared/lib';
@@ -27,20 +28,22 @@ export async function generateMetadata({
 }
 
 export default async function GatheringPage({ params, searchParams }: GatheringPageProps) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'pages.gatherings' });
-
-  const searchParamsObj = await searchParams;
+  const [locale, searchParamsObj] = await Promise.all([
+    params.then(({ locale }) => locale),
+    searchParams,
+  ]);
 
   // URL 파라미터를 기반으로 필터 생성
   const filters = parseGatheringFiltersFromSearchParams(searchParamsObj);
 
-  // SSR로 초기 모임 데이터 가져오기 (첫 페이지만)
-  const initialGatherings = await getGatherings({
-    ...filters,
-    limit: 10,
-    offset: 0,
-  });
+  const [initialGatherings, t] = await Promise.all([
+    getGatherings({
+      ...filters,
+      limit: 10,
+      offset: 0,
+    }),
+    getTranslations({ locale, namespace: 'pages.gatherings' }),
+  ]);
 
   // QueryClient 생성 및 초기 데이터 prefetch
   const queryClient = createQueryClient();

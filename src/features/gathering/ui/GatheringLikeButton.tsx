@@ -13,7 +13,9 @@ export const GatheringLikeButton = ({ gatheringId, onToggle }: GatheringLikeButt
   const t = useTranslations('ui.likeButton');
   const { isLiked, handleFavoritesStorage } = useFavoritesAction(gatheringId);
 
-  const handleLike = () => {
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     handleFavoritesStorage();
     onToggle?.();
   };

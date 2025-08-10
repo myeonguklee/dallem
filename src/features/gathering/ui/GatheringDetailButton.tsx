@@ -1,15 +1,16 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/shared/ui/button/Button';
 
-interface GatheringJoinButtonProps {
+interface GatheringDetailButtonProps {
   participantCount: number;
   capacity: number;
 }
 
-export const GatheringJoinButton = ({ participantCount, capacity }: GatheringJoinButtonProps) => {
+export const GatheringDetailButton = ({
+  participantCount,
+  capacity,
+}: GatheringDetailButtonProps) => {
   const t = useTranslations('ui.gatheringCard.joinButton');
-
-  // TODO: 모임 참가 여부에 따른 버튼 확장
 
   // 모집이 마감되었는지 확인
   const isFull = participantCount >= capacity;
@@ -28,7 +29,7 @@ export const GatheringJoinButton = ({ participantCount, capacity }: GatheringJoi
 
   return (
     <Button
-      className="h-8 w-24 px-4 py-2 text-sm whitespace-nowrap"
+      className="h-8 w-24 px-4 py-2 text-sm font-bold whitespace-nowrap"
       variant={getButtonVariant()}
       disabled={isFull}
     >

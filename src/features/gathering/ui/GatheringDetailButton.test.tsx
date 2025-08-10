@@ -1,6 +1,6 @@
 import { TestWrapper } from '@/shared/lib/test/testUtils';
 import { render, screen } from '@testing-library/react';
-import { GatheringJoinButton } from './GatheringJoinButton';
+import { GatheringDetailButton } from './GatheringDetailButton';
 
 // Mock next-intl
 jest.mock('next-intl', () => ({
@@ -37,11 +37,11 @@ jest.mock('@/shared/ui/button/Button', () => ({
   ),
 }));
 
-describe('GatheringJoinButton', () => {
+describe('GatheringDetailButton', () => {
   it('모집이 마감되지 않았을 때 상세보기 버튼이 표시되어야 한다', () => {
     render(
       <TestWrapper>
-        <GatheringJoinButton
+        <GatheringDetailButton
           participantCount={5}
           capacity={10}
         />
@@ -57,7 +57,7 @@ describe('GatheringJoinButton', () => {
   it('모집이 마감되었을 때 모집 마감 버튼이 표시되어야 한다', () => {
     render(
       <TestWrapper>
-        <GatheringJoinButton
+        <GatheringDetailButton
           participantCount={10}
           capacity={10}
         />
@@ -73,7 +73,7 @@ describe('GatheringJoinButton', () => {
   it('참가자 수가 정원을 초과했을 때도 모집 마감 버튼이 표시되어야 한다', () => {
     render(
       <TestWrapper>
-        <GatheringJoinButton
+        <GatheringDetailButton
           participantCount={12}
           capacity={10}
         />
@@ -89,7 +89,7 @@ describe('GatheringJoinButton', () => {
   it('버튼에 올바른 CSS 클래스가 적용되어야 한다', () => {
     render(
       <TestWrapper>
-        <GatheringJoinButton
+        <GatheringDetailButton
           participantCount={5}
           capacity={10}
         />
