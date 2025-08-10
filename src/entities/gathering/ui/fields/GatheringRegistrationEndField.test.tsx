@@ -74,6 +74,22 @@ jest.mock('@/shared/ui/time-picker', () => ({
   },
 }));
 
+// Mock next/dynamic
+jest.mock('next/dynamic', () => {
+  return jest.fn((importFunc) => {
+    // 테스트에서 사용하는 컴포넌트들을 직접 반환
+    if (importFunc.toString().includes('calendar')) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { Calendar } = require('@/shared/ui/calendar');
+      return Calendar;
+    }
+    // 기본적으로는 빈 div 반환
+    return function DynamicPlaceholder() {
+      return <div data-testid="dynamic-placeholder" />;
+    };
+  });
+});
+
 // 테스트용 폼 컴포넌트
 const TestForm = ({
   error,
