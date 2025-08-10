@@ -3,7 +3,10 @@
 import dynamic from 'next/dynamic';
 
 const CreateGatheringButton = dynamic(
-  () => import('./CreateGatheringButton').then((mod) => ({ default: mod.CreateGatheringButton })),
+  () =>
+    import('@/features/gathering/ui/CreateGatheringButton').then((mod) => ({
+      default: mod.CreateGatheringButton,
+    })),
   {
     ssr: false,
     loading: () => (
@@ -15,7 +18,8 @@ const CreateGatheringButton = dynamic(
 );
 
 const FilterSection = dynamic(
-  () => import('./FilterSection').then((mod) => ({ default: mod.FilterSection })),
+  () =>
+    import('@/features/gathering/ui/FilterSection').then((mod) => ({ default: mod.FilterSection })),
   {
     ssr: false,
     loading: () => <div className="h-16 animate-pulse rounded-lg bg-gray-200" />,
