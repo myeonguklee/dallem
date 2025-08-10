@@ -26,6 +26,22 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+  // 번들 최적화 설정
+  experimental: {
+    // 특정 패키지의 번들 최적화
+    optimizePackageImports: [
+      '@tanstack/react-query',
+      'react-hook-form',
+      'clsx',
+      'tailwind-merge',
+      'class-variance-authority',
+    ],
+  },
+  // 컴파일러 최적화 설정
+  compiler: {
+    // 프로덕션에서 console 제거
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   // Turbopack 설정 (개발 환경)
   turbopack: {
     rules: {
