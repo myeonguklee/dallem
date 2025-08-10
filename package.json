@@ -23,7 +23,8 @@
     "build-storybook": "storybook build",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
-    "style:tokens": "npx style-dictionary build --config ./style-dictionary.config.json"
+    "style:tokens": "npx style-dictionary build --config ./style-dictionary.config.json",
+    "analyze": "ANALYZE=true pnpm build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -45,14 +46,14 @@
     "react-hot-toast": "^2.5.2",
     "require-in-the-middle": "^7.5.2",
     "tailwind-merge": "^3.3.1",
-    "zod": "^3.25.73",
-    "zustand": "^5.0.6"
+    "zod": "^3.25.73"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.4.6",
     "@next/eslint-plugin-next": "^15.3.5",
     "@storybook/addon-a11y": "^9.0.15",
     "@storybook/addon-docs": "^9.0.15",

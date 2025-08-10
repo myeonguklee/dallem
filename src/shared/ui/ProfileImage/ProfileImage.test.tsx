@@ -8,9 +8,11 @@ jest.mock('next/image', () => ({
   default: (props: JSX.IntrinsicElements['img']) => {
     const { src, ...rest } = props;
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         data-testid="profile-image"
         src={src}
+        alt=""
         {...rest}
       />
     );

@@ -35,9 +35,9 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
     isError: isParticipantsError,
   } = useGetParticipants(id);
 
-  const { mutate: join, isPending: isJoining } = useJoinGathering();
-  const { mutate: leave, isPending: isLeaving } = useLeaveGathering();
-  const { mutate: cancel, isPending: isCanceling } = useCancelGathering();
+  const { mutate: join } = useJoinGathering();
+  const { mutate: leave } = useLeaveGathering();
+  const { mutate: cancel } = useCancelGathering();
   const router = useRouter();
 
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState(false);
@@ -55,9 +55,6 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   if (isParticipantsError || !participantsData) {
     return <div>{t('failedToLoadParticipants')}</div>;
   }
-
-  // isPending 상태 값 활용하기전 임시 콘솔
-  console.log(isJoining, isLeaving, isCanceling);
 
   const isFull = gathering.capacity <= gathering.participantCount;
 

@@ -1,14 +1,19 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import { DateFilter } from '@/features/filters/ui/DateFilter';
 import { useRouter } from '@/i18n';
 import { Chip } from '@/shared/ui/chip';
 import { Filter } from '@/shared/ui/filter';
 import { DalaemfitIcon, WorkationIcon } from '@/shared/ui/icon';
 import { Sort } from '@/shared/ui/sort';
 import { Tab } from '@/shared/ui/tab';
+
+const DateFilter = dynamic(
+  () => import('@/features/filters/ui/DateFilter').then((mod) => ({ default: mod.DateFilter })),
+  { ssr: false },
+);
 
 // TODO: 컴포넌트 분리에 대한 리팩토링 필요!!
 export const FilterSection = () => {

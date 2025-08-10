@@ -3,11 +3,25 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { useRouter } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { Button } from '@/shared/ui/button';
-import { Modal } from '@/shared/ui/modal';
-import { CreateGatheringModal } from './CreateGatheringModal';
+
+const CreateGatheringModal = dynamic(
+  () => import('./CreateGatheringModal').then((mod) => ({ default: mod.CreateGatheringModal })),
+  { ssr: false },
+);
+
+const ModalRoot = dynamic(
+  () => import('@/shared/ui/modal').then((mod) => ({ default: mod.Modal.Root })),
+  { ssr: false },
+);
+
+const ModalBody = dynamic(
+  () => import('@/shared/ui/modal').then((mod) => ({ default: mod.Modal.Body })),
+  { ssr: false },
+);
 
 export const CreateGatheringButton = () => {
   const { data: session, status } = useSession();
@@ -42,23 +56,27 @@ export const CreateGatheringButton = () => {
         {t('createButton')}
       </Button>
 
-      <CreateGatheringModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
+      {isModalOpen && (
+        <CreateGatheringModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
 
-      <Modal.Root
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        variant="form"
-      >
-        <Modal.Body>
-          <div className="mt-6 flex h-full flex-col items-center justify-center gap-10">
-            <p className="text-xl font-medium">{t('loginRequired')}</p>
-            <Button onClick={() => router.push(ROUTES.SIGNIN)}>{t('loginButton')}</Button>
-          </div>
-        </Modal.Body>
-      </Modal.Root>
+      {isPopupOpen && (
+        <ModalRoot
+          isOpen={isPopupOpen}
+          onClose={() => setIsPopupOpen(false)}
+          variant="form"
+        >
+          <ModalBody>
+            <div className="mt-6 flex h-full flex-col items-center justify-center gap-10">
+              <p className="text-xl font-medium">{t('loginRequired')}</p>
+              <Button onClick={() => router.push(ROUTES.SIGNIN)}>{t('loginButton')}</Button>
+            </div>
+          </ModalBody>
+        </ModalRoot>
+      )}
     </>
   );
 };
