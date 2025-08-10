@@ -44,6 +44,8 @@ const customJestConfig = {
     '!src/**/store/**/*.{ts,tsx}',
     '!src/**/msw/browser.{ts,tsx}',
     '!src/**/msw/startWorker.{ts,tsx}',
+    // constants.ts 파일들을 모두 제외
+    '!src/**/constants.ts',
     // 아이콘들을 모두 제외
     '!src/shared/ui/icon/icons/**/*.{ts,tsx}',
     // StarIcon만 다시 포함
