@@ -23,7 +23,8 @@
     "build-storybook": "storybook build",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
-    "style:tokens": "npx style-dictionary build --config ./style-dictionary.config.json"
+    "style:tokens": "npx style-dictionary build --config ./style-dictionary.config.json",
+    "analyze": "ANALYZE=true pnpm build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -53,6 +54,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.4.6",
     "@next/eslint-plugin-next": "^15.3.5",
     "@storybook/addon-a11y": "^9.0.15",
     "@storybook/addon-docs": "^9.0.15",
