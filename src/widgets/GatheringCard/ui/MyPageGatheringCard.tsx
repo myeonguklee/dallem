@@ -77,11 +77,15 @@ export const MyPageGatheringCard = ({
 
                 {/* 모임 타입과 장소 */}
                 <div className="flex items-center gap-1">
-                  <h3 className="text-base font-semibold text-black">{gatheringName}</h3>
-                  <span>|</span>
-                  <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
-                  <span>|</span>
-                  <span className="text-sm font-medium text-gray-700">{gatheringType}</span>
+                  <h3 className="max-w-[200px] truncate text-base font-semibold text-black">
+                    {gatheringName}
+                  </h3>
+                  <div className="tablet:flex tablet:items-center tablet:gap-1 hidden">
+                    <span>|</span>
+                    <span className="text-sm font-medium text-gray-700">{gatheringLocation}</span>
+                    <span>|</span>
+                    <span className="text-sm font-medium text-gray-700">{gatheringType}</span>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-2">
