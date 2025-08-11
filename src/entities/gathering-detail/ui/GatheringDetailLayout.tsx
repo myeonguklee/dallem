@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Locale, useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -26,14 +26,10 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const t = useTranslations('pages.gathering.detail');
   const tCommon = useTranslations('common');
   const { data: sessionData } = useSession();
-  const rawUser = sessionData?.user;
+  const userId = sessionData?.user?.id;
 
   const { data: gathering } = useGetGatheringDetail(id);
-  const {
-    data: participantsData,
-    isPending: isParticipantsLoading,
-    isError: isParticipantsError,
-  } = useGetParticipants(id);
+  const { data: participantsData } = useGetParticipants(id);
 
   const { mutate: join } = useJoinGathering();
   const { mutate: leave } = useLeaveGathering();
@@ -49,22 +45,14 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
   const openLoginPopup = () => setIsLoginPopupOpen(true);
   const closeLoginPopup = () => setIsLoginPopupOpen(false);
 
-  if (isParticipantsLoading) {
-    return <div>{t('loadingParticipants')}</div>;
-  }
-  if (isParticipantsError || !participantsData) {
-    return <div>{t('failedToLoadParticipants')}</div>;
-  }
-
   const isFull = gathering.capacity <= gathering.participantCount;
 
-  const userSession = rawUser
-    ? {
-        id: Number(rawUser.id),
-      }
-    : undefined;
+  const currentUser = useMemo(() => (userId ? { id: Number(userId) } : undefined), [userId]);
 
-  const role = calculateGatheringRole(userSession, gathering, participantsData);
+  const userRole = useMemo(
+    () => calculateGatheringRole(currentUser, gathering, participantsData),
+    [currentUser, gathering, participantsData],
+  );
 
   const handleJoin = () => {
     // 로그인 상태 확인
@@ -164,7 +152,7 @@ export const GatheringDetailLayout = ({ id, locale }: { id: number; locale: Loca
       />
       {/* 하단 플로팅 바 */}
       <BottomFloatingBar
-        role={role}
+        role={userRole}
         title={t('bottomBar.title')}
         content={t('bottomBar.content')}
         isFull={isFull}
