@@ -71,4 +71,31 @@ describe('BasicModal 컴포넌트', () => {
     // 이 버튼 클릭이 모달을 닫는 onClose와는 관계 없는지 확인
     expect(defaultProps.onClose).not.toHaveBeenCalled();
   });
+
+  it('모달 열릴 때 body와 header 컨테이너 margin-right가 scrollbarWidth만큼 설정된다', () => {
+    // 가짜 헤더 컨테이너 추가
+    const headerDiv = document.createElement('div');
+    const header = document.createElement('header');
+    header.appendChild(headerDiv);
+    document.body.appendChild(header);
+
+    // 스크롤바 너비 시뮬레이션
+    Object.defineProperty(window, 'innerWidth', { value: 1200, writable: true });
+    Object.defineProperty(document.documentElement, 'clientWidth', { value: 1180, writable: true });
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 2000,
+      writable: true,
+    });
+    Object.defineProperty(document.documentElement, 'clientHeight', {
+      value: 1000,
+      writable: true,
+    });
+
+    render(<BasicModal {...defaultProps} />);
+
+    const expectedWidth = window.innerWidth - document.documentElement.clientWidth;
+    expect(document.body.style.overflow).toBe('hidden');
+    expect(document.body.style.marginRight).toBe(`${expectedWidth}px`);
+    expect(headerDiv.style.marginRight).toBe(`${expectedWidth}px`);
+  });
 });

@@ -35,7 +35,7 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
   return (
     <>
       <div className="w-full">
-        <div className="w-full space-y-4">
+        <div className="flex w-full flex-col gap-4">
           {allGatherings.length > 0 ? (
             allGatherings.map((gathering) => (
               <GatheringCard
