@@ -96,14 +96,16 @@ describe('로컬스토리지 찜 기능', () => {
 
   it('getFavoriteList: window가 없는 환경에서는 빈 배열을 반환한다', () => {
     const originalWindow = global.window;
-    // window를 undefined로 설정 (SSR 시뮬레이션)
-    // @ts-expect-error 테스트를 위해 window를 제거
-    delete global.window;
+    try {
+      // window를 undefined로 설정 (SSR 시뮬레이션)
+      // @ts-expect-error 테스트를 위해 window를 제거
+      delete global.window;
 
-    const result = getFavoriteList();
-    expect(result).toEqual([]);
-
-    // 원래 상태로 복원
-    global.window = originalWindow;
+      const result = getFavoriteList();
+      expect(result).toEqual([]);
+    } finally {
+      // 원래 상태로 복원
+      global.window = originalWindow;
+    }
   });
 });
