@@ -15,7 +15,7 @@ export const SigninForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
     setError,
   } = useForm<SigninFormData>({
     resolver: zodResolver(signinSchema),
@@ -60,6 +60,7 @@ export const SigninForm = () => {
           errors,
         }}
         isValid={isValid}
+        isSubmitted={isSubmitted}
       />
     </form>
   );

@@ -12,10 +12,10 @@ export const AuthForm = <T extends FieldValues>({
   fields,
   handlers,
   isValid,
+  isSubmitted,
 }: AuthFormProps<T>) => {
   const t = useTranslations();
   const { register, errors } = handlers;
-
   return (
     <div className="web:w-[510px] rounded-common tablet:px-16 web:px-14 tablet:py-8 tablet:w-[608px] my-8 flex w-full flex-col items-center gap-8 border border-gray-200 px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-900">{t(meta.title)}</h1>
@@ -28,7 +28,7 @@ export const AuthForm = <T extends FieldValues>({
             placeholder={t(placeholder)}
             type={type}
             variant={withVariant ?? 'default'}
-            isError={!!errors[name]?.message}
+            isError={!!errors[name]?.message && !!isSubmitted}
             errorMessage={errors[name]?.message ? t(errors[name]?.message as string) : undefined}
             autoComplete={
               name === 'password' || name === 'confirmPassword' ? 'new-password' : 'off'

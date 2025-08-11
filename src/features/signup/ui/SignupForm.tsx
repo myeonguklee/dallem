@@ -22,7 +22,7 @@ export const SignupForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
     setError,
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -66,6 +66,7 @@ export const SignupForm = () => {
           errors,
         }}
         isValid={isValid}
+        isSubmitted={isSubmitted}
       />
     </form>
   );
