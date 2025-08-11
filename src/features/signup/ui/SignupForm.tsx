@@ -39,7 +39,7 @@ export const SignupForm = () => {
         if (e.code === 'EMAIL_EXISTS' || e.code === 'VALIDATION_ERROR') {
           setError('email', {
             type: 'manual',
-            message: t(ERROR_CASE[e.code as keyof typeof ERROR_CASE]),
+            message: ERROR_CASE[e.code as keyof typeof ERROR_CASE],
           });
         }
         return <b>{t('pages.signup.failure')}</b>;
