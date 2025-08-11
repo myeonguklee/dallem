@@ -76,4 +76,36 @@ describe('페이지네이션에 관한 테스트', () => {
     );
     expect(screen.getAllByText('...')).toHaveLength(2);
   });
+
+  it('이전 버튼 클릭 시 onPageChange가 currentPage - 1로 호출되는가?', async () => {
+    const user = userEvent.setup();
+    render(
+      <Pagination
+        currentPage={3}
+        totalPages={5}
+        onPageChange={mockChange}
+      />,
+    );
+
+    const prevBtn = screen.getByLabelText('이전 페이지');
+    await user.click(prevBtn);
+    expect(mockChange).toHaveBeenCalledTimes(1);
+    expect(mockChange).toHaveBeenCalledWith(2); // 3 - 1
+  });
+
+  it('다음 버튼 클릭 시 onPageChange가 currentPage + 1로 호출되는가?', async () => {
+    const user = userEvent.setup();
+    render(
+      <Pagination
+        currentPage={3}
+        totalPages={5}
+        onPageChange={mockChange}
+      />,
+    );
+
+    const nextBtn = screen.getByLabelText('다음 페이지');
+    await user.click(nextBtn);
+    expect(mockChange).toHaveBeenCalledTimes(1);
+    expect(mockChange).toHaveBeenCalledWith(4); // 3 + 1
+  });
 });

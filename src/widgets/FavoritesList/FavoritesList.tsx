@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { getFavoriteList } from '@/features/favorites/model/favoritesStorage';
 import { InfiniteScrollObserver } from '@/shared/ui/InfiniteScrollObserver/InfiniteScrollObserver';
 import { GatheringCard } from '@/widgets/GatheringCard/ui';
-import { useGetFavoritesGathering } from '../api/queries';
+import { useGetFavoritesGathering } from '../../entities/favorites/api/queries';
 
 interface FavoritesListProps {
   type: string;
@@ -35,7 +35,7 @@ export const FavoritesList = ({ type }: FavoritesListProps) => {
   return (
     <>
       <div className="w-full">
-        <div className="w-full space-y-4">
+        <div className="flex w-full flex-col gap-4">
           {allGatherings.length > 0 ? (
             allGatherings.map((gathering) => (
               <GatheringCard
