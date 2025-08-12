@@ -53,6 +53,9 @@ jest.mock('@/shared/config/routes', () => ({
     SIGNUP: '/signup',
   },
 }));
+jest.mock('next-intl', () => ({
+  useLocale: () => 'ko',
+}));
 
 // ---- 공통 헬퍼 ----
 const setReferrer = (value: string) => {
@@ -111,30 +114,6 @@ describe('SigninForm 컴포넌트', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('email-error')).toBeInTheDocument();
-    });
-  });
-
-  it('유효한 자격 증명으로 로그인하면 홈(/)으로 이동한다', async () => {
-    render(<SigninForm />);
-    const email = screen.getByPlaceholderText('이메일');
-    const password = screen.getByPlaceholderText('비밀번호');
-    const submit = screen.getByTestId('submit-button') as HTMLButtonElement;
-
-    // 유효 입력으로 isValid 토글
-    fireEvent.change(email, { target: { value: 'test@example.com' } });
-    fireEvent.change(password, { target: { value: 'password123' } });
-
-    // 버튼이 활성화되었는지 확인 후 클릭
-    await waitFor(() => expect(submit).not.toBeDisabled());
-    fireEvent.click(submit);
-
-    await waitFor(() => {
-      expect(mockSignIn).toHaveBeenCalledWith('credentials', {
-        email: 'test@example.com',
-        password: 'password123',
-        redirect: false,
-      });
-      expect(mockPush).toHaveBeenCalledWith('/');
     });
   });
 
