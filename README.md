@@ -186,31 +186,21 @@ src
 └─ package.json             # 스크립트
 ```
 
-#### Figma → 코드 흐름
-
-1. 디자이너: Tokens Studio에서 변수/토큰을 관리
-
-2. Export 자동화: Tokens Studio Export가 저장소로 push → tokens/designTokens.json 갱신
-
-3. 변환/빌드: pnpm style:tokens → Style Dictionary가 src/styles/\_variables.css 생성
-
-4. 사용: Tailwind 엔트리(global.css)에서 variables를 import 후 클래스/임의값으로 사용
-
 #### 사용 방법
 
 1. 디자이너
 
-- Tokens Studio에서 팀 규칙(네이밍/그룹)을 지켜 변수 편집
+- Figma의 Tokens Studio에서 팀 규칙(네이밍/그룹)을 지켜 변수 편집
 
 - Export 자동화가 저장소로 push → tokens/designTokens.json 갱신
 
 2. 개발자
-
+- 토큰 빌드
 ```bash
 # 토큰 빌드
 pnpm style:tokens
 ```
-
+- 사용: Tailwind 엔트리(global.css)에서 variables를 import 후 클래스/임의값으로 사용
 ```ts
 /* src/app/global.css */
 @import './_variables.css'; /* Style Dictionary 산출물: CSS 변수들 */
