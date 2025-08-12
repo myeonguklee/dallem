@@ -141,22 +141,19 @@
 
 #### Storybook 사용하게 된 이유
 
-- 특정 상태에 따른 다양한 공통컴포넌트 ui를 자동으로 문서화하여 개발 환경을 개선하기 위함  
+- 특정 상태에 따른 다양한 공통컴포넌트 ui를 자동으로 문서화하여 개발 환경을 개선하기 위함
 - 공통 컴포넌트의 디자인과 상태를 팀원간 빠르게 확인하고 사용법을 쉽게 제공가능함으로써 개발 속도를 향상
 - 프로젝트 전반에 걸쳐 일관된 디자인 시스템을 구축하고 유지하기 위함
 
-
 #### Storybook 적용 범위
 
-- FSD 구조 중 `shared/ui` 디렉토리에 포함된 **공통 UI 컴포넌트**를 대상으로 스토리를 작성  
-- 버튼, 입력창, 카드, 모달 등 **여러 페이지에서 재사용되는 UI 요소** 위주로 문서화  
+- FSD 구조 중 `shared/ui` 디렉토리에 포함된 **공통 UI 컴포넌트**를 대상으로 스토리를 작성
+- 버튼, 입력창, 카드, 모달 등 **여러 페이지에서 재사용되는 UI 요소** 위주로 문서화
 - 각 컴포넌트는 **props**에 따른 상태 변화를 시각적으로 확인할 수 있도록 `args`와 `controls`를 구성
 
+#### storybook 사용함으로 얻게 된 이점
 
-#### storybook 사용함으로 얻게 된 이점 
-
-- 의존성을 제거한 독립적인 컴포넌트를 설계함으로 컴포넌트적 사고력과 실력 향상 
-
+- 의존성을 제거한 독립적인 컴포넌트를 설계함으로 컴포넌트적 사고력과 실력 향상
 
 ### 📝 테스트 커버리지
 
@@ -196,57 +193,57 @@
 ## 📁 프로젝트 구조
 
 ```
-src/
-├── app/                    # Next.js App Router
-│   ├── [locale]/          # 다국어 지원 (한국어/영어)
-│   │   ├── (auth)/        # 인증 관련 페이지 (signin, signup)
-│   │   ├── gathering/     # 모임 관련 페이지
-│   │   ├── favorites/     # 찜한 모임 페이지
-│   │   ├── reviews/       # 리뷰 페이지
-│   │   ├── my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
-│   │   └── layout.tsx     # 로케일별 레이아웃
-│   ├── api/               # API 라우트 (NextAuth 등)
-│   ├── fonts/             # 폰트 설정 (Pretendard)
-│   ├── global-error.tsx   # 전역 에러 처리
-│   ├── not-found.tsx      # 404 페이지
-│   ├── providers.tsx      # React Query, NextAuth 등 프로바이더
-│   └── layout.tsx         # 루트 레이아웃
-├── entities/              # 도메인 엔티티 (비즈니스 모델)
-│   ├── gathering/         # 모임 엔티티 (생성, 수정, 삭제)
-│   ├── gathering-detail/  # 모임 상세 정보 엔티티
-│   ├── participant/       # 참여자 엔티티
-│   ├── review/            # 리뷰 엔티티
-│   ├── favorites/         # 찜한 모임 엔티티
-│   ├── auth/              # 인증 엔티티
-│   └── user/              # 사용자 엔티티
-├── features/              # 비즈니스 기능 (사용자 시나리오)
-│   ├── gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
-│   ├── signin/            # 로그인 기능
-│   ├── signup/            # 회원가입 기능
-│   ├── favorites/         # 찜한 모임 관리 기능
-│   ├── review/            # 리뷰 작성/관리 기능
-│   ├── my-page/           # 마이페이지 기능
-│   └── filters/           # 필터링 기능
-├── widgets/               # UI 위젯 (페이지 구성 요소)
-│   ├── Header/            # 헤더 위젯
-│   ├── GatheringCard/     # 모임 카드 위젯
-│   ├── GatheringList/     # 모임 목록 위젯
-│   ├── ReviewList/        # 리뷰 목록 위젯
-│   ├── AuthForm/          # 인증 폼 위젯
-│   ├── MyPageSkeleton/    # 마이페이지 스켈레톤
-│   ├── FavoritesSkeleton/ # 찜한 모임 스켈레톤
-│   ├── ContainerInformation/ # 컨테이너 정보 위젯
-│   ├── BottomFloatingBar/ # 하단 플로팅 바
-│   └── AllReviewRating/   # 전체 리뷰 평점 위젯
-├── shared/                # 공유 리소스
-│   ├── api/               # API 관련 (HTTP 클라이언트, React Query)
-│   ├── config/            # 설정 (라우트, API 엔드포인트)
-│   ├── lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
-│   ├── hooks/             # 커스텀 훅
-│   ├── types/             # 공통 타입 정의
-│   └── ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
-├── i18n/                  # 국제화 설정
-└── messages/              # 다국어 메시지 (ko.json, en.json)
+📦src/
+├── 📂app/                    # Next.js App Router
+│   ├── 📂[locale]/          # 다국어 지원 (한국어/영어)
+│   │   ├── 📂(auth)/        # 인증 관련 페이지 (signin, signup)
+│   │   ├── 📂gathering/     # 모임 관련 페이지
+│   │   ├── 📂favorites/     # 찜한 모임 페이지
+│   │   ├── 📂reviews/       # 리뷰 페이지
+│   │   ├── 📂my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
+│   │   └── 📜layout.tsx     # 로케일별 레이아웃
+│   ├── 📂api/               # API 라우트 (NextAuth 등)
+│   ├── 📂fonts/             # 폰트 설정 (Pretendard)
+│   ├── 📜global-error.tsx   # 전역 에러 처리
+│   ├── 📜not-found.tsx      # 404 페이지
+│   ├── 📜providers.tsx      # React Query, NextAuth 등 프로바이더
+│   └── 📜layout.tsx         # 루트 레이아웃
+├── 📂entities/              # 도메인 엔티티 (비즈니스 모델)
+│   ├── 📂gathering/         # 모임 엔티티 (생성, 수정, 삭제)
+│   ├── 📂gathering-detail/  # 모임 상세 정보 엔티티
+│   ├── 📂participant/       # 참여자 엔티티
+│   ├── 📂review/            # 리뷰 엔티티
+│   ├── 📂favorites/         # 찜한 모임 엔티티
+│   ├── 📂auth/              # 인증 엔티티
+│   └── 📂user/              # 사용자 엔티티
+├── 📂features/              # 비즈니스 기능 (사용자 시나리오)
+│   ├── 📂gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
+│   ├── 📂signin/            # 로그인 기능
+│   ├── 📂signup/            # 회원가입 기능
+│   ├── 📂favorites/         # 찜한 모임 관리 기능
+│   ├── 📂review/            # 리뷰 작성/관리 기능
+│   ├── 📂my-page/           # 마이페이지 기능
+│   └── 📂filters/           # 필터링 기능
+├── 📂widgets/               # UI 위젯 (페이지 구성 요소)
+│   ├── 📂Header/            # 헤더 위젯
+│   ├── 📂GatheringCard/     # 모임 카드 위젯
+│   ├── 📂GatheringList/     # 모임 목록 위젯
+│   ├── 📂ReviewList/        # 리뷰 목록 위젯
+│   ├── 📂AuthForm/          # 인증 폼 위젯
+│   ├── 📂MyPageSkeleton/    # 마이페이지 스켈레톤
+│   ├── 📂FavoritesSkeleton/ # 찜한 모임 스켈레톤
+│   ├── 📂ContainerInformation/ # 컨테이너 정보 위젯
+│   ├── 📂BottomFloatingBar/ # 하단 플로팅 바
+│   └── 📂AllReviewRating/   # 전체 리뷰 평점 위젯
+├── 📂shared/                # 공유 리소스
+│   ├── 📂api/               # API 관련 (HTTP 클라이언트, React Query)
+│   ├── 📂config/            # 설정 (라우트, API 엔드포인트)
+│   ├── 📂lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
+│   ├── 📂hooks/             # 커스텀 훅
+│   ├── 📂types/             # 공통 타입 정의
+│   └── 📂ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
+├── 📂i18n/                  # 국제화 설정
+└── 📂messages/              # 다국어 메시지 (ko.json, en.json)
 ```
 
 ## 🏗 아키텍처
@@ -290,25 +287,37 @@ src/
 
 ### 📚 **Feature-Sliced Design (FSD)**
 
-- **entities**: 비즈니스 엔티티 (도메인 모델)
-  - 순수한 비즈니스 로직과 데이터 구조
-  - 외부 의존성 없이 독립적으로 동작
-  - 재사용 가능한 도메인 모델
+#### 도입 배경
 
-- **features**: 비즈니스 기능 (사용자 시나리오)
-  - 특정 사용자 액션을 위한 기능들
-  - entities를 조합하여 비즈니스 로직 구현
-  - UI 컴포넌트와 비즈니스 로직 연결
+- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
+- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
 
-- **widgets**: UI 위젯 (페이지 구성 요소)
-  - 여러 features를 조합한 복합 UI 컴포넌트
-  - 페이지의 특정 섹션을 담당
-  - 재사용 가능한 페이지 구성 요소
+=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
 
-- **shared**: 공유 리소스
-  - 유틸리티, 설정, 공통 컴포넌트
-  - 모든 레이어에서 사용 가능
-  - 프로젝트 전반의 공통 기능
+⚡ **핵심 원칙 — 단방향 의존성**
+
+> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
+> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
+
+```plaintext
+app → entities → features → widgets → shared
+```
+
+#### FSD 도입을 통해 얻은 효과
+
+- **개발 생산성 향상 및 병렬 작업 용이성**
+  ```plaintext
+  entities/
+    ├─ gathering/   # 모임 페이지 관련
+    └─ user/        # 로그인·회원가입 관련
+  ```
+      **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
+      **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
+  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
+- **유지보수 비용 감소 및 높은 응집도**<br>
+  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
+  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
+  그 결과 유지보수 비용 감소
 
 ## 👥 팀원 구성
 
