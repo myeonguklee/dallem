@@ -28,4 +28,5 @@ export type AuthFormProps<T extends FieldValues> = {
   fields: AuthFormField<T>[];
   handlers: AuthFormHandlers<T>;
   isValid: boolean;
+  isSubmitted?: boolean;
 };

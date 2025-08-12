@@ -9,7 +9,7 @@ type Props = {
 
 export const InputWithLabel = ({ label, ...props }: Props) => {
   return (
-    <div>
+    <div className="min-h-[96px]">
       <label className="text-font-base mb-2 block text-sm font-semibold">{label}</label>
       <Input {...props} />
     </div>

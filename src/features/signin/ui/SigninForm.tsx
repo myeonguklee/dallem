@@ -15,7 +15,7 @@ export const SigninForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
     setError,
   } = useForm<SigninFormData>({
     resolver: zodResolver(signinSchema),
@@ -33,10 +33,17 @@ export const SigninForm = () => {
       setError('email', { type: 'manual', message: 'errors.validation.cannotSignIn' });
       return;
     }
-
-    if (document.referrer.includes(ROUTES.GATHERING)) {
-      router.push(document.referrer);
-    } else {
+    try {
+      const ref = document.referrer;
+      const url = new URL(ref, location.origin);
+      const sameOrigin = url.origin === location.origin;
+      const isGatheringPath = url.pathname.startsWith(ROUTES.GATHERING);
+      if (sameOrigin && isGatheringPath) {
+        router.push(`${url.pathname}${url.search}${url.hash}`);
+      } else {
+        router.push(ROUTES.ROOT);
+      }
+    } catch {
       router.push(ROUTES.ROOT);
     }
   };
@@ -60,6 +67,7 @@ export const SigninForm = () => {
           errors,
         }}
         isValid={isValid}
+        isSubmitted={isSubmitted}
       />
     </form>
   );

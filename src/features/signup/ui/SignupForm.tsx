@@ -22,7 +22,7 @@ export const SignupForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
     setError,
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -39,7 +39,7 @@ export const SignupForm = () => {
         if (e.code === 'EMAIL_EXISTS' || e.code === 'VALIDATION_ERROR') {
           setError('email', {
             type: 'manual',
-            message: t(ERROR_CASE[e.code as keyof typeof ERROR_CASE]),
+            message: ERROR_CASE[e.code as keyof typeof ERROR_CASE],
           });
         }
         return <b>{t('pages.signup.failure')}</b>;
@@ -66,6 +66,7 @@ export const SignupForm = () => {
           errors,
         }}
         isValid={isValid}
+        isSubmitted={isSubmitted}
       />
     </form>
   );

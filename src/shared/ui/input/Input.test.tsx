@@ -23,6 +23,7 @@ describe('Input 컴포넌트', () => {
         placeholder="비밀번호를 입력해주세요."
         errorMessage="비밀번호가 일치하지 않습니다."
         variant="error"
+        isError={true}
       />,
     );
     expect(screen.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();

@@ -41,20 +41,6 @@ const handler = NextAuth({
     strategy: 'jwt',
   },
 
-  // jwt: {
-  //   // 이 두 콜백을 추가하면, NextAuth가 “자체 생성”이 아니라 백엔드 JWT를 그대로 사용합니다.
-  //   async encode({ token: nextAuthToken }) {
-  //     // nextAuthToken.accessToken 에 백엔드 JWT가 들어있습니다.
-  //     return nextAuthToken!.accessToken!;
-  //   },
-  //   async decode({ token }) {
-  //     // token 인자로 받은 건 “백엔드 JWT 문자열”입니다.
-  //     const decoded = await jwtDecode({ token, secret: process.env.NEXTAUTH_SECRET! });
-  //     console.log('decoded', decoded);
-  //     return decoded as any;
-  //   },
-  // },
-
   events: {
     async signOut(message) {
       if (process.env.NODE_ENV === 'development') {
