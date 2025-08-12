@@ -311,8 +311,8 @@ app → entities → features → widgets → shared
     ├─ gathering/   # 모임 페이지 관련
     └─ user/        # 로그인·회원가입 관련
   ```
-      **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
-      **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
+  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
+  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
   → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
 - **유지보수 비용 감소 및 높은 응집도**<br>
   변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
