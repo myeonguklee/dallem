@@ -17,12 +17,18 @@ describe('Input 컴포넌트', () => {
     expect(input).toHaveValue('테스트 입력');
   });
 
+  it('isError가 없으면 errorMessage가 있어도 에러 문구를 렌더링하지 않는다', () => {
+    render(<Input errorMessage="에러" />);
+    expect(screen.queryByText('에러')).not.toBeInTheDocument();
+  });
+
   it('errorMessage가 보이는 경우, 에러 메시지가 렌더링되어야 한다', () => {
     render(
       <Input
         placeholder="비밀번호를 입력해주세요."
         errorMessage="비밀번호가 일치하지 않습니다."
         variant="error"
+        isError={true}
       />,
     );
     expect(screen.getByText('비밀번호가 일치하지 않습니다.')).toBeInTheDocument();

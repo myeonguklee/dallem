@@ -39,7 +39,7 @@ export const ReviewList = ({ filters }: ReviewListProps) => {
               <ReviewCard
                 score={review.score}
                 comment={review.comment}
-                dateTime={review.createdAt}
+                dateTime={review.Gathering?.dateTime}
                 userName={review.User?.name}
                 userImg={review.User?.image}
                 reviewImg={review.Gathering?.image}

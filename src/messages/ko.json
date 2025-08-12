@@ -144,7 +144,7 @@
     "signup": {
       "title": "회원가입 페이지",
       "name": "이름",
-      "email": "아이디",
+      "email": "이메일",
       "company": "회사명",
       "password": "비밀번호",
       "confirmPassword": "비밀번호 확인",

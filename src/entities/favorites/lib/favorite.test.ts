@@ -85,4 +85,31 @@ describe('fetchFavoritesData - 로컬 ID 배열 → 쉼표 문자열 → Gatheri
 
     consoleSpy.mockRestore();
   });
+
+  it('데이터 개수가 LIMIT와 같으면 다음 페이지가 존재', async () => {
+    const mockData = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
+    mockGetGatherings.mockResolvedValueOnce(mockData);
+
+    const result = await fetchFavoritesData({ ids: [1], type: 'MEET', pageParam: 5 });
+
+    expect(result.nextOffset).toBe(15); // 5 + 10
+  });
+
+  it('데이터 개수가 LIMIT와 같으면 다음 페이지가 존재하지 않는다 ', async () => {
+    const mockData = [{ id: 1 }, { id: 2 }];
+    mockGetGatherings.mockResolvedValueOnce(mockData);
+
+    const result = await fetchFavoritesData({ ids: [1], type: 'MEET', pageParam: 5 });
+
+    expect(result.nextOffset).toBeUndefined();
+  });
+
+  it('LIMIT와 동일한 개수의 데이터가 있을 때 pageParam이 20이면 nextOffset이 30이 된다', async () => {
+    const mockData = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
+    mockGetGatherings.mockResolvedValueOnce(mockData);
+
+    const result = await fetchFavoritesData({ ids: [1], type: 'MEET', pageParam: 20 });
+
+    expect(result.nextOffset).toBe(30); // 20 + 10
+  });
 });

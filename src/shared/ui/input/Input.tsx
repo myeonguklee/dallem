@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={cn('flex-1 outline-none', inputClassName)}
-            type={isPasswordField && !showPassword ? 'password' : 'text'}
+            type={isPasswordField ? (showPassword ? 'text' : 'password') : (type ?? 'text')}
             {...props}
           />
           {isPasswordField && (
@@ -80,7 +80,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
         </div>
-        {errorMessage && <p className="pt-[8px] text-xs text-red-500">{errorMessage}</p>}
+
+        <p
+          className="pt-1 text-xs text-red-500"
+          role="alert"
+          aria-live="polite"
+        >
+          {isError ? errorMessage : null}
+        </p>
       </>
     );
   },
