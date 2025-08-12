@@ -80,7 +80,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
         </div>
-        {isError && <p className="pt-[8px] text-xs text-red-500">{errorMessage}</p>}
+
+        <p
+          className="pt-1 text-xs text-red-500"
+          role="alert"
+          aria-live="polite"
+        >
+          {isError ? errorMessage : null}
+        </p>
       </>
     );
   },
