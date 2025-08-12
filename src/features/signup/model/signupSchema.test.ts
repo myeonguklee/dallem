@@ -23,6 +23,11 @@ describe('signupSchema', () => {
     );
   });
 
+  it('필수 필드에 공백만 입력 시에도 실패해야 한다', () => {
+    const data = { ...validUserData, name: '   ' };
+    expect(signupSchema.safeParse(data).success).toBe(false);
+  });
+
   describe('이메일 형식 검증', () => {
     it('유효하지 않은 이메일 형식이면 오류를 반환해야 한다', () => {
       const result = signupSchema.safeParse({
