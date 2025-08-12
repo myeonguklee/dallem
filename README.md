@@ -159,6 +159,113 @@
 
 ![스토리북사용](https://github.com/user-attachments/assets/6dad6f12-b15e-4568-a884-b1a94ebe2821)
 
+
+### 🎨 디자인 토큰 (Style Dictionary + Tokens Studio + Tailwind)
+
+#### 목적(Use-case)
+
+- 디자이너(Figma) ↔ 개발자(코드) 간 공통 언어 확립
+- 팀/레포 전반의 스타일 수치의 단일 출처(SSOT) 유지
+
+#### 스택 개요
+
+- Tokens Studio(Figma): 디자인 소스의 변수/토큰 관리·내보내기
+- Style Dictionary v5: 토큰 변환·빌드 파이프라인(플랫폼별 산출물 생성)
+- Node.js 스크립트: 사전/사후 처리(검증, 정렬, 포맷)
+- Tailwind(유틸리티): CSS 변수와 함께 사용하는 런타임 프레임워크
+
+#### 디렉토리 구조(예시)
+
+```
+src
+├─ app/
+│   ├─ _variables.css      # Style Dictionary가 생성 (CSS Custom Properties)
+│   └─ global.css          # Tailwind 엔트리, variables import
+├─ designTokens.json       # Tokens Studio에서 자동 push되는 원천(SSOT)
+├─ style-dictionary.config.json # 빌드 파이프라인 설정
+└─ package.json             # 스크립트
+```
+
+#### Figma → 코드 흐름
+
+1. 디자이너: Tokens Studio에서 변수/토큰을 관리
+
+2. Export 자동화: Tokens Studio Export가 저장소로 push → tokens/designTokens.json 갱신
+
+3. 변환/빌드: pnpm style:tokens → Style Dictionary가 src/styles/\_variables.css 생성
+
+4. 사용: Tailwind 엔트리(global.css)에서 variables를 import 후 클래스/임의값으로 사용
+
+#### 사용 방법
+
+1. 디자이너
+
+- Tokens Studio에서 팀 규칙(네이밍/그룹)을 지켜 변수 편집
+
+- Export 자동화가 저장소로 push → tokens/designTokens.json 갱신
+
+2. 개발자
+
+```bash
+# 토큰 빌드
+pnpm style:tokens
+```
+
+```ts
+/* src/app/global.css */
+@import './_variables.css'; /* Style Dictionary 산출물: CSS 변수들 */
+
+// _variables.css 의 css 변수들 사용 가능
+```
+
+### 런타임 토큰
+
+협업용 런타임 디자인 토큰. Tailwind v4의 @theme 영역을 사용해 브레이크포인트와 z-index 레이어를 단일 출처(SSOT)로 관리함.
+
+```
+/* global.css (발췌) */
+@theme {
+  /* Breakpoints */
+  --breakpoint-mobile: 23.4375rem;  /* 375px */
+  --breakpoint-tablet: 46.5rem;     /* 744px */
+  --breakpoint-web: 75rem;          /* 1200px */
+  --breakpoint-desktop: 120rem;     /* 1920px */
+
+  /* Z-index 레이어(의미 토큰) */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-backdrop: 300;
+  --z-modal: 400;
+  --z-drawer: 450;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+```
+
+> 반응형 기준·레이어링 정책처럼 “디자인 결정을 수치로 표준화한 값 전부”가 토큰의 범주에 들어갑니다.
+> 다만 이 문서의 토큰은 **개발 협업 중심(런타임 토큰)**입니다.
+
+#### 사용 목적
+
+- 일관성: 팀 전체가 동일한 레이어/브레이크포인트를 사용합니다.
+- 가시성: 숫자 하드코딩 대신 의미 이름으로 의도를 드러냅니다.
+- 유연성: 재정렬·값 변경 시 토큰만 바꾸면 대규모 수정이 안전합니다.
+
+#### 운영원칙
+
+1. 브레이크포인트
+   이름은 디바이스 가설(mobile/tablet/web/desktop)로 두되, 실제 기준은 콘텐츠 기반으로 기획합니다.
+   - Tailwind 반응형 프리픽스(mobile:, tablet:, web:, desktop:)와 연동
+
+2. Z-Index
+   숫자 직접 사용 금지. 의미 토큰만 사용합니다.
+
+- 숫자 z-index가 가끔 필요한데요?
+  - 허용하지 않습니다. 새로운 구간이 필요하면 예약 스케일에 슬롯을 추가하고 의미 토큰을 함께 정의하세요.
+
+
 ### 📝 유닛 테스트
 
 ![유닛테스트](https://github.com/user-attachments/assets/86567307-26cf-48a1-a07f-dea7e54c480d)
