@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={cn('flex-1 outline-none', inputClassName)}
-            type={isPasswordField && !showPassword ? 'password' : 'text'}
+            type={isPasswordField ? (showPassword ? 'text' : 'password') : (type ?? 'text')}
             {...props}
           />
           {isPasswordField && (
