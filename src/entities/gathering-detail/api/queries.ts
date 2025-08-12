@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { QUERY_KEYS } from '@/shared/api';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { GatheringDetail } from '../model/types';
 import { getGatheringById } from './services';
@@ -16,6 +16,22 @@ export const useGetGatheringDetail = (id: number) => {
   });
 };
 
+// 모임 정보 관련 쿼리 무효화 및 관련된 쿼리도 함께 무효화하는 함수
+const invalidateGatheringAndRelatedQueries = (queryClient: QueryClient, gatheringId: number) => {
+  // 모임 정보 관련 쿼리 전부 무효화
+  queryClient.invalidateQueries({
+    queryKey: QUERY_KEYS.gathering.base,
+  });
+  // 특정 모임의 참여자 목록 무효화
+  queryClient.invalidateQueries({
+    queryKey: QUERY_KEYS.participant.list(gatheringId),
+  });
+  // 사용자 정보 무효화
+  queryClient.invalidateQueries({
+    queryKey: QUERY_KEYS.AUTH.USER.BASE,
+  });
+};
+
 // 모임 참여
 export const useJoinGathering = () => {
   const t = useTranslations('pages.gathering.detail');
@@ -26,19 +42,7 @@ export const useJoinGathering = () => {
     onSuccess: (_, gatheringId) => {
       // 뮤테이션 성공 시
       toast.success(t('joinSuccess'));
-      // 모임 상세 정보 쿼리를 무효화
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.gathering.detail(gatheringId),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.gathering.joined(),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.participant.list(gatheringId),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.AUTH.USER.BASE,
-      });
+      invalidateGatheringAndRelatedQueries(queryClient, gatheringId);
     },
   });
 };
@@ -51,19 +55,7 @@ export const useLeaveGathering = () => {
     mutationFn: (gatheringId: number) => leaveGathering(gatheringId),
     onSuccess: (_, gatheringId) => {
       toast.success(t('cancelJoin'));
-      // 모임 상세 정보 쿼리를 무효화
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.gathering.detail(gatheringId),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.gathering.joined(),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.participant.list(gatheringId),
-      });
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.AUTH.USER.BASE,
-      });
+      invalidateGatheringAndRelatedQueries(queryClient, gatheringId);
     },
   });
 };
@@ -74,9 +66,9 @@ export const useCancelGathering = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (gatheringId: number) => cancelGathering(gatheringId),
-    onSuccess: () => {
+    onSuccess: (_, gatheringId) => {
       toast.success(t('removeGathering'));
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.gathering.base });
+      invalidateGatheringAndRelatedQueries(queryClient, gatheringId);
     },
   });
 };

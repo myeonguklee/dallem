@@ -26,6 +26,15 @@ export const QUERY_KEYS = {
     list: (gatheringId: number, filters?: object) =>
       [...QUERY_KEYS.participant.base, 'list', gatheringId, filters] as const,
   },
+  favorites: {
+    base: ['favorites'] as const,
+    list: (filters: { type?: string; favoriteIds?: number[] }) =>
+      [
+        ...QUERY_KEYS.favorites.base,
+        'list',
+        { ...filters, favoriteIds: filters.favoriteIds?.join(',') },
+      ] as const,
+  },
   AUTH: {
     USER: {
       BASE: ['user'] as const,
