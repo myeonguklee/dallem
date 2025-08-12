@@ -72,25 +72,18 @@ describe('signinSchema', () => {
         ...validUserData,
         email: 'invalid-email',
       });
-
-      if (!result.success) {
-        expect(result.error.issues[0].message).toBe('errors.validation.email');
-      } else {
-        fail('유효성 검사가 실패해야 합니다.');
-      }
+      expect(result.success).toBe(false);
+      const issue = result.error!.issues.find((i) => i.path[0] === 'email');
+      expect(issue?.message).toBe('errors.validation.email');
     });
-
     it('짧은 비밀번호일 때 올바른 오류 메시지를 반환해야 한다', () => {
       const result = signinSchema.safeParse({
         ...validUserData,
         password: 'short',
       });
-
-      if (!result.success) {
-        expect(result.error.issues[0].message).toBe('errors.validation.password');
-      } else {
-        fail('유효성 검사가 실패해야 합니다.');
-      }
+      expect(result.success).toBe(false);
+      const issue = result.error!.issues.find((i) => i.path[0] === 'password');
+      expect(issue?.message).toBe('errors.validation.password');
     });
   });
 });
