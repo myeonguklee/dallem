@@ -270,7 +270,7 @@
 
 ### 📡 API
 
-![API아키텍처](https://github.com/user-attachments/assets/cdf2d4db-648c-496e-94c8-69a518212b7a)
+![API아키텍처](https://github.com/user-attachments/assets/0ae55fd8-ee97-42c0-a8ca-057df9b9b4ab)
 
 #### **커스텀 에러 처리 시스템**
 
