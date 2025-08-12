@@ -2,7 +2,7 @@
 // 유용한 matcher들을 모든 테스트 파일에서 사용할 수 있게 합니다.
 import '@testing-library/jest-dom';
 
-process.env.NEXT_PUBLIC_TEAM_ID = '10-6';
+process.env.NEXT_PUBLIC_TEAM_ID = '1';
 
 jest.mock('@/i18n', () => ({
   // useRouter를 호출하면, 가짜 객체를 반환하도록 설정

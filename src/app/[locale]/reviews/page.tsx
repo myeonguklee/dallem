@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Locale } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
@@ -61,20 +60,16 @@ export default async function ReviewsPage({ params, searchParams }: ReviewsPageP
 
       <TypeFilterGroup />
       <HydrationProvider dehydratedState={dehydrate(queryClient)}>
-        <Suspense fallback={t('loading')}>
-          <AllReviewRating type={reviewParams.type} />
-        </Suspense>
+        <AllReviewRating type={reviewParams.type} />
         <div className="mb-4 flex items-center justify-between">
           <OptionsFiltersGroup
             sortValue={sortOptions}
             defaultSort="createdAt"
           />
         </div>
-        <Suspense fallback={t('loading')}>
-          <div className="mt-8 min-h-[28rem]">
-            <ReviewList filters={reviewParams} />
-          </div>
-        </Suspense>
+        <div className="mt-8 min-h-[28rem]">
+          <ReviewList filters={reviewParams} />
+        </div>
       </HydrationProvider>
     </div>
   );
