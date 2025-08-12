@@ -19,7 +19,7 @@
 
 ## 📋 프로젝트 소개
 
-**모이자요(Moizayo)**는 직장인들을 위한 **모임 플랫폼**입니다.
+**모이자요(Moizayo)** 는 직장인들을 위한 **모임 플랫폼**입니다.
 
 ### 🎯 주요 기능
 
@@ -165,6 +165,13 @@
 #### SEO 92점 -> 100점 (8점 상승)
 
 - 다국어 지원을 고려한 메타 데이터 및 Open Graph 설정
+  <details>
+  <summary>📱 Open Graph</summary>
+
+  <img src="https://github.com/user-attachments/assets/044ebdb7-cadf-41a2-b78f-4803564fe806" alt="opengraph" />
+
+  </details>
+
 - [사이트맵 설정](https://moizayo.vercel.app/sitemap.xml)과 robots.txt을 통한 검색 엔진 접근 최적화
 
 ## 📁 프로젝트 구조
