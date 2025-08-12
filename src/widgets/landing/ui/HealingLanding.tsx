@@ -7,6 +7,7 @@ import { FeaturesGrid } from '@/widgets/landing/ui/FeaturesGrid';
 import { Hero } from '@/widgets/landing/ui/Hero';
 import { HowItWorks } from '@/widgets/landing/ui/HowItWorks';
 import { Testimonials } from '@/widgets/landing/ui/Testimonials';
+import { LandingFooter } from './LandingFooter';
 
 export const HealingLanding = () => {
   return (
@@ -18,6 +19,7 @@ export const HealingLanding = () => {
       <Testimonials />
       <CTABanner />
       <FAQ />
+      <LandingFooter />
     </div>
   );
 };
