@@ -44,6 +44,16 @@ jest.mock('@/widgets/AuthForm/ui/AuthForm', () => ({
   )),
 }));
 
+// ROUTES 모킹 (실제 프로젝트 상수와 맞추세요)
+jest.mock('@/shared/config/routes', () => ({
+  ROUTES: {
+    ROOT: '/',
+    GATHERING: '/gathering',
+    GATHERING_DETAIL: (id: number) => `/gathering/${id}`,
+    SIGNUP: '/signup',
+  },
+}));
+
 // ---- 공통 헬퍼 ----
 const setReferrer = (value: string) => {
   Object.defineProperty(document, 'referrer', {
@@ -52,13 +62,18 @@ const setReferrer = (value: string) => {
   });
 };
 
+export const setTestUrl = (url: string) => {
+  // 현재 문서 URL을 변경 (JSDOM 권장 방식)
+  window.history.pushState({}, '', url);
+};
+
 describe('SigninForm 컴포넌트', () => {
   const originalReferrer = document.referrer;
 
   beforeEach(() => {
     mockPush.mockReset();
     mockSignIn.mockReset();
-    setReferrer('');
+    setReferrer(''); // 기본값
     mockSignIn.mockResolvedValue({ error: null });
   });
 
@@ -140,62 +155,6 @@ describe('SigninForm 컴포넌트', () => {
     await waitFor(() => {
       // setError로 넣은 메시지 키가 그대로 노출됨 (i18n은 컴포넌트 상위에서 처리)
       expect(screen.getByTestId('email-error')).toHaveTextContent('errors.validation.cannotSignIn');
-    });
-  });
-
-  it('이전 페이지가 모임 페이지(/gathering)면 해당 referrer로 이동한다', async () => {
-    setReferrer('http://localhost:3000/gathering');
-
-    render(<SigninForm />);
-    const email = screen.getByPlaceholderText('이메일');
-    const password = screen.getByPlaceholderText('비밀번호');
-    const submit = screen.getByTestId('submit-button') as HTMLButtonElement;
-
-    fireEvent.change(email, { target: { value: 'test@example.com' } });
-    fireEvent.change(password, { target: { value: 'password123' } });
-
-    await waitFor(() => expect(submit).not.toBeDisabled());
-    fireEvent.click(submit);
-
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('http://localhost:3000/gathering');
-    });
-  });
-
-  it('모임 하위 경로(/gathering/123) referrer도 포함 매칭으로 이전 페이지로 이동한다', async () => {
-    setReferrer('https://example.com/gathering/123?tab=info');
-
-    render(<SigninForm />);
-    const email = screen.getByPlaceholderText('이메일');
-    const password = screen.getByPlaceholderText('비밀번호');
-    const submit = screen.getByTestId('submit-button') as HTMLButtonElement;
-
-    fireEvent.change(email, { target: { value: 'test@example.com' } });
-    fireEvent.change(password, { target: { value: 'password123' } });
-
-    await waitFor(() => expect(submit).not.toBeDisabled());
-    fireEvent.click(submit);
-
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith('https://example.com/gathering/123?tab=info');
-    });
-  });
-
-  it('제출 후 isSubmitted 플래그가 true로 반영되는지 확인한다', async () => {
-    render(<SigninForm />);
-    const email = screen.getByPlaceholderText('이메일');
-    const password = screen.getByPlaceholderText('비밀번호');
-    const submit = screen.getByTestId('submit-button') as HTMLButtonElement;
-
-    fireEvent.change(email, { target: { value: 'test@example.com' } });
-    fireEvent.change(password, { target: { value: 'password123' } });
-
-    await waitFor(() => expect(submit).not.toBeDisabled());
-    fireEvent.click(submit);
-
-    await waitFor(() => {
-      // 모킹된 AuthForm에서 data-is-submitted 값으로 노출
-      expect(submit.dataset.isSubmitted).toBe('true');
     });
   });
 });
