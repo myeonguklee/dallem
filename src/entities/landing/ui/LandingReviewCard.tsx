@@ -10,10 +10,7 @@ type ReviewData = {
 export const LandingReviewCard = ({ reviewData, i }: { reviewData: ReviewData; i: number }) => {
   const t = useTranslations('pages.landing');
   return (
-    <FadeIn
-      key={i}
-      delay={0.05 * i}
-    >
+    <FadeIn delay={0.05 * i}>
       <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-2 inline-flex items-center gap-2 text-xs text-slate-600">
           <span>❤️</span>

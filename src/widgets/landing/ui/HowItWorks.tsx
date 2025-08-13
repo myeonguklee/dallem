@@ -9,7 +9,9 @@ type StringKey = (typeof STRING_KEYS)[number];
 
 export function HowItWorks() {
   const t = useTranslations('pages.landing');
-  const steps = t.raw('how.steps') as Record<StringKey, { title: string; desc: string }>;
+  // t.raw('how.steps')의 구조가 변하거나 누락될 경우를 대비해 가벼운 가드를 두면 안정성이 좋아집니다.
+  const stepsRaw = t.raw('how.steps') as unknown;
+  const steps = (stepsRaw ?? {}) as Record<StringKey, { title: string; desc: string }>;
 
   return (
     <section

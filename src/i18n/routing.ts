@@ -24,7 +24,6 @@ export const routing = defineRouting({
     '/my-page/reviews': '/my-page/reviews',
     '/my-page/gatherings-created': '/my-page/gatherings-created',
     '/landing': '/landing',
-    '#features': '#features',
   },
 });
 

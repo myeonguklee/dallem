@@ -39,10 +39,10 @@ export const FeaturesGrid = () => {
             },
           ].map((f, i) => (
             <FadeIn
-              key={i}
+              key={f.title}
               delay={0.05 * i}
             >
-              <div className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
                 <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-700">
                   {f.icon}
                   <span>FEATURE</span>

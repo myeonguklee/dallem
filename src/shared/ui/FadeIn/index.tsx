@@ -3,20 +3,22 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimationControls, useInView, useReducedMotion } from 'framer-motion';
 
+export type InViewOptions = NonNullable<Parameters<typeof useInView>[1]>;
+export type InViewMargin = InViewOptions['margin'];
+
 type Props = React.PropsWithChildren<{
   delay?: number;
-  amount?: number;
-  margin?: string;
+  amount?: InViewOptions['amount'];
+  margin?: InViewMargin;
+  className?: string;
 }>;
-
-type InViewOptions = NonNullable<Parameters<typeof useInView>[1]>;
-export type InViewMargin = InViewOptions['margin'];
 
 export const FadeIn: React.FC<Props> = ({
   children,
   delay = 0,
   amount = 0.08,
   margin = '-64px 0px -10% 0px',
+  className,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimationControls();
@@ -63,6 +65,7 @@ export const FadeIn: React.FC<Props> = ({
       ref={ref}
       initial={reduce ? false : { opacity: 0, y: 14 }}
       animate={controls}
+      className={className}
     >
       {children}
     </motion.div>
