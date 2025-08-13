@@ -3,7 +3,6 @@
 import { signIn } from 'next-auth/react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { redirect } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { AuthForm } from '@/widgets/AuthForm/ui/AuthForm';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -44,10 +43,12 @@ export const SigninForm = () => {
       if (sameOrigin && isGatheringPath) {
         router.push(`${url.pathname}${url.search}${url.hash}`);
       } else {
-        redirect({ href: ROUTES.GATHERING, locale: currentLocale });
+        const localizedGatheringPath = `/${currentLocale}${ROUTES.GATHERING}`;
+        router.push(localizedGatheringPath);
       }
     } catch {
-      redirect({ href: ROUTES.GATHERING, locale: currentLocale });
+      const localizedGatheringPath = `/${currentLocale}${ROUTES.GATHERING}`;
+      router.push(localizedGatheringPath);
     }
   };
 

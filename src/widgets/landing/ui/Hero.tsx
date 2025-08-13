@@ -4,12 +4,46 @@ import { useTranslations } from 'next-intl';
 import { HeroCard } from '@/entities/landing/ui/HeroCard';
 import { PushGatheringPageButton } from '@/features/landing/PushGatheringPageButton';
 import { Link } from '@/i18n';
+import { ROUTES } from '@/shared/config/routes';
 import { FadeIn } from '@/shared/ui/FadeIn';
 import { Pill } from '@/shared/ui/Pill';
 import { CalendarIcon } from '@/shared/ui/icon/icons/CalendarIcon';
 import { LandingUsersIcon } from '@/shared/ui/icon/icons/LandingUsersIcon';
 import { LeafIcon } from '@/shared/ui/icon/icons/LeafIcon';
 import { motion } from 'framer-motion';
+
+const HERO_CARDS = [
+  {
+    title: 'hero.grid.card.walk',
+    tag: 'hero.grid.tag.mapo',
+    color: 'from-orange-200 to-cyan-200',
+  },
+  {
+    title: 'hero.grid.card.candle',
+    tag: 'hero.grid.tag.seongsu',
+    color: 'from-rose-200 to-pink-200',
+  },
+  {
+    title: 'hero.grid.card.meditation',
+    tag: 'hero.grid.tag.gangnam',
+    color: 'from-sky-200 to-indigo-200',
+  },
+  {
+    title: 'hero.grid.card.book',
+    tag: 'hero.grid.tag.hyehwa',
+    color: 'from-amber-200 to-rose-200',
+  },
+  {
+    title: 'hero.grid.card.board',
+    tag: 'hero.grid.tag.hongdae',
+    color: 'from-violet-200 to-fuchsia-200',
+  },
+  {
+    title: 'hero.grid.card.running',
+    tag: 'hero.grid.tag.yeouido',
+    color: 'from-lime-200 to-teal-200',
+  },
+] as const;
 
 export function Hero() {
   const t = useTranslations('pages.landing');
@@ -20,10 +54,7 @@ export function Hero() {
         <FadeIn delay={0.1}>
           <div className="flex flex-col gap-6">
             <Pill>
-              <LeafIcon
-                className="mr-1 h-3.5 w-3.5"
-                style={{ color: 'oklch(65% 0.13 70)' }}
-              />
+              <LeafIcon className="text-primary mr-1 h-3.5 w-3.5" />
               {t('hero.badge.context')}
             </Pill>
             <h1 className="text-4xl leading-tight font-bold tracking-tight md:text-5xl">
@@ -44,7 +75,7 @@ export function Hero() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <PushGatheringPageButton label={t('hero.cta.primary')} />
               <Link
-                href="#features"
+                href={{ pathname: ROUTES.LANDING, hash: 'features' }}
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
               >
                 {t('hero.cta.secondary')}
@@ -73,38 +104,7 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
               {/* Faux UI Card Grid */}
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                {[
-                  {
-                    title: 'hero.grid.card.walk',
-                    tag: 'hero.grid.tag.mapo',
-                    color: 'from-orange-200 to-cyan-200',
-                  },
-                  {
-                    title: 'hero.grid.card.candle',
-                    tag: 'hero.grid.tag.seongsu',
-                    color: 'from-rose-200 to-pink-200',
-                  },
-                  {
-                    title: 'hero.grid.card.meditation',
-                    tag: 'hero.grid.tag.gangnam',
-                    color: 'from-sky-200 to-indigo-200',
-                  },
-                  {
-                    title: 'hero.grid.card.book',
-                    tag: 'hero.grid.tag.hyehwa',
-                    color: 'from-amber-200 to-rose-200',
-                  },
-                  {
-                    title: 'hero.grid.card.board',
-                    tag: 'hero.grid.tag.hongdae',
-                    color: 'from-violet-200 to-fuchsia-200',
-                  },
-                  {
-                    title: 'hero.grid.card.running',
-                    tag: 'hero.grid.tag.yeouido',
-                    color: 'from-lime-200 to-teal-200',
-                  },
-                ].map((card, i) => (
+                {HERO_CARDS.map((card, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.97 }}
