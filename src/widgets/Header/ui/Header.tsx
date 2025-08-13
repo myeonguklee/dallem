@@ -43,9 +43,7 @@ export const Header = () => {
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
 
-          {status === 'loading' ? (
-            <></>
-          ) : status === 'authenticated' ? (
+          {status === 'authenticated' ? (
             <HeaderProfileDropdownMenu
               session={session}
               status={status}

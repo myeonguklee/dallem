@@ -23,6 +23,8 @@ export const routing = defineRouting({
     '/my-page/gatherings-joined': '/my-page/gatherings-joined',
     '/my-page/reviews': '/my-page/reviews',
     '/my-page/gatherings-created': '/my-page/gatherings-created',
+    '/landing': '/landing',
+    '#features': '#features',
   },
 });
 

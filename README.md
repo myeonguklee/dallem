@@ -24,14 +24,14 @@
 ### 🎯 주요 기능
 
 - **모임 생성 및 관리**: 다양한 주제의 모임을 만들고 관리
-- **모임 참여**: 관심 있는 모임에 참여하여 동료들과 소통
-- **찜한 모임**: 마음에 드는 모임을 즐겨찾기에 추가
+- **모임 참여**: 관심 있는 모임에 참여하여 마음 힐링 및 소통
+- **찜한 모임**: 마음에 드는 모임을 찜한 목록에 추가
 - **리뷰**: 참여한 모임에 대한 후기 작성 및 공유
 - **사용자 프로필**: 개인 정보 관리 및 참여/개설 모임 히스토리
 
 ### 🌟 핵심 가치
 
-직장인들이 동료들과 함께 다양한 모임을 만들고 참여하여 더욱 풍요롭고 활기참 직장생활을 경험할 수 있도록 돕습니다.
+직장인들이 다양한 모임을 만들고 참여하여 더욱 풍요롭고 활기찬 직장생활을 할 수 있도록 돕습니다.
 
 ## 📹 화면 소개
 
@@ -77,7 +77,7 @@
 
 - **Feature-Sliced Design (FSD)**: 도메인 중심의 폴더 구조
 - **Component Architecture**: 재사용 가능한 UI 컴포넌트 설계
-- **Error Handling**: 전역 에러 바운더리 및 사용자 친화적 에러 처리(토스트 메세지)
+- **Error Handling**: 전역 에러 바운더리 및 사용자 친화적 에러 처리(토스트 메시지)
 
 ## 🛠 기술 상세 설명
 
@@ -135,11 +135,142 @@
 - `ui`, `pages` 등 도메인별 번역 키 분리로 네임스페이스 기반 선택적 사용 및 로드
 - 431개의 번역 키를 계층적 구조로 관리하여 타입 안전성과 유지보수성 향상(ko.json, en.json)
 
-### 🎨 디자인 시스템
-
 ### 📖 스토리북
 
-### 📝 테스트 커버리지
+![스토리북](https://user-images.githubusercontent.com/263385/199832481-bbbf5961-6a26-481d-8224-51258cce9b33.png)
+
+#### 도입 이유
+
+- 특정 상태에 따른 다양한 공통컴포넌트 UI를 자동으로 문서화하여 개발 환경을 개선
+- 프로젝트 전반에 걸쳐 일관된 디자인 시스템 구축 및 유지
+
+#### 적용 범위
+
+- FSD 구조 중 `shared/ui` 디렉토리에 포함된 **공통 UI 컴포넌트**를 대상으로 스토리 작성
+- Button, Input, Modal 등 **여러 페이지에서 재사용되는 UI 요소** 위주로 문서화
+- 각 컴포넌트는 **props**에 따른 상태 변화를 시각적으로 확인할 수 있도록 `args`와 `controls`를 구성
+
+#### Storybook 도입으로 얻은 이점
+
+- 공통 컴포넌트의 디자인과 상태를 빠르게 확인하고 사용법을 쉽게 제공하여 개발 속도 향상
+- 의존성을 제거한 독립적인 컴포넌트를 설계 및 구현
+
+![스토리북사용](https://github.com/user-attachments/assets/6dad6f12-b15e-4568-a884-b1a94ebe2821)
+
+
+### 🎨 디자인 토큰 (Style Dictionary + Tokens Studio + Tailwind)
+
+#### 목적(Use-case)
+
+- 디자이너(Figma) ↔ 개발자(코드) 간 공통 언어 확립
+- 팀/레포 전반의 스타일 수치의 단일 출처(SSOT) 유지
+
+#### 스택 개요
+
+- Tokens Studio(Figma): 디자인 소스의 변수/토큰 관리·내보내기
+- Style Dictionary v5: 토큰 변환·빌드 파이프라인(플랫폼별 산출물 생성)
+- Node.js 스크립트: 사전/사후 처리(검증, 정렬, 포맷)
+- Tailwind(유틸리티): CSS 변수와 함께 사용하는 런타임 프레임워크
+
+#### 디렉토리 구조(예시)
+
+```
+src
+├─ app/
+│   ├─ _variables.css      # Style Dictionary가 생성 (CSS Custom Properties)
+│   └─ global.css          # Tailwind 엔트리, variables import
+├─ designTokens.json       # Tokens Studio에서 자동 push되는 원천(SSOT)
+├─ style-dictionary.config.json # 빌드 파이프라인 설정
+└─ package.json             # 스크립트
+```
+
+#### 사용 방법
+
+1. 디자이너
+
+- Figma의 Tokens Studio에서 팀 규칙(네이밍/그룹)을 지켜 변수 편집
+
+- Export 자동화가 저장소로 push → tokens/designTokens.json 갱신
+
+2. 개발자
+- 토큰 빌드
+```bash
+# 토큰 빌드
+pnpm style:tokens
+```
+- 사용: Tailwind 엔트리(global.css)에서 variables를 import 후 클래스/임의값으로 사용
+```ts
+/* src/app/global.css */
+@import './_variables.css'; /* Style Dictionary 산출물: CSS 변수들 */
+
+// _variables.css 의 css 변수들 사용 가능
+```
+
+### 런타임 토큰
+
+협업용 런타임 디자인 토큰. Tailwind v4의 @theme 영역을 사용해 브레이크포인트와 z-index 레이어를 단일 출처(SSOT)로 관리함.
+
+```
+/* global.css (발췌) */
+@theme {
+  /* Breakpoints */
+  --breakpoint-mobile: 23.4375rem;  /* 375px */
+  --breakpoint-tablet: 46.5rem;     /* 744px */
+  --breakpoint-web: 75rem;          /* 1200px */
+  --breakpoint-desktop: 120rem;     /* 1920px */
+
+  /* Z-index 레이어(의미 토큰) */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-backdrop: 300;
+  --z-modal: 400;
+  --z-drawer: 450;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+```
+
+> 반응형 기준·레이어링 정책처럼 “디자인 결정을 수치로 표준화한 값 전부”가 토큰의 범주에 들어갑니다.
+> 다만 이 문서의 토큰은 **개발 협업 중심(런타임 토큰)**입니다.
+
+#### 사용 목적
+
+- 일관성: 팀 전체가 동일한 레이어/브레이크포인트를 사용합니다.
+- 가시성: 숫자 하드코딩 대신 의미 이름으로 의도를 드러냅니다.
+- 유연성: 재정렬·값 변경 시 토큰만 바꾸면 대규모 수정이 안전합니다.
+
+#### 운영원칙
+
+1. 브레이크포인트
+   이름은 디바이스 가설(mobile/tablet/web/desktop)로 두되, 실제 기준은 콘텐츠 기반으로 기획합니다.
+   - Tailwind 반응형 프리픽스(mobile:, tablet:, web:, desktop:)와 연동
+
+2. Z-Index
+   숫자 직접 사용 금지. 의미 토큰만 사용합니다.
+
+- 숫자 z-index가 가끔 필요한데요?
+  - 허용하지 않습니다. 새로운 구간이 필요하면 예약 스케일에 슬롯을 추가하고 의미 토큰을 함께 정의하세요.
+
+
+### 📝 유닛 테스트
+
+![유닛테스트](https://github.com/user-attachments/assets/86567307-26cf-48a1-a07f-dea7e54c480d)
+
+#### 테스트 커버리지
+
+- **Entity, Feature, Shared 레이어 중심의 jest, rtl 활용한 유닛 테스트**
+- **Statements**: 91.03% (1,330/1,461)
+- **Branches**: 82.39% (543/659)
+- **Functions**: 83.58% (275/329)
+- **Lines**: 92.68% (1,178/1,271)
+
+#### 테스트를 통해 얻은 이점
+
+- **리팩토링 안정성**: 코드 리팩토링 시 기존 기능 보장
+- **엣지케이스 발견**: 예외 상황 및 경계값 처리 개선
+- **코드 품질 향상**: 컴포넌트, 의존성 분리하여 재사용 가능한 코드 작성
 
 ### 🚀 core web vitals
 
@@ -177,64 +308,64 @@
 ## 📁 프로젝트 구조
 
 ```
-src/
-├── app/                    # Next.js App Router
-│   ├── [locale]/          # 다국어 지원 (한국어/영어)
-│   │   ├── (auth)/        # 인증 관련 페이지 (signin, signup)
-│   │   ├── gathering/     # 모임 관련 페이지
-│   │   ├── favorites/     # 찜한 모임 페이지
-│   │   ├── reviews/       # 리뷰 페이지
-│   │   ├── my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
-│   │   └── layout.tsx     # 로케일별 레이아웃
-│   ├── api/               # API 라우트 (NextAuth 등)
-│   ├── fonts/             # 폰트 설정 (Pretendard)
-│   ├── global-error.tsx   # 전역 에러 처리
-│   ├── not-found.tsx      # 404 페이지
-│   ├── providers.tsx      # React Query, NextAuth 등 프로바이더
-│   └── layout.tsx         # 루트 레이아웃
-├── entities/              # 도메인 엔티티 (비즈니스 모델)
-│   ├── gathering/         # 모임 엔티티 (생성, 수정, 삭제)
-│   ├── gathering-detail/  # 모임 상세 정보 엔티티
-│   ├── participant/       # 참여자 엔티티
-│   ├── review/            # 리뷰 엔티티
-│   ├── favorites/         # 찜한 모임 엔티티
-│   ├── auth/              # 인증 엔티티
-│   └── user/              # 사용자 엔티티
-├── features/              # 비즈니스 기능 (사용자 시나리오)
-│   ├── gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
-│   ├── signin/            # 로그인 기능
-│   ├── signup/            # 회원가입 기능
-│   ├── favorites/         # 찜한 모임 관리 기능
-│   ├── review/            # 리뷰 작성/관리 기능
-│   ├── my-page/           # 마이페이지 기능
-│   └── filters/           # 필터링 기능
-├── widgets/               # UI 위젯 (페이지 구성 요소)
-│   ├── Header/            # 헤더 위젯
-│   ├── GatheringCard/     # 모임 카드 위젯
-│   ├── GatheringList/     # 모임 목록 위젯
-│   ├── ReviewList/        # 리뷰 목록 위젯
-│   ├── AuthForm/          # 인증 폼 위젯
-│   ├── MyPageSkeleton/    # 마이페이지 스켈레톤
-│   ├── FavoritesSkeleton/ # 찜한 모임 스켈레톤
-│   ├── ContainerInformation/ # 컨테이너 정보 위젯
-│   ├── BottomFloatingBar/ # 하단 플로팅 바
-│   └── AllReviewRating/   # 전체 리뷰 평점 위젯
-├── shared/                # 공유 리소스
-│   ├── api/               # API 관련 (HTTP 클라이언트, React Query)
-│   ├── config/            # 설정 (라우트, API 엔드포인트)
-│   ├── lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
-│   ├── hooks/             # 커스텀 훅
-│   ├── types/             # 공통 타입 정의
-│   └── ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
-├── i18n/                  # 국제화 설정
-└── messages/              # 다국어 메시지 (ko.json, en.json)
+📦src/
+├── 📂app/                    # Next.js App Router
+│   ├── 📂[locale]/          # 다국어 지원 (한국어/영어)
+│   │   ├── 📂(auth)/        # 인증 관련 페이지 (signin, signup)
+│   │   ├── 📂gathering/     # 모임 관련 페이지
+│   │   ├── 📂favorites/     # 찜한 모임 페이지
+│   │   ├── 📂reviews/       # 리뷰 페이지
+│   │   ├── 📂my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
+│   │   └── 📜layout.tsx     # 로케일별 레이아웃
+│   ├── 📂api/               # API 라우트 (NextAuth 등)
+│   ├── 📂fonts/             # 폰트 설정 (Pretendard)
+│   ├── 📜global-error.tsx   # 전역 에러 처리
+│   ├── 📜not-found.tsx      # 404 페이지
+│   ├── 📜providers.tsx      # React Query, NextAuth 등 프로바이더
+│   └── 📜layout.tsx         # 루트 레이아웃
+├── 📂entities/              # 도메인 엔티티 (비즈니스 모델)
+│   ├── 📂gathering/         # 모임 엔티티 (생성, 수정, 삭제)
+│   ├── 📂gathering-detail/  # 모임 상세 정보 엔티티
+│   ├── 📂participant/       # 참여자 엔티티
+│   ├── 📂review/            # 리뷰 엔티티
+│   ├── 📂favorites/         # 찜한 모임 엔티티
+│   ├── 📂auth/              # 인증 엔티티
+│   └── 📂user/              # 사용자 엔티티
+├── 📂features/              # 비즈니스 기능 (사용자 시나리오)
+│   ├── 📂gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
+│   ├── 📂signin/            # 로그인 기능
+│   ├── 📂signup/            # 회원가입 기능
+│   ├── 📂favorites/         # 찜한 모임 관리 기능
+│   ├── 📂review/            # 리뷰 작성/관리 기능
+│   ├── 📂my-page/           # 마이페이지 기능
+│   └── 📂filters/           # 필터링 기능
+├── 📂widgets/               # UI 위젯 (페이지 구성 요소)
+│   ├── 📂Header/            # 헤더 위젯
+│   ├── 📂GatheringCard/     # 모임 카드 위젯
+│   ├── 📂GatheringList/     # 모임 목록 위젯
+│   ├── 📂ReviewList/        # 리뷰 목록 위젯
+│   ├── 📂AuthForm/          # 인증 폼 위젯
+│   ├── 📂MyPageSkeleton/    # 마이페이지 스켈레톤
+│   ├── 📂FavoritesSkeleton/ # 찜한 모임 스켈레톤
+│   ├── 📂ContainerInformation/ # 컨테이너 정보 위젯
+│   ├── 📂BottomFloatingBar/ # 하단 플로팅 바
+│   └── 📂AllReviewRating/   # 전체 리뷰 평점 위젯
+├── 📂shared/                # 공유 리소스
+│   ├── 📂api/               # API 관련 (HTTP 클라이언트, React Query)
+│   ├── 📂config/            # 설정 (라우트, API 엔드포인트)
+│   ├── 📂lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
+│   ├── 📂hooks/             # 커스텀 훅
+│   ├── 📂types/             # 공통 타입 정의
+│   └── 📂ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
+├── 📂i18n/                  # 국제화 설정
+└── 📂messages/              # 다국어 메시지 (ko.json, en.json)
 ```
 
 ## 🏗 아키텍처
 
 ### 📡 API
 
-![API아키텍처](https://github.com/user-attachments/assets/cdf2d4db-648c-496e-94c8-69a518212b7a)
+![API아키텍처](https://github.com/user-attachments/assets/0ae55fd8-ee97-42c0-a8ca-057df9b9b4ab)
 
 #### **커스텀 에러 처리 시스템**
 
@@ -271,25 +402,39 @@ src/
 
 ### 📚 **Feature-Sliced Design (FSD)**
 
-- **entities**: 비즈니스 엔티티 (도메인 모델)
-  - 순수한 비즈니스 로직과 데이터 구조
-  - 외부 의존성 없이 독립적으로 동작
-  - 재사용 가능한 도메인 모델
+![fsd](https://github.com/user-attachments/assets/4955916f-cdbd-4f65-9593-aea68e66be2c)
 
-- **features**: 비즈니스 기능 (사용자 시나리오)
-  - 특정 사용자 액션을 위한 기능들
-  - entities를 조합하여 비즈니스 로직 구현
-  - UI 컴포넌트와 비즈니스 로직 연결
+#### 도입 배경
 
-- **widgets**: UI 위젯 (페이지 구성 요소)
-  - 여러 features를 조합한 복합 UI 컴포넌트
-  - 페이지의 특정 섹션을 담당
-  - 재사용 가능한 페이지 구성 요소
+- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
+- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
 
-- **shared**: 공유 리소스
-  - 유틸리티, 설정, 공통 컴포넌트
-  - 모든 레이어에서 사용 가능
-  - 프로젝트 전반의 공통 기능
+=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
+
+⚡ **핵심 원칙 — 단방향 의존성**
+
+> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
+> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
+
+```plaintext
+app → entities → features → widgets → shared
+```
+
+#### FSD 도입을 통해 얻은 효과
+
+- **개발 생산성 향상 및 병렬 작업 용이성**
+  ```plaintext
+  entities/
+    ├─ gathering/   # 모임 페이지 관련
+    └─ user/        # 로그인·회원가입 관련
+  ```
+  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
+  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
+  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
+- **유지보수 비용 감소 및 높은 응집도**<br>
+  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
+  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
+  그 결과 유지보수 비용 감소
 
 ## 👥 팀원 구성
 

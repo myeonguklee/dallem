@@ -8,4 +8,5 @@ export const ROUTES = {
   SIGNUP: '/signup',
   MY_PAGE: '/my-page',
   MY_PAGE_TAB: (id: string) => `/my-page/${id}`,
+  LANDING: '/landing',
 } as const;

@@ -1,7 +1,9 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
+import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { redirect } from '@/i18n';
 import { ROUTES } from '@/shared/config/routes';
 import { AuthForm } from '@/widgets/AuthForm/ui/AuthForm';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,6 +13,7 @@ import { signinSchema } from '../model/signinSchema';
 import { SigninFormData } from '../model/type';
 
 export const SigninForm = () => {
+  const currentLocale = useLocale();
   const router = useRouter();
   const {
     register,
@@ -37,14 +40,14 @@ export const SigninForm = () => {
       const ref = document.referrer;
       const url = new URL(ref, location.origin);
       const sameOrigin = url.origin === location.origin;
-      const isGatheringPath = url.pathname.startsWith(ROUTES.GATHERING);
+      const isGatheringPath = url.pathname.includes(ROUTES.GATHERING);
       if (sameOrigin && isGatheringPath) {
         router.push(`${url.pathname}${url.search}${url.hash}`);
       } else {
-        router.push(ROUTES.ROOT);
+        redirect({ href: ROUTES.GATHERING, locale: currentLocale });
       }
     } catch {
-      router.push(ROUTES.ROOT);
+      redirect({ href: ROUTES.GATHERING, locale: currentLocale });
     }
   };
 
