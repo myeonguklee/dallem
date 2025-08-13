@@ -53,14 +53,10 @@ jest.mock('@/shared/config/routes', () => ({
     SIGNUP: '/signup',
   },
 }));
+jest.mock('next-intl', () => ({
+  useLocale: () => 'ko',
+}));
 
-jest.mock('next-intl', () => {
-  const actual = jest.requireActual('next-intl');
-  return {
-    ...actual,
-    useLocale: () => 'ko',
-  };
-});
 // ---- 공통 헬퍼 ----
 const setReferrer = (value: string) => {
   Object.defineProperty(document, 'referrer', {
