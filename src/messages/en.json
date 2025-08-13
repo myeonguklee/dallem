@@ -93,7 +93,8 @@
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "menu": "Menu"
-    }
+    },
+    "desc": "Workers' Healing Gathering"
   },
   "filters": {
     "categories": {
@@ -126,9 +127,134 @@
     "apply": "Apply"
   },
   "pages": {
-    "home": {
-      "title": "Homepage",
-      "welcome": "Welcome to Moizayo!"
+    "landing": {
+      "seo": {
+        "title": "Moizayo | Healing Gatherings for Professionals",
+        "description": "Light after-work healing meetups. Recover gently, close to home.",
+        "siteName": "Moizayo"
+      },
+      "hero": {
+        "badge": { "context": "A place to rest after work" },
+        "title": { "top": "You did great today.", "highlight": " Recover lightly in a gathering." },
+        "subtitle": "Walks, meditation, board games and craft studios. Light healing meetups for busy professionals open every day—near your neighborhood and after work hours, comfortable even for the shy.",
+        "cta": { "primary": "Browse gatherings now", "secondary": "How do we heal?" },
+        "pill": {
+          "mindfulness": "Mindfulness",
+          "smallGroup": "Small groups",
+          "afterWork": "After-work timing"
+        },
+        "grid": {
+          "caption": "New healing meetups are updated today ✨",
+          "card": {
+            "walk": "Night walk",
+            "candle": "Candle workshop",
+            "meditation": "20-min meditation",
+            "book": "Book club",
+            "board": "Board games",
+            "running": "Running crew"
+          },
+          "tag": {
+            "mapo": "Mapo",
+            "seongsu": "Seongsu",
+            "gangnam": "Gangnam",
+            "hyehwa": "Hyehwa",
+            "hongdae": "Hongdae",
+            "yeouido": "Yeouido"
+          }
+        }
+      },
+      "stats": {
+        "title": "Stats",
+        "items": {
+          "members": "Total members",
+          "rating": "Average rating",
+          "weekly": "Weekly meetups",
+          "cancel": "Cancellation rate"
+        }
+      },
+      "features": {
+        "title": "A just-right flow for professionals",
+        "lead": "A light 2–3 hour routine after work. It’s okay to come alone or be shy.",
+        "items": {
+          "match": {
+            "title": "Hobbies, mental health, skill-up activities",
+            "desc": "In the Dalam Fit category, you can enjoy active activities such as hobbies and sports and take care of mental health, and Self-development meetings are held in the Workation category!"
+          },
+          "smallSafe": {
+            "title": "Small & safe atmosphere",
+            "desc": "5–10 people per group and host verification keep it comfortable for newcomers."
+          },
+          "wellbeing": {
+            "title": "Member well-being care",
+            "desc": "Guides to avoid over-immersion, noise and conflict help everyone rest."
+          }
+        }
+      },
+      "how": {
+        "title": "Getting started is easy",
+        "steps": {
+          "one": {
+            "title": "Pick interests",
+            "desc": "Choose keywords like walks, meditation, board games or crafts,"
+          },
+          "two": {
+            "title": "Choose time/area",
+            "desc": "Filter by after-work time and distance to see only what fits,"
+          },
+          "three": { "title": "Join & review", "desc": "Join lightly and leave an honest review." }
+        },
+        "cta": "Start now"
+      },
+      "stories": {
+        "title": "What members say",
+        "badge": "REAL STORY",
+        "cards": {
+          "one": {
+            "title": "After-work burnout eased a lot",
+            "meta": "30s Marketer / Gangnam",
+            "body": "Short meditation and a walk cleared my head; I could blend in without awkwardness."
+          },
+          "two": {
+            "title": "A hobby I wouldn’t try alone",
+            "meta": "20s Developer / Seongsu",
+            "body": "Going to a candle workshop together felt easy. Next I signed up for knitting."
+          },
+          "three": {
+            "title": "Comfortable despite being shy",
+            "meta": "40s Designer / Mapo",
+            "body": "The small size and gentle flow let me keep my own pace."
+          }
+        }
+      },
+      "ctaBanner": {
+        "title": "Shall we make a plan to rest tonight?",
+        "desc": "Moizayo aims for everyday, unexaggerated healing. Keep it light, close to home.",
+        "button": "Find nearby gatherings"
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "items": {
+          "one": {
+            "q": "Will it feel awkward for first timers?",
+            "a": "Most participants are first timers; the flow is gentle and ice-breaking is low-pressure."
+          },
+          "two": {
+            "q": "How is safety ensured?",
+            "a": "Host verification, review checks and reporting. Group size limits prevent crowding."
+          },
+          "three": {
+            "q": "What about the cost?",
+            "a": "It varies by gathering, but we avoid heavy commercialism and announce fees transparently."
+          }
+        }
+      },
+      "nav": {
+        "services": "service",
+        "how": "how",
+        "stories": "stories",
+        "faq": "faq",
+        "view": "find gatherings"
+      }
     },
     "signin": {
       "title": "Sign In Page",
