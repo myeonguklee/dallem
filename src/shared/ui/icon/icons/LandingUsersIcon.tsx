@@ -1,4 +1,6 @@
-export const LandingUsersIcon = (props: React.SVGProps<SVGSVGElement>) => (
+import type { SVGProps } from 'react';
+
+export const LandingUsersIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"

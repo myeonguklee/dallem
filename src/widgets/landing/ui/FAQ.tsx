@@ -8,7 +8,7 @@ type FAQKey = (typeof FAQ_KEYS)[number];
 
 export const FAQ = () => {
   const t = useTranslations('pages.landing');
-  const fqaItems = t.raw('faq.items') as Record<FAQKey, { q: string; a: string }>;
+  const faqItems = t.raw('faq.items') as Record<FAQKey, { q: string; a: string }>;
 
   return (
     <section
@@ -23,16 +23,13 @@ export const FAQ = () => {
         </FadeIn>
         <div className="mx-auto mt-8 grid max-w-3xl gap-4">
           {FAQ_KEYS.map((k, i) => {
-            const item = fqaItems[k];
+            const item = faqItems[k];
             return (
               <FadeIn
-                key={i}
+                key={k}
                 delay={0.05 * i}
               >
-                <details
-                  key={k}
-                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-                >
+                <details className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                   <summary className="cursor-pointer list-none text-base font-semibold text-slate-900">
                     <span className="bg-primary mr-2 rounded-full px-2 py-0.5 text-xs font-bold text-white">
                       Q
