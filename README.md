@@ -84,6 +84,7 @@
 
 <details>
 <summary><strong>기능 gif</strong></summary>
+
 |                                       필터링- 타입                                   |                                         필터링-지역/날짜/정렬                                     |
 | :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
 | ![Image](https://github.com/user-attachments/assets/3377c2a7-a3e3-425e-bef5-fb1d599bd89e)| ![Image](https://github.com/user-attachments/assets/cfcf53cf-29be-470a-a0a8-631e49e0d7d5) |
@@ -96,9 +97,9 @@
 | :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
 | ![Image](https://github.com/user-attachments/assets/8870eca7-7ae8-4824-9c5a-c65d3a44bb74) | ![Image](https://github.com/user-attachments/assets/3b8f5944-37d4-48c3-86b9-da6ab668bfb6) |
 
-|                                      리뷰 등록                                ||
+|                                      리뷰 등록                                |                                         모이자요 기본 이미지                                     |
 | :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) ||
+| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) |![기본 이미지](./public/gathering-default-image.png)|
 </details>
 
 <details>
@@ -236,6 +237,45 @@
 </details>
 
 <details>
+<summary><strong>📚 Feature-Sliced Design (FSD)</strong></summary>
+
+![fsd](https://github.com/user-attachments/assets/4955916f-cdbd-4f65-9593-aea68e66be2c)
+
+#### 도입 배경
+
+- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
+- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
+
+=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
+
+⚡ **핵심 원칙 — 단방향 의존성**
+
+> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
+> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
+
+```plaintext
+app → entities → features → widgets → shared
+```
+
+#### FSD 도입을 통해 얻은 효과
+
+- **개발 생산성 향상 및 병렬 작업 용이성**
+  ```plaintext
+  entities/
+    ├─ gathering/   # 모임 페이지 관련
+    └─ user/        # 로그인·회원가입 관련
+  ```
+  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
+  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
+  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
+- **유지보수 비용 감소 및 높은 응집도**<br>
+  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
+  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
+  그 결과 유지보수 비용 감소
+
+</details>
+
+<details>
 <summary><strong>📁 프로젝트 구조</strong></summary>
   
 ```
@@ -295,40 +335,141 @@
 </details>
 
 <details>
-<summary><strong>📚 Feature-Sliced Design (FSD)</strong></summary>
+<summary><strong>🎨 디자인 시스템 + 스토리북</strong></summary>
 
-![fsd](https://github.com/user-attachments/assets/4955916f-cdbd-4f65-9593-aea68e66be2c)
+### 📖 스토리북
+![스토리북](https://user-images.githubusercontent.com/263385/199832481-bbbf5961-6a26-481d-8224-51258cce9b33.png)
 
-#### 도입 배경
+#### 도입 이유
 
-- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
-- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
+- 특정 상태에 따른 다양한 공통컴포넌트 UI를 자동으로 문서화하여 개발 환경을 개선
+- 프로젝트 전반에 걸쳐 일관된 디자인 시스템 구축 및 유지
 
-=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
+#### 적용 범위
 
-⚡ **핵심 원칙 — 단방향 의존성**
+- FSD 구조 중 `shared/ui` 디렉토리에 포함된 **공통 UI 컴포넌트**를 대상으로 스토리 작성
+- Button, Input, Modal 등 **여러 페이지에서 재사용되는 UI 요소** 위주로 문서화
+- 각 컴포넌트는 **props**에 따른 상태 변화를 시각적으로 확인할 수 있도록 `args`와 `controls`를 구성
 
-> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
-> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
+#### Storybook 도입으로 얻은 이점
 
-```plaintext
-app → entities → features → widgets → shared
+- 공통 컴포넌트의 디자인과 상태를 빠르게 확인하고 사용법을 쉽게 제공하여 개발 속도 향상
+- 의존성을 제거한 독립적인 컴포넌트를 설계 및 구현
+
+![스토리북사용](https://github.com/user-attachments/assets/6dad6f12-b15e-4568-a884-b1a94ebe2821)
+
+
+### 🎨 디자인 토큰 (Style Dictionary + Tokens Studio + Tailwind)
+
+#### 목적(Use-case)
+
+- 디자이너(Figma) ↔ 개발자(코드) 간 공통 언어 확립
+- 팀/레포 전반의 스타일 수치의 단일 출처(SSOT) 유지
+
+#### 스택 개요
+
+- Tokens Studio(Figma): 디자인 소스의 변수/토큰 관리·내보내기
+- Style Dictionary v5: 토큰 변환·빌드 파이프라인(플랫폼별 산출물 생성)
+- Node.js 스크립트: 사전/사후 처리(검증, 정렬, 포맷)
+- Tailwind(유틸리티): CSS 변수와 함께 사용하는 런타임 프레임워크
+
+#### 디렉토리 구조(예시)
+
+```
+src
+├─ app/
+│   ├─ _variables.css      # Style Dictionary가 생성 (CSS Custom Properties)
+│   └─ global.css          # Tailwind 엔트리, variables import
+├─ designTokens.json       # Tokens Studio에서 자동 push되는 원천(SSOT)
+├─ style-dictionary.config.json # 빌드 파이프라인 설정
+└─ package.json             # 스크립트
 ```
 
-#### FSD 도입을 통해 얻은 효과
+#### 사용 방법
 
-- **개발 생산성 향상 및 병렬 작업 용이성**
-  ```plaintext
-  entities/
-    ├─ gathering/   # 모임 페이지 관련
-    └─ user/        # 로그인·회원가입 관련
-  ```
-  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
-  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
-  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
-- **유지보수 비용 감소 및 높은 응집도**<br>
-  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
-  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
-  그 결과 유지보수 비용 감소
+1. 디자이너
+
+- Figma의 Tokens Studio에서 팀 규칙(네이밍/그룹)을 지켜 변수 편집
+
+- Export 자동화가 저장소로 push → tokens/designTokens.json 갱신
+
+2. 개발자
+- 토큰 빌드
+```bash
+# 토큰 빌드
+pnpm style:tokens
+```
+- 사용: Tailwind 엔트리(global.css)에서 variables를 import 후 클래스/임의값으로 사용
+```ts
+/* src/app/global.css */
+@import './_variables.css'; /* Style Dictionary 산출물: CSS 변수들 */
+
+// _variables.css 의 css 변수들 사용 가능
+```
+
+협업용 디자인 토큰. Tailwind v4의 @theme 영역을 사용해 브레이크포인트와 z-index 레이어를 단일 출처(SSOT)로 관리함.
+
+```
+/* global.css (발췌) */
+@theme {
+  /* Breakpoints */
+  --breakpoint-mobile: 23.4375rem;  /* 375px */
+  --breakpoint-tablet: 46.5rem;     /* 744px */
+  --breakpoint-web: 75rem;          /* 1200px */
+  --breakpoint-desktop: 120rem;     /* 1920px */
+
+  /* Z-index 레이어(의미 토큰) */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-backdrop: 300;
+  --z-modal: 400;
+  --z-drawer: 450;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+```
+
+> 반응형 기준·레이어링 정책처럼 “디자인 결정을 수치로 표준화한 값 전부”가 토큰의 범주에 들어갑니다.
+> 다만 이 문서의 토큰은 **개발 협업 중심(런타임 토큰)**입니다.
+
+#### 사용 목적
+
+- 일관성: 팀 전체가 동일한 레이어/브레이크포인트를 사용합니다.
+- 가시성: 숫자 하드코딩 대신 의미 이름으로 의도를 드러냅니다.
+- 유연성: 재정렬·값 변경 시 토큰만 바꾸면 대규모 수정이 안전합니다.
+
+#### 운영원칙
+
+1. 브레이크포인트
+   이름은 디바이스 가설(mobile/tablet/web/desktop)로 두되, 실제 기준은 콘텐츠 기반으로 기획합니다.
+   - Tailwind 반응형 프리픽스(mobile:, tablet:, web:, desktop:)와 연동
+
+2. Z-Index
+   숫자 직접 사용 금지. 의미 토큰만 사용합니다.
+
+- 숫자 z-index가 가끔 필요한데요?
+  - 허용하지 않습니다. 새로운 구간이 필요하면 예약 스케일에 슬롯을 추가하고 의미 토큰을 함께 정의하세요.
+</details>
+
+<details>
+<summary><strong>📝 유닛 테스트</strong></summary>
+
+![유닛테스트](https://github.com/user-attachments/assets/86567307-26cf-48a1-a07f-dea7e54c480d)
+
+#### 테스트 커버리지
+
+- **Entity, Feature, Shared 레이어 중심의 jest, rtl 활용한 유닛 테스트**
+- **Statements**: 91.03% (1,330/1,461)
+- **Branches**: 82.39% (543/659)
+- **Functions**: 83.58% (275/329)
+- **Lines**: 92.68% (1,178/1,271)
+
+#### 테스트를 통해 얻은 이점
+
+- **리팩토링 안정성**: 코드 리팩토링 시 기존 기능 보장
+- **엣지케이스 발견**: 예외 상황 및 경계값 처리 개선
+- **코드 품질 향상**: 컴포넌트, 의존성 분리하여 재사용 가능한 코드 작성
 
 </details>
