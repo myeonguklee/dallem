@@ -97,9 +97,9 @@
 | :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
 | ![Image](https://github.com/user-attachments/assets/8870eca7-7ae8-4824-9c5a-c65d3a44bb74) | ![Image](https://github.com/user-attachments/assets/3b8f5944-37d4-48c3-86b9-da6ab668bfb6) |
 
-|                                      리뷰 등록                                |                                         모이자요 기본 이미지                                     |
+|                                      리뷰 등록                                |                                         모임생성하기                                     |
 | :------------------------------------------------------------------------------: |  :------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) |![기본 이미지](./public/gathering-default-image.png)|
+| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) |![Image](https://github.com/user-attachments/assets/620b2be8-0132-4d9f-b215-7d522b8fded7)|
 </details>
 
 <details>
