@@ -37,6 +37,7 @@ jobs:
             ~/.pnpm-store
             node_modules
             */*/node_modules
+            ~/.cache/Cypress
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
@@ -55,6 +56,9 @@ jobs:
 
       - name: Run build test
         run: pnpm build
+
+      - name: Verify Cypress installation
+        run: pnpm cypress verify
 
       - name: Run E2E tests
         run: pnpm e2e
@@ -87,6 +91,7 @@ jobs:
             ~/.pnpm-store
             node_modules
             */*/node_modules
+            ~/.cache/Cypress
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
@@ -113,5 +118,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 🚀 프리뷰 배포 완료!\n\n**배포 시간**: ${date}\n**커밋**: \`${context.sha.substring(0, 7)}\`\n\n### ✅ 모든 테스트 통과\n- 타입 체크\n- 린트 검사\n- 유닛 테스트\n- E2E 테스트\n- 빌드 테스트\n\n프리뷰 URL은 Vercel 댓글에서 확인하세요! 🎉`
+              body: `## 🚀 프리뷰 배포 완료!\n\n**배포 시간**: ${date}\n**커밋**: \`${context.sha.substring(0, 7)}\`\n\n### ✅ 모든 테스트 통과\n- 타입 체크\n- 린트 검사\n- 유닛 테스트\n- 빌드 테스트\n- E2E 테스트\n\n프리뷰 URL은 Vercel 댓글에서 확인하세요! 🎉`
             });
