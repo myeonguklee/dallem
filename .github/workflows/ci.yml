@@ -1,15 +1,17 @@
-name: CI
+name: CI & Preview Deploy
 
 on:
   pull_request:
-    branches: [dev]
+    branches: [develop]
+  push:
+    branches: [develop]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  ci:
     name: Run CI Checks
     runs-on: ubuntu-latest
     env:
@@ -23,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc' # .nvmrc 파일 사용
+          node-version-file: '.nvmrc'
 
       - name: Enable Corepack to use pnpm
         run: corepack enable
@@ -48,8 +50,68 @@ jobs:
       - name: Run linting
         run: pnpm lint
 
-      - name: Run tests
+      - name: Run unit tests
         run: pnpm test
 
-      - name: Run build
+      - name: Run build test
         run: pnpm build
+
+      - name: Run E2E tests
+        run: pnpm e2e
+
+  preview-deploy:
+    name: Deploy to Vercel Preview
+    needs: ci
+    runs-on: ubuntu-latest
+    if: success() && github.ref == 'refs/heads/develop'
+    env:
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_TEAM_ID: ${{ secrets.NEXT_PUBLIC_TEAM_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Enable Corepack to use pnpm
+        run: corepack enable
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Vercel Preview
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          # 프리뷰 배포 (--prod 플래그 없음)
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🚀 프리뷰 배포 완료!\n\n**배포 시간**: ${date}\n**커밋**: \`${context.sha.substring(0, 7)}\`\n\n### ✅ 모든 테스트 통과\n- 타입 체크\n- 린트 검사\n- 유닛 테스트\n- E2E 테스트\n- 빌드 테스트\n\n프리뷰 URL은 Vercel 댓글에서 확인하세요! 🎉`
+            });
