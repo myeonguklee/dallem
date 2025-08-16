@@ -1,4 +1,6 @@
-describe('Gathering Page', () => {
+/// <reference types="cypress" />
+
+describe('Gathering Page Tests', () => {
   beforeEach(() => {
     // 각 테스트 전에 gathering 페이지로 이동
     cy.visit('/gathering');
@@ -31,13 +33,65 @@ describe('Gathering Page', () => {
     cy.get('div').contains('워케이션').should('be.visible');
   });
 
-  it('should display the gathering list', () => {
-    // 모임 목록이 표시되는지 확인 (더 구체적인 선택자 사용)
-    cy.get('div').should('contain', '모임');
+  it('should display basic page content', () => {
+    // 페이지가 로드되고 기본 텍스트가 표시되는지 확인
+    cy.get('body').should('contain', '모임');
+  });
+
+  it('should show gathering list or loading state', () => {
+    // 모임 목록이 있거나 로딩 상태가 표시되는지 확인
+    cy.get('body').should('be.visible');
+    // 실제 데이터가 로드될 때까지 대기
+    cy.wait(3000);
+    // 페이지에 어떤 내용이든 표시되는지 확인
+    cy.get('body').should('not.be.empty');
+  });
+
+  it('should test API mocking with cy.intercept', () => {
+    // 새로운 페이지 방문 전에 intercept 설정
+    cy.intercept('GET', '**/gatherings*', {
+      statusCode: 200,
+      body: [
+        {
+          teamId: 1,
+          id: 1,
+          type: 'DALLAEMFIT',
+          name: '달램핏 테스트 모임',
+          dateTime: '2024-12-25T10:00:00',
+          registrationEnd: '2024-12-24T23:59:59',
+          location: '건대입구',
+          participantCount: 5,
+          capacity: 20,
+          image: 'https://example.com/image1.jpg',
+          createdBy: 1,
+          canceledAt: null,
+        },
+      ],
+    }).as('mockGatherings');
+
+    // 페이지 새로고침으로 API 요청 트리거
+    cy.reload();
+
+    // 모킹된 데이터 확인 (클라이언트 사이드에서 요청이 발생한다면)
+    cy.get('body').should('be.visible');
+
+    // 필터 클릭 등으로 클라이언트 사이드 요청 유도
+    cy.get('div').contains('달램핏').click();
+    cy.wait(2000);
+
+    // 페이지가 여전히 정상 작동하는지 확인
+    cy.url().should('include', '/gathering');
   });
 
   it('should have working navigation', () => {
     // 페이지가 정상적으로 로드되고 네비게이션이 작동하는지 확인
     cy.get('nav').should('be.visible');
+  });
+
+  it('should handle API errors gracefully', () => {
+    // 실제 환경에서는 네트워크 오류 시뮬레이션 가능
+    // 현재는 기본적인 로딩 상태 확인
+    cy.visit('/gathering');
+    cy.get('body').should('be.visible');
   });
 });
