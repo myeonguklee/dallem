@@ -57,8 +57,12 @@ jobs:
       - name: Run build test
         run: pnpm build
 
-      - name: Verify Cypress installation
-        run: pnpm cypress verify
+      - name: Install Cypress binary if missing
+        run: |
+          if ! pnpm cypress verify; then
+            echo "Cypress binary missing, installing..."
+            pnpm cypress install
+          fi
 
       - name: Run E2E tests
         run: pnpm e2e
