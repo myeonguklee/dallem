@@ -13,7 +13,7 @@ interface ProvidersProps {
 export default function Providers({ children }: ProvidersProps) {
   useEffect(() => {
     // 개발 환경에서만 MSW 시작
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && process.env.MSW === 'true') {
       // 클라이언트 사이드 MSW 시작
       import('@/shared/lib/msw/startWorker').then(({ startWorker }) => {
         startWorker();
