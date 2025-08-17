@@ -69,6 +69,69 @@ const mockGatherings: Gathering[] = [
   },
 ];
 
+// 참가자 데이터 (여러 시나리오 준비)
+const mockParticipantsBeforeJoin = [
+  {
+    teamId: 1,
+    userId: 1,
+    gatheringId: 1,
+    joinedAt: '2024-01-15T10:00:00Z',
+    User: {
+      id: 1,
+      email: 'user1@example.com',
+      name: '김철수',
+      companyName: '테크컴퍼니',
+      image: '',
+    },
+  },
+  {
+    teamId: 1,
+    userId: 2,
+    gatheringId: 1,
+    joinedAt: '2024-01-16T14:30:00Z',
+    User: {
+      id: 2,
+      email: 'user2@example.com',
+      name: '이영희',
+      companyName: '디자인스튜디오',
+      image: '',
+    },
+  },
+  {
+    teamId: 1,
+    userId: 3,
+    gatheringId: 1,
+    joinedAt: '2024-01-17T09:15:00Z',
+    User: {
+      id: 3,
+      email: 'user3@example.com',
+      name: '박민수',
+      companyName: '마케팅그룹',
+      image: '',
+    },
+  },
+];
+
+const mockParticipantsAfterJoin = [
+  ...mockParticipantsBeforeJoin,
+  {
+    teamId: 1,
+    userId: 5, // 현재 로그인한 사용자
+    gatheringId: 1,
+    joinedAt: new Date().toISOString(),
+    User: {
+      id: 5,
+      email: 'test@example.com',
+      name: '테스트 사용자',
+      companyName: '테스트 회사',
+      image: '',
+    },
+  },
+];
+
+// 참가 상태 추적 (모임 ID별로 관리)
+const userJoinStatus = new Map<number, boolean>();
+
 export const gatheringHandlers = [
   // 모임 목록 조회
   http.get('*/gatherings', ({ request }) => {
@@ -155,10 +218,14 @@ export const gatheringHandlers = [
   // 모임 참가
   http.post('*/gatherings/:id/join', ({ params }) => {
     const id = parseInt(params.id as string);
+
+    // 참가 상태를 true로 변경
+    userJoinStatus.set(id, true);
+
     return HttpResponse.json(
       {
         message: '모임에 참가했습니다.',
-        gatheringId: id,
+        success: true,
       },
       { status: 201 },
     );
@@ -167,9 +234,13 @@ export const gatheringHandlers = [
   // 모임 참가 취소
   http.delete('*/gatherings/:id/leave', ({ params }) => {
     const id = parseInt(params.id as string);
+
+    // 참가 상태를 false로 변경
+    userJoinStatus.set(id, false);
+
     return HttpResponse.json({
       message: '모임 참가를 취소했습니다.',
-      gatheringId: id,
+      success: true,
     });
   }),
 
@@ -183,22 +254,15 @@ export const gatheringHandlers = [
   }),
 
   // 모임 참가자 목록
-  http.get('*/gatherings/:id/participants', () => {
-    return HttpResponse.json([
-      {
-        id: 1,
-        name: '테스트 사용자',
-        image: 'https://example.com/profile.jpg',
-        joinedAt: new Date().toISOString(),
-      },
-      {
-        id: 2,
-        name: '참가자 2',
-        image: 'https://example.com/profile2.jpg',
-        joinedAt: new Date().toISOString(),
-      },
-    ]);
+  http.get('*/gatherings/:id/participants', ({ params }) => {
+    const id = parseInt(params.id as string);
+
+    // 참가 상태에 따라 다른 데이터 반환
+    const hasJoined = userJoinStatus.get(id) || false;
+    const participants = hasJoined ? mockParticipantsAfterJoin : mockParticipantsBeforeJoin;
+
+    return HttpResponse.json(participants);
   }),
 ];
 
-export { mockGatherings };
+export { mockGatherings, mockParticipantsBeforeJoin, mockParticipantsAfterJoin };

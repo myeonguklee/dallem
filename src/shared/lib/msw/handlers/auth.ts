@@ -4,11 +4,11 @@ export const authHandlers = [
   // 사용자 정보 조회
   http.get('*/auths/user', () => {
     return HttpResponse.json({
-      id: 1,
+      id: 5,
       email: 'test@example.com',
       name: '테스트 사용자',
       companyName: '테스트 회사',
-      image: 'https://example.com/profile.jpg',
+      image: '',
     });
   }),
 
@@ -20,11 +20,11 @@ export const authHandlers = [
       image?: string;
     };
     return HttpResponse.json({
-      id: 1,
+      id: 5,
       email: 'test@example.com',
       name: body?.name || '테스트 사용자',
       companyName: body?.companyName || '테스트 회사',
-      image: body?.image || 'https://example.com/profile.jpg',
+      image: body?.image || '',
     });
   }),
 
@@ -39,7 +39,7 @@ export const authHandlers = [
     if (body?.email === 'test@example.com' && body?.password === 'password') {
       return HttpResponse.json({
         user: {
-          id: 1,
+          id: 5,
           email: 'test@example.com',
           name: '테스트 사용자',
         },
