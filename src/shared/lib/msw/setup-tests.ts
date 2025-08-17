@@ -1,4 +1,4 @@
-// Jest/Vitest 테스트 환경용 MSW 설정
+// Jest 테스트 환경용 MSW 설정
 import { server } from './server';
 
 // 테스트 시작 전 MSW 서버 시작

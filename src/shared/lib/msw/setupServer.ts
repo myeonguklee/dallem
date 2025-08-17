@@ -6,9 +6,6 @@ if (process.env.NODE_ENV === 'development' && typeof window === 'undefined') {
   server.listen({
     onUnhandledRequest: 'warn', // 처리되지 않은 요청을 경고로 표시
   });
-
-  console.log('🔶 MSW Server started for SSR development');
-  console.log('💡 실제 API 사용하려면 이 파일을 주석 처리하세요');
 }
 
 // 프로세스 종료 시 정리
