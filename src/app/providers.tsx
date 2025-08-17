@@ -18,11 +18,6 @@ export default function Providers({ children }: ProvidersProps) {
       import('@/shared/lib/msw/startWorker').then(({ startWorker }) => {
         startWorker();
       });
-
-      // 서버 사이드 MSW 시작 (SSR 환경에서만)
-      if (typeof window === 'undefined') {
-        import('@/shared/lib/msw/setupServer');
-      }
     }
   }, []);
 

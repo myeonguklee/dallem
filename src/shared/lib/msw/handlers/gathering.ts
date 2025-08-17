@@ -1,6 +1,28 @@
 import type { Gathering, GatheringLocation, GatheringType } from '@/entities/gathering/model/types';
 import { HttpResponse, http } from 'msw';
 
+// Helper function to create dynamic dates
+const createEventDates = (daysFromNow: number, hour: number) => {
+  const eventDate = new Date();
+  eventDate.setDate(eventDate.getDate() + daysFromNow);
+  eventDate.setHours(hour, 0, 0, 0);
+
+  const registrationEndDate = new Date(eventDate);
+  registrationEndDate.setDate(eventDate.getDate() - 1);
+  registrationEndDate.setHours(23, 59, 59, 0);
+
+  const toISOStringWithSeconds = (date: Date) => date.toISOString().slice(0, 19);
+
+  return {
+    dateTime: toISOStringWithSeconds(eventDate),
+    registrationEnd: toISOStringWithSeconds(registrationEndDate),
+  };
+};
+
+const event1 = createEventDates(2, 10);
+const event2 = createEventDates(3, 14);
+const event3 = createEventDates(4, 19);
+
 // 모킹용 샘플 데이터
 const mockGatherings: Gathering[] = [
   {
@@ -8,12 +30,12 @@ const mockGatherings: Gathering[] = [
     id: 1,
     type: 'DALLAEMFIT' as GatheringType,
     name: '달램핏 오피스 스트레칭',
-    dateTime: '2024-12-25T10:00:00',
-    registrationEnd: '2024-12-24T23:59:59',
+    dateTime: event1.dateTime,
+    registrationEnd: event1.registrationEnd,
     location: '건대입구' as GatheringLocation,
     participantCount: 5,
     capacity: 20,
-    image: 'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/gatherings/image1.jpg',
+    image: '/gathering-default-image.png',
     createdBy: 1,
     canceledAt: null,
   },
@@ -22,12 +44,12 @@ const mockGatherings: Gathering[] = [
     id: 2,
     type: 'WORKATION' as GatheringType,
     name: '워케이션 힐링 모임',
-    dateTime: '2024-12-26T14:00:00',
-    registrationEnd: '2024-12-25T23:59:59',
+    dateTime: event2.dateTime,
+    registrationEnd: event2.registrationEnd,
     location: '홍대입구' as GatheringLocation,
     participantCount: 8,
     capacity: 15,
-    image: 'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/gatherings/image2.jpg',
+    image: '/gathering-default-image.png',
     createdBy: 2,
     canceledAt: null,
   },
@@ -36,12 +58,12 @@ const mockGatherings: Gathering[] = [
     id: 3,
     type: 'MINDFULNESS' as GatheringType,
     name: '마음챙김 명상 모임',
-    dateTime: '2024-12-27T19:00:00',
-    registrationEnd: '2024-12-26T23:59:59',
+    dateTime: event3.dateTime,
+    registrationEnd: event3.registrationEnd,
     location: '신림' as GatheringLocation,
     participantCount: 3,
     capacity: 10,
-    image: 'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/gatherings/image3.jpg',
+    image: '/gathering-default-image.png',
     createdBy: 1,
     canceledAt: null,
   },
@@ -90,7 +112,7 @@ export const gatheringHandlers = [
       ...gathering,
       participantCount: gathering.participantCount + 1,
       isJoined: true,
-      joinedAt: '2024-12-20T10:00:00',
+      joinedAt: new Date().toISOString(),
     }));
 
     return HttpResponse.json(joinedGatherings);
@@ -121,7 +143,7 @@ export const gatheringHandlers = [
       location: formData.get('location') as GatheringLocation,
       participantCount: 0,
       capacity: parseInt(formData.get('capacity') as string),
-      image: 'https://example.com/new-image.jpg',
+      image: '/gathering-default-image.png',
       createdBy: 1,
       canceledAt: null,
     };
@@ -167,13 +189,13 @@ export const gatheringHandlers = [
         id: 1,
         name: '테스트 사용자',
         image: 'https://example.com/profile.jpg',
-        joinedAt: '2024-12-20T10:00:00',
+        joinedAt: new Date().toISOString(),
       },
       {
         id: 2,
         name: '참가자 2',
         image: 'https://example.com/profile2.jpg',
-        joinedAt: '2024-12-21T11:00:00',
+        joinedAt: new Date().toISOString(),
       },
     ]);
   }),
