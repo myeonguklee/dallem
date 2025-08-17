@@ -55,13 +55,13 @@ jobs:
       - name: Run unit tests
         run: pnpm test
 
-      - name: Run build test
-        run: pnpm build
-
-      - name: Create .env file for MSW (E2E only)
+      - name: Create .env file for MSW
         run: |
           echo "MSW=true" > .env
           echo "NEXT_PUBLIC_MSW=true" >> .env
+
+      - name: Run build test
+        run: pnpm build
 
       - name: Install Cypress binary if missing
         run: |
