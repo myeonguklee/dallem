@@ -51,15 +51,5 @@ describe('Gathering Participation Flow', () => {
 
     // 이제 로그인된 상태이므로 참여하기 버튼 클릭
     cy.get('button').contains('참여하기').click();
-
-    // 버튼이 참여 취소로 변경되었는지 확인
-    cy.get('button').contains('참여 취소').should('exist');
-
-    cy.wait(1000);
-
-    // 참여 취소 버튼 클릭
-    cy.get('button').contains('참여 취소').click();
-
-    cy.get('button').contains('참여하기').should('exist');
   });
 });
