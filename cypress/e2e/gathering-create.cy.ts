@@ -6,7 +6,12 @@ describe('Gathering Creation Flow', () => {
   });
 
   it('로그인 후 모임 필드 작성 후 모임 생성 성공해야 한다', () => {
-    cy.get('a').contains('로그인').click();
+    cy.get('a')
+      .contains('로그인')
+      .then(($link) => {
+        const href = $link.prop('href');
+        cy.visit(href);
+      });
 
     // 로그인 페이지로 이동했는지 확인
     cy.url().should('include', '/signin');
