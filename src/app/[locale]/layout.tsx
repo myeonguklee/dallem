@@ -21,9 +21,6 @@ export async function generateMetadata({
   return {
     title: metadata.title,
     description: metadata.description,
-    verification: {
-      google: 'EoOLKVW4Fb0W4iV-a6dnua3aUYhYS9W4wS7nG73Q9p8',
-    },
   };
 }
 
