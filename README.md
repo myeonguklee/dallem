@@ -6,16 +6,18 @@
 
 배포 주소: https://moizayo.vercel.app
 
+### [프로젝트 전체 리드미](https://github.com/FESI-10th-team6/moizayo)
+
 ## 목차
 
 1. [프로젝트 소개](#-프로젝트-소개)
-2. [화면 소개](#-화면-소개)
-3. [개발 환경](#️-개발-환경)
-4. [기술 스택](#-기술-스택)
-5. [기술 상세 설명](#-기술-상세-설명)
-6. [프로젝트 구조](#-프로젝트-구조)
-7. [아키텍처](#-아키텍처)
-8. [팀원 구성](#-팀원-구성)
+2. [기술 스택](#-기술-스택)
+3. [개발 사항](#-개발-사항)
+4. [다국어 지원(next-intl)](#-다국어-지원(next-intl))
+5. [core web vitals 개선](#-core-web-vitals-개선)
+6. [API 아키텍처](#-API-아키텍처)
+7. [CI/CD](#-CI/CD)
+8. [기술 상세 설명](#-기술-상세-설명)
 
 ## 📋 프로젝트 소개
 
@@ -33,51 +35,6 @@
 
 직장인들이 다양한 모임을 만들고 참여하여 더욱 풍요롭고 활기찬 직장생활을 할 수 있도록 돕습니다.
 
-## 📹 화면 소개
-
-### 기능 gif
-
-|                                       회원가입                                    |                                         로그인                                          |
-| :-------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/e6275bb8-b22b-4046-a5fa-55d61e02c90b) | ![Image](https://github.com/user-attachments/assets/c8cb6498-f1ce-4f37-938c-31d8201ce60d) |
-
-|                                       필터링- 타입                                   |                                         필터링-지역/날짜/정렬                                     |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/3377c2a7-a3e3-425e-bef5-fb1d599bd89e)| ![Image](https://github.com/user-attachments/assets/cfcf53cf-29be-470a-a0a8-631e49e0d7d5) |
-
-|                                       무한스크롤                                   |                                         모임생성하기                                     |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/743926bc-a305-4c28-a307-b34a498536bd) | ![Image](https://github.com/user-attachments/assets/620b2be8-0132-4d9f-b215-7d522b8fded7) |
-
-|                                      모임 참여                                 |                                         모임 참여 확정                                    |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/9c79f83a-8bb4-46f9-8cbc-181e4c457a44) | ![Image](https://github.com/user-attachments/assets/f5812ad3-0c46-4277-a2e0-26c77a8d7216) |
-
-|                                      모임 참여 취소                                |                                         모임 삭제                                  |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/686e603d-a63d-4172-afb9-63b7bcc13e1d) | ![Image](https://github.com/user-attachments/assets/54ce629a-9495-4dbb-bcdc-9b2b8c0d8955) |
-
-|                                      마이페이지 조회                                |                                         프로필 변경                                  |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/8870eca7-7ae8-4824-9c5a-c65d3a44bb74) | ![Image](https://github.com/user-attachments/assets/3b8f5944-37d4-48c3-86b9-da6ab668bfb6) |
-
-|                                      리뷰 등록                                |                                         모든 리뷰 조회(평점)                                   |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) | ![Image](https://github.com/user-attachments/assets/96606281-ead3-43bb-970d-97f93dd9098e) |
-
-|                                      상세페이지 조회                                |                                         찜 추가/해제                                 |
-| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![Image](https://github.com/user-attachments/assets/8fc9442a-466f-43d5-89ad-264112573ad9) | ![Image](https://github.com/user-attachments/assets/5ce1fbc1-9b96-4e25-80a8-33ac3806333e) |
-
-## 🛠️ 개발 환경
-
-- **패키지 매니저:** pnpm
-- **Node.js 버전:** 22.16.0 (`.nvmrc`, `.node-version` 참고)
-- **코드 포맷터:** Prettier
-- **lint-staged 설정:** `.lintstagedrc.js` 파일로 분리 관리
-- **커밋 메시지 규칙:** Conventional Commits (commitlint로 검증)
-- **Git Hooks 및 커밋 메시지 규칙:** [GIT_HOOKS_GUIDE.md](./GIT_HOOKS_GUIDE.md) 참고
-
 ## 🛠 기술 스택
 
 ### Frontend
@@ -94,6 +51,8 @@
 
 ### Development Tools
 
+- **Pakage Manager**: pnpm
+- **Node.js**: 22.16.0
 - **Linting & Formatting**: ESLint 9 + Prettier 3.6.2
 - **Testing**: Jest 30.0.4 + React Testing Library 16.3.0 + MSW 2.10.3 (API Mocking)
 - **Git Hooks**: Husky 9.1.7 + lint-staged 16.1.2
@@ -107,32 +66,65 @@
 - **Component Architecture**: 재사용 가능한 UI 컴포넌트 설계
 - **Error Handling**: 전역 에러 바운더리 및 사용자 친화적 에러 처리(토스트 메시지)
 
-## 🛠 기술 상세 설명
+## 🖥️ 개발 사항
 
-### 📦 pnpm 패키지 매니저
+1.	성능 최적화 및 사용자 경험 개선
+-	웹 워커를 활용한 이미지 리사이징으로 폼 전송 속도 개선, 2mb 이미지 기준 서버 저장 용량 90% 감소
+-	SEO 최적화, 웹 접근성 개선으로 lighthouse 성능 점수 92점 -> 100점, 86점 -> 96점 달성, 사용자 포용성 향상
 
-![pnpm](https://github.com/user-attachments/assets/7ba2d0be-1372-4420-a2f1-b941bf72de8e)
+2.	개발 생산성 및 코드 품질 향상
+-	Git husky, lint-staged 기반 커밋 단계 코드 검증으로 배포 오류 사전 방지 및 테스트 자동화
+-	Github actions CI/CD 파이프라인 구축으로 배포 자동화 및 개발 효율성 향상
+-	Frontend API 아키텍처 설계로 중앙화된 에러 처리, 성능 및 에러 모니터링(sentry) 통합 관리
 
-#### 테스트 결과(모이자요 프로젝트, 의존성 수: 1,405 패키지)
+3.	글로벌 서비스 기반 마련
+-	next-intl을 활용한 다국어(i18n) 지원으로 언어적 제약 해소
 
-|                                          설치 시간                                           |                                          디스크 사용량                                           |
-| :------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: |
-| ![설치시간](https://github.com/user-attachments/assets/6a768366-2bd3-4621-9a7f-433ddb7cbfce) | ![디스크사용량](https://github.com/user-attachments/assets/e1267e61-df1d-4921-92d9-1dc96b86d8d3) |
+4. 모임 찾기(목록) 페이지, 마이 페이지 구현
 
-#### pnpm의 장점
+<details>
+<summary><strong>기능 gif</strong></summary>
 
-- 빠른 설치: npm 대비 2.4배 빠름
-- 효율적인 공간 사용: yarn 대비 79MB 절약
-- 안정성: 스트릭트 의존성 관리
+|                                       필터링- 타입                                   |                                         필터링-지역/날짜/정렬                                     |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![Image](https://github.com/user-attachments/assets/3377c2a7-a3e3-425e-bef5-fb1d599bd89e)| ![Image](https://github.com/user-attachments/assets/cfcf53cf-29be-470a-a0a8-631e49e0d7d5) |
 
-#### pnpm의 단점
+|                                       무한스크롤                                   |                                         모임생성하기                                     |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![Image](https://github.com/user-attachments/assets/743926bc-a305-4c28-a307-b34a498536bd) | ![Image](https://github.com/user-attachments/assets/620b2be8-0132-4d9f-b215-7d522b8fded7) |
 
-- 호환성 이슈: 일부 레거시 패키지에서 symlink 관련 문제 발생 가능
-- 생태계: npm/yarn 대비 상대적으로 작은 커뮤니티
+|                                      마이페이지 조회                                |                                         프로필 변경                                  |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![Image](https://github.com/user-attachments/assets/8870eca7-7ae8-4824-9c5a-c65d3a44bb74) | ![Image](https://github.com/user-attachments/assets/3b8f5944-37d4-48c3-86b9-da6ab668bfb6) |
 
-=> 프로젝트 규모가 커질수록 속도와 공간 측면에서 장점이 더 커질 것이라고 예상
+|                                      리뷰 등록                                |                                         모임생성하기                                     |
+| :------------------------------------------------------------------------------: |  :------------------------------------------------------------------------------: |
+| ![Image](https://github.com/user-attachments/assets/8d568fc6-ff56-4364-8757-b76c9c9970b6) |![Image](https://github.com/user-attachments/assets/620b2be8-0132-4d9f-b215-7d522b8fded7)|
 
-### 🌎 다국어 지원(next-intl)
+</details>
+
+<details>
+<summary><strong>모바일</strong></summary>
+
+|                                       온보딩                                   |                                         모임 찾기                                     |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![온보딩](https://github.com/user-attachments/assets/e16f91f1-84ad-49c0-af7f-bcf6303f1f81)| ![모임 찾기](https://github.com/user-attachments/assets/2b0f967f-0fa2-419b-b8ce-87270b92a292) |
+
+|                                       모임 만들기                                   |                                         모임 상세                                     |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![모임 만들기](https://github.com/user-attachments/assets/0763054d-646f-4e04-8140-79cc64ca50c1) | ![모임 상세](https://github.com/user-attachments/assets/3fc38fdd-2257-4b8e-b2ad-829b2e7ef9d1) |
+
+|                                      모든 리뷰                                |                                         마이 페이지                                  |
+| :------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![모든 리뷰](https://github.com/user-attachments/assets/80a9f69b-6417-4c1b-80ff-b4ac4b6a67b5) | ![마이 페이지](https://github.com/user-attachments/assets/5b0e15b8-c18f-4a4b-adde-10b85831b10d) |
+
+|                                      로그인                                |                                         회원가입                                     |
+| :------------------------------------------------------------------------------: |  :------------------------------------------------------------------------------: |
+| ![로그인](https://github.com/user-attachments/assets/ea2e913a-8146-4339-9d7f-c3fbcf383caf) |![회원가입](https://github.com/user-attachments/assets/9e670963-9cb1-40a4-a1b5-b40185f42682)|
+
+</details>
+
+## 🌎 다국어 지원(next-intl)
 
 ![next-intl](https://github.com/user-attachments/assets/b5794bd1-f8a1-4f0e-b5a1-ec33168d73f2)
 
@@ -163,8 +155,206 @@
 - `ui`, `pages` 등 도메인별 번역 키 분리로 네임스페이스 기반 선택적 사용 및 로드
 - 431개의 번역 키를 계층적 구조로 관리하여 타입 안전성과 유지보수성 향상(ko.json, en.json)
 
-### 📖 스토리북
+<details>
+<summary><strong>다국어 지원 구현 사항</strong></summary>
+  
+</details>
 
+## 🚀 core web vitals 개선
+
+|                                         초기 배포(7월 29일)                                          |                                         최근 배포(8월 11일)                                          |
+| :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![라이트하우스(전)](https://github.com/user-attachments/assets/79457f12-3069-4d5e-a88f-748ccc84fd56) | ![라이트하우스(후)](https://github.com/user-attachments/assets/b621fbcf-17bf-49ab-9114-60b8fb6b5c76) |
+
+#### Performance 87점 -> 89점 (2점 상승)
+
+- Next Image 최적화
+- 이미지 리사이징 및 Webp 변환(웹워커)
+- ~~가상화 적용~~ <- 렌더링 최적화에는 효과적이지만 복잡한 js구조로 Performance 점수 하락
+- 번들 분석 결과 초기 로드에 포함된 react-day-picker 라이브러리 다이내믹 임포트
+- Promise.all을 활용하여 api요청 병렬 처리
+
+#### Accessibility 86점 -> 96점 (10점 상승)
+
+- 시맨틱 태그 사용
+- 키보드 액션 지원
+- 스크린 리더 사용자를 위한 aria-label 제공
+- 저시력자를 위한 낮은 색 대비율 디자인 개선
+
+#### SEO 92점 -> 100점 (8점 상승)
+
+- 다국어 지원을 고려한 메타 데이터 및 Open Graph 설정
+![open graph](https://github.com/user-attachments/assets/044ebdb7-cadf-41a2-b78f-4803564fe806)
+
+- [사이트맵 설정](https://moizayo.vercel.app/sitemap.xml)과 robots.txt을 통한 검색 엔진 접근 최적화
+
+## 📡 API 아키텍처
+
+![API아키텍처](https://github.com/user-attachments/assets/0ae55fd8-ee97-42c0-a8ca-057df9b9b4ab)
+
+#### **커스텀 에러 처리 시스템**
+
+- `ApiError` 커스텀 에러 클래스로 서버 에러 메시지를 그대로 사용자에게 전달
+- HTTP 상태 코드와 에러 코드를 포함한 구조화된 에러 객체
+- 네트워크 에러와 HTTP 에러를 구분하여 적절한 메시지 제공
+
+#### **인증 및 보안**
+
+- Axios 인터셉터를 통한 자동 JWT 토큰 관리
+- 401 에러 시 자동 로그아웃 및 로그인 페이지 리다이렉트
+- 다국어 환경에서의 locale 기반 리다이렉트 처리
+
+#### **성능 최적화**
+
+- Tanstack Query를 활용한 서버 상태 관리 및 캐싱
+- API 응답 성능 모니터링 (Sentry 연동)
+
+## ✅ CI/CD
+
+![CI/CD](https://github.com/user-attachments/assets/b1993de0-d8e3-410f-8eee-41b8bb2beaee)
+
+#### **코드 품질 관리**
+
+- Husky + lint-staged를 통한 커밋 전 코드 품질 검사
+- ESLint, Prettier 자동 실행으로 배포 에러 사전 예방
+- 일관된 코드 스타일과 규칙 강제
+
+#### **자동화된 배포 파이프라인**
+
+- GitHub Actions를 통한 자동화된 배포
+- 코드 품질 검사 및 테스트 자동화
+- Vercel을 통한 무중단 배포
+
+## 🛠 기술 상세 섦영
+
+<details>
+<summary><strong>📦 pnpm 패키지 매니저</strong></summary>
+
+![pnpm](https://github.com/user-attachments/assets/7ba2d0be-1372-4420-a2f1-b941bf72de8e)
+
+#### 테스트 결과(모이자요 프로젝트, 의존성 수: 1,405 패키지)
+
+|                                          설치 시간                                           |                                          디스크 사용량                                           |
+| :------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: |
+| ![설치시간](https://github.com/user-attachments/assets/6a768366-2bd3-4621-9a7f-433ddb7cbfce) | ![디스크사용량](https://github.com/user-attachments/assets/e1267e61-df1d-4921-92d9-1dc96b86d8d3) |
+
+#### pnpm의 장점
+
+- 빠른 설치: npm 대비 2.4배 빠름
+- 효율적인 공간 사용: yarn 대비 79MB 절약
+- 안정성: 스트릭트 의존성 관리
+
+#### pnpm의 단점
+
+- 호환성 이슈: 일부 레거시 패키지에서 symlink 관련 문제 발생 가능
+- 생태계: npm/yarn 대비 상대적으로 작은 커뮤니티
+
+=> 프로젝트 규모가 커질수록 속도와 공간 측면에서 장점이 더 커질 것이라고 예상
+  
+</details>
+
+<details>
+<summary><strong>📚 Feature-Sliced Design (FSD)</strong></summary>
+
+![fsd](https://github.com/user-attachments/assets/4955916f-cdbd-4f65-9593-aea68e66be2c)
+
+#### 도입 배경
+
+- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
+- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
+
+=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
+
+⚡ **핵심 원칙 — 단방향 의존성**
+
+> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
+> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
+
+```plaintext
+app → entities → features → widgets → shared
+```
+
+#### FSD 도입을 통해 얻은 효과
+
+- **개발 생산성 향상 및 병렬 작업 용이성**
+  ```plaintext
+  entities/
+    ├─ gathering/   # 모임 페이지 관련
+    └─ user/        # 로그인·회원가입 관련
+  ```
+  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
+  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
+  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
+- **유지보수 비용 감소 및 높은 응집도**<br>
+  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
+  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
+  그 결과 유지보수 비용 감소
+
+</details>
+
+<details>
+<summary><strong>📁 프로젝트 구조</strong></summary>
+  
+```
+📦src/
+├── 📂app/                    # Next.js App Router
+│   ├── 📂[locale]/          # 다국어 지원 (한국어/영어)
+│   │   ├── 📂(auth)/        # 인증 관련 페이지 (signin, signup)
+│   │   ├── 📂gathering/     # 모임 관련 페이지
+│   │   ├── 📂favorites/     # 찜한 모임 페이지
+│   │   ├── 📂reviews/       # 리뷰 페이지
+│   │   ├── 📂my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
+│   │   └── 📜layout.tsx     # 로케일별 레이아웃
+│   ├── 📂api/               # API 라우트 (NextAuth 등)
+│   ├── 📂fonts/             # 폰트 설정 (Pretendard)
+│   ├── 📜global-error.tsx   # 전역 에러 처리
+│   ├── 📜not-found.tsx      # 404 페이지
+│   ├── 📜providers.tsx      # React Query, NextAuth 등 프로바이더
+│   └── 📜layout.tsx         # 루트 레이아웃
+├── 📂entities/              # 도메인 엔티티 (비즈니스 모델)
+│   ├── 📂gathering/         # 모임 엔티티 (생성, 수정, 삭제)
+│   ├── 📂gathering-detail/  # 모임 상세 정보 엔티티
+│   ├── 📂participant/       # 참여자 엔티티
+│   ├── 📂review/            # 리뷰 엔티티
+│   ├── 📂favorites/         # 찜한 모임 엔티티
+│   ├── 📂auth/              # 인증 엔티티
+│   └── 📂user/              # 사용자 엔티티
+├── 📂features/              # 비즈니스 기능 (사용자 시나리오)
+│   ├── 📂gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
+│   ├── 📂signin/            # 로그인 기능
+│   ├── 📂signup/            # 회원가입 기능
+│   ├── 📂favorites/         # 찜한 모임 관리 기능
+│   ├── 📂review/            # 리뷰 작성/관리 기능
+│   ├── 📂my-page/           # 마이페이지 기능
+│   └── 📂filters/           # 필터링 기능
+├── 📂widgets/               # UI 위젯 (페이지 구성 요소)
+│   ├── 📂Header/            # 헤더 위젯
+│   ├── 📂GatheringCard/     # 모임 카드 위젯
+│   ├── 📂GatheringList/     # 모임 목록 위젯
+│   ├── 📂ReviewList/        # 리뷰 목록 위젯
+│   ├── 📂AuthForm/          # 인증 폼 위젯
+│   ├── 📂MyPageSkeleton/    # 마이페이지 스켈레톤
+│   ├── 📂FavoritesSkeleton/ # 찜한 모임 스켈레톤
+│   ├── 📂ContainerInformation/ # 컨테이너 정보 위젯
+│   ├── 📂BottomFloatingBar/ # 하단 플로팅 바
+│   └── 📂AllReviewRating/   # 전체 리뷰 평점 위젯
+├── 📂shared/                # 공유 리소스
+│   ├── 📂api/               # API 관련 (HTTP 클라이언트, React Query)
+│   ├── 📂config/            # 설정 (라우트, API 엔드포인트)
+│   ├── 📂lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
+│   ├── 📂hooks/             # 커스텀 훅
+│   ├── 📂types/             # 공통 타입 정의
+│   └── 📂ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
+├── 📂i18n/                  # 국제화 설정
+└── 📂messages/              # 다국어 메시지 (ko.json, en.json)
+```
+  
+</details>
+
+<details>
+<summary><strong>🎨 디자인 시스템 + 스토리북</strong></summary>
+
+### 📖 스토리북
 ![스토리북](https://user-images.githubusercontent.com/263385/199832481-bbbf5961-6a26-481d-8224-51258cce9b33.png)
 
 #### 도입 이유
@@ -278,9 +468,10 @@ pnpm style:tokens
 
 - 숫자 z-index가 가끔 필요한데요?
   - 허용하지 않습니다. 새로운 구간이 필요하면 예약 스케일에 슬롯을 추가하고 의미 토큰을 함께 정의하세요.
+</details>
 
-
-### 📝 유닛 테스트
+<details>
+<summary><strong>📝 유닛 테스트</strong></summary>
 
 ![유닛테스트](https://github.com/user-attachments/assets/86567307-26cf-48a1-a07f-dea7e54c480d)
 
@@ -298,175 +489,4 @@ pnpm style:tokens
 - **엣지케이스 발견**: 예외 상황 및 경계값 처리 개선
 - **코드 품질 향상**: 컴포넌트, 의존성 분리하여 재사용 가능한 코드 작성
 
-### 🚀 core web vitals
-
-|                                         초기 배포(7월 29일)                                          |                                         최근 배포(8월 11일)                                          |
-| :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
-| ![라이트하우스(전)](https://github.com/user-attachments/assets/79457f12-3069-4d5e-a88f-748ccc84fd56) | ![라이트하우스(후)](https://github.com/user-attachments/assets/b621fbcf-17bf-49ab-9114-60b8fb6b5c76) |
-
-#### Performance 87점 -> 89점 (2점 상승)
-
-- Next Image 최적화
-- 이미지 리사이징 및 Webp 변환(웹워커)
-- ~~가상화 적용~~ <- 렌더링 최적화에는 효과적이지만 복잡한 js구조로 Performance 점수 하락
-- 번들 분석 결과 초기 로드에 포함된 react-day-picker 라이브러리 다이내믹 임포트
-- Promise.all을 활용하여 api요청 병렬 처리
-
-#### Accessibility 86점 -> 96점 (10점 상승)
-
-- 시맨틱 태그 사용
-- 키보드 액션 지원
-- 스크린 리더 사용자를 위한 aria-label 제공
-- 저시력자를 위한 낮은 색 대비율 디자인 개선
-
-#### SEO 92점 -> 100점 (8점 상승)
-
-- 다국어 지원을 고려한 메타 데이터 및 Open Graph 설정
-  <details>
-  <summary>📱 Open Graph</summary>
-
-  <img src="https://github.com/user-attachments/assets/044ebdb7-cadf-41a2-b78f-4803564fe806" alt="opengraph" />
-
-  </details>
-
-- [사이트맵 설정](https://moizayo.vercel.app/sitemap.xml)과 robots.txt을 통한 검색 엔진 접근 최적화
-
-## 📁 프로젝트 구조
-
-```
-📦src/
-├── 📂app/                    # Next.js App Router
-│   ├── 📂[locale]/          # 다국어 지원 (한국어/영어)
-│   │   ├── 📂(auth)/        # 인증 관련 페이지 (signin, signup)
-│   │   ├── 📂gathering/     # 모임 관련 페이지
-│   │   ├── 📂favorites/     # 찜한 모임 페이지
-│   │   ├── 📂reviews/       # 리뷰 페이지
-│   │   ├── 📂my-page/       # 마이페이지 (프로필, 참여/개설 모임, 리뷰)
-│   │   └── 📜layout.tsx     # 로케일별 레이아웃
-│   ├── 📂api/               # API 라우트 (NextAuth 등)
-│   ├── 📂fonts/             # 폰트 설정 (Pretendard)
-│   ├── 📜global-error.tsx   # 전역 에러 처리
-│   ├── 📜not-found.tsx      # 404 페이지
-│   ├── 📜providers.tsx      # React Query, NextAuth 등 프로바이더
-│   └── 📜layout.tsx         # 루트 레이아웃
-├── 📂entities/              # 도메인 엔티티 (비즈니스 모델)
-│   ├── 📂gathering/         # 모임 엔티티 (생성, 수정, 삭제)
-│   ├── 📂gathering-detail/  # 모임 상세 정보 엔티티
-│   ├── 📂participant/       # 참여자 엔티티
-│   ├── 📂review/            # 리뷰 엔티티
-│   ├── 📂favorites/         # 찜한 모임 엔티티
-│   ├── 📂auth/              # 인증 엔티티
-│   └── 📂user/              # 사용자 엔티티
-├── 📂features/              # 비즈니스 기능 (사용자 시나리오)
-│   ├── 📂gathering/         # 모임 관련 기능 (생성, 수정, 삭제)
-│   ├── 📂signin/            # 로그인 기능
-│   ├── 📂signup/            # 회원가입 기능
-│   ├── 📂favorites/         # 찜한 모임 관리 기능
-│   ├── 📂review/            # 리뷰 작성/관리 기능
-│   ├── 📂my-page/           # 마이페이지 기능
-│   └── 📂filters/           # 필터링 기능
-├── 📂widgets/               # UI 위젯 (페이지 구성 요소)
-│   ├── 📂Header/            # 헤더 위젯
-│   ├── 📂GatheringCard/     # 모임 카드 위젯
-│   ├── 📂GatheringList/     # 모임 목록 위젯
-│   ├── 📂ReviewList/        # 리뷰 목록 위젯
-│   ├── 📂AuthForm/          # 인증 폼 위젯
-│   ├── 📂MyPageSkeleton/    # 마이페이지 스켈레톤
-│   ├── 📂FavoritesSkeleton/ # 찜한 모임 스켈레톤
-│   ├── 📂ContainerInformation/ # 컨테이너 정보 위젯
-│   ├── 📂BottomFloatingBar/ # 하단 플로팅 바
-│   └── 📂AllReviewRating/   # 전체 리뷰 평점 위젯
-├── 📂shared/                # 공유 리소스
-│   ├── 📂api/               # API 관련 (HTTP 클라이언트, React Query)
-│   ├── 📂config/            # 설정 (라우트, API 엔드포인트)
-│   ├── 📂lib/               # 유틸리티 라이브러리 (날짜, 이미지, 테스트 등)
-│   ├── 📂hooks/             # 커스텀 훅
-│   ├── 📂types/             # 공통 타입 정의
-│   └── 📂ui/                # 공통 UI 컴포넌트 (Button, Input, Modal 등)
-├── 📂i18n/                  # 국제화 설정
-└── 📂messages/              # 다국어 메시지 (ko.json, en.json)
-```
-
-## 🏗 아키텍처
-
-### 📡 API
-
-![API아키텍처](https://github.com/user-attachments/assets/0ae55fd8-ee97-42c0-a8ca-057df9b9b4ab)
-
-#### **커스텀 에러 처리 시스템**
-
-- `ApiError` 커스텀 에러 클래스로 서버 에러 메시지를 그대로 사용자에게 전달
-- HTTP 상태 코드와 에러 코드를 포함한 구조화된 에러 객체
-- 네트워크 에러와 HTTP 에러를 구분하여 적절한 메시지 제공
-
-#### **인증 및 보안**
-
-- Axios 인터셉터를 통한 자동 JWT 토큰 관리
-- 401 에러 시 자동 로그아웃 및 로그인 페이지 리다이렉트
-- 다국어 환경에서의 locale 기반 리다이렉트 처리
-
-#### **성능 최적화**
-
-- Tanstack Query를 활용한 서버 상태 관리 및 캐싱
-- API 응답 성능 모니터링 (Sentry 연동)
-
-### ✅ CI/CD
-
-![CI/CD](https://github.com/user-attachments/assets/b1993de0-d8e3-410f-8eee-41b8bb2beaee)
-
-#### **코드 품질 관리**
-
-- Husky + lint-staged를 통한 커밋 전 코드 품질 검사
-- ESLint, Prettier 자동 실행으로 배포 에러 사전 예방
-- 일관된 코드 스타일과 규칙 강제
-
-#### **자동화된 배포 파이프라인**
-
-- GitHub Actions를 통한 자동화된 배포
-- 코드 품질 검사 및 테스트 자동화
-- Vercel을 통한 무중단 배포
-
-### 📚 **Feature-Sliced Design (FSD)**
-
-![fsd](https://github.com/user-attachments/assets/4955916f-cdbd-4f65-9593-aea68e66be2c)
-
-#### 도입 배경
-
-- 프로젝트 기획 단계에서 **기능 확장성**과 **팀원 4명의 동시 작업 효율성**을 고려해, 적절한 아키텍처의 필요성을 느낌
-- 기존의 단순 컴포넌트 폴더 구조는 프로젝트 규모가 커질수록 **의존성 얽힘**과 **유지보수 어려움**을 유발할 가능성이 있음
-
-=> **도메인 중심 설계**와 **관심사 분리**를 체계적으로 적용할 수 있는 `Feature-Sliced Design(FSD)` 아키텍처를 **초기부터 도입**
-
-⚡ **핵심 원칙 — 단방향 의존성**
-
-> 상위 레이어는 하위 레이어에만 의존할 수 있다.  
-> 이를 통해 코드 흐름이 예측 가능해지고, 의도치 않은 사이드 이펙트를 원천 차단.
-
-```plaintext
-app → entities → features → widgets → shared
-```
-
-#### FSD 도입을 통해 얻은 효과
-
-- **개발 생산성 향상 및 병렬 작업 용이성**
-  ```plaintext
-  entities/
-    ├─ gathering/   # 모임 페이지 관련
-    └─ user/        # 로그인·회원가입 관련
-  ```
-  **`entities/gathering`** 와 **`entities/user`** 는 서로 다른 **슬라이스(slice)** 에 속함 <br>
-  **각 슬라이스는 기능별로 완전히 독립**되어 있어, 팀원들이 **각자 맡은 기능에 집중** 가능 <br>
-  → `코드 충돌(merge conflict) 최소화 및 개발 속도 향상`
-- **유지보수 비용 감소 및 높은 응집도**<br>
-  변경이 필요할 경우 해당 도메인 폴더만 확인하면 됨 <br>
-  관련된 UI·API 호출·상태 로직이 하나의 슬라이스에 모여 있어 변경 범위 예측이 명확하고,
-  그 결과 유지보수 비용 감소
-
-## 👥 팀원 구성
-
-|                                       FrontEnd (팀장)                                       |                                          FrontEnd                                          |                                          FrontEnd                                           |                                          FrontEnd                                           |
-| :-----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
-| <img src="https://avatars.githubusercontent.com/u/123948643?v=4" width=100px alt="이명욱"/> | <img src="https://avatars.githubusercontent.com/u/97427744?v=4" width=100px alt="박준우"/> | <img src="https://avatars.githubusercontent.com/u/174466862?v=4" width=100px alt="이유경"/> | <img src="https://avatars.githubusercontent.com/u/115933217?v=4" width=100px alt="이은지"/> |
-|                          [이명욱](https://github.com/LEEMYEONGUK)                           |                           [박준우](https://github.com/always97)                            |                            [이유경](https://github.com/JuneYub)                             |                              [이은지](https://github.com/E-J1)                              |
-
-**모이자요**과 함께 더 나은 직장생활을 만들어가세요! 🚀
+</details>

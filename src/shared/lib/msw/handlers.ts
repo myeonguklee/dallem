@@ -1,34 +1,18 @@
-import { HttpResponse, http } from 'msw';
+// MSW 핸들러와 Mock 데이터의 중앙 집중 관리
+import { authHandlers } from './handlers/auth';
+import { gatheringHandlers, mockGatherings } from './handlers/gathering';
+import { mockReviews, reviewHandlers } from './handlers/review';
 
-// 기본 핸들러들
-export const handlers = [
-  // GET 요청 예시
-  http.get('http://localhost:3000/api/example', () => {
-    return HttpResponse.json({
-      message: 'This is a mocked response',
-      data: {
-        id: 1,
-        name: 'Example Data',
-      },
-    });
-  }),
+// 모든 핸들러를 통합 (DRY 원칙)
+export const handlers = [...authHandlers, ...gatheringHandlers, ...reviewHandlers];
 
-  // POST 요청 예시
-  http.post('http://localhost:3000/api/example', async ({ request }) => {
-    const body = await request.json();
-    // body가 문자열인 경우 파싱
-    const parsedBody = typeof body === 'string' ? JSON.parse(body) : body;
-    return HttpResponse.json({
-      message: 'Data created successfully',
-      data: parsedBody,
-    });
-  }),
+// 도메인별 핸들러 개별 export (필요시 개별 사용 가능)
+export { authHandlers, gatheringHandlers, reviewHandlers };
 
-  // 에러 응답 예시
-  http.get('http://localhost:3000/api/error', () => {
-    return new HttpResponse(null, {
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
-  }),
-];
+// Mock 데이터 export (테스트에서 직접 사용)
+export { mockGatherings, mockReviews };
+
+// 환경별 핸들러 조합 (명시적 의도 표현)
+export const developmentHandlers = handlers;
+export const testHandlers = handlers;
+export const cypressHandlers = handlers;

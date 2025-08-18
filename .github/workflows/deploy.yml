@@ -1,4 +1,4 @@
-name: Deploy
+name: Production Deploy
 
 on:
   push:
@@ -9,48 +9,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Test
+  health-check:
+    name: Health Check
     runs-on: ubuntu-latest
-    if: github.repository == 'myeonguklee/moizayo'
-    env:
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-      NEXT_PUBLIC_TEAM_ID: ${{ secrets.NEXT_PUBLIC_TEAM_ID }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc' # .nvmrc 파일 사용
-
-      - name: Enable Corepack to use pnpm
-        run: corepack enable
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run tests
-        run: pnpm test
-
-  deploy:
-    name: Deploy to Vercel
-    needs: test # 'test' 작업이 성공해야만 실행
-    runs-on: ubuntu-latest
-    if: github.repository == 'myeonguklee/moizayo'
     env:
       NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
       NEXT_PUBLIC_TEAM_ID: ${{ secrets.NEXT_PUBLIC_TEAM_ID }}
@@ -81,13 +42,50 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Deploy to Vercel
+      - name: Quick build check
+        run: pnpm build
+
+  production-deploy:
+    name: Deploy to Production
+    needs: health-check
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_TEAM_ID: ${{ secrets.NEXT_PUBLIC_TEAM_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Enable Corepack to use pnpm
+        run: corepack enable
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Vercel Production
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: '--prod' # 프로덕션 배포
 
       - name: Create issue on deployment failure
         if: failure()
@@ -100,7 +98,18 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `배포 실패 - ${date}`,
-              body: `## 배포 실패 알림\n\n**실패 시간**: ${date}\n**실패한 커밋**: \`${context.sha.substring(0, 7)}\`\n**브랜치**: \`${context.ref}\`\n\n### 실패한 워크플로우\n[여기서 로그 확인하기](${runUrl})\n\n### 재시도 방법\n1. 위의 링크에서 로그를 확인하여 문제를 파악하세요.\n2. 로컬에서 \`pnpm test\`를 실행하여 테스트를 통과하는지 확인하세요.\n3. 문제를 수정한 후 다시 push하세요.\n\n---\n*이 이슈는 자동으로 생성되었습니다.*`,
-              labels: ['deployment-failed', 'bug']
+              title: `🚨 프로덕션 배포 실패 - ${date}`,
+              body: `## 프로덕션 배포 실패 알림\n\n**실패 시간**: ${date}\n**실패한 커밋**: \`${context.sha.substring(0, 7)}\`\n**브랜치**: \`${context.ref}\`\n\n### 실패한 워크플로우\n[여기서 로그 확인하기](${runUrl})\n\n### 긴급 대응 방법\n1. 위의 링크에서 로그를 확인하여 문제를 파악하세요.\n2. 필요시 이전 커밋으로 롤백을 고려하세요.\n3. 문제를 수정한 후 다시 push하세요.\n\n---\n*이 이슈는 자동으로 생성되었습니다.*`,
+              labels: ['deployment-failed', 'production', 'urgent']
             });
+
+      - name: Notify successful deployment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+            console.log(`🎉 프로덕션 배포 성공! ${date}`);
+            console.log(`커밋: ${context.sha.substring(0, 7)}`);
+            console.log('배포 URL: https://moizayo.vercel.app');
