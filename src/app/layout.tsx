@@ -18,6 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="EoOLKVW4Fb0W4iV-a6dnua3aUYhYS9W4wS7nG73Q9p8"
+        />
+      </head>
       <body className={Pretendard.className}>
         {children}
         {/* 배포 환경에서만 Speed Insights 활성화 */}
