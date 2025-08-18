@@ -14,6 +14,7 @@ describe('Gathering Participation Flow', () => {
     cy.url().should('include', '/gathering/');
 
     // 참여하기 버튼 클릭 (비로그인 상태)
+    cy.get('button').contains('참여하기').should('exist');
     cy.get('button').contains('참여하기').click();
 
     // 로그인 필요 팝업이 표시되는지 확인
