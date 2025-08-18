@@ -13,6 +13,9 @@ describe('Gathering Participation Flow', () => {
     // 모임 상세 페이지로 이동했는지 확인
     cy.url().should('include', '/gathering/');
 
+    // 페이지가 완전히 로드될 때까지 대기
+    cy.wait(5000);
+
     // 참여하기 버튼 클릭 (비로그인 상태)
     cy.get('button').contains('참여하기').should('be.visible').should('exist');
     cy.get('button').contains('참여하기').click();
