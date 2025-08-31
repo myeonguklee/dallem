@@ -1,6 +1,4 @@
-// import { getToken } from 'next-auth/jwt';
 import { getSession, signOut } from 'next-auth/react';
-// import { cookies } from 'next/headers';
 import { API_CONFIG } from '@/shared/config';
 import { trackApiError, trackApiPerformance } from '@/shared/lib/sentry/tracking';
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -34,13 +32,6 @@ axiosInstance.interceptors.request.use(async (config) => {
       const session = await getSession();
       const accessToken = session?.user?.accessToken;
       token = accessToken;
-    } else {
-      // const rawToken = await getToken({
-      //   req: { headers: headers } as NextApiRequest,
-      //   secret: process.env.NEXTAUTH_SECRET,
-      //   raw: true, // 원본 JWT 문자열
-      // });
-      // token = rawToken;
     }
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
